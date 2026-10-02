@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ko">
-<head><meta name="robots" content="noindex"><script>(function(){try{var ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)&&!/[?&]inapp=1/.test(location.search)){var u=location.href;location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(u);}}catch(e){}})();</script>
+<head><meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>낚시 매니저</title>
@@ -83,6 +83,7 @@ section{position:relative;scroll-margin-top:var(--nav)}
 h1,h2,h3{font-weight:800;letter-spacing:-.035em;line-height:1.14;margin:0}
 h2{font-size:clamp(28px,4.4vw,56px)}
 .lead{color:var(--sub);font-size:clamp(15px,1.5vw,19px);line-height:1.65}
+@media (hover:none),(pointer:coarse){.grain{display:none!important}}   /* B1 베타: 히어로 전체 혼합(overlay) 질감은 매 프레임 합성 패스 추가 → 터치 기기에선 끔 */
 .grain{position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
@@ -90,6 +91,7 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 #nav{position:fixed;inset:0 0 auto 0;height:var(--nav);z-index:50;display:flex;align-items:center;
   background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);
   border-bottom:1px solid var(--glass-bd)}
+@media (hover:none),(pointer:coarse){#nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:color-mix(in srgb,var(--bg) 93%,transparent)}}   /* B2 베타: 고정 바 흐림은 스크롤 매 프레임 아래 화면을 다시 흐림 처리 */
 #nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:17px;letter-spacing:-.02em;white-space:nowrap}
 .brand img{width:32px;height:32px;border-radius:9px;box-shadow:0 0 0 1px var(--glass-bd)}
@@ -122,15 +124,15 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 18px;margin-top:clamp(20px,3.6svh,36px)}
 .hero-cta .note{font-size:14px;color:var(--sub);font-weight:600}
 .hero-stage{position:relative;z-index:2;flex:1 0 150px;margin-top:clamp(18px,4svh,48px)}
-.hero-stage .ring{position:absolute;left:50%;top:0;width:clamp(520px,min(118vw,128svh),1240px);aspect-ratio:1;transform:translate(-50%,-3%);pointer-events:none;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%);mask-image:linear-gradient(180deg,transparent 0,#000 9%)}
+.hero-stage .ring{position:absolute;left:50%;top:0;width:clamp(520px,min(118vw,128svh),1240px);aspect-ratio:1;transform:translate(-50%,-3%);pointer-events:none}   /* B3 베타: mask-image 는 별도 렌더 표면을 만든다 → 제거 */
 .hero-stage .ring svg{width:100%;height:100%;overflow:visible}
 .tk{stroke:var(--tick);stroke-width:.22;stroke-linecap:round}
 .tk.m{stroke-width:.32}
 .tk.q{stroke:var(--tick-q);stroke-width:.42}
 .ring .orbit{fill:none;stroke:var(--tick);stroke-width:.14}
 .ring .arc{fill:none;stroke:var(--primary);stroke-width:.5;stroke-linecap:round;opacity:.9}
-.hero-phone{position:absolute;left:50%;top:0;width:clamp(196px,min(62vw,34svh),356px);transform:translate3d(-50%,var(--rise,0px),0);will-change:transform}
+.hero-phone{position:absolute;left:50%;top:0;width:clamp(196px,min(62vw,34svh),356px);transform:translate3d(-50%,var(--rise,0px),0)}
+@supports not (animation-timeline: view()){.hero-phone{will-change:transform}}   /* B6 베타: 위와 같은 이유 */
 @media (orientation:landscape) and (max-height:560px){
   .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;padding-top:var(--nav);height:100svh}
   .hero-copy{text-align:left;padding-right:0;padding-left:max(16px,env(safe-area-inset-left))}
@@ -143,7 +145,8 @@ h2{font-size:clamp(28px,4.4vw,56px)}
   .hero-stage .ring{width:150%;transform:translate(-50%,-2%)}
   .hero-phone{width:auto;height:calc(100svh - var(--nav) - 18px);top:12px}
 }
-.water{position:absolute;left:0;right:0;bottom:0;height:clamp(96px,20svh,220px);z-index:1;pointer-events:none;overflow:hidden}
+.water{position:absolute;left:0;right:0;bottom:0;height:clamp(70px,13svh,150px);   /* B9 베타: 상시 움직이는 수면 레이어 면적 축소(약 35%) */
+  z-index:1;pointer-events:none;overflow:hidden}
 .water::before{content:"";position:absolute;inset:34% 0 0 0;background:linear-gradient(180deg,transparent,var(--bg) 82%)}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(70px,13svh,150px);z-index:3;pointer-events:none;background:linear-gradient(180deg,transparent,var(--bg) 88%)}
 .water svg{position:absolute;left:0;width:200%;height:70%;top:0}
@@ -169,7 +172,8 @@ h2{font-size:clamp(28px,4.4vw,56px)}
   display:grid;grid-template-rows:minmax(0,1fr) auto;gap:clamp(10px,2svh,22px);
   padding:clamp(12px,2.4svh,28px) clamp(16px,4vw,40px) clamp(16px,3svh,32px);max-width:1280px;margin:0 auto}
 .st-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.st-bg .sun{position:absolute;left:50%;top:40%;width:min(900px,140vw);aspect-ratio:1;border-radius:50%;
+.st-bg .sun{position:absolute;left:50%;top:40%;width:min(620px,96vw);aspect-ratio:1;border-radius:50%;   /* B8 베타: 화면보다 큰 반투명 빛 번짐 → 축소 */
+  
   background:radial-gradient(circle,var(--glow) 0%,transparent 60%);transform:translate(-50%,-50%);opacity:.7}
 .st-dev{position:relative;min-height:0;container-type:size;display:grid;place-items:center}
 .st-dev .dial{position:absolute;left:50%;top:50%;width:min(100cqh,100cqw);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
@@ -180,8 +184,8 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .dial .lbl{font-size:3.1px;font-weight:700;fill:var(--muted);text-anchor:middle;dominant-baseline:middle;letter-spacing:.02em;transition:fill var(--t-open)}
 .dial .lbl.on{fill:var(--sel)}
 .st-dev .phone{height:min(94cqh,196cqw);position:relative;z-index:2}
-.st-dev .scr img{opacity:0;transform:scale(1.04);transition:opacity var(--t-close) var(--e-close),transform var(--t-close) var(--e-close)}
-.st-dev .scr img.on{opacity:1;transform:none;transition:opacity 520ms var(--e-open),transform 700ms var(--e-open)}
+.st-dev .scr img{opacity:0;transition:opacity var(--t-close) var(--e-close)}   /* B7 베타: 큰 캡처의 scale 전환(리샘플) 제거 — 투명도만 */
+.st-dev .scr img.on{opacity:1;transition:opacity 520ms var(--e-open)}
 .st-text{position:relative;display:grid;align-content:center;min-width:0}
 .ch{grid-area:1/1;opacity:0;transform:translateY(18px);transition:opacity var(--t-close) var(--e-close),transform var(--t-close) var(--e-close);pointer-events:none}
 .ch.on{opacity:1;transform:none;transition:opacity 520ms var(--e-open) 80ms,transform 620ms var(--e-open) 80ms;pointer-events:auto}
@@ -251,7 +255,8 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .odo .col{display:block;transform:translateY(0)}   /* 자리마다 상시 레이어(will-change)를 만들지 않는다 — 계기판 진입 순간 부하 감소 */
 .odo .col span{display:block;height:1em;line-height:1}
 .odo .sep{display:inline-block;line-height:1}
-.odo.go .col{transform:translateY(calc(var(--to) * -5%));transition:transform 1300ms var(--e-open) calc(var(--di) * var(--stagger))}
+.odo.go .col{transform:translateY(calc(var(--to) * -10%));   /* B11 베타: 자리 기둥 20칸→10칸(전환 중 레이어 높이 절반) */
+  transition:transform 1300ms var(--e-open) calc(var(--di) * var(--stagger))}
 
 /* ═════ 4. 바다 | 민물 — 장르 탭(GenreTabs) ═════ */
 #genre{padding:clamp(60px,10svh,120px) 0;--g:var(--sea)}
@@ -289,9 +294,12 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 
 /* ═════ 6. 쇼릴 — 실제 화면이 흐른다 ═════ */
 #reel{padding:clamp(60px,10svh,120px) 0;overflow:clip}  /* hidden 은 스크롤 컨테이너가 되어 view-timeline 을 가로챈다 */
-.reel{position:relative;margin-top:clamp(28px,5svh,52px);overflow:clip;overflow-anchor:none;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.reel-track{display:flex;gap:clamp(14px,2vw,26px);width:max-content;margin:0 auto;padding:10px clamp(16px,4vw,40px) 24px;will-change:transform}
+.reel{position:relative;margin-top:clamp(28px,5svh,52px);overflow:clip;overflow-anchor:none}
+.reel::before,.reel::after{content:"";position:absolute;top:0;bottom:0;width:6%;z-index:2;pointer-events:none}   /* B4 베타: 움직이는 넓은 띠 위 mask 대신 좁은 가장자리 덮개 */
+.reel::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)} .reel::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.shot .phone{box-shadow:0 0 0 1px rgba(255,255,255,.16),0 12px 26px -14px rgba(0,0,0,.6)}   /* B14 베타: 띠 안 폰 7대의 큰 그림자 → 작은 그림자(래스터 면적 축소) */
+.reel-track{display:flex;gap:clamp(14px,2vw,26px);width:max-content;margin:0 auto;padding:10px clamp(16px,4vw,40px) 24px}
+@supports not (animation-timeline: view()){.reel-track{will-change:transform}}   /* B5 베타: 스크롤 연동 애니메이션이 스스로 레이어를 만든다 — 상시 will-change 는 JS 대체 경로에서만 */
 .shot{margin:0;width:min(clamp(150px,17vw,230px),calc((100svh - 150px) * .47));flex:none}
 .shot .phone{width:100%}
 .shot figcaption{margin-top:12px;font-size:13.5px;font-weight:700;color:var(--sub);text-align:center}
@@ -316,7 +324,7 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .badge b{display:block;font-size:17px;font-weight:800;color:var(--text);opacity:.72;line-height:1.15}
 .badge em{margin-left:auto;font-style:normal;font-size:11.5px;font-weight:800;color:var(--sel);border:1px solid color-mix(in srgb,var(--sel) 45%,transparent);border-radius:var(--r-chip);padding:3px 7px;white-space:nowrap}
 .soon-note{margin-top:18px;font-size:13.5px;color:var(--muted);font-weight:600;min-height:1.6em}
-#soon .water{height:clamp(110px,22svh,240px)}
+#soon .water{height:clamp(80px,15svh,170px)}
 
 .nav-r{display:flex;align-items:center;gap:10px;min-width:0}
 .fam-link{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:700;color:var(--sub);text-decoration:none;white-space:nowrap;
@@ -346,10 +354,10 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justif
 footer nav{display:flex;flex-wrap:wrap;gap:8px 20px}
 footer nav a{text-decoration:none;font-weight:600}
 footer nav a:hover{color:var(--primary)}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));z-index:60;transform:translate(-50%,140%);opacity:0;max-width:calc(100vw - 32px);
+.toast{visibility:hidden;position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));z-index:60;transform:translate(-50%,140%);opacity:0;max-width:calc(100vw - 32px);
   padding:12px 18px;border-radius:var(--r-btn);background:var(--surface);color:var(--text);border:1px solid var(--glass-bd);box-shadow:var(--shadow);font-size:14px;font-weight:600;
-  transition:transform var(--t-close) var(--e-close),opacity var(--t-close) var(--e-close)}
-.toast.on{transform:translate(-50%,0);opacity:1;transition:transform var(--t-open) var(--e-open),opacity var(--t-open) var(--e-open)}
+  transition:transform var(--t-close) var(--e-close),opacity var(--t-close) var(--e-close),visibility 0s var(--t-close)}   /* B12 베타: 안 보일 땐 합성 레이어도 없게 */
+.toast.on{visibility:visible;transform:translate(-50%,0);opacity:1;transition:visibility 0s,transform var(--t-open) var(--e-open),opacity var(--t-open) var(--e-open)}
 
 
 /* ═════ PC «꽉 찬 느낌» (BRIEF 2026-10-02) — 1440 이상에서만 단계 확대, 모바일·태블릿 불변 ═════ */
@@ -438,7 +446,7 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   .reel-track,.hero-phone{animation:none!important}
 }
 </style>
-<meta property="og:type" content="website"><meta property="og:site_name" content="우리가족 매니저 · 한국사 매니저 · 보카매니저"><meta property="og:title" content="낚시 매니저"><meta property="og:description" content="바다낚시도 민물낚시도, 준비부터 철수까지 한 앱에서. 물때·바다낚시지수·수위·조과 기록·SOS 좌표판을 한 앱에. App Store · Google Play 출시 예정."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/fishing/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/fishing.png"><meta property="og:image:width" content="512"><meta property="og:image:height" content="512"><meta name="twitter:card" content="summary_large_image"></head>
+</head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
 
@@ -732,7 +740,7 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   var MIN_GAP = 40;          // 직전 펄스 «끝»에서 다음 펄스 «시작»까지
   var MAX_RATE = 18;         // 다이얼 detent 초당 상한
   var INERTIA_MS = 1200;     // 손가락을 뗀 뒤 관성 스크롤로 보는 시간
-  var P = { detent: 3, tap: 4, settle: [3, 40, 5], success: [4, 70, 6] };
+  var P = { detent: 12, tap: 16, settle: [10, 40, 16], success: [14, 70, 18] };  // 2026-10-02 실폰: 3ms는 폴드7에서 거의 안 느껴짐 → 10~18ms
   var PRIORITY = { tap: 1, settle: 1, success: 1, pulse: 1 };
 
   var now = function () { return (w.performance && w.performance.now) ? w.performance.now() : Date.now(); };
@@ -975,7 +983,7 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   var NOOP=function(){return false;};
   var HP=window.Haptics||{detent:NOOP,tap:NOOP,settle:NOOP,success:NOOP,dial:function(){return{destroy:NOOP}},decelTimes:function(){return[]},rollDigits:function(){return NOOP}};
   // 롤링 숫자: 가장 멀리 도는 자리(10+9칸)가 easeOutQuint(5제곱) 감속으로 칸을 넘을 때마다 detent, 멈추면 settle
-  function rollHaptic(){ if(!reduce) HP.rollDigits(HP.decelTimes(19,1300,5)); }
+  function rollHaptic(){ if(!reduce) HP.rollDigits(HP.decelTimes(9,1300,5)); }
 
   document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.badge,.seg button,.brand,footer nav a,.st-dots button,.fam-link,.fam-band'); if(a) HP.tap(); });
 
@@ -1004,8 +1012,8 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
     var txt=el.getAttribute('data-to'); el.setAttribute('aria-label',txt); el.textContent=''; var di=0;
     txt.split('').forEach(function(c){
       if(/\d/.test(c)){ var d=document.createElement('span'); d.className='d'; d.setAttribute('aria-hidden','true');
-        var col=document.createElement('span'); col.className='col'; col.style.setProperty('--to',10+(+c)); col.style.setProperty('--di',di++);
-        for(var k=0;k<20;k++){ var s=document.createElement('span'); s.textContent=k%10; col.appendChild(s); }
+        var col=document.createElement('span'); col.className='col'; col.style.setProperty('--to',+c); col.style.setProperty('--di',di++);
+        for(var k=0;k<10;k++){ var s=document.createElement('span'); s.textContent=k%10; col.appendChild(s); }
         d.appendChild(col); el.appendChild(d); }
       else { var s2=document.createElement('span'); s2.className='sep'; s2.setAttribute('aria-hidden','true'); s2.textContent=c; el.appendChild(s2); } });
   }
