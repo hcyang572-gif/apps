@@ -72,7 +72,7 @@
 }
 
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%}   /* 전역 smooth 금지(교훈 3) — 앵커 이동만 JS 로 부드럽게 */
 body{
   margin:0; background:#040509; background:var(--a3); color:var(--n-ink);
   font-family:var(--f-ko); font-size:16px; line-height:1.6; letter-spacing:-.01em;
@@ -348,6 +348,14 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
 .film-frame.rv.in,.big-icon.rv.in{transform:none}
 /* ⑦ 폰 — 커서·스크롤에 은은한 3D 기울기(물속 관성 640ms) */
 .hero-phone{transform:translate3d(0,var(--py,0px),0) perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition:transform var(--t-in) var(--ez-in)}
+/* ⑦-b 스크롤 연동 이동은 브라우저(컴포지터)가 스크롤과 같은 프레임에 그린다 — JS 가 몰아서 따라잡는 튐 제거(교훈 2).
+   폰 상승은 개별 속성 translate 로 걸어 커서 3D 기울기(transform·관성 전환)와 겹치지 않게 한다. 미지원 브라우저만 JS 폴백 */
+@supports (animation-timeline: scroll()){
+  .hero-phone{animation:vHeroRise linear both; animation-timeline:scroll(root block); animation-range:0px 100svh}
+  @keyframes vHeroRise{from{translate:0 0}to{translate:0 -6svh}}
+  .level{animation:vLevel linear both; animation-timeline:scroll(root block)}
+  @keyframes vLevel{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
 /* ⑧ 광택 스윕 — 설치 버튼(호버 · 등장 1회) */
 .sheen{position:relative; overflow:hidden; isolation:isolate}
 .sheen::after{content:""; position:absolute; top:0; bottom:0; left:0; width:55%; pointer-events:none; z-index:2;
@@ -508,7 +516,6 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
   .brand span{font-size:15px}
 }
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important; transition-duration:100ms!important; transition-delay:0ms!important}
   .rv{opacity:1; transform:none}
   .row .w{font-variation-settings:'wdth' 100}
@@ -1270,6 +1277,7 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
   var marks = ['top','film','story','loop','depth','install'].map(function(id){ return document.getElementById(id); });
   var items = rail.querySelectorAll('li');
   var ticking = false;
+  var SDA = !reduce && !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()'));   /* 지원하면 진행선·폰 상승은 CSS 가 그린다 */
   var level = document.getElementById('level'), surfEl = document.querySelector('.surface'), heroPhone = document.querySelector('.hero-phone');
   function onScroll(){
     ticking = false;
@@ -1282,13 +1290,24 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
     var deep = surf < 70;
     nav.classList.toggle('deep', deep);
     rail.classList.toggle('surface-tone', surf > vh * .5);
-    level.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ')';
-    if (heroVisible && !reduce) heroPhone.style.setProperty('--py', (-Math.min(y, vh) * .06).toFixed(1) + 'px');
+    if (!SDA) level.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ')';
+    if (!SDA && heroVisible && !reduce) heroPhone.style.setProperty('--py', (-Math.min(y, vh) * .06).toFixed(1) + 'px');
     items.forEach(function(li, i){ li.classList.toggle('on', i === cur); });
     if (items[cur]) dot.style.transform = 'translateY(' + (items[cur].offsetTop + 4) + 'px)';
   }
   addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(onScroll); } }, {passive:true});
   onScroll();
+
+  /* ── 페이지 안 앵커는 탭할 때만 부드럽게 이동(scroll-margin-top 존중) ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1), el = id ? document.getElementById(id) : null;
+      if (!id){ e.preventDefault(); scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); return; }
+      if (!el) return;
+      e.preventDefault(); el.scrollIntoView({block:'start', behavior: reduce ? 'auto' : 'smooth'});
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    });
+  });
 
   /* ── 자석 버튼(마우스에서만) ── */
   if (!reduce && matchMedia('(pointer:fine)').matches){

@@ -92,7 +92,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%}  /* 전역 smooth 금지(BRIEF 교훈 3) — 앵커 이동만 JS 로 부드럽게 */
 body{margin:0;background:var(--dusk-base);color:#F1EFFA;font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;word-break:keep-all;overflow-wrap:break-word}
 img{display:block;max-width:100%}
 a{color:inherit}
@@ -538,6 +538,21 @@ odo-d,odo-c,odo-i{font:inherit;color:inherit}
 }
 @keyframes hlFlow{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-46%,-53%) scale(1.08)}}
 .m-media .phone{transition:transform .5s var(--ease)}
+/* ── 스크롤 연동 이동은 브라우저(컴포지터)가 스크롤과 같은 프레임에 그린다 — JS 가 몇 프레임씩 몰아서 «따라잡는» 튐 제거(BRIEF 교훈 2).
+      미지원 브라우저는 아래 JS 폴백이 같은 값을 쓴다. 효과(물 차오름·히어로 패럴랙스·별·폰 기울기)는 그대로. ── */
+@supports (animation-timeline: view()) and (timeline-scope: --a){
+  body{timeline-scope:--vo}
+  #vocab{view-timeline:--vo block}
+  .water{animation:waterRise linear both;animation-timeline:--vo;animation-range:cover 0% cover calc(100% - 80vh)}
+  @keyframes waterRise{from{transform:translate3d(0,62%,0)}to{transform:translate3d(0,28%,0)}}
+  .hero{view-timeline:--hero block}
+  .hero > .wrap{animation:heroDrift linear both;animation-timeline:--hero;animation-range:exit-crossing 0% exit-crossing 100%}
+  @keyframes heroDrift{from{transform:none;opacity:1}to{transform:translate3d(0,70px,0);opacity:.45}}
+  .stars{animation:starsUp linear both;animation-timeline:scroll(root block);animation-range:0px 2800px}
+  @keyframes starsUp{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-140px,0)}}
+  .m-media .phone{transition:none;animation:phTilt linear both;animation-timeline:view(block);animation-range:cover 0% cover 100%}
+  @keyframes phTilt{from{transform:perspective(1100px) rotateX(3.5deg)}to{transform:perspective(1100px) rotateX(-3.5deg)}}
+}
 /* 9) 마무리 카드: 차례로 올라오고 윗변의 앱 색 띠가 그어진다 */
 .js .pcards.rv{opacity:1;transform:none}
 .pcards .pc:nth-child(2){--n:1}.pcards .pc:nth-child(3){--n:2}.pcards .pc:nth-child(4){--n:3}
@@ -1172,6 +1187,8 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   var heroWrap = document.querySelector('.hero > .wrap'), stars = document.querySelector('.stars');
   var mPhones = [].slice.call(document.querySelectorAll('.m-media .phone'));
   var ticking = false;
+  /* 스크롤 연동 CSS(animation-timeline)가 되면 이동은 CSS 가 맡고, JS 는 진행 막대만 쓴다 */
+  var SDA = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()') && CSS.supports('timeline-scope: --a'));
   function frame(){
     ticking = false;
     /* 읽기 먼저 */
@@ -1180,7 +1197,7 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
     var ph = mPhones.map(function(el){ var q = el.getBoundingClientRect(); return q.height > 0 && q.bottom > 0 && q.top < H ? (q.top + q.height / 2 - H / 2) / H : null });
     /* 그다음 쓰기 */
     prog.style.transform = 'scaleX(' + (h>0 ? Math.min(1, y/h) : 0).toFixed(4) + ')';
-    if (reduce) return;
+    if (reduce || SDA) return;
     var p = Math.min(1, Math.max(0, (H - r.top) / (r.height + H * .2)));
     water.style.transform = 'translate3d(0,' + (62 - p * 34).toFixed(2) + '%,0)';
     /* 히어로가 올라가며 살짝 늦게 따라오고 옅어진다(패럴랙스), 별은 더 느리게 */
@@ -1194,6 +1211,16 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(frame) } }
   addEventListener('scroll', onScroll, {passive:true}); addEventListener('resize', onScroll); frame();
   if (reduce) water.style.transform = 'translate3d(0,40%,0)';
+
+  /* 페이지 안 앵커(메뉴·빛·안내)는 탭할 때만 부드럽게 이동 — 전역 scroll-behavior 대신 */
+  [].forEach.call(document.querySelectorAll('a[href^="#"]'), function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').slice(1), el = id && document.getElementById(id); if (!el) return;
+      e.preventDefault();
+      if (id === 'top') scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); else el.scrollIntoView({block:'start', behavior: reduce ? 'auto' : 'smooth'});
+      try { history.pushState(null, '', '#' + id) } catch(_){}
+    });
+  });
 
   /* 마그네틱 버튼(정밀 포인터에서만) */
   if (finePointer && !reduce){

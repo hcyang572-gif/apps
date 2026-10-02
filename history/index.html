@@ -511,6 +511,37 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 @media(max-width:599px){.fb-apps{display:grid;grid-template-columns:repeat(3,1fr);width:100%;gap:12px}.fb-apps span{flex-direction:column;gap:7px;font-size:12.5px;white-space:normal;text-align:center;line-height:1.35}}
 .fb-apps img{width:36px;height:36px;border-radius:24%;box-shadow:0 4px 12px -6px rgba(5,12,46,.5),0 0 0 1px color-mix(in srgb,var(--ink) 8%,transparent)}
 
+/* ── 넓고 짧은 화면(폴드7 펼침 1104×698·가로 태블릿): 2열 히어로 제목이 세 줄로 접혀 버튼이 첫 화면 밖으로 밀리지 않게 높이 기준으로 제한 ── */
+@media(min-width:960px) and (max-height:760px){
+  .hero{padding-top:84px}
+  .hero h1{font-size:clamp(46px,12.5svh,112px);margin:14px 0 16px}
+  .hero .btns{margin-top:20px}
+  .hero-copy{padding-bottom:clamp(84px,13svh,110px)}  /* 아래 «SCROLL» 표시와 겹치지 않게 */
+}
+
+/* ── 스크롤 연동(하늘·해·능선·진행선·히어로 패럴랙스)은 컴포지터가 스크롤과 같은 프레임에 그린다 — JS 는 미지원 브라우저 폴백만
+   (안드로이드 Chrome 은 스크롤을 별도 스레드에서 처리해 JS 로 쓰면 몇 프레임씩 몰아서 따라잡는 «건너뜀»이 생긴다, BRIEF 교훈 2) ── */
+@supports (animation-timeline: scroll()){
+  .sky.d{animation:skyD linear both;animation-timeline:scroll(root block)}
+  .sky.m{animation:skyM linear both;animation-timeline:scroll(root block)}
+  .stars{animation:starsOut linear both;animation-timeline:scroll(root block)}
+  .sun{animation:sunRise linear both;animation-timeline:scroll(root block)}
+  .ridges{animation:ridgeSink linear both;animation-timeline:scroll(root block)}
+  .prog{animation:progX linear both;animation-timeline:scroll(root block)}
+  @keyframes skyD{0%,4%{opacity:0}38%,100%{opacity:1}}
+  @keyframes skyM{0%,42%{opacity:0}82%,100%{opacity:1}}
+  @keyframes starsOut{0%{opacity:1}30%,100%{opacity:0}}
+  @keyframes sunRise{0%{transform:translate3d(0,98vh,0);opacity:.35}50%{opacity:1}100%{transform:translate3d(0,12vh,0);opacity:1}}
+  @keyframes ridgeSink{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,28px,0)}}
+  @keyframes progX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (prefers-reduced-motion: no-preference){
+    .hero-copy{animation:parCopy linear both;animation-timeline:scroll(root block);animation-range:0px 130vh}
+    .hero-phone{animation:parPhone linear both;animation-timeline:scroll(root block);animation-range:0px 130vh}
+    @keyframes parCopy{from{translate:0 0}to{translate:0 -6.5vh}}
+    @keyframes parPhone{from{translate:0 0}to{translate:0 -15.6vh}}
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .hero h1 .l > .rv,.wd > span,.film-card.rv,.screen .poster,.wide .tablet,.ridge-steps svg.line,.big .arrow{transform:none;opacity:1;transition:none}
   .in .st,.in .opt,.expl.open .ans,.expl.open .why,.opt.ok .bead,.sun::after{animation:none}
@@ -1133,19 +1164,21 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   var skyD=$('skyD'), skyM=$('skyM'), stars=$('stars'), sun=$('sun'), ridges=$('ridges'), nav=$('nav'), prog=$('prog'),
       heroCopy=document.querySelector('.hero-copy'), heroPhone=document.querySelector('.hero-phone'), lastPar=-1;
   function clamp(v){ return v<0?0:v>1?1:v; }
-  var ticking=false;
+  var ticking=false, SDA=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: scroll()'));  /* 지원 시 이동은 CSS 가 그린다 */
   function frame(){
     ticking=false;
     var H=Math.max(1,document.documentElement.scrollHeight-innerHeight), p=clamp(scrollY/H);
+    var vh=innerHeight;
+    if(!SDA){   /* 폴백: animation-timeline 미지원 브라우저만 JS 로 */
     skyD.style.opacity=clamp((p-.04)/.34);
     skyM.style.opacity=clamp((p-.42)/.40);
     stars.style.opacity=1-clamp(p/.30);
-    var vh=innerHeight;
     sun.style.transform='translate3d(0,'+(vh*(.98-.86*p)).toFixed(1)+'px,0)';
     sun.style.opacity=.35+.65*clamp(p/.5);
     ridges.style.transform='translate3d(0,'+(p*28).toFixed(1)+'px,0)';
     prog.style.transform='scaleX('+p.toFixed(4)+')';
-    if(!reduce){ var y=Math.min(scrollY,vh*1.3); if(y!==lastPar){ lastPar=y;   /* 히어로 패럴랙스: 폰이 글보다 빨리 오른다(개별 translate — .rv 의 transform 과 겹치지 않음) */
+    }
+    if(!reduce && !SDA){ var y=Math.min(scrollY,vh*1.3); if(y!==lastPar){ lastPar=y;   /* 히어로 패럴랙스: 폰이 글보다 빨리 오른다(개별 translate — .rv 의 transform 과 겹치지 않음) */
       heroCopy.style.translate='0 '+(-y*.05).toFixed(1)+'px'; heroPhone.style.translate='0 '+(-y*.12).toFixed(1)+'px'; } }
     nav.classList.toggle('solid', scrollY>40);
     var e=Math.min(ERAS.length-1,Math.floor(p*ERAS.length));
