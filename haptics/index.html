@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<title>햅틱 손맛 실험실</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#0b1220; --bg2:#0f1729; --card:#131d33; --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
+  --ink:#e8edf7; --mute:#8d99b3; --dim:#5b6782; --accent:#7fb2ff; --accent2:#b9d4ff; --ok:#6fe0b0; --warn:#f3c26b; --bad:#ff8a8a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif;font-size:15px;line-height:1.55;
+  letter-spacing:-.01em;overflow-x:hidden;
+  background:radial-gradient(120% 60% at 50% -10%,#1a2950 0%,rgba(11,18,32,0) 60%),var(--bg)}
+main{max-width:460px;margin:0 auto;padding:28px 16px 64px}
+header h1{font-size:24px;font-weight:700;margin:0 0 6px;letter-spacing:-.03em}
+header p{margin:0;color:var(--mute);font-size:14px}
+.eyebrow{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.08em;margin-bottom:10px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),var(--card);
+  border:1px solid var(--line);border-radius:20px;padding:20px 18px;margin-top:16px;
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -24px rgba(0,0,0,.6)}
+.card h2{font-size:16px;font-weight:650;margin:0 0 2px;display:flex;gap:8px;align-items:baseline}
+.card h2 .n{color:var(--dim);font-weight:600;font-size:13px;font-variant-numeric:tabular-nums}
+.card .sub{color:var(--mute);font-size:13px;margin:0 0 16px}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.btn{background:rgba(127,178,255,.12);border:1px solid rgba(127,178,255,.25);color:var(--accent2);
+  border-radius:12px;padding:11px 14px;font-weight:600;font-size:14px;transition:transform .12s,background .2s}
+.btn:active{transform:scale(.97);background:rgba(127,178,255,.2)}
+.btn.ghost{background:transparent;border-color:var(--line2);color:var(--mute)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ① 용두 */
+.crown-wrap{display:grid;grid-template-columns:1fr 64px;gap:14px;align-items:stretch}
+.ruler{position:relative;height:132px;border-radius:16px;background:var(--bg2);border:1px solid var(--line);
+  overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.ruler-track{position:absolute;left:50%;top:0;bottom:0;will-change:transform}
+.tick{position:absolute;bottom:28px;width:2px;margin-left:-1px;border-radius:1px;background:rgba(232,237,247,.28);height:14px}
+.tick.mid{height:20px;background:rgba(232,237,247,.45)}
+.tick.maj{height:30px;background:rgba(232,237,247,.8)}
+.tick-l{position:absolute;bottom:8px;font-size:11px;color:var(--dim);transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.ruler:before,.ruler:after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none}
+.ruler:before{left:0;background:linear-gradient(90deg,var(--bg2),rgba(15,23,41,0))}
+.ruler:after{right:0;background:linear-gradient(270deg,var(--bg2),rgba(15,23,41,0))}
+.needle{position:absolute;left:50%;top:48px;bottom:24px;width:2px;margin-left:-1px;background:var(--accent);border-radius:2px;z-index:3;
+  box-shadow:0 0 12px rgba(127,178,255,.7)}
+.readout{position:absolute;left:0;right:0;top:12px;text-align:center;z-index:3;font-size:13px;color:var(--mute)}
+.readout b{font-size:22px;color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums;margin-right:2px}
+.crown{position:relative;border-radius:14px;touch-action:none;user-select:none;
+  background:linear-gradient(90deg,#3a4560 0%,#9aa6bf 30%,#dfe5f1 48%,#8d98b0 70%,#2c3549 100%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 10px 24px -10px rgba(0,0,0,.8)}
+.crown .ridges{position:absolute;inset:6px 4px;border-radius:10px;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.38) 0 2px,rgba(255,255,255,.0) 2px 7px);mix-blend-mode:multiply}
+.hint{font-size:12px;color:var(--dim);margin-top:10px}
+.seg{display:inline-flex;background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:3px;margin-top:12px}
+.seg button{padding:7px 12px;border-radius:8px;font-size:13px;color:var(--mute);background:transparent}
+.seg button[aria-pressed=true]{background:rgba(127,178,255,.16);color:var(--accent2)}
+
+/* ② 롤링 숫자 */
+.roll{display:flex;align-items:baseline;justify-content:center;gap:6px;padding:18px 0 20px}
+.roll .num{font-size:48px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1;
+  display:inline-flex;overflow:hidden;height:52px}
+.roll .unit{color:var(--mute);font-size:15px}
+.dg{display:inline-block;position:relative;width:.62em;text-align:center}
+.dg.comma{width:.28em}
+.dg span{display:block}
+.dg.bump span{animation:bump .16s cubic-bezier(.2,.8,.2,1)}
+@keyframes bump{from{transform:translateY(-38%);opacity:.35}to{transform:none;opacity:1}}
+
+/* ③ 탭·정답 */
+.q{font-size:14px;margin:0 0 10px;color:var(--ink)}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;transition:border-color .2s,background .2s}
+.opt.right{border-color:rgba(111,224,176,.6);background:rgba(111,224,176,.08);color:var(--ok)}
+.opt.wrong{border-color:rgba(255,138,138,.35);color:var(--mute)}
+
+/* ④ 펄스 비교 */
+.pulses{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pbtn{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:12px 0 10px;text-align:center}
+.pbtn b{display:block;font-size:20px;font-weight:650;font-variant-numeric:tabular-nums}
+.pbtn small{color:var(--dim);font-size:11px}
+.pbtn[aria-pressed=true]{border-color:rgba(127,178,255,.6);background:rgba(127,178,255,.1)}
+.pbtn[aria-pressed=true] small{color:var(--accent)}
+.mode{margin-top:12px}
+
+/* ⑤ 상태 */
+.stat{display:grid;grid-template-columns:1fr auto;gap:8px 12px;font-size:14px}
+.stat dt{color:var(--mute)}
+.stat dd{margin:0;font-weight:600;text-align:right}
+.y{color:var(--ok)} .n{color:var(--bad)} .w{color:var(--warn)}
+.logbox{margin-top:14px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;
+  font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mute);min-height:58px;white-space:pre-wrap;word-break:break-all}
+.note{margin-top:18px;padding:14px 16px;border-radius:14px;border:1px solid rgba(243,194,107,.25);background:rgba(243,194,107,.06);
+  color:#e9d3a6;font-size:13px}
+footer{color:var(--dim);font-size:12px;text-align:center;margin-top:26px}
+@media (max-width:370px){.roll .num{font-size:40px;height:44px}.crown-wrap{grid-template-columns:1fr 54px}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">HAPTICS LAB · v2</div>
+    <h1>햅틱 손맛 실험실</h1>
+    <p>애플워치 용두처럼 «또르륵» 걸리는 감각을 찾습니다. 화면을 한 번 터치한 뒤부터 진동이 켜져요.</p>
+  </header>
+
+  <section class="card" id="s1">
+    <h2><span class="n">01</span>용두 다이얼</h2>
+    <p class="sub">눈금이나 오른쪽 용두를 손가락으로 천천히 끌어 보세요. 한 칸마다 아주 짧게 걸리고, 끝에 닿으면 «톡».</p>
+    <div class="crown-wrap">
+      <div class="ruler" id="ruler">
+        <div class="readout"><b id="dialVal">50</b></div>
+        <div class="ruler-track" id="track"></div>
+        <div class="needle"></div>
+      </div>
+      <div class="crown" id="crown" aria-label="용두"><div class="ridges" id="ridges"></div></div>
+    </div>
+    <div class="seg" role="group" aria-label="눈금 간격">
+      <button data-gap="10">촘촘</button><button data-gap="14" aria-pressed="true">보통</button><button data-gap="20">넓게</button>
+    </div>
+    <div class="hint">가로·세로 어느 방향으로 끌어도 됩니다. 빠르게 휘두르면 일부 칸은 건너뜁니다(초당 18회 상한).</div>
+  </section>
+
+  <section class="card" id="s2">
+    <h2><span class="n">02</span>롤링 숫자</h2>
+    <p class="sub">숫자가 굴러가며 자리마다 걸리고, 감속하며 간격이 벌어지다 멈출 때 «또옥».</p>
+    <div class="roll"><span class="num" id="num"></span><span class="unit">명</span></div>
+    <div class="row"><button class="btn" id="rollBtn" style="flex:1">굴리기</button><button class="btn ghost" id="resetBtn">처음으로</button></div>
+  </section>
+
+  <section class="card" id="s3">
+    <h2><span class="n">03</span>버튼 탭 · 정답</h2>
+    <p class="sub">오답은 가벼운 탭, 정답은 두 번 겹친 success.</p>
+    <p class="q">조선을 세운 사람은?</p>
+    <div class="opts" id="opts">
+      <button class="opt">왕건</button><button class="opt" data-right>이성계</button><button class="opt">세종</button>
+    </div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" id="quizReset">다시</button></div>
+  </section>
+
+  <section class="card" id="s4">
+    <h2><span class="n">04</span>펄스 길이 비교</h2>
+    <p class="sub">같은 리듬(70ms 간격 6번)을 길이만 바꿔 냅니다. 가장 섬세한 쪽을 눌러 고르면 위 다이얼·숫자에 바로 적용돼요.</p>
+    <div class="pulses" id="pulses">
+      <button class="pbtn" data-ms="2"><b>2</b><small>ms</small></button>
+      <button class="pbtn" data-ms="3"><b>3</b><small>ms</small></button>
+      <button class="pbtn" data-ms="4"><b>4</b><small>ms</small></button>
+      <button class="pbtn" data-ms="6"><b>6</b><small>ms</small></button>
+    </div>
+    <div class="seg mode" role="group" aria-label="재생 방식">
+      <button data-mode="burst" aria-pressed="true">6번 연속</button><button data-mode="one">한 번만</button>
+    </div>
+    <div class="hint" id="chosen">현재 detent: 3ms (기본값)</div>
+  </section>
+
+  <section class="card" id="s5">
+    <h2><span class="n">05</span>지원 여부</h2>
+    <p class="sub">이 기기·브라우저에서 무엇이 되는지.</p>
+    <dl class="stat" id="stat"></dl>
+    <div class="logbox" id="log">아직 진동 기록이 없습니다.</div>
+  </section>
+
+  <div class="note">카카오톡 안에서 열면(인앱 브라우저) 진동이 막힐 수 있어요. 오른쪽 위 ⋮ → <b>다른 브라우저로 열기</b>로 Chrome·삼성 인터넷에서 보세요. 무음·방해금지 모드, «터치 시 진동» 꺼짐 설정에서도 약해지거나 안 날 수 있습니다. 아이폰은 iOS 18 이상에서 버튼 «톡»만 됩니다.</div>
+  <footer>APP-LANDING / _shared / haptics.js</footer>
+</main>
+
+<script src="haptics.js"></script>
+<script>
+(function(){
+  var H = window.Haptics;
+  var $ = function(s){ return document.querySelector(s); };
+  var store = { get:function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+                set:function(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+
+  // ── ① 용두 다이얼 ─────────────────────────────
+  var MIN=0, MAX=100, val=50, gap=14, pos=50*gap; // pos(px) = 연속값
+  var track=$('#track'), ridges=$('#ridges'), out=$('#dialVal');
+  var feed = H.stepper({ step: gap });
+  function buildTicks(){
+    var h='';
+    for(var i=MIN;i<=MAX;i++){
+      var cls = i%10===0?'maj':(i%5===0?'mid':'');
+      h+='<i class="tick '+cls+'" style="left:'+(i*gap)+'px"></i>';
+      if(i%10===0) h+='<span class="tick-l" style="left:'+(i*gap)+'px">'+i+'</span>';
+    }
+    track.innerHTML=h;
+  }
+  function render(){
+    track.style.transform='translateX('+(-pos)+'px)';
+    ridges.style.backgroundPosition='0 '+(-pos*0.5)+'px';
+    var v=Math.round(pos/gap); if(v!==val){ val=v; out.textContent=v; }
+  }
+  function setGap(g){ var ratio=pos/gap; gap=g; pos=ratio*gap; feed=H.stepper({step:gap}); feed(pos,true); buildTicks(); render(); }
+  function drag(el, sign){
+    var last=null, edge=0;
+    el.addEventListener('pointerdown',function(e){ last={x:e.clientX,y:e.clientY}; edge=0; try{el.setPointerCapture(e.pointerId);}catch(_){} });
+    el.addEventListener('pointermove',function(e){
+      if(!last) return;
+      var dx=e.clientX-last.x, dy=e.clientY-last.y; last={x:e.clientX,y:e.clientY};
+      var delta = Math.abs(dx)>=Math.abs(dy) ? -dx : dy*sign; // 가로: 눈금을 끄는 방향 / 세로: 용두를 굴리는 방향
+      var np=pos+delta, lo=MIN*gap, hi=MAX*gap;
+      if(np<=lo||np>=hi){ np=Math.max(lo,Math.min(hi,np)); var side=np<=lo?-1:1; if(edge!==side){ edge=side; feed(np,true); H.tap(); } }
+      else { edge=0; feed(np); }
+      pos=np; render();
+    });
+    var end=function(){ last=null; };
+    el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end);
+  }
+  drag($('#ruler'),1); drag($('#crown'),1);
+  document.querySelectorAll('[data-gap]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-gap]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
+      setGap(+b.dataset.gap); H.tap();
+    });
+  });
+  buildTicks(); feed(pos,true); render();
+
+  // ── ② 롤링 숫자 ─────────────────────────────
+  var FROM=1284, TO=10730, numEl=$('#num'), cancel=null, cur=FROM;
+  function paint(n, bump){
+    var s=n.toLocaleString('ko-KR'), prev=numEl.dataset.v||'';
+    var pad=s.length>prev.length?s:s; var h='';
+    for(var i=0;i<s.length;i++){
+      var ch=s[i], j=prev.length-s.length+i, changed=bump && prev[j]!==ch;
+      h+='<span class="dg'+(ch===','?' comma':'')+(changed?' bump':'')+'"><span>'+ch+'</span></span>';
+    }
+    numEl.innerHTML=h; numEl.dataset.v=s;
+  }
+  paint(FROM,false);
+  $('#rollBtn').addEventListener('click',function(){
+    if(cancel) cancel();
+    var start=cur===TO?FROM:cur, n=24, times=H.decelTimes(n,1900,3);
+    cur=start; paint(cur,false);
+    cancel=H.rollDigits(times,function(i){
+      var p=(i+1)/n; cur=Math.round(start+(TO-start)*p); paint(cur,true);
+    },function(){ cur=TO; paint(TO,true); cancel=null; });
+  });
+  $('#resetBtn').addEventListener('click',function(){ if(cancel){cancel();cancel=null;} cur=FROM; paint(FROM,false); H.tap(); });
+
+  // ── ③ 탭·정답 ─────────────────────────────
+  var opts=document.querySelectorAll('.opt');
+  opts.forEach(function(o){ o.addEventListener('click',function(){
+    if(o.hasAttribute('data-right')){ o.classList.add('right'); H.success(); }
+    else { o.classList.add('wrong'); H.tap(); }
+  });});
+  $('#quizReset').addEventListener('click',function(){ opts.forEach(function(o){o.className='opt';}); H.tap(); });
+
+  // ── ④ 펄스 비교 ─────────────────────────────
+  var mode='burst', chosen=$('#chosen'), burstT=[];
+  function choose(ms, persist){
+    H.config({detent:ms});
+    document.querySelectorAll('.pbtn').forEach(function(b){ b.setAttribute('aria-pressed', +b.dataset.ms===ms); });
+    chosen.textContent='현재 detent: '+ms+'ms'+(ms===3?' (기본값)':'')+' — 다이얼·롤링 숫자에 적용됨';
+    if(persist) store.set('haptics.detent',ms);
+  }
+  var saved=+store.get('haptics.detent'); choose([2,3,4,6].indexOf(saved)>=0?saved:3,false);
+  document.querySelectorAll('.pbtn').forEach(function(b){ b.addEventListener('click',function(){
+    var ms=+b.dataset.ms; choose(ms,true);
+    burstT.forEach(clearTimeout); burstT=[];
+    if(mode==='one'){ H.pulse(ms); return; }
+    for(var i=0;i<6;i++) burstT.push(setTimeout(function(){ H.pulse(ms); }, i*70));
+  });});
+  document.querySelectorAll('[data-mode]').forEach(function(b){ b.addEventListener('click',function(){
+    mode=b.dataset.mode; document.querySelectorAll('[data-mode]').forEach(function(x){x.setAttribute('aria-pressed',x===b);}); H.tap();
+  });});
+
+  // ── ⑤ 상태 ─────────────────────────────
+  var statEl=$('#stat'), logEl=$('#log'), seen=-1;
+  function yn(b,yes,no,warn){ return '<span class="'+(b?'y':(warn?'w':'n'))+'">'+(b?yes:no)+'</span>'; }
+  function refresh(){
+    var s=H.status();
+    statEl.innerHTML=
+      '<dt>진동(vibrate) 지원</dt><dd>'+yn(s.vibrate,'지원','미지원')+'</dd>'+
+      '<dt>iOS 기기</dt><dd>'+(s.ios?'<span class="w">예 — 버튼 «톡»만</span>':'아니오')+'</dd>'+
+      '<dt>첫 터치 완료</dt><dd>'+yn(s.armed,'완료','아직 — 화면을 터치하세요',true)+'</dd>'+
+      '<dt>동작 줄이기 설정</dt><dd>'+(s.reducedMotion?'<span class="n">켜짐 — 햅틱 꺼짐</span>':'<span class="y">꺼짐</span>')+'</dd>'+
+      '<dt>지금 햅틱</dt><dd>'+yn(s.enabled&&(s.vibrate||s.ios),'켜짐','꺼짐',!s.armed)+'</dd>';
+    if(H.log.length!==seen){
+      seen=H.log.length;
+      if(seen){ var t0=H.log[0].t; logEl.textContent=H.log.slice(-6).map(function(e){
+        return '+'+String(e.t-t0).padStart(6,' ')+'ms  '+e.kind.padEnd(8,' ')+' '+JSON.stringify(e.pattern)+(e.ok?'':'  (거부됨)'); }).join('\n'); }
+    }
+  }
+  refresh(); setInterval(function(){ if(!document.hidden) refresh(); }, 400);
+})();
+</script>
+</body>
+</html>
