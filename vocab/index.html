@@ -376,6 +376,16 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
   .n span{padding-bottom:12px}
 }
 @media (max-width:719px){ .nav-links{display:none} }
+/* 폴드 펼침·태블릿 세로(700~959): 1열 내용을 «가운데 680px 기둥»으로 — 왼쪽 쏠림 방지(BRIEF «폴드 펼침·중간 폭 가운데 정렬») */
+@media (min-width:700px) and (max-width:959px){
+  .wrap{--gut:max(32px, calc((100vw - 680px) / 2))}
+  .wrap.word-zone{--gut:32px}   /* 거대 단어는 화면 폭 그대로 */
+  .lede,.step p,.row .d,.sec-head{max-width:none}
+  .m-phone{margin-left:auto; margin-right:auto}
+  .hero-copy{text-align:center; justify-items:center}   /* 낚시 랜딩(기준 사례)처럼 첫 화면 카피는 가운데 */
+  .hero .chips,.hero .cta{justify-content:center}
+  .lede{max-width:34em}
+}
 @media (min-width:960px){
   .nav-cta{display:inline-flex}
   .hero-copy{grid-template-columns:1.25fr 1fr; align-items:end; column-gap:56px; padding-top:150px}
@@ -389,7 +399,7 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
   .hero .cta{display:none}
   .under-row{grid-template-columns:1fr 1fr; align-items:start; justify-items:stretch; padding-left:6%; padding-right:6%}
   .meaning{text-align:left; padding-top:26px}
-  .hero-phone{--pw:300px; justify-self:center; margin-top:calc(var(--wh,120px) * -.62 + 28px); margin-bottom:-170px}   /* 정렬 수정: 폰 윗부분이 수면(overflow) 위로 올라가 잘리고 단어와 겹치던 결함 */
+  .hero-phone{--pw:300px; justify-self:end; margin-top:calc(var(--wh,120px) * -.62 + 28px); margin-bottom:-170px}   /* 정렬 수정: 폰 윗부분이 수면(overflow) 위로 올라가 잘리고 단어와 겹치던 결함 */
   .hero-pad{height:200px}
   /* 흐름: 왼쪽 폰 고정, 오른쪽 장면 */
   .js .story-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:72px}
