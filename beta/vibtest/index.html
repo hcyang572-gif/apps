@@ -1,0 +1,7 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>진동시험</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#111;color:#fff;font:20px sans-serif}button{font-size:28px;padding:40px 60px}</style></head>
+<body><button id="b">눌러서 진동 시험</button>
+<script>
+var s='지원:'+(('vibrate' in navigator)?'O':'X');document.title=s+' 대기 UA:'+(/KAKAOTALK/i.test(navigator.userAgent)?'카톡':'기타');
+document.getElementById('b').addEventListener('click',function(){var r;try{r=navigator.vibrate?navigator.vibrate([200,100,200]):'없음'}catch(e){r='오류'}document.title=s+' 결과:'+r+' UA:'+(/KAKAOTALK/i.test(navigator.userAgent)?'카톡':'기타');});
+</script></body></html>
