@@ -774,7 +774,7 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
   var MIN_GAP = 40;          // 직전 펄스 «끝»에서 다음 펄스 «시작»까지
   var MAX_RATE = 18;         // 다이얼 detent 초당 상한
   var INERTIA_MS = 1200;     // 손가락을 뗀 뒤 관성 스크롤로 보는 시간
-  var P = { detent: 3, tap: 4, settle: [3, 40, 5], success: [4, 70, 6] };
+  var P = { detent: 12, tap: 16, settle: [10, 40, 16], success: [14, 70, 18] };  // 2026-10-02 실폰: 3ms는 폴드7에서 거의 안 느껴짐 → 10~18ms
   var PRIORITY = { tap: 1, settle: 1, success: 1, pulse: 1 };
 
   var now = function () { return (w.performance && w.performance.now) ? w.performance.now() : Date.now(); };
