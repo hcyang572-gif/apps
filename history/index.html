@@ -198,11 +198,19 @@ section[id]{scroll-margin-top:calc(32px + env(safe-area-inset-top))}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media(min-width:960px){.hero-scroll{display:flex}}
 
-/* 기기 프레임 */
-.device{position:relative;aspect-ratio:1080/2520;border-radius:15%/6.6%;padding:3.2%;
-  background:linear-gradient(150deg,#3A4266,#0B0F22 46%,#1D2440);box-shadow:0 2px 6px rgba(9,19,53,.25),0 50px 90px -30px rgba(5,12,46,.75),inset 0 0 0 1px rgba(255,255,255,.14)}
-.device .scr{position:relative;width:100%;height:100%;border-radius:13%/5.6%;overflow:hidden;background:#E6EBF8}
+/* 기기 프레임 — 실제 최신 폰 비례(2026-10-02 호창님 «테두리가 너무 두껍고 폰 같지 않다»)
+   베젤 = 폭의 2.7% · 외곽 반경 = 폭의 13.5% · 화면 반경 = 외곽 − 베젤 · 화면 비율 = 캡처 1080:2520 그대로.
+   높이/폭 = 0.946 × 2520/1080 + 0.054 = 2.2613 → 세로 % 는 가로 % ÷ 2.2613 */
+.device{position:relative;aspect-ratio:1000/2261;border-radius:13.5%/5.97%;border:1.5px solid transparent;
+  background:#05070D padding-box,linear-gradient(150deg,#A9B1CC 0%,#4A5170 22%,#1B2033 50%,#3E4562 78%,#98A1BE 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 0 0 .5px rgba(5,8,20,.55),0 24px 40px -26px rgba(5,12,46,.55),0 60px 90px -54px rgba(5,12,46,.5)}
+.device .scr{position:absolute;left:2.7%;right:2.7%;top:1.194%;bottom:1.194%;border-radius:11.42%/4.89%;overflow:hidden;background:#E6EBF8}
 .device .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* 펀치홀 카메라 : 상태바 가운데(캡처에서 비어 있는 자리) */
+.device .scr::before{content:"";position:absolute;z-index:3;top:1.15%;left:50%;width:2.7%;aspect-ratio:1;border-radius:50%;transform:translateX(-50%);
+  background:radial-gradient(circle at 35% 35%,#2A3350 0 22%,#06080F 48%);box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+/* 유리 반사 : 아주 약하게 */
+.device .scr::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.07),rgba(255,255,255,0) 26%)}
 
 /* ═══ 지표 띠 ═══ */
 .ledger{position:relative;margin-top:clamp(20vh,22vh,240px)}
@@ -228,7 +236,7 @@ section[id]{scroll-margin-top:calc(32px + env(safe-area-inset-top))}
 @media(min-width:960px){
   .pin{display:block;position:sticky;top:0;height:100vh;align-self:start}
   .pin-in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-  .pin .device{width:min(330px,calc((100vh - 140px) * 1080 / 2520))}
+  .pin .device{width:min(330px,calc((100vh - 140px) * 1000 / 2261))}
   .pin .scr img{opacity:0;transform:scale(1.035);transition:opacity var(--t-max) var(--ease),transform 900ms var(--ease)}
   .pin .scr img.on{opacity:1;transform:none}
   .pin-count{position:absolute;left:0;right:0;bottom:6vh;display:flex;justify-content:center;gap:6px}
@@ -324,9 +332,10 @@ section[id]{scroll-margin-top:calc(32px + env(safe-area-inset-top))}
 .wide-card{padding:clamp(22px,4vw,44px)}
 .wide h2{font-size:clamp(28px,5vw,44px);line-height:1.2;margin:14px 0 12px}
 .wide p{color:var(--sub);max-width:38em;line-height:1.8}
-.tablet{margin-top:28px;border-radius:clamp(16px,2.6vw,28px);padding:clamp(6px,1vw,11px);
-  background:linear-gradient(150deg,#3A4266,#0B0F22 46%,#1D2440);box-shadow:0 40px 80px -36px rgba(5,12,46,.7),inset 0 0 0 1px rgba(255,255,255,.12)}
-.tablet img{width:100%;aspect-ratio:2388/1668;object-fit:cover;border-radius:clamp(11px,2vw,19px)}
+.tablet{margin-top:28px;border-radius:clamp(14px,2.3vw,34px);padding:1.5%;border:1.5px solid transparent;
+  background:#05070D padding-box,linear-gradient(150deg,#A9B1CC 0%,#4A5170 22%,#1B2033 50%,#3E4562 78%,#98A1BE 100%) border-box;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 0 0 .5px rgba(5,8,20,.55),0 30px 50px -30px rgba(5,12,46,.55),0 70px 100px -60px rgba(5,12,46,.45)}
+.tablet img{width:100%;aspect-ratio:2388/1668;object-fit:cover;border-radius:clamp(9px,1.6vw,24px)}
 
 /* ═══ ⑥ 공부의 길 : 에디토리얼 목록 + 능선 위 번호 알 ═══ */
 .path{padding:clamp(56px,10vh,120px) 0}
@@ -464,7 +473,7 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   .hero .lead{font-size:calc(19px * var(--k))}
   .hero-phone{width:min(calc(340px * var(--k)),46svh)}
   .story-grid{grid-template-columns:minmax(300px,calc(380px * var(--k))) 1fr;gap:clamp(72px,6vw,200px)}
-  .pin .device{width:min(calc(330px * var(--k)),calc((100vh - 200px) * 1080 / 2520))}
+  .pin .device{width:min(calc(330px * var(--k)),calc((100vh - 200px) * 1000 / 2261))}
   .intro{max-width:calc(720px * var(--k))}
   .intro h2{font-size:calc(58px * var(--k))} .intro p,.dl .lead,.try .side p,.wide p{font-size:calc(18px * var(--k))}
   .ch h3{font-size:calc(44px * var(--k))} .ch p{font-size:calc(17px * var(--k))} .ch li{font-size:calc(15.5px * var(--k))}
