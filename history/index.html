@@ -394,7 +394,72 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 .foot nav a{font-weight:600;color:var(--sub)}
 .foot nav a:hover{color:var(--ink)}
 
+/* ═══════════════════════════════════════════════════════════════
+   모션 보강(2026-10-02) — 모션 언어 하나: 곡선은 앱 감속 곡선 --ease=(.2,0,0,1) 한 종,
+   길이는 앱 위계(누름 100 · 풀림 240 · 서사 400 · 상한 480 · 스태거 30ms) + 페이지 서사 900ms.
+   transform·opacity 만 움직인다. 무한 반복(해무리·스크롤 표시)은 히어로가 보일 때만,
+   탭이 숨으면 정지(.tab-off / .hero-off).
+   ═══════════════════════════════════════════════════════════════ */
+:root{--t-story:900ms}
+/* 진행 표시선 : 하늘을 건넌 만큼 금빛→장밋빛 선이 찬다 */
+.prog{position:absolute;left:0;right:0;bottom:0;height:2px;transform-origin:0 50%;transform:scaleX(0);will-change:transform;
+  background:linear-gradient(90deg,rgba(237,174,46,.0),var(--gold) 30%,var(--rose));pointer-events:none}
+/* 해무리 : 아주 느린 숨(히어로가 보일 때만) */
+.sun::after{content:"";position:absolute;inset:-22%;border-radius:50%;background:radial-gradient(circle,rgba(255,217,176,.28),rgba(240,168,144,.08) 45%,transparent 68%);
+  animation:breathe 4.8s var(--ease) infinite alternate}
+@keyframes breathe{from{opacity:.45;transform:scale(.94)}to{opacity:1;transform:scale(1.06)}}
+.tab-off .sun::after,.hero-off .sun::after,.tab-off .hero-scroll i,.hero-off .hero-scroll i{animation-play-state:paused}
+/* 히어로 제목 : 줄 단위 마스크 와이프(아래에서 떠오름) */
+.hero h1 .l > .rv{transform:translateY(105%);transition-duration:var(--t-story)}
+.hero h1 .l > .rv.in{transform:none}
+/* 세리프 제목 : 단어 단위 마스크 와이프 */
+.wd{display:inline-block;clip-path:inset(-.14em -.08em -.22em -.08em)}
+.wd > span{display:inline-block;transform:translateY(108%);transition:transform var(--t-story) var(--ease);transition-delay:calc(var(--wi,0) * 30ms + 120ms)}
+.in .wd > span,.wd.in > span{transform:none}
+/* 목록·행·카드 : 30ms 스태거로 떠오름(1회) */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+.in .st{animation:rise var(--t-max) var(--ease) backwards;animation-delay:calc(var(--si,0) * 30ms + 180ms)}
+.in .opt{animation:rise var(--t-max) var(--ease) backwards;animation-delay:calc(var(--si,0) * 30ms + 200ms)}
+.try .opt.shake{animation:shakeNo 420ms var(--ease)}
+.expl.open .ans,.expl.open .why{animation:rise var(--t-max) var(--ease) backwards;animation-delay:calc(var(--si,0) * 30ms + 60ms)}
+@keyframes pop{45%{transform:scale(1.12)}}
+.opt.ok .bead{animation:pop var(--t-max) var(--ease)}
+/* 폰 목업 : 커서를 은은히 따라 기울기(정밀 포인터에서만) */
+.device.tilt{transition:transform var(--t-narr) var(--ease);will-change:transform}
+/* 이야기 : 화면 전환은 크로스페이드 + 살짝 떠오름 */
+@media(min-width:960px){.pin .scr img{transform:translateY(2.4%) scale(1.03);transition:opacity var(--t-max) var(--ease),transform var(--t-story) var(--ease)}.pin .scr img.on{transform:none}}
+/* 필름 : 무대가 앞으로 다가오고, 포스터는 천천히 초점이 맞는다 */
+.film-card.rv{transform:translateY(28px) scale(.97);transition-duration:var(--t-story)}
+.film-card.rv.in{transform:none}
+.screen .poster{transform:scale(1.06);transition:transform var(--t-story) var(--ease)}
+.in .screen .poster{transform:none}
+/* 넓은 화면 : 태블릿이 누운 자세에서 일어선다 */
+.wide .tablet{transform:perspective(1600px) rotateX(14deg) translateY(26px);transform-origin:50% 100%;opacity:.35;
+  transition:transform var(--t-story) var(--ease) 120ms,opacity var(--t-max) var(--ease) 120ms}
+.in .tablet{transform:none;opacity:1}
+/* 공부의 길 : 능선이 왼쪽부터 그려지고, 화살표가 미끄러져 든다 */
+.ridge-steps svg.line{transform:scaleX(0);transform-origin:0 0;transition:transform var(--t-story) var(--ease) 240ms}
+.in .ridge-steps svg.line{transform:none}
+.big .arrow{display:inline-block;opacity:0;transform:translateX(-14px);transition:opacity var(--t-max) var(--ease) 360ms,transform var(--t-max) var(--ease) 360ms}
+.in .big .arrow{opacity:1;transform:none}
+/* 버튼 : 지나가는 새벽빛(광택 스윕) — 호버 1회 */
+.btn .sh{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;pointer-events:none}
+.btn .sh::before{content:"";position:absolute;top:0;bottom:0;left:0;width:42%;transform:translateX(-130%) skewX(-18deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.34),transparent)}
+@media(hover:hover){.btn:hover .sh::before{transform:translateX(330%) skewX(-18deg);transition:transform var(--t-story) var(--ease)}}
+/* 롤링 숫자(odometer) : 자리마다 아래에서 위로 굴러 올라와 멈춘다. 쉼표·단위는 고정 */
+.odo{white-space:nowrap;font-variant-numeric:tabular-nums}
+.odo .dg{position:relative;display:inline-block}
+.odo.roll .dg{-webkit-text-fill-color:transparent;clip-path:inset(0 -.12em)}
+.odo.roll .dg::before{content:attr(data-s);position:absolute;left:0;right:0;top:0;white-space:pre;text-align:center;-webkit-text-fill-color:currentColor;
+  transform:translateY(calc(var(--k,0) * -100% / var(--n,1)));transition:transform var(--t-story) var(--ease);transition-delay:var(--d,0ms)}
+/* 햅틱(iOS 18+ 스위치 기법)용 숨은 스위치 */
+.hap{position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+
 @media (prefers-reduced-motion: reduce){
+  .hero h1 .l > .rv,.wd > span,.film-card.rv,.screen .poster,.wide .tablet,.ridge-steps svg.line,.big .arrow{transform:none;opacity:1;transition:none}
+  .in .st,.in .opt,.expl.open .ans,.expl.open .why,.opt.ok .bead,.sun::after{animation:none}
+  .device.tilt,.btn .sh::before{transition:none}
   .rv{opacity:1;transform:none;transition:none}
   .hero-scroll i{animation:none}
   .pin .scr img{transition:opacity 160ms linear}
@@ -421,7 +486,7 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 </div>
 
 <header class="nav" id="nav">
-  <div class="nav-in"></div>
+  <div class="nav-in"></div><i class="prog" id="prog" aria-hidden="true"></i>
   <div class="wrap">
     <a class="brand" href="#top"><img src="data:image/png;base64,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" alt="" width="32" height="32">한국사 매니저</a>
     <div class="era-now" aria-live="polite"><i></i><small>지금</small><span id="eraNow">선사 시대</span></div>
@@ -459,10 +524,10 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 <div class="wrap">
   <section class="ledger glass rv" aria-label="숫자로 보는 한국사 매니저">
     <div class="ledger-grid">
-      <div><b data-count="4252">4,252</b><p>오답 선지마다 붙은<br>«왜 틀렸는가»</p></div>
-      <div><b><span data-count="1063">1,063</span><small>문항</small></b><p>새로 쓴 자체제작 문항,<br>전부 검수 완료</p></div>
-      <div><b><span data-count="398">398</span><small>차시</small></b><p>선사부터 현대까지<br>시대별 개념 레슨</p></div>
-      <div><b><span data-count="2926">2,926</span><small>건</small></b><p>연표·비교표·지도·계보도<br>시각자료</p></div>
+      <div><b>4,252</b><p>오답 선지마다 붙은<br>«왜 틀렸는가»</p></div>
+      <div><b>1,063<small>문항</small></b><p>새로 쓴 자체제작 문항,<br>전부 검수 완료</p></div>
+      <div><b>398<small>차시</small></b><p>선사부터 현대까지<br>시대별 개념 레슨</p></div>
+      <div><b>2,926<small>건</small></b><p>연표·비교표·지도·계보도<br>시각자료</p></div>
     </div>
     <p class="src">공개된 37회차 1,850문항(심화 최근 23회차 연속·기본 14회차, 제79회까지)에서 출제경향만 분석하고, 문항 1,063개와 해설은 전부 새로 썼습니다.</p>
   </section>
@@ -689,6 +754,44 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function(id){ return document.getElementById(id); };
+  var root=document.documentElement, IO=('IntersectionObserver' in window);
+
+  /* ── 햅틱 haptic(kind) : Android=vibrate, iOS 18+=숨은 스위치 «틱», 그 밖엔 조용히 무시.
+        첫 터치 이후만 · 동작 줄이기면 끔 · 탭이 숨으면 끔 · 장면/성공은 600ms 간격 ── */
+  var hapOn=false, hapLast=0, hapLbl=null;
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){ addEventListener(ev,function(){ hapOn=true; },{capture:true,passive:true}); });
+  var PAT={tap:8,select:12,success:[10,40,14]};
+  function haptic(kind){
+    if(!hapOn||reduce||document.hidden) return;
+    var now=Date.now(); if(kind!=='tap'){ if(now-hapLast<600) return; hapLast=now; }
+    try{
+      if(navigator.vibrate){ navigator.vibrate(PAT[kind]||8); return; }
+      if(/iP(hone|ad|od)|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document){
+        if(!hapLbl){ hapLbl=document.createElement('label'); hapLbl.className='hap'; hapLbl.setAttribute('aria-hidden','true');
+          var cb=document.createElement('input'); cb.type='checkbox'; cb.setAttribute('switch',''); cb.tabIndex=-1; hapLbl.appendChild(cb); document.body.appendChild(hapLbl); }
+        hapLbl.click(); if(kind==='success') setTimeout(function(){ hapLbl&&hapLbl.click(); },90);
+      }
+    }catch(x){}
+  }
+  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.play,.sound,.rail a,.reset,.foot nav a,.film-foot a'); if(a) haptic('tap'); });
+
+  /* ── 무한 반복(해무리·스크롤 표시)은 히어로가 보일 때만, 탭이 숨으면 정지 ── */
+  function tabVis(){ root.classList.toggle('tab-off',document.hidden); }
+  document.addEventListener('visibilitychange',tabVis); tabVis();
+  if(IO){ new IntersectionObserver(function(es){ root.classList.toggle('hero-off',!es[0].isIntersecting); }).observe(document.querySelector('.hero')); }
+
+  /* ── 세리프 제목 : 단어 단위 마스크 와이프 ── */
+  if(!reduce && IO){
+    [].slice.call(document.querySelectorAll('h2.serif,h3.serif')).forEach(function(h){ var wi=0;
+      [].slice.call(h.childNodes).forEach(function(n){ if(n.nodeType!==3||!n.nodeValue.trim()) return;
+        var f=document.createDocumentFragment();
+        n.nodeValue.split(/(\s+)/).forEach(function(w){ if(!w) return; if(/^\s+$/.test(w)){ f.appendChild(document.createTextNode(w)); return; }
+          var o=document.createElement('span'), i=document.createElement('span'); o.className='wd'; i.textContent=w; i.style.setProperty('--wi',Math.min(wi++,12)); o.appendChild(i); f.appendChild(o); });
+        h.replaceChild(f,n); }); });
+  }
+  /* ── 목록·행·카드 스태거(형제 순서대로 30ms) ── */
+  ['.ch li','.rows .row','.ridge-steps li','.facts > div','.stores .store-card','.dl-top > *','.qr-pair figure'].forEach(function(s){
+    [].slice.call(document.querySelectorAll(s)).forEach(function(e){ e.classList.add('st'); e.style.setProperty('--si',[].indexOf.call(e.parentNode.children,e)); }); });
 
   /* ── 시대 : 앱 레슨 색인(lessons-index.json)의 11개 시대 ── */
   var ERAS=['선사 시대','고조선과 여러 나라','삼국 시대','남북국 시대','고려 시대','조선 전기','조선 후기','개항기','대한 제국','일제 강점기','현대'];
@@ -699,7 +802,8 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   var railA=[].slice.call(rail.children), eraNow=$('eraNow'), curEra=-1, swapT;
 
   /* ── 하늘 : 스크롤 진행도 → 밤·여명·아침 (opacity/transform 만) ── */
-  var skyD=$('skyD'), skyM=$('skyM'), stars=$('stars'), sun=$('sun'), ridges=$('ridges'), nav=$('nav');
+  var skyD=$('skyD'), skyM=$('skyM'), stars=$('stars'), sun=$('sun'), ridges=$('ridges'), nav=$('nav'), prog=$('prog'),
+      heroCopy=document.querySelector('.hero-copy'), heroPhone=document.querySelector('.hero-phone'), lastPar=-1;
   function clamp(v){ return v<0?0:v>1?1:v; }
   var ticking=false;
   function frame(){
@@ -712,11 +816,15 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
     sun.style.transform='translate3d(0,'+(vh*(.98-.86*p)).toFixed(1)+'px,0)';
     sun.style.opacity=.35+.65*clamp(p/.5);
     ridges.style.transform='translate3d(0,'+(p*28).toFixed(1)+'px,0)';
+    prog.style.transform='scaleX('+p.toFixed(4)+')';
+    if(!reduce){ var y=Math.min(scrollY,vh*1.3); if(y!==lastPar){ lastPar=y;   /* 히어로 패럴랙스: 폰이 글보다 빨리 오른다(개별 translate — .rv 의 transform 과 겹치지 않음) */
+      heroCopy.style.translate='0 '+(-y*.05).toFixed(1)+'px'; heroPhone.style.translate='0 '+(-y*.12).toFixed(1)+'px'; } }
     nav.classList.toggle('solid', scrollY>40);
     var e=Math.min(ERAS.length-1,Math.floor(p*ERAS.length));
     if(e!==curEra){
       curEra=e;
       railA.forEach(function(a,i){ a.classList.toggle('on',i===e); a.classList.toggle('past',i<e); });
+      if(e>0) haptic('select');
       if(reduce){ eraNow.textContent=ERAS[e]; }
       else{ eraNow.classList.add('out'); clearTimeout(swapT); swapT=setTimeout(function(){ eraNow.textContent=ERAS[e]; eraNow.classList.remove('out'); },160); }
     }
@@ -730,21 +838,37 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   else{ var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} }); },{rootMargin:'0px 0px -6% 0px',threshold:.06});
         rv.forEach(function(e){ io.observe(e); }); }
 
-  /* ── 숫자 카운트업(app_motion countUp = easeOutCubic) ── */
-  var nums=[].slice.call(document.querySelectorAll('[data-count]'));
-  function fmt(n){ return n.toLocaleString('ko-KR'); }
-  if(!reduce && 'IntersectionObserver' in window){
-    var co=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; co.unobserve(en.target);
-      var el=en.target, to=+el.dataset.count, t0=performance.now(), d=1100;
-      (function step(t){ var k=Math.min(1,(t-t0)/d), v=1-Math.pow(1-k,3); el.textContent=fmt(Math.round(to*v)); if(k<1) requestAnimationFrame(step); })(t0);
-    }); },{threshold:.4});
-    nums.forEach(function(n){ n.textContent='0'; co.observe(n); });
+  /* ── 롤링 숫자(odometer) : 페이지의 숫자를 자리별 세로 굴림으로. 한 번만, 끝에서 감속(--ease).
+        일의 자리가 가장 많이 구른다(2바퀴·1바퀴·0바퀴) · 쉼표·단위 고정 · 동작 줄이기면 최종값 그대로 ── */
+  var ODO_ROOTS='.hero .lead,.ledger,.intro p,.ch-no,.ch p,.ch li,.figs,.rows,.ridge-steps,.big,.proof p,.facts';
+  if(!reduce && IO){
+    var D='0\n1\n2\n3\n4\n5\n6\n7\n8\n9';
+    [].slice.call(document.querySelectorAll(ODO_ROOTS)).forEach(function(r){
+      var w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT,{acceptNode:function(n){ return /\d/.test(n.nodeValue)&&!n.parentNode.closest('.odo,.bead,svg,a,button')?1:3; }}), list=[], n;
+      while((n=w.nextNode())) list.push(n);
+      list.forEach(function(tn){ var f=document.createDocumentFragment(), s=tn.nodeValue, last=0;
+        s.replace(/\d(?:[\d,]*\d)?/g,function(m,at){ if(at>last) f.appendChild(document.createTextNode(s.slice(last,at)));
+          var o=document.createElement('span'); o.className='odo roll'; o.setAttribute('role','text'); o.setAttribute('aria-label',m); var digits=m.replace(/,/g,'').length, di=0;
+          m.split('').forEach(function(c){ if(c===','){ var cm=document.createElement('span'); cm.setAttribute('aria-hidden','true'); cm.textContent=','; o.appendChild(cm); return; }
+            var place=digits-1-di, spins=place===0?2:place===1?1:0, d=+c, seq=[]; for(var q=0;q<spins;q++) seq.push(D); seq.push(D.slice(0,d*2+1));
+            var g=document.createElement('span'); g.className='dg'; g.setAttribute('aria-hidden','true'); g.textContent=c; g.setAttribute('data-s',seq.join('\n'));
+            g.style.setProperty('--n',spins*10+d+1); g.style.setProperty('--d',(di*30+120)+'ms'); o.appendChild(g); di++; });
+          f.appendChild(o); last=at+m.length; return m; });
+        if(last<s.length) f.appendChild(document.createTextNode(s.slice(last)));
+        var box=document.createElement('span'); box.appendChild(f); tn.parentNode.replaceChild(box,tn); });  /* 한 덩이로 — flex 부모(.ch li 등)에서 조각이 따로 놀지 않게 */
+    });
+    var oo=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; oo.unobserve(en.target); var o=en.target, gs=[].slice.call(o.querySelectorAll('.dg'));
+      requestAnimationFrame(function(){ gs.forEach(function(g){ g.style.setProperty('--k',+g.style.getPropertyValue('--n')-1); }); });
+      setTimeout(function(){ o.classList.remove('roll'); if(o.closest('.ledger,.big')) haptic('success'); },900+gs.length*30+160); }); },{rootMargin:'0px 0px -8% 0px',threshold:1});
+    [].slice.call(document.querySelectorAll('.odo.roll')).forEach(function(o){ oo.observe(o); });
   }
 
   /* ── 이야기 : 화면 고정 폰의 화면 전환 ── */
   var pinImgs=[].slice.call(document.querySelectorAll('#pinScr img')), pinDots=[].slice.call(document.querySelectorAll('#pinCount i'));
   if('IntersectionObserver' in window){
+    var curK=0, pinEl=document.querySelector('.pin');
     var so=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; var k=+en.target.dataset.k;
+      if(k!==curK){ curK=k; if(getComputedStyle(pinEl).display!=='none') haptic('select'); }
       pinImgs.forEach(function(im,i){ im.classList.toggle('on',i===k); }); pinDots.forEach(function(d,i){ d.classList.toggle('on',i===k); }); }); },{rootMargin:'-45% 0px -45% 0px'});
     [].slice.call(document.querySelectorAll('.ch')).forEach(function(c){ so.observe(c); });
   }
@@ -756,6 +880,22 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
         b.style.transform='translate('+(x*8).toFixed(1)+'px,'+(y*6).toFixed(1)+'px)'; });
       b.addEventListener('pointerleave',function(){ b.style.transform=''; });
     });
+  }
+
+  /* ── 버튼 광택 스윕(호버 1회) ── */
+  [].slice.call(document.querySelectorAll('.btn')).forEach(function(b){ var i=document.createElement('i'); i.className='sh'; i.setAttribute('aria-hidden','true'); b.appendChild(i); });
+
+  /* ── 폰 목업 3D 기울기 : 커서를 은은히(최대 5°) 따른다. 포인터 이벤트당 rAF 1회, 읽기→쓰기 분리, 화면 밖이면 건너뜀 ── */
+  if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var tilts=[].slice.call(document.querySelectorAll('.hero-phone .device,.pin .device')), px=-1, py=-1, tq=false;
+    tilts.forEach(function(d){ d.classList.add('tilt'); });
+    var tiltF=function(){ tq=false; var W=innerWidth, H=innerHeight, rs=tilts.map(function(d){ return d.parentNode.getBoundingClientRect(); });
+      tilts.forEach(function(d,i){ var r=rs[i]; if(!r.width||r.bottom<0||r.top>H) return;
+        if(px<0){ d.style.transform=''; return; }
+        var x=Math.max(-.5,Math.min(.5,(px-(r.left+r.width/2))/W)), y=Math.max(-.5,Math.min(.5,(py-(r.top+r.height/2))/H));
+        d.style.transform='perspective(1400px) rotateY('+(x*10).toFixed(2)+'deg) rotateX('+(-y*8).toFixed(2)+'deg)'; }); };
+    addEventListener('pointermove',function(e){ px=e.clientX; py=e.clientY; if(!tq){ tq=true; requestAnimationFrame(tiltF); } },{passive:true});
+    document.documentElement.addEventListener('pointerleave',function(){ px=-1; if(!tq){ tq=true; requestAnimationFrame(tiltF); } });
   }
 
   /* ── 직접 풀어 보기 : 앱 수록 문항 it-gojoseon-0022 원문 ── */
@@ -771,15 +911,16 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   $('ansText').innerHTML=mk(Q.answer);
   function build(){
     opts.innerHTML=''; whyList.innerHTML=''; expl.classList.remove('open');
-    Q.choices.forEach(function(c,i){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.innerHTML='<i class="bead">'+(i+1)+'</i><span>'+c+'</span>';
+    Q.choices.forEach(function(c,i){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.style.setProperty('--si',i); b.innerHTML='<i class="bead">'+(i+1)+'</i><span>'+c+'</span>';
       b.addEventListener('click',function(){ pick(i); }); opts.appendChild(b); });
   }
   function pick(i){
+    haptic(i===Q.ans?'success':'tap');
     var bs=[].slice.call(opts.children);
     bs.forEach(function(b,k){ b.disabled=true; if(k===Q.ans) b.classList.add('ok'); else if(k===i) b.classList.add('no'); else b.classList.add('dim'); });
     if(i!==Q.ans && !reduce) bs[i].classList.add('shake');
     var order=[0,2,3,4]; if(i!==Q.ans){ order.splice(order.indexOf(i),1); order.unshift(i); }
-    whyList.innerHTML=order.map(function(k){ var x=Q.d[k]; return '<div class="why'+(k===i?' focus':'')+'"><div class="h"><i class="bead">'+(k+1)+'</i>'+(k===i?'내가 고른 선지 — 왜 틀렸나':circ[k]+' 왜 틀렸나')+'</div>'+mk(x.why)+'<span class="trap">'+mk(x.trap)+'</span></div>'; }).join('');
+    whyList.innerHTML=order.map(function(k){ var x=Q.d[k]; return '<div class="why'+(k===i?' focus':'')+'" style="--si:'+(order.indexOf(k)+1)+'"><div class="h"><i class="bead">'+(k+1)+'</i>'+(k===i?'내가 고른 선지 — 왜 틀렸나':circ[k]+' 왜 틀렸나')+'</div>'+mk(x.why)+'<span class="trap">'+mk(x.trap)+'</span></div>'; }).join('');
     expl.classList.add('open');
   }
   $('reset').addEventListener('click',build); build();
