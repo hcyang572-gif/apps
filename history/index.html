@@ -89,7 +89,7 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
 mark{background:var(--hl);color:inherit;padding:0 .05em}
-.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 16px}
+.wrap{width:100%;max-width:var(--wmax,1180px);margin:0 auto;padding:0 16px}
 @media(min-width:720px){.wrap{padding:0 32px}}
 
 /* ── 하늘 무대(고정) : 스크롤 진행도 → 밤·여명·아침 겹 투명도, 해의 높이 ── */
@@ -129,7 +129,7 @@ section[id]{scroll-margin-top:calc(32px + env(safe-area-inset-top))}
 @media(max-width:374px){.era-now small{display:none}.era-now{padding:0 12px 0 10px}}
 
 /* ── 시대 능선 레일(넓은 화면) : 앱의 「시대 능선」을 세로로 ── */
-.rail{position:fixed;right:max(22px,calc((100vw - 1180px) / 2 - 150px));top:50%;transform:translateY(-50%);z-index:20;display:none;flex-direction:column;gap:2px}
+.rail{position:fixed;right:max(22px,calc((100vw - var(--wmax,1180px)) / 2 - 150px));top:50%;transform:translateY(-50%);z-index:20;display:none;flex-direction:column;gap:2px}
 @media(min-width:1320px){.rail{display:flex}}
 .rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;height:26px;font-size:12px;font-weight:600;color:rgba(255,255,255,.0);
   transition:color var(--t-narr) var(--ease)}
@@ -139,8 +139,8 @@ section[id]{scroll-margin-top:calc(32px + env(safe-area-inset-top))}
 .rail a.on{color:#fff;text-shadow:0 1px 10px rgba(20,24,50,.5)}
 .rail a.on::after{background:var(--gold);transform:scale(1.5)}
 .rail:hover a{color:rgba(255,255,255,.75);text-shadow:0 1px 10px rgba(20,24,50,.5)}
-/* 1320~1399 폭은 카드 오른쪽 여백이 라벨보다 좁다 → 점만 */
-@media(min-width:1320px) and (max-width:1399px){.rail a,.rail:hover a{font-size:0;gap:0;color:transparent}}
+/* 1320~1919 폭은 카드 오른쪽 여백이 라벨보다 좁다 → 점만 */
+@media(min-width:1320px) and (max-width:1919px){.rail a,.rail:hover a{font-size:0;gap:0;color:transparent}}
 
 /* ── 공통 : 가짜 유리 패널, 칩, 등장 ── */
 .glass{position:relative;border-radius:var(--r-m);border:1px solid transparent;
@@ -453,8 +453,33 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 .odo.roll .dg{-webkit-text-fill-color:transparent;clip-path:inset(0 -.12em)}
 .odo.roll .dg::before{content:attr(data-s);position:absolute;left:0;right:0;top:0;white-space:pre;text-align:center;-webkit-text-fill-color:currentColor;
   transform:translateY(calc(var(--k,0) * -100% / var(--n,1)));transition:transform var(--t-story) var(--ease);transition-delay:var(--d,0ms)}
-/* 햅틱(iOS 18+ 스위치 기법)용 숨은 스위치 */
-.hap{position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+
+/* ═══ PC «꽉 찬 느낌»(2026-10-02) — 1440 이상에서만. 모바일·태블릿(≤1366)은 그대로 ═══
+   최대폭 단계 1180 → 1360(1440) → 1520(1680) → 1640(1920) → 86vw(2560, 상한 2240),
+   글자·폰·무대·영상은 배율 --k 로 함께 키운다(1.08 → 1.16 → 1.26 → 1.6). */
+@media(min-width:1440px){
+  :root{--wmax:1360px;--k:1.08}
+  .hero-grid{grid-template-columns:1.15fr .85fr;gap:clamp(40px,5vw,160px)}
+  .hero h1{font-size:calc(112px * var(--k))}
+  .hero .lead{font-size:calc(19px * var(--k))}
+  .hero-phone{width:min(calc(340px * var(--k)),46svh)}
+  .story-grid{grid-template-columns:minmax(300px,calc(380px * var(--k))) 1fr;gap:clamp(72px,6vw,200px)}
+  .pin .device{width:min(calc(330px * var(--k)),calc((100vh - 200px) * 1080 / 2520))}
+  .intro{max-width:calc(720px * var(--k))}
+  .intro h2{font-size:calc(58px * var(--k))} .intro p,.dl .lead,.try .side p,.wide p{font-size:calc(18px * var(--k))}
+  .ch h3{font-size:calc(44px * var(--k))} .ch p{font-size:calc(17px * var(--k))} .ch li{font-size:calc(15.5px * var(--k))}
+  .ledger b{font-size:calc(44px * var(--k))} .ledger p{font-size:calc(13.5px * var(--k))}
+  .try h2,.path h2{font-size:calc(50px * var(--k))} .q-stem{font-size:calc(19px * var(--k))} .opt{font-size:calc(15.5px * var(--k))}
+  .film{--scr-max:min(calc(1040px * var(--k)),calc((100svh - 64px - 40px) * 16 / 9))}
+  .film-head h2,.wide h2{font-size:calc(42px * var(--k))}
+  .row{grid-template-columns:calc(220px * var(--k)) 1fr} .row h4{font-size:calc(26px * var(--k))} .row p{font-size:calc(15.5px * var(--k))}
+  .big .a,.big .b{font-size:calc(96px * var(--k))} .proof h3{font-size:calc(32px * var(--k))}
+  .dl h2{font-size:calc(76px * var(--k))} .stores{max-width:calc(860px * var(--k))}
+  .store-card .q{width:calc(132px * var(--k))} .qr-pair .q{width:calc(104px * var(--k));height:calc(104px * var(--k))}
+}
+@media(min-width:1680px){:root{--wmax:1520px;--k:1.16}}
+@media(min-width:1920px){:root{--wmax:1640px;--k:1.26}}
+@media(min-width:2400px){:root{--wmax:min(86vw,2240px);--k:1.6}}
 
 @media (prefers-reduced-motion: reduce){
   .hero h1 .l > .rv,.wd > span,.film-card.rv,.screen .poster,.wide .tablet,.ridge-steps svg.line,.big .arrow{transform:none;opacity:1;transition:none}
@@ -751,29 +776,292 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 </footer>
 
 <script>
+/*!
+ * haptics.js — 랜딩 공용 햅틱 (정본). 의존성 없음. 각 빌드가 인라인해서 쓴다.
+ * 햅틱 v2 «애플워치 용두처럼 섬세하게» — BRIEF.md 참조.
+ *
+ *  - Android(Chrome·삼성 인터넷): navigator.vibrate 마이크로 펄스.
+ *      detent 3ms · tap 4ms · settle [3,40,5] · success [4,70,6]
+ *  - 직전 펄스가 «끝난» 뒤 최소 40ms 간격. detent 는 간격 안이면 버리고,
+ *    tap·settle·success 는 버리지 않고 간격이 열리는 순간으로 미룬다.
+ *  - 첫 사용자 터치(pointerdown pointerType==='touch' / touchstart) 전에는 시도조차 안 한다.
+ *  - prefers-reduced-motion: reduce 이거나 탭이 숨겨져 있으면 꺼진다.
+ *  - iOS(vibrate 없음): iOS 18+ <input type=checkbox switch> 기법으로 tap 류만 «틱» 1회.
+ *    연속 detent 는 iOS 에서 하지 않는다.
+ *  - 데스크톱·미지원: 아무것도 안 한다(에러 0).
+ *
+ * API
+ *   Haptics.detent() / tap() / settle() / success()   → true(발생·예약) | false(건너뜀)
+ *   Haptics.pulse(ms|pattern)                          → 비교용 원시 펄스(같은 규칙 적용)
+ *   Haptics.stepper({step, rate})                      → feed(value): step 넘을 때마다 detent(초당 ≤ rate)
+ *   Haptics.dial(el, {stepPct:8, boundaries:[0,100], progress?}) → {destroy()}
+ *        손가락 터치 스크롤 중 el 진행률이 stepPct 마다 detent, 경계에서 tap.
+ *   Haptics.decelTimes(n, durationMs, power=3)         → 감속(ease-out) 자리 넘김 시각 배열
+ *   Haptics.rollDigits(times, onStep(i), onDone)       → 각 시각에 onStep+detent, 끝에 settle. cancel() 반환
+ *   Haptics.config({detent:ms, ...}) / Haptics.status() / Haptics.log
+ */
+(function (w, d) {
+  'use strict';
+  if (!w || !d) return;
+  if (w.Haptics && w.Haptics.__v === 2) return;
+
+  var MIN_GAP = 40;          // 직전 펄스 «끝»에서 다음 펄스 «시작»까지
+  var MAX_RATE = 18;         // 다이얼 detent 초당 상한
+  var INERTIA_MS = 1200;     // 손가락을 뗀 뒤 관성 스크롤로 보는 시간
+  var P = { detent: 3, tap: 4, settle: [3, 40, 5], success: [4, 70, 6] };
+  var PRIORITY = { tap: 1, settle: 1, success: 1, pulse: 1 };
+
+  var now = function () { return (w.performance && w.performance.now) ? w.performance.now() : Date.now(); };
+  var nav = w.navigator || {};
+  var ua = nav.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (/Macintosh/.test(ua) && (nav.maxTouchPoints || 0) > 1);
+  var canVibrate = function () { return typeof nav.vibrate === 'function'; };
+
+  var armed = false;         // 첫 사용자 터치 이후 true
+  var touching = false;
+  var touchEndAt = -1e9;
+  var lastEnd = -1e9;        // 마지막 펄스가 끝나는 시각
+  var pending = null;        // 미뤄 둔 우선 펄스 타이머
+  var log = [];
+  var rmq = null;
+  try { rmq = w.matchMedia ? w.matchMedia('(prefers-reduced-motion: reduce)') : null; } catch (e) { rmq = null; }
+
+  function reduced() { try { return !!(rmq && rmq.matches); } catch (e) { return false; } }
+  function hidden() { return d.visibilityState === 'hidden' || d.hidden === true; }
+  function enabled() { return armed && !reduced() && !hidden(); }
+  function dur(p) {
+    if (typeof p === 'number') return p;
+    var s = 0; for (var i = 0; i < p.length; i++) s += p[i]; return s;
+  }
+
+  // ── 첫 터치 감지(터치만 — 마우스 클릭은 무장하지 않는다) ─────────────
+  function onDown(e) {
+    if (e.type === 'pointerdown' && e.pointerType !== 'touch') return;
+    armed = true; touching = true;
+  }
+  function onUp(e) {
+    if (e.type.indexOf('pointer') === 0 && e.pointerType !== 'touch') return;
+    touching = false; touchEndAt = now();
+  }
+  var opt = { capture: true, passive: true };
+  try {
+    d.addEventListener('pointerdown', onDown, opt);
+    d.addEventListener('touchstart', onDown, opt);
+    d.addEventListener('touchend', onUp, opt);
+    d.addEventListener('touchcancel', onUp, opt);
+    d.addEventListener('pointerup', onUp, opt);
+    d.addEventListener('pointercancel', onUp, opt);
+    d.addEventListener('visibilitychange', function () {
+      if (hidden() && pending) { clearTimeout(pending); pending = null; }
+    });
+  } catch (e) { /* 아주 오래된 환경 */ }
+
+  // ── iOS 18+ switch 체크박스 기법 ──────────────────────────────────
+  var iosLabel = null;
+  function iosTick() {
+    try {
+      if (!iosLabel) {
+        iosLabel = d.createElement('label');
+        iosLabel.setAttribute('aria-hidden', 'true');
+        iosLabel.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
+        var cb = d.createElement('input');
+        cb.type = 'checkbox'; cb.setAttribute('switch', ''); cb.tabIndex = -1;
+        iosLabel.appendChild(cb);
+        (d.body || d.documentElement).appendChild(iosLabel);
+      }
+      iosLabel.click();
+      return true;
+    } catch (e) { return false; }
+  }
+
+  // ── 실제 발생 ────────────────────────────────────────────────────
+  function fire(kind, pattern) {
+    var t = now();
+    var ok = false;
+    try { ok = nav.vibrate(pattern) !== false; } catch (e) { ok = false; }
+    lastEnd = t + dur(pattern);
+    log.push({ t: Math.round(t), kind: kind, pattern: pattern, ok: ok });
+    if (log.length > 200) log.shift();
+    return ok;
+  }
+
+  function emit(kind, pattern) {
+    if (!enabled()) return false;
+    if (!canVibrate()) {
+      // iOS: tap 류(경계·버튼)만 1회. 연속 detent·settle 은 하지 않는다.
+      if (isIOS && kind === 'tap') {
+        var t0 = now();
+        if (t0 - lastEnd < MIN_GAP) return false;
+        lastEnd = t0;
+        log.push({ t: Math.round(t0), kind: 'ios-tap', pattern: 0, ok: true });
+        return iosTick();
+      }
+      return false;
+    }
+    var wait = lastEnd + MIN_GAP - now();
+    if (wait <= 0) return fire(kind, pattern);
+    if (!PRIORITY[kind]) return false;          // detent 는 간격 안이면 버린다
+    if (pending) clearTimeout(pending);         // 우선 펄스는 최신 것 하나만 미뤄 낸다
+    pending = setTimeout(function () {
+      pending = null;
+      if (enabled() && now() - lastEnd >= MIN_GAP - 1) fire(kind, pattern);
+    }, Math.ceil(wait) + 1);
+    return true;
+  }
+
+  // ── 스테퍼: 값이 step 을 넘을 때마다 detent (한 번에 여러 칸 넘어도 1회) ─
+  function stepper(o) {
+    o = o || {};
+    var step = o.step || 1;
+    var minIv = 1000 / (o.rate || MAX_RATE);
+    var lastIdx = null, lastAt = -1e9;
+    // silent=true: 칸 위치만 맞추고 울리지 않는다(손가락 없는 스크롤·경계에서 tap 을 낸 순간)
+    return function feed(v, silent) {
+      var idx = Math.floor(v / step + 1e-9);
+      if (lastIdx === null) { lastIdx = idx; return false; }
+      if (idx === lastIdx) return false;
+      lastIdx = idx;
+      if (silent) return false;
+      var t = now();
+      if (t - lastAt < minIv) return false;             // 속도 과다 → 건너뜀
+      if (Haptics.detent()) { lastAt = t; return true; }
+      return false;
+    };
+  }
+
+  // ── 다이얼: 터치 스크롤 중 요소 진행률 → detent / 경계 → tap ─────────
+  function defaultProgress(el) {
+    var r = el.getBoundingClientRect();
+    var vh = w.innerHeight || d.documentElement.clientHeight;
+    var p = r.height - vh > 1
+      ? -r.top / (r.height - vh)                        // 스티키 장면: 위 끝이 화면 위에 닿을 때 0, 아래 끝이 닿을 때 100
+      : (vh - r.top) / (r.height + vh);                 // 화면보다 낮은 일반 요소: 들어올 때 0, 나갈 때 100
+    return Math.max(0, Math.min(1, p)) * 100;
+  }
+  function dial(el, o) {
+    o = o || {};
+    if (!el) return { destroy: function () {} };
+    var stepPct = o.stepPct || 8;
+    var bounds = (o.boundaries || [0, 100]).slice().sort(function (a, b) { return a - b; });
+    var getP = o.progress || defaultProgress;
+    var feed = stepper({ step: stepPct, rate: o.rate || MAX_RATE });
+    var prevP = null, raf = 0, visible = true, io = null;
+
+    function fingerScroll() { return touching || (now() - touchEndAt < INERTIA_MS); }
+    function tick() {
+      raf = 0;
+      if (!visible) return;
+      var p = getP(el);
+      if (prevP === null) { prevP = p; feed(p, true); return; }
+      if (p === prevP) return;
+      var finger = fingerScroll();
+      var crossed = false;
+      for (var i = 0; i < bounds.length; i++) {
+        var b = bounds[i];
+        if ((prevP < b && p >= b) || (prevP > b && p <= b)) { crossed = true; break; }
+      }
+      prevP = p;
+      if (!finger) { feed(p, true); return; }      // 휠·키보드 스크롤: 위치만 따라가고 울리지 않는다
+      if (crossed) { feed(p, true); Haptics.tap(); return; } // 경계는 tap 하나(같은 순간 detent 중복 금지)
+      feed(p, false);
+    }
+
+    function onScroll() { if (!raf) raf = w.requestAnimationFrame(tick); }
+    w.addEventListener('scroll', onScroll, { passive: true });
+    try {
+      io = new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) onScroll(); });
+      io.observe(el);
+    } catch (e) { io = null; }
+    onScroll();
+    return {
+      destroy: function () {
+        w.removeEventListener('scroll', onScroll);
+        if (io) io.disconnect();
+        if (raf) w.cancelAnimationFrame(raf);
+      }
+    };
+  }
+
+  // ── 롤링 숫자: 감속 곡선 자리 넘김 시각 ────────────────────────────
+  function decelTimes(n, duration, power) {
+    power = power || 3;
+    var out = [];
+    for (var i = 1; i <= n; i++) out.push(duration * (1 - Math.pow(1 - i / n, 1 / power)));
+    return out;
+  }
+  function rollDigits(times, onStep, onDone) {
+    times = (times || []).slice().sort(function (a, b) { return a - b; });
+    var start = now(), i = 0, raf = 0, dead = false;
+    function frame() {
+      if (dead) return;
+      var t = now() - start;
+      var fired = false;
+      while (i < times.length && times[i] <= t) {
+        if (onStep) { try { onStep(i); } catch (e) {} }
+        fired = true; i++;
+      }
+      if (fired && i < times.length) Haptics.detent();
+      if (i >= times.length) {
+        Haptics.settle();
+        if (onDone) { try { onDone(); } catch (e) {} }
+        return;
+      }
+      raf = w.requestAnimationFrame(frame);
+    }
+    raf = w.requestAnimationFrame(frame);
+    return function cancel() { dead = true; if (raf) w.cancelAnimationFrame(raf); };
+  }
+
+  var Haptics = {
+    __v: 2,
+    detent: function () { return emit('detent', P.detent); },
+    tap: function () { return emit('tap', P.tap); },
+    settle: function () { return emit('settle', P.settle.slice()); },
+    success: function () { return emit('success', P.success.slice()); },
+    pulse: function (p) { return emit('pulse', p); },
+    stepper: stepper,
+    dial: dial,
+    decelTimes: decelTimes,
+    rollDigits: rollDigits,
+    config: function (o) { for (var k in o) if (P.hasOwnProperty(k)) P[k] = o[k]; return P; },
+    status: function () {
+      return {
+        vibrate: canVibrate(), ios: isIOS, armed: armed, touching: touching,
+        reducedMotion: reduced(), hidden: hidden(), enabled: enabled(),
+        pulses: { detent: P.detent, tap: P.tap, settle: P.settle, success: P.success }
+      };
+    },
+    log: log,
+    MIN_GAP: MIN_GAP,
+    MAX_RATE: MAX_RATE
+  };
+  w.Haptics = Haptics;
+})(typeof window !== 'undefined' ? window : null, typeof document !== 'undefined' ? document : null);
+</script>
+<script>
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function(id){ return document.getElementById(id); };
   var root=document.documentElement, IO=('IntersectionObserver' in window);
 
-  /* ── 햅틱 haptic(kind) : Android=vibrate, iOS 18+=숨은 스위치 «틱», 그 밖엔 조용히 무시.
-        첫 터치 이후만 · 동작 줄이기면 끔 · 탭이 숨으면 끔 · 장면/성공은 600ms 간격 ── */
-  var hapOn=false, hapLast=0, hapLbl=null;
-  ['pointerdown','keydown','touchstart'].forEach(function(ev){ addEventListener(ev,function(){ hapOn=true; },{capture:true,passive:true}); });
-  var PAT={tap:8,select:12,success:[10,40,14]};
-  function haptic(kind,byUser){   /* byUser: 직접 누른 반응은 간격 제한 없이 */
-    if(!hapOn||reduce||document.hidden) return;
-    var now=Date.now(); if(kind!=='tap' && !byUser){ if(now-hapLast<600) return; hapLast=now; }
-    try{
-      if(navigator.vibrate){ navigator.vibrate(PAT[kind]||8); return; }
-      if(/iP(hone|ad|od)|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document){
-        if(!hapLbl){ hapLbl=document.createElement('label'); hapLbl.className='hap'; hapLbl.setAttribute('aria-hidden','true');
-          var cb=document.createElement('input'); cb.type='checkbox'; cb.setAttribute('switch',''); cb.tabIndex=-1; hapLbl.appendChild(cb); document.body.appendChild(hapLbl); }
-        hapLbl.click(); if(kind==='success') setTimeout(function(){ hapLbl&&hapLbl.click(); },90);
-      }
-    }catch(x){}
+  /* ── 햅틱 : 공용 모듈 Haptics(_shared/haptics.js, 빌드 시 인라인 — 용두 다이얼 «보통» 기본값).
+        첫 터치 전·동작 줄이기·탭 숨김이면 모듈이 스스로 끈다. 미지원 환경은 조용히 무시 ── */
+  var HP=window.Haptics||{tap:function(){},success:function(){},dial:function(){return {destroy:function(){}}},rollDigits:function(){return function(){}}};
+  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.play,.sound,.rail a,.reset,.foot nav a,.film-foot a'); if(a) HP.tap(); });
+  /* 자리 넘김 시각(ms): 자리 띠의 CSS 전환(--t-story 900ms, --ease 곡선)을 풀어 «숫자가 반 칸 넘어가는 순간»마다 detent,
+     곡선이 98% 닿는 순간 settle — 감속에 맞춰 간격이 벌어진다 */
+  function bezierInv(x1,y1,x2,y2){
+    function c(a,b,t){ var u=1-t; return 3*u*u*t*a+3*u*t*t*b+t*t*t; }
+    return function(y){ var lo=0,hi=1; for(var i=0;i<30;i++){ var m=(lo+hi)/2; if(c(y1,y2,m)<y) lo=m; else hi=m; } return c(x1,x2,(lo+hi)/2); };
   }
-  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.play,.sound,.rail a,.reset,.foot nav a,.film-foot a'); if(a) haptic('tap'); });
+  var easeInv=bezierInv(.2,0,0,1);
+  function odoTimes(gs){
+    var out=[], end=0;
+    gs.forEach(function(g){ var st=+g.style.getPropertyValue('--n')-1, dl=parseFloat(g.style.getPropertyValue('--d'))||0;
+      for(var j=1;j<=st;j++) out.push(dl+900*easeInv((j-.5)/st));
+      end=Math.max(end,dl+900*easeInv(.98)); });
+    out.sort(function(a,b){return a-b}); out.push(end); return out;
+  }
 
   /* ── 무한 반복(해무리·스크롤 표시)은 히어로가 보일 때만, 탭이 숨으면 정지 ── */
   function tabVis(){ root.classList.toggle('tab-off',document.hidden); }
@@ -824,7 +1112,6 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
     if(e!==curEra){
       curEra=e;
       railA.forEach(function(a,i){ a.classList.toggle('on',i===e); a.classList.toggle('past',i<e); });
-      if(e>0) haptic('select');
       if(reduce){ eraNow.textContent=ERAS[e]; }
       else{ eraNow.classList.add('out'); clearTimeout(swapT); swapT=setTimeout(function(){ eraNow.textContent=ERAS[e]; eraNow.classList.remove('out'); },160); }
     }
@@ -858,8 +1145,9 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
         var box=document.createElement('span'); box.appendChild(f); tn.parentNode.replaceChild(box,tn); });  /* 한 덩이로 — flex 부모(.ch li 등)에서 조각이 따로 놀지 않게 */
     });
     var oo=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; oo.unobserve(en.target); var o=en.target, gs=[].slice.call(o.querySelectorAll('.dg'));
-      requestAnimationFrame(function(){ gs.forEach(function(g){ g.style.setProperty('--k',+g.style.getPropertyValue('--n')-1); }); });
-      setTimeout(function(){ o.classList.remove('roll'); if(o.closest('.ledger,.big')) haptic('success'); },900+gs.length*30+160); }); },{rootMargin:'0px 0px -8% 0px',threshold:1});
+      requestAnimationFrame(function(){ gs.forEach(function(g){ g.style.setProperty('--k',+g.style.getPropertyValue('--n')-1); });
+        if(o.closest('.ledger,.big')) HP.rollDigits(odoTimes(gs),null,null); });   /* 큰 숫자만 — 작은 숫자까지 울리면 거슬린다 */
+      setTimeout(function(){ o.classList.remove('roll'); },900+gs.length*30+160); }); },{rootMargin:'0px 0px -8% 0px',threshold:1});
     [].slice.call(document.querySelectorAll('.odo.roll')).forEach(function(o){ oo.observe(o); });
   }
 
@@ -868,10 +1156,28 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
   if('IntersectionObserver' in window){
     var curK=0, pinEl=document.querySelector('.pin');
     var so=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; var k=+en.target.dataset.k;
-      if(k!==curK){ curK=k; if(getComputedStyle(pinEl).display!=='none') haptic('select'); }
+      if(k!==curK){ curK=k; }
       pinImgs.forEach(function(im,i){ im.classList.toggle('on',i===k); }); pinDots.forEach(function(d,i){ d.classList.toggle('on',i===k); }); }); },{rootMargin:'-45% 0px -45% 0px'});
     [].slice.call(document.querySelectorAll('.ch')).forEach(function(c){ so.observe(c); });
   }
+
+  /* ── 이야기 다이얼 : 고정 폰 장(章) 구간에서 손가락으로 스크롤하는 동안만 8% 마다 detent, 장이 바뀌는 지점(장 머리가 화면 가운데)에서 tap.
+        경계는 레이아웃에서 잰다 — 폭이 바뀌면 다시 잰다. 일반 스크롤(시대 레일 포함)엔 진동 없음 ── */
+  (function(){
+    var sg=document.querySelector('.story-grid'); if(!sg) return;
+    var dj=null, lastW=0;
+    function mkDial(){
+      if(dj) dj.destroy();
+      var vh=innerHeight, jt=sg.getBoundingClientRect().top+scrollY, h=sg.offsetHeight, sticky=h-vh>1, span=sticky?h-vh:h+vh;
+      var bs=[].map.call(sg.querySelectorAll('.ch[data-k]'),function(c,i){
+        if(!i) return null; var top=c.getBoundingClientRect().top+scrollY-jt;
+        return Math.round((sticky?(top-vh/2):(top+vh/2))/span*1000)/10;
+      }).filter(function(v){ return v!==null && v>0 && v<100; });
+      dj=HP.dial(sg,{stepPct:8,boundaries:bs}); sg.dataset.hapBounds=bs.join(','); lastW=innerWidth;
+    }
+    if(document.readyState==='complete') mkDial(); else addEventListener('load',mkDial);
+    var rt=0; addEventListener('resize',function(){ if(innerWidth===lastW) return; clearTimeout(rt); rt=setTimeout(mkDial,250); });
+  })();
 
   /* ── 자석 버튼(마우스가 있는 기기에서만) ── */
   if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
@@ -915,7 +1221,7 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
       b.addEventListener('click',function(){ pick(i); }); opts.appendChild(b); });
   }
   function pick(i){
-    haptic(i===Q.ans?'success':'tap',true);
+    if(i===Q.ans) HP.success(); else HP.tap();
     var bs=[].slice.call(opts.children);
     bs.forEach(function(b,k){ b.disabled=true; if(k===Q.ans) b.classList.add('ok'); else if(k===i) b.classList.add('no'); else b.classList.add('dim'); });
     if(i!==Q.ans && !reduce) bs[i].classList.add('shake');
