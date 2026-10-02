@@ -786,10 +786,10 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
 
   /* ── 필름 : 보일 때 음소거 자동재생. 4초 안에 YouTube 응답(onReady·infoDelivery)이 없거나
         onError 면 같은 16:9 프레임에 인라인 썸네일 + «YouTube에서 보기»로 전환(죽은 영상 칸 금지) ── */
-  var ID='7cdROQmSFzo', scr=$('screen'), btn=$('soundBtn'), ifr=null, muted=true, alive=false, dead=false, waitT;
-  function fail(){ if(alive||dead) return; dead=true; clearTimeout(waitT); scr.classList.remove('ready'); scr.classList.add('fail');
+  var ID='7cdROQmSFzo', scr=$('screen'), btn=$('soundBtn'), ifr=null, muted=true, alive=false, dead=false, waitT, pingT;
+  function fail(){ if(alive||dead) return; dead=true; clearTimeout(waitT); clearInterval(pingT); scr.classList.remove('ready'); scr.classList.add('fail');
     if(ifr){ ifr.remove(); ifr=null; } $('filmHint').textContent='영상은 YouTube에서 소리와 함께 볼 수 있습니다'; }
-  function ok(){ if(alive||dead) return; alive=true; clearTimeout(waitT); scr.classList.add('ready'); }
+  function ok(){ if(alive||dead) return; alive=true; clearTimeout(waitT); clearInterval(pingT); scr.classList.add('ready'); }
   addEventListener('message',function(e){
     if(!ifr || e.source!==ifr.contentWindow || !/youtube(-nocookie)?\.com$/.test((e.origin||'').replace(/^https?:\/\//,'').replace(/^www\./,''))) return;
     var d; try{ d=typeof e.data==='string'?JSON.parse(e.data):e.data; }catch(x){ return; }
@@ -804,7 +804,8 @@ footer{padding:0 0 calc(28px + env(safe-area-inset-bottom))}
     ifr.addEventListener('load',function(){ try{ ifr.contentWindow.postMessage(JSON.stringify({event:'listening',id:1,channel:'widget'}),'*');
       ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:'addEventListener',args:['onError'],id:1,channel:'widget'}),'*'); }catch(x){} });
     ifr.addEventListener('error',fail);
-    scr.insertBefore(ifr,btn); waitT=setTimeout(fail,4000); }
+    scr.insertBefore(ifr,btn); waitT=setTimeout(fail,10000);
+    pingT=setInterval(function(){ try{ ifr&&ifr.contentWindow.postMessage(JSON.stringify({event:'listening',id:1,channel:'widget'}),'*'); }catch(x){} },400); }
   if('IntersectionObserver' in window){ var vo=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ mount(); vo.disconnect(); } },{rootMargin:'300px'}); vo.observe(scr); } else mount();
   function cmd(f,a){ try{ ifr&&ifr.contentWindow.postMessage(JSON.stringify({event:'command',func:f,args:a||[]}),'*'); }catch(e){} }
   btn.addEventListener('click',function(){ muted=!muted; if(muted) cmd('mute'); else { cmd('unMute'); cmd('setVolume',[80]); cmd('playVideo'); }

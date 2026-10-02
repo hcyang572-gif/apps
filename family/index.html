@@ -578,7 +578,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
     yt.src='https://www.youtube-nocookie.com/embed/'+ytId+'?'+q;
     yt.addEventListener('load',function(){ var n=0; if(poll) clearInterval(poll); poll=setInterval(function(){ if(ready||!yt||++n>16){clearInterval(poll);poll=null;return;} try{ yt.contentWindow.postMessage(JSON.stringify({event:'listening',id:'yt',channel:'widget'}),'*'); }catch(e){} },250); });
     frameEl.insertBefore(yt,btn);
-    setTimeout(function(){ if(!ready) fallback(); },4000);
+    setTimeout(function(){ if(!ready) fallback(); },10000);
   })();
   /* 영상 소리 켜기 (YouTube IFrame postMessage) */
   btn.addEventListener('click',function(){

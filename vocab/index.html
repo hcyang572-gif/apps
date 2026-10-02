@@ -747,7 +747,7 @@ footer{background:var(--a3); border-top:1px solid var(--hair); padding:36px 0 ca
     yt.src = u;
     var ping = function(){ try { yt.contentWindow.postMessage(JSON.stringify({event:'listening', id:'yt', channel:'widget'}), '*'); } catch(e){} };
     yt.addEventListener('load', ping); ytPing = setInterval(ping, 400);
-    ytTimer = setTimeout(failYT, 4000);
+    ytTimer = setTimeout(failYT, 10000);
   }
   if ('IntersectionObserver' in window){
     new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ loadYT(); o.disconnect(); } }, {rootMargin:'200px 0px'}).observe(ff);

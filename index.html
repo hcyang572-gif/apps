@@ -707,9 +707,9 @@ footer{position:relative;padding:40px 0 calc(40px + env(safe-area-inset-bottom))
   var watches = [];
   function watch(frame, ok, fail){
     var w = {frame: frame, ok: ok, fail: fail, st: 'wait'};
-    w.timer = setTimeout(function(){ if (w.st === 'wait') settle(w, false) }, 4000);
+    w.timer = setTimeout(function(){ if (w.st === 'wait') settle(w, false) }, 10000);
     function hello(){ try { frame.contentWindow.postMessage(JSON.stringify({event: 'listening', id: 1, channel: 'widget'}), '*') } catch (e) {} }
-    frame.addEventListener('load', function(){ hello(); setTimeout(hello, 700) });
+    frame.addEventListener('load', function(){ hello(); var n = 0, t = setInterval(function(){ if (w.st !== 'wait' || ++n > 25) return clearInterval(t); hello() }, 400) });
     watches.push(w);
   }
   function settle(w, good){
