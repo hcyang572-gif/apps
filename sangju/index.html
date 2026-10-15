@@ -195,11 +195,11 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(80px,15svh,170px);z-index:4;pointer-events:none;background:linear-gradient(180deg,transparent,var(--bg) 88%)}
 
 /* ── 폰 프레임(공용) — 화면 390×844 ── */
-.phone{aspect-ratio:0.4685;border-radius:12% / 5.6%;padding:1.9%;background:#1d1510;position:relative;
+.phone{aspect-ratio:0.4685;border-radius:12% / 5.6%;padding:0;container-type:inline-size;background:#1d1510;position:relative;
   box-shadow:0 0 0 1px rgba(255,255,255,.14),inset 0 0 0 1px rgba(255,255,255,.06),var(--shadow)}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:10.2% / 4.8%;overflow:hidden;background:#FDF4EC}
+.phone .scr{position:absolute;inset:2.4cqw;width:auto;height:auto;border-radius:10.2% / 4.8%;overflow:hidden;background:#FDF4EC}
 .phone .scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.phone .gloss{position:absolute;inset:1.9%;border-radius:10.2% / 4.8%;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.10),transparent 30%)}
+.phone .gloss{position:absolute;inset:2.4cqw;border-radius:10.2% / 4.8%;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.10),transparent 30%)}
 
 /* ═════ 2. 다섯 매듭 — 스크롤이 타래를 따라 내려간다 ═════ */
 #walk{padding-top:clamp(4px,1svh,12px)}   /* 2026-10-15 «다섯 걸음 위 공백 과함» — 세 앱 끝 문구와 붙여 읽히게 */
@@ -1374,7 +1374,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .fb-play[data-s="1"] .fb-rail li:nth-child(1),.fb-play[data-s="2"] .fb-rail li:nth-child(2),.fb-play[data-s="3"] .fb-rail li:nth-child(3),.fb-play[data-s="done"] .fb-rail li{opacity:1}
 .fb-play[data-s="1"] .fb-rail li:nth-child(1),.fb-play[data-s="3"] .fb-rail li:nth-child(3){transform:translateY(-4px);box-shadow:inset 0 0 0 2px var(--primary),var(--e2)}
 .fb-play[data-s="2"] .fb-rail li:nth-child(2){transform:translateY(-4px);box-shadow:inset 0 0 0 2px var(--civic),var(--e2)}
-#apps .sec-head,.film-head,.walk-head,#cycle .sec-head,.rep-copy{position:relative}
+#apps .sec-head,.walk-head,#feedback .sec-head,#count .sec-head,#cycle .sec-head{position:relative}
 .gear-btn.hunt-t{position:relative}
 .gear-btn.hunt-t::after{content:"";position:absolute;right:-4px;top:-4px;width:11px;height:11px;background:var(--secondary);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hgSpark 2.4s ease-in-out infinite}
 .gear-btn.hunt-t.got::after{display:none}
@@ -1382,7 +1382,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .hid-gam svg{width:26px;height:28px;overflow:visible}
 @keyframes hgNudge{0%,86%,100%{transform:none}90%{transform:rotate(-14deg) scale(1.08)}94%{transform:rotate(10deg) scale(1.08)}97%{transform:rotate(-4deg)}}
 .hid-gam:hover{opacity:1}
-.sec-head>.hid-gam,.rep-copy>.hid-gam,.film-head>.hid-gam,.walk-head>.hid-gam{top:calc(1.4em + 22px)} @media (max-width:379px){.film-head>.hid-gam,.walk-head>.hid-gam{top:-14px;width:40px;height:40px}}
+.sec-head>.hid-gam,.rep-copy>.hid-gam,.film-head>.hid-gam,.walk-head>.hid-gam{top:calc(1.4em + 22px)} @media (max-width:379px){.walk-head>.hid-gam,#feedback .sec-head>.hid-gam{top:-14px;width:40px;height:40px}}
 .hid-gam::before{content:"";position:absolute;right:4px;top:3px;width:9px;height:9px;background:var(--secondary);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hgSpark 2.4s ease-in-out infinite}
 @keyframes hgSpark{0%,100%{opacity:.25;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(45deg)}}
 .hid-gam::after{content:"눌러 보세요";position:absolute;right:calc(100% + 4px);top:50%;transform:translateY(-50%);padding:3px 9px;border-radius:var(--r-pill);font-size:11.5px;font-weight:800;white-space:nowrap;color:var(--accent-text);background:var(--card);box-shadow:var(--e1),inset 0 0 0 1px var(--border);opacity:0;transition:opacity 300ms var(--e);pointer-events:none}
@@ -1455,6 +1455,102 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   .egg svg{animation:none;display:none}
   .cyc[data-hl="1"] .cyc-card.c1,.cyc[data-hl="2"] .cyc-card.c2,.cyc[data-hl="2"] .cyc-card.c3,.cyc[data-hl="3"] .cyc-card.c4{transform:none}
 }
+
+/* ═════════ 고급화 마감 층(2026-10-15 «누가 봐도 고급스럽고 깔끔하고 정돈된») ═════════
+   원칙: 구성 순서·색 정체성(감 주황 + 공무원 청록)·주소는 그대로. 마감만 다시 한다.
+   ① 리듬 하나 — 섹션 위 여백 한 값(--sec), 머리↔내용 한 값
+   ② 글자 위계 — 크기 8단계(--fs-*), 굵기 4단계(800 제목 / 700 소제목·숫자 / 600 라벨 / 400 본문)
+   ③ 표면 셋 — 큰 카드(r20·머리카락 테두리·깊은 그림자) / 작은 카드(r14) / 기기 틀
+   ④ 장식 절제 — 알약·배지는 글자로, 계속 흔들리는 것은 느리게
+   ⑤ 읽기 폭 — 본문 한 줄 60자 이내 */
+:root{
+  --fs-11:11.5px; --fs-12:12.5px; --fs-13:13.5px; --fs-15:15px; --fs-17:17px; --fs-20:20px;
+  --fs-h3:clamp(20px,1.9vw,26px); --fs-h2:clamp(30px,4.6vw,60px);
+  --ls-h:-.04em; --ls-b:-.012em; --ls-l:.08em;
+  --sec:clamp(72px,10vw,136px); --sec-head:clamp(28px,3.4vw,48px);
+  --hair:rgba(70,40,20,.10);
+  --sh-card:0 0 0 1px var(--hair),0 1px 1px rgba(70,40,20,.03),0 18px 40px -24px rgba(70,40,20,.28);
+  --sh-soft:0 0 0 1px var(--hair),0 10px 24px -18px rgba(70,40,20,.22);
+}
+:root[data-theme="dark"]{--hair:rgba(255,235,215,.10);--sh-card:0 0 0 1px var(--hair),0 22px 44px -24px rgba(0,0,0,.7);--sh-soft:0 0 0 1px var(--hair),0 12px 26px -18px rgba(0,0,0,.6)}
+@media (min-width:1440px){:root{--fs-13:clamp(13.5px,.9vw,16px);--fs-15:clamp(15px,1vw,18px);--fs-17:clamp(17px,1.15vw,21px);--fs-20:clamp(20px,1.35vw,25px);--fs-h3:clamp(26px,1.7vw,34px);--fs-h2:clamp(60px,4.4vw,92px)}}
+
+/* ① 리듬 — 섹션 위만 여백, 아래는 0(다음 섹션의 위 여백이 곧 간격이 되어 편차가 사라진다) */
+#film,#apps,#feedback,#talk,#count,#report,#cycle,#survey,#bench,#care,#open{padding-top:var(--sec)!important;padding-bottom:0!important}
+#open{padding-bottom:var(--sec)!important}
+#slogan{padding-top:var(--sec)!important}
+.sec-head,.film-head,.walk-head,.rep-copy .overline{margin-bottom:0}
+.apx,.steps,.sv-grid,.bn-top,.tally,.flow,.talk-grid,.cyc,.doors,.rows,.film,.case,.mrw,.track,.fb-play,.gal{margin-top:var(--sec-head)}
+
+/* ② 글자 위계 */
+body{letter-spacing:var(--ls-b)}
+h1,h2{font-weight:800;letter-spacing:var(--ls-h);line-height:1.1}
+h2{font-size:var(--fs-h2)!important;text-wrap:balance}
+h3{font-weight:700;letter-spacing:-.03em;line-height:1.25}
+.overline{font-size:var(--fs-12)!important;font-weight:700;letter-spacing:var(--ls-l);margin-bottom:18px}
+.lead{font-size:var(--fs-17)!important;font-weight:400;line-height:1.75;max-width:36em}
+.lead b{font-weight:600;color:var(--text)}
+.sec-head>.lead,.film-head>.lead,.walk-head>.lead{margin-top:20px}
+p,.stp-txt p,.rows .d,.ap-feat span,.rep-list span,.mk span,.cyc-card .d,.tally span.s,.foot-note{font-weight:400}
+.stp-txt p,.ap-feat span,.rep-list span,.mk span{font-size:var(--fs-15)!important;line-height:1.7;max-width:36em}
+.rep-list b,.mk b,.ap-feat b,.stp-txt b,.rows b,.tally b{font-weight:700}
+.stp-txt .k,.lb,.toc-sub,.like-note,.fb-rail li span,.secchip,.huntchip,.sc figcaption span{font-weight:600}
+.toc li{font-weight:600}
+.num,.odo{font-variant-numeric:tabular-nums}
+.foot-note,.note{max-width:60ch}
+
+/* ③ 표면 — 큰 카드 / 작은 카드 */
+.ap-panel,.case,.toc,.sv,.hear-col,.plan,.door,.qz,.sl{border-radius:20px!important;box-shadow:var(--sh-card)!important}
+.subc,.mk li,.cyc-card,.fb-rail li,.mrw li,.row{border-radius:14px!important;box-shadow:var(--sh-soft)!important}
+.ap-panel{background:var(--card)}
+
+/* ④ 장식 절제 — 기능 칩은 «· 구분 글자 목록», 시연 표시는 작은 캡션 */
+.ap-chips{display:block!important;margin:0 0 4px!important;font-size:var(--fs-13);line-height:1.9;color:var(--muted)}
+.ap-chips li{display:inline!important;min-height:0!important;padding:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;font-size:inherit!important;font-weight:600!important;color:inherit!important}
+.ap-chips li::before{display:none!important}
+.ap-chips li+li::before{content:"·"!important;display:inline!important;margin:0 .55em;color:var(--hair);position:static!important;width:auto!important;height:auto!important;background:none!important;color:color-mix(in srgb,var(--muted) 60%,transparent)}
+.demo-note{height:auto!important;padding:0!important;border-radius:0!important;box-shadow:none!important;background:none!important;font-size:var(--fs-12)!important;font-weight:600!important;letter-spacing:.01em;color:var(--muted)!important}
+.demo-note::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--secondary)}
+.ap-feat em{padding:0!important;background:none!important;box-shadow:none!important;color:var(--accent-text)!important;font-size:var(--fs-12)!important;font-weight:700!important}
+.hid-gam{animation-duration:9s!important}
+
+/* 머리띠 — 유리판처럼 얇게 */
+#nav{-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);box-shadow:0 1px 0 var(--hair)}
+.nav-open{position:relative;box-shadow:none}
+.nav-open::after{content:"";position:absolute;inset:-7px -3px}
+.brand small{font-weight:700;letter-spacing:.06em}
+
+/* 숫자 구역 — 숫자는 단단하게, 단위는 조용하게 */
+.tally .big{font-weight:700!important;letter-spacing:-.05em}
+.tally .big small{font-size:.32em!important;font-weight:600!important;color:var(--muted)!important;margin-left:.15em;letter-spacing:0}
+
+/* 정렬 축 — 영상 머리도 왼쪽 정렬(무대인 다섯 걸음만 가운데) */
+.film-head{text-align:left!important}
+.film-head .kbar{margin-left:0}
+
+/* 섹션 사이 — 머리카락 선과 작은 표지(곶감 대신 점 하나) */
+#apps,#count,#cycle,#bench{background-image:linear-gradient(var(--hair),var(--hair));background-size:min(1180px,calc(100% - 2*clamp(16px,4vw,40px))) 1px;background-position:center 0;background-repeat:no-repeat}
+
+/* 모바일 — 떠 있는 층은 하나만(숨은 상주 꼬리표). 구획 꼬리표는 데스크톱에서만 */
+@media (max-width:759px){.secchip{display:none!important}}
+/* 320 — 로고 글자가 단추에 가려지던 것 */
+@media (max-width:359px){.brand small{display:none}.brand{font-size:15px}.brand img{width:28px;height:28px}}
+
+/* 첫 화면 휴대폰 — 캡처 비율(560×1212)과 틀 비율을 맞춰 좌우 잘림 없앰 */
+#heroPhone .scr img{object-fit:contain;object-position:top center}
+
+/* ② 보강 — 작은 라벨은 700, 카드 안 굵은 글은 700, 어중간한 크기는 가까운 단계로 */
+main :is(dt,i.num,.no,.st,.rf-who,.chip,.ch-idx,.cyc-n,.case-n span,.xp-btn span,.xp-close,.demo-badge .l,.ap-name,.stamp,.bl,.bv,.n,figcaption,em,.k){font-weight:700!important}
+main b:not(.num){font-weight:700}
+.ln-steps li{font-weight:700!important}
+.tally span.s,.sv .s,span.s{font-size:var(--fs-13)!important}
+.row .n{font-size:var(--fs-13)!important}
+.row .d,dd,.rf-a,.ch p{font-size:var(--fs-17)!important;line-height:1.7}
+.rf-q b,.cyc-card b,.mk b,.rep-list b,.ap-feat b,.nn b{font-size:var(--fs-20)!important}
+.row b,.stp-txt b{font-size:var(--fs-h3)!important}
+.xp-btn span,.xp-close,.case-n span,.fields button{font-size:var(--fs-13)!important}
+.chip,.st,.no,.cyc-n,.ch-idx,.stamp,.demo-badge .l,.ap-name,.sc figcaption span{font-size:var(--fs-12)!important}
+
 </style>
 <style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="우리가족 매니저 · 한국사 매니저 · 보카매니저"><meta property="og:title" content="상주시 정책플랫폼"><meta property="og:description" content="상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/sangju/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="400"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:alt" content="상주시 정책플랫폼 — 상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/sangju/"></head>
 <body>
@@ -1515,7 +1611,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="film-head">
       <p class="overline rv">1분 소개 영상</p>
-      <h2 class="wipe" id="filmT">상주시 정책플랫폼을<br>1분으로 만나 보세요.</h2><button type="button" class="hid-gam" data-g="gam" aria-label="숨은 상주 — 곶감"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg></button>
+      <h2 class="wipe" id="filmT">상주시 정책플랫폼을<br>1분으로 만나 보세요.</h2>
       <div class="kbar" id="kbar" role="note"><span><span class="ka">진동·전체 화면 영상까지 제대로 보시려면</span><span class="ki">전체 화면 영상까지 제대로 보시려면</span></span>
         <a id="kbarGo" href="#"><span class="ka">크롬으로 열기</span><span class="ki">사파리로 열기</span></a><button type="button" id="kbarX" aria-label="안내 닫기">✕</button></div>
     </div>
@@ -1643,7 +1739,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 <section id="walk">
   <div class="wrap walk-head">
     <p class="overline rv">시민 · 다섯 걸음</p>
-    <h2 class="wipe">시민은 찾고, 신청하고,<br>없으면 제안해요.</h2><button type="button" class="hid-gam" data-g="rice" aria-label="숨은 상주 — 쌀"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-rice" x="-20" y="-24" width="40" height="44"/></svg></button>
+    <h2 class="wipe">시민은 찾고, 신청하고,<br>없으면 제안해요.</h2><button type="button" class="hid-gam" data-g="gam" aria-label="숨은 상주 — 곶감"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg></button>
     <p class="lead rv" style="--si:1">스크롤을 내리면 걸음마다 쓰는 화면이 바뀌어요. 모두 지금 열리는 실제 시민용 화면입니다.</p>
   </div>
   <div class="track" id="track">
@@ -1701,7 +1797,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">신청 뒤 · 피드백 과정</p>
-      <h2 class="wipe">신청하고 끝이 아니에요.<br>결과까지 이어져요.</h2>
+      <h2 class="wipe">신청하고 끝이 아니에요.<br>결과까지 이어져요.</h2><button type="button" class="hid-gam" data-g="rice" aria-label="숨은 상주 — 쌀"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-rice" x="-20" y="-24" width="40" height="44"/></svg></button>
       <p class="lead rv" style="--si:1">시민이 신청한 순간부터 결과를 확인하기까지, 시민 화면과 공무원 화면이 마주 보며 움직여요.</p>
       <span class="demo-note rv" style="--si:2">시연용 가상 자료로 찍은 실제 화면</span>
     </div>
@@ -1791,7 +1887,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">한 타래에 꿴 것</p>
-      <h2 class="wipe">상주의 지원사업을,<br>한눈에.</h2>
+      <h2 class="wipe">상주의 지원사업을,<br>한눈에.</h2><button type="button" class="hid-gam" data-g="cocoon" aria-label="숨은 상주 — 누에고치"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-cocoon" x="-20" y="-24" width="40" height="44"/></svg></button>
       <p class="lead rv" style="--si:1">상주시 홈페이지의 정책 정보를 모아 분야별로 정리했어요. 숫자는 지금 시민용 화면에 실린 그대로입니다.</p>
     </div>
     <svg class="garland rv" aria-hidden="true" preserveAspectRatio="none"><line x1="0" y1="10" x2="100%" y2="10"/><svg x="6%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:0" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="17%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:1" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="28%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:2" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="39%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:3" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="50%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:4" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="61%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:5" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="72%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:6" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="83%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:7" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="94%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:8" x="-9" y="-2" width="18" height="19.8"/></svg></svg>
@@ -1805,7 +1901,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
       <li><span class="big num"><span class="odo" data-to="3">3</span><small>개 앱</small></span><b>하나의 자료로 연결</b><span class="s">시민앱 · 공무원앱 · PC 관리앱</span></li>
       <li><span class="big num"><span class="odo" data-to="4">4</span><small>단계</small></span><b>신청 처리 상태</b><span class="s">접수 · 심사중 · 승인 · 반려</span></li>
       <li><span class="big num"><span class="odo" data-to="5">5</span><small>가지</small></span><b>정책제안 답변 상태</b><span class="s">접수 · 검토중 · 반영 · 불채택 · 보류</span></li>
-      <li><span class="big num"><span class="odo" data-to="9">9</span><small>개 장</small></span><b>자동 현황 보고서</b><span class="s">요지보고 + 본 보고 Ⅰ~Ⅸ장</span></li>
+      <li><span class="big num"><span class="odo" data-to="9">9</span><small>개 장</small></span><b>자동 보고서</b><span class="s">요지보고 + 본 보고 Ⅰ~Ⅸ장</span></li>
     </ul>
     <div class="fields rv" id="fields"><button type="button" class="f-life" data-g="life" aria-pressed="false">주거·부동산</button><button type="button" class="f-life" data-g="life" aria-pressed="false">교통·안전</button><button type="button" class="f-life" data-g="life" aria-pressed="false">1인가구</button><button type="button" class="f-life" data-g="life" aria-pressed="false">전입·정착</button><button type="button" class="f-care" data-g="care" aria-pressed="false">건강·의료</button><button type="button" class="f-care" data-g="care" aria-pressed="false">노인·어르신</button><button type="button" class="f-care" data-g="care" aria-pressed="false">장애인</button><button type="button" class="f-care" data-g="care" aria-pressed="false">저소득·기초수급</button><button type="button" class="f-farm" data-g="farm" aria-pressed="false">농림축수산업</button><button type="button" class="f-farm" data-g="farm" aria-pressed="false">귀농·귀촌</button><button type="button" class="f-farm" data-g="farm" aria-pressed="false">환경·에너지</button><button type="button" class="f-family" data-g="family" aria-pressed="false">임신·출산</button><button type="button" class="f-family" data-g="family" aria-pressed="false">영유아·보육</button><button type="button" class="f-family" data-g="family" aria-pressed="false">다자녀·가족</button><button type="button" class="f-family" data-g="family" aria-pressed="false">한부모·조손</button><button type="button" class="f-family" data-g="family" aria-pressed="false">여성</button><button type="button" class="f-family" data-g="family" aria-pressed="false">결혼·신혼부부</button><button type="button" class="f-work" data-g="work" aria-pressed="false">일자리·구직</button><button type="button" class="f-work" data-g="work" aria-pressed="false">소상공인·기업</button><button type="button" class="f-work" data-g="work" aria-pressed="false">모집·공모</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false">청소년·교육</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false">청년</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false">문화·체육·관광</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false">다문화·외국인</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false">보훈·유공자</button></div>
     <div class="legend rv" style="--si:1" role="group" aria-label="색 갈래로 모아 보기"><button type="button" class="f-life" data-g="life" aria-pressed="false"><i></i>주거·생활</button><button type="button" class="f-care" data-g="care" aria-pressed="false"><i></i>건강·복지</button><button type="button" class="f-farm" data-g="farm" aria-pressed="false"><i></i>농림·환경</button><button type="button" class="f-family" data-g="family" aria-pressed="false"><i></i>가족·돌봄</button><button type="button" class="f-work" data-g="work" aria-pressed="false"><i></i>일·경제</button><button type="button" class="f-learn" data-g="learn" aria-pressed="false"><i></i>배움·문화</button></div>
@@ -1820,7 +1916,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap rep-grid">
     <div class="rep-copy">
       <p class="overline rv civ">PC 관리앱 · 시민 의견을 읽는 자동 보고서</p>
-      <h2 class="wipe">단추 한 번에,<br>현황 보고서.</h2><button type="button" class="hid-gam" data-g="cocoon" aria-label="숨은 상주 — 누에고치"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-cocoon" x="-20" y="-24" width="40" height="44"/></svg></button>
+      <h2 class="wipe">단추 한 번에,<br>현황 분석보고서.</h2>
       <p class="lead rv" style="--si:1"><b>기간을 고르고 단추를 누르면, 시민의 신청과 제안을 읽어 보고서를 자동으로 써요.</b> 한글(hwpx)·PDF로 나오고, 한글 프로그램이 없는 PC에서도 돼요.</p>
       <ul class="rep-list">
         <li class="rv" style="--si:0"><i></i><b>시민 공감이 큰 정책제안</b><span>공감 수 상위 제안을 그림으로 정리해요.</span></li>
@@ -1873,7 +1969,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   </div>
   <div class="wrap">
     <div class="gal rep-pages">
-      <figure class="sc rv pcs"><div class="browser pc" style="--ar:1200/758"><div class="bar"><i></i><i></i><i></i><span>상주시 정책플랫폼 · PC 관리앱</span></div><img src="img/p_report_dlg.webp" width="1200" height="758" alt="PC 관리앱 현황보고서 만들기 창" loading="lazy" decoding="async"></div><figcaption><span class="no num">①</span><b>현황보고서 만들기</b><span>기간과 건수를 미리 보고, 한글·PDF를 골라요</span></figcaption></figure>
+      <figure class="sc rv pcs"><div class="browser pc" style="--ar:1200/758"><div class="bar"><i></i><i></i><i></i><span>상주시 정책플랫폼 · PC 관리앱</span></div><img src="img/p_report_dlg.webp" width="1200" height="758" alt="PC 관리앱 현황보고서 만들기 창" loading="lazy" decoding="async"></div><figcaption><span class="no num">①</span><b>현황 분석보고서 만들기</b><span>기간과 건수를 미리 보고, 한글·PDF를 골라요</span></figcaption></figure>
       <figure class="sc rv doc"><div class="sheet"><img src="img/r_prop.webp" width="760" height="1075" alt="현황 분석보고서 Ⅵ장 정책제안 현황 지면" loading="lazy" decoding="async"><span class="demo-badge" aria-hidden="true"><span class="l">시연용 가상 자료</span><span class="s">시연</span></span></div><figcaption><span class="no num">②</span><b>Ⅵ. 정책제안 현황</b><span>공감이 큰 정책제안</span></figcaption></figure>
       <figure class="sc rv doc"><div class="sheet"><img src="img/r_supply.webp" width="760" height="1075" alt="현황 분석보고서 Ⅶ장 시민 정책참여 성과 지면" loading="lazy" decoding="async"><span class="demo-badge" aria-hidden="true"><span class="l">시연용 가상 자료</span><span class="s">시연</span></span></div><figcaption><span class="no num">③</span><b>Ⅶ. 시민 정책참여 성과</b><span>분야별 수요와 공급</span></figcaption></figure>
     </div>
@@ -1902,7 +1998,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     </div>
     <ol class="mrw rv" id="mrw">
       <li class="m1" style="--k:0"><span class="vb"><span>① 모은다</span><small>시민앱</small></span><b>신청 · 제안 · 공감 · 의견 · 답글</b><p>신청·제안·공감·댓글이 날마다 같은 자료에 쌓여요.</p></li>
-      <li class="m2" style="--k:1"><span class="vb"><span>② 읽는다</span><small>공무원앱 · PC 관리앱</small></span><b>공감순 정렬 · 자동 현황 보고서</b><p>공감순으로 살피고, 보고서가 분야별 수요와 공급을 저절로 정리해요.</p></li>
+      <li class="m2" style="--k:1"><span class="vb"><span>② 읽는다</span><small>공무원앱 · PC 관리앱</small></span><b>공감순 정렬 · 자동 보고서</b><p>공감순으로 살피고, 보고서가 분야별 수요와 공급을 저절로 정리해요.</p></li>
       <li class="m3" style="--k:2"><span class="vb"><span>③ 쓴다</span><small>담당 부서</small></span><b>답변 · 반영 · 새 사업 등록</b><p>«신규 시책 검토 권고»를 실마리로 새 정책을 검토해요. 새 사업을 등록하면 시민 홈에 알림이 떠요.</p></li>
     </ol>
     <p class="mrw-tip rv">단계를 누르면 위 순환도에서 그 자리가 또렷해져요.</p>
@@ -2627,6 +2723,9 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     big.addEventListener('click',function(){ userPaused=false; tryPlay(); });
     /* ── 크게 보기(전체 화면) — 들어갈 때만 1080p 로 바꾸고 재생 위치를 잇는다. 소리는 켠다(누른 손짓이라 허용).
          iOS 사파리는 video 요소 전체 화면(webkitEnterFullscreen)만 되므로 720p 그대로 들어간다. ── */
+    // 2026-10-15 «PC에서 동영상이 찌그러져(뭉개져) 보임» — 720p 를 넓은 화면에 늘리던 것. 실제 화소 폭이 1400 이상이면 처음부터 1080p
+    (function(){ var H=v.getAttribute('data-hd'), sd=navigator.connection&&navigator.connection.saveData;
+      if(H && !sd && v.getBoundingClientRect().width*(window.devicePixelRatio||1)>=1400){ v.src=H; v.removeAttribute('data-hd'); } })();
     var frame=v.parentNode, fsb=$('#fFs'), SD=v.currentSrc||'', HD=v.getAttribute('data-hd'), onHD=false;
     function fsEl(){ return document.fullscreenElement||document.webkitFullscreenElement||null; }
     function swapSrc(url,cb){ var at=v.currentTime||0, go=!v.paused||true; if(!url||v.currentSrc.indexOf(url)>=0){ cb&&cb(); return; }
