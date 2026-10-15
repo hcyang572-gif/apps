@@ -1232,7 +1232,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 @media (min-width:1180px){.gal.phones.six{grid-template-columns:repeat(6,minmax(0,1fr))}}
 @media (min-width:760px){.gal.webs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .ap-gal{grid-column:1/-1;margin-top:0;padding-top:clamp(18px,2.6vw,30px);border-top:1px solid var(--border)}
-.js .gal .sc.rv{transform:translateY(22px)}
+.js .gal .sc.rv:not(.in){transform:translateY(22px)}   /* 2026-10-15 등장 뒤에도 22px 남던 것 */
 .js .gal .sc.rv.in{transition:opacity 700ms var(--e-soft) calc(var(--si,0) * 80ms),transform 860ms var(--e-soft) calc(var(--si,0) * 80ms)}
 
 /* 단계 흐름 — 실 한 줄에 감이 차례로 익는다(스크롤로 한 번씩 켜짐, 되돌아가도 꺼지지 않음) */
@@ -1323,6 +1323,13 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:22px;scrollbar-width:none;touch-action:pan-y}   /* 2026-10-15 «옆으로 넘길 때 위아래로 흔들림» — 세로 넘침 제거 + 옆 손짓은 JS 가 방향을 잠가 직접 넘김(아래 hlock) */
   .ap-gal.webs::-webkit-scrollbar{display:none}
   .ap-gal.webs>figure{scroll-snap-align:start;min-width:0}
+  /* 2026-10-15 «아주 부드럽게» — 스크롤 위치 대신 GPU 이동(transform)으로 넘김. 손가락을 그대로 따라오고, 놓으면 곡선으로 안착 */
+  .ap-gal.webs.car{overflow:hidden;scroll-snap-type:none}
+  .js .ap-gal.webs.car>figure.sc,.js .ap-gal.webs.car>figure.sc.rv{transform:translate3d(var(--tx,0px),0,0);will-change:transform;backface-visibility:hidden;transition:opacity 500ms var(--e-soft)}
+  .js .ap-gal.webs.car.anim>figure.sc,.js .ap-gal.webs.car.anim>figure.sc.rv{transition:transform 520ms cubic-bezier(.22,.8,.3,1),opacity 500ms var(--e-soft)}
+  .gal-dots{display:flex;justify-content:center;gap:7px;margin:4px 0 0}
+  .gal-dots i{width:6px;height:6px;border-radius:3px;background:color-mix(in srgb,var(--muted) 35%,transparent);transition:width 300ms var(--e-soft),background 300ms var(--e)}
+  .gal-dots i.on{width:18px;background:var(--accent-text)}
 }
 /* [고도화] ①②③ 단계를 누르면 위 순환도에서 그 단계 카드가 또렷해져요 */
 .mrw li{cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -2910,19 +2917,29 @@ main b:not(.num){font-weight:700}
       li.addEventListener('click',go); li.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 
     // 옆 손짓 방향 잠금(2026-10-15 «휴대폰에서 좌우로 밀면 약간 흔들림») — 처음 움직임으로 방향을 정하고, 옆이면 세로 스크롤을 막고 직접 넘긴다
-    function hlock(el,isScroller){ var x0,y0,sl0,dx=0,mode=null,lastX,lastT,vx=0,idx0=0;
+    function hlock(el,isScroller){ var x0,y0,dx=0,mode=null,lastX,lastT,vx=0,idx=0,raf=0,dots=null;
+      var mq=matchMedia('(max-width:759px)');
+      function on(){ return isScroller&&mq.matches; }
       function cardW(){ var c=el.children[0]; return c?c.getBoundingClientRect().width+(parseFloat(getComputedStyle(el).columnGap)||0):el.clientWidth; }
-      el.addEventListener('touchstart',function(e){ var t=e.touches[0]; x0=lastX=t.clientX; y0=t.clientY; sl0=el.scrollLeft; dx=0; mode=null; vx=0; lastT=e.timeStamp; if(isScroller) idx0=Math.round(sl0/cardW()); },{passive:true});
+      function n(){ return el.querySelectorAll(':scope>figure').length||el.children.length; }
+      function setX(px){ el.style.setProperty('--tx',px.toFixed(1)+'px'); }
+      function paintDots(){ if(!dots) return; [].forEach.call(dots.children,function(d,k){ d.classList.toggle('on',k===idx); }); }
+      function go(i,anim){ idx=Math.max(0,Math.min(n()-1,i)); if(anim){ el.classList.add('anim'); setTimeout(function(){ el.classList.remove('anim'); },540); } setX(-idx*cardW()); paintDots(); }
+      function setup(){ if(on()){ el.classList.add('car'); if(!dots&&n()>1){ dots=document.createElement('div'); dots.className='gal-dots'; dots.setAttribute('aria-hidden','true'); for(var k=0;k<n();k++) dots.appendChild(document.createElement('i')); el.after(dots); }
+          if(dots) dots.hidden=false; go(idx,false); } else { el.classList.remove('car','anim'); el.style.removeProperty('--tx'); if(dots) dots.hidden=true; } }
+      if(isScroller){ setup(); mq.addEventListener&&mq.addEventListener('change',setup); addEventListener('resize',function(){ if(on()) go(idx,false); },{passive:true}); }
+      el.addEventListener('touchstart',function(e){ var t=e.touches[0]; x0=lastX=t.clientX; y0=t.clientY; dx=0; mode=null; vx=0; lastT=e.timeStamp; if(on()) el.classList.remove('anim'); },{passive:true});
       el.addEventListener('touchmove',function(e){ if(e.touches.length>1) return; var t=e.touches[0], dy=t.clientY-y0; dx=t.clientX-x0;
-        if(mode===null){ if(Math.abs(dx)<6&&Math.abs(dy)<6) return; mode=Math.abs(dx)>Math.abs(dy)?'h':'v'; if(mode==='h'&&isScroller) el.style.scrollSnapType='none'; }
+        if(mode===null){ if(Math.abs(dx)<6&&Math.abs(dy)<6) return; mode=Math.abs(dx)>Math.abs(dy)?'h':'v'; }
         if(mode!=='h') return; if(e.cancelable) e.preventDefault();
-        if(isScroller){ el.scrollLeft=sl0-dx; var dt=e.timeStamp-lastT; if(dt>0) vx=(t.clientX-lastX)/dt; lastX=t.clientX; lastT=e.timeStamp; } },{passive:false});
-      el.addEventListener('touchend',function(){ if(mode==='h'&&isScroller){
-          // 손가락이 왼쪽(dx<0)이면 다음 장, 오른쪽이면 앞 장 — 짧게 휙 넘겨도(속도) 넘어감
-          var di=0; if(dx<-30||vx<-.35) di=1; else if(dx>30||vx>.35) di=-1;
-          var n=el.children.length, i=Math.max(0,Math.min(n-1,idx0+di));
-          el.scrollTo({left:i*cardW(),behavior:reduce?'auto':'smooth'}); setTimeout(function(){ el.style.scrollSnapType=''; },450); }
-        mode=null; },{passive:true}); }
+        var dt=e.timeStamp-lastT; if(dt>0) vx=vx*.4+((t.clientX-lastX)/dt)*.6; lastX=t.clientX; lastT=e.timeStamp;
+        if(on()){ var w=cardW(), base=-idx*w, d=dx; if((idx===0&&d>0)||(idx===n()-1&&d<0)) d=d*.32;   // 끝에서는 살짝 버팀
+          cancelAnimationFrame(raf); raf=requestAnimationFrame(function(){ setX(base+d); }); } },{passive:false});
+      el.addEventListener('touchend',function(){ if(mode==='h'&&on()){ cancelAnimationFrame(raf);
+          var di=0, w=cardW(); if(dx<-w*.18||vx<-.3) di=1; else if(dx>w*.18||vx>.3) di=-1;
+          go(idx+di,!reduce); }
+        mode=null; },{passive:true});
+      el.addEventListener('touchcancel',function(){ if(on()) go(idx,true); mode=null; },{passive:true}); }
     $$('.ap-gal.webs').forEach(function(g){ hlock(g,true); });
     if($('#repVis')) hlock($('#repVis'),false);
 
