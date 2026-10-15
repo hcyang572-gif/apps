@@ -369,6 +369,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   .js .eyebrow b,.js .rise i{scale:1 1;opacity:1}.js .zero::before,.js .rows .row::after{transform:none}
   .frame{transform:none!important}.prog{display:none}
   .constel .ln{stroke-dashoffset:0}.node{opacity:1}
+  .js .pp .orb,.js .pp .orb::after,.js .steps li{opacity:1;transform:none;scale:none}.js .steps::before,.js .steps li::before{transform:none}
 }
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
 
@@ -511,6 +512,77 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
 @media (hover:hover){.kin:hover{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 40%,var(--line))}.kin:hover .kin-go b{transform:translateX(4px)}}
 .kin:active{transform:scale(.98);transition:transform 80ms}
 @media (min-width:700px) and (max-width:1199px){.kin{justify-content:center;text-align:center}.kin-tx{flex:0 1 auto;align-items:center}}
+/* ───── 보충(2026-10-15 미르): 한 사람 한 사람에게 · 시작은 세 걸음 · 자주 묻는 질문 — 같은 밤하늘·같은 줄 언어 ───── */
+.people,.start{padding:120px 0 40px;position:relative}
+.faq{padding:120px 0 150px;position:relative}
+.people .intro p,.start .intro p,.faq .intro p{margin-top:20px;color:var(--sky-sub);font-size:clamp(15px,1.7vw,18px);max-width:36em}
+/* 사람마다 */
+.pp{display:grid;grid-template-columns:minmax(0,1fr);margin-top:64px;border-top:1px solid var(--sky-line)}
+.pp article{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 22px;padding:40px 0 38px;border-bottom:1px solid var(--sky-line)}
+.pp .orb{grid-row:1 / span 4;width:52px;height:52px;border-radius:50%;margin-top:2px;position:relative;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.75),rgba(255,255,255,0) 42%),linear-gradient(140deg,var(--c),var(--c2));box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),0 12px 30px -10px var(--c)}
+.pp .orb::after{content:"";position:absolute;inset:-9px;border-radius:50%;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c2) 38%,transparent)}
+.pp .who{font-size:13px;letter-spacing:.04em;color:var(--sky-faint)}
+.pp q{display:block;quotes:none;margin-top:6px;font-size:clamp(22px,2.5vw,29px);line-height:1.38;font-weight:650;letter-spacing:-.032em;color:var(--sky-ink)}
+.pp p{margin-top:12px;color:var(--sky-sub);font-size:16px;line-height:1.8;max-width:34em}
+.pp .facts{margin-top:18px}
+@media (max-width:480px){.pp article{gap:0 16px;padding:34px 0 32px}.pp .orb{width:40px;height:40px}.pp .orb::after{inset:-7px}}
+@media (min-width:860px){.pp{grid-template-columns:1fr 1fr;column-gap:56px}}
+.js .pp .orb{opacity:0;scale:.6;transition:opacity var(--t-page) var(--ease) .1s,scale var(--t-spring) var(--spring) .1s}
+.js .pp article.in .orb{opacity:1;scale:1}
+.js .pp .orb::after{opacity:0;scale:.7;transition:opacity 1.1s var(--ease) .35s,scale 1.1s var(--push) .35s}
+.js .pp article.in .orb::after{opacity:1;scale:1}
+/* 세 걸음 */
+.steps{list-style:none;position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:40px;margin-top:64px}
+.steps::before{content:none}
+.steps li:not(:last-child)::before{content:"";position:absolute;left:21px;top:22px;bottom:-62px;width:1px;background:linear-gradient(180deg,var(--c2),color-mix(in srgb,var(--c2) 30%,transparent));transform-origin:50% 0;opacity:.75}
+.st-n{position:relative;z-index:1}
+.steps li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 20px;align-content:start}
+.st-n{grid-row:1 / span 3;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--num);font-size:13px;font-weight:600;letter-spacing:.04em;color:#fff;background:linear-gradient(140deg,var(--c),var(--c2));box-shadow:0 0 0 6px var(--night),0 10px 26px -8px var(--c)}
+.steps h3{font-size:clamp(21px,2.3vw,26px);font-weight:700;letter-spacing:-.03em;line-height:1.35;padding-top:6px}
+.steps p{margin-top:10px;color:var(--sky-sub);font-size:16px;line-height:1.8}
+@media (min-width:860px){
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:48px}
+  .steps li::before{content:none!important}
+  .steps::before{content:"";position:absolute;opacity:.75;left:22px;right:calc((100% - 96px) / 3 - 22px);top:22px;bottom:auto;width:auto;height:1px;background:linear-gradient(90deg,#A397FA,var(--kid1b) 55%,var(--mom2));transform-origin:0 50%}
+  .steps li{grid-template-columns:minmax(0,1fr)}
+  .st-n{grid-row:auto;margin-bottom:22px}
+  .steps h3{padding-top:0}
+}
+.js .steps li::before{transform:scaleY(0);transition:transform var(--t-draw) var(--emph) calc(var(--i) * 160ms + 400ms)}
+.js .steps.in li::before{transform:none}
+.js .steps::before{transition:transform var(--t-draw) var(--emph) .15s}
+@media (min-width:860px){.js .steps::before{transform:scaleX(0)}.js .steps.in::before{transform:none}}
+.js .steps li{opacity:0;transform:translateY(18px);transition:opacity var(--t-page) var(--ease) calc(var(--i) * 160ms + 200ms),transform var(--t-palette) var(--push) calc(var(--i) * 160ms + 200ms)}
+.js .steps.in li{opacity:1;transform:none}
+/* 자주 묻는 질문 */
+.faq-in{display:grid;grid-template-columns:minmax(0,1fr);gap:56px}
+@media (min-width:1024px){.faq-in{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;align-items:start}.faq .intro{position:sticky;top:120px}}
+.qa{border-top:1px solid var(--sky-line)}
+.qa details{border-bottom:1px solid var(--sky-line)}
+.qa summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) 30px;gap:16px;align-items:center;padding:24px 0;cursor:pointer;font-size:18px;font-weight:650;letter-spacing:-.022em;line-height:1.45;color:var(--sky-ink);-webkit-tap-highlight-color:transparent}
+.qa summary::-webkit-details-marker{display:none}
+.qa .pm{position:relative;width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--sky-line);transition:box-shadow var(--t-base) var(--ease),background var(--t-base) var(--ease)}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;margin:-.75px 0 0 -5.5px;border-radius:2px;background:var(--sky-sub);transition:transform var(--t-spring) var(--spring),background var(--t-base) var(--ease)}
+.qa .pm::after{transform:rotate(90deg)}
+.qa details[open] .pm{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(201,194,255,.45)}
+.qa details[open] .pm::before,.qa details[open] .pm::after{background:#C9C2FF}
+.qa details[open] .pm::after{transform:rotate(0deg)}
+@media (hover:hover){.qa summary:hover .pm{box-shadow:inset 0 0 0 1px rgba(201,194,255,.45)}}
+.qa .a{padding:0 46px 26px 0;color:var(--sky-sub);font-size:16px;line-height:1.85}
+.qa details[open] .a{animation:qa-in var(--t-page) var(--ease)}
+@keyframes qa-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (max-width:480px){.qa summary{font-size:17px;padding:22px 0}.qa .a{padding-right:8px}}
+@media (min-width:700px) and (max-width:859px){.pp,.steps{max-width:600px;margin-left:auto;margin-right:auto}}
+@media (min-width:700px) and (max-width:1023px){.qa{max-width:680px;margin:0 auto;width:100%}.faq .intro,.start .intro,.people .intro{text-align:center}.faq .intro p,.start .intro p,.people .intro p{margin-left:auto;margin-right:auto}}
+@media (min-width:1440px){
+  .people .intro p,.start .intro p,.faq .intro p{font-size:calc(18px * var(--k))}
+  .pp{column-gap:calc(56px * var(--k));margin-top:calc(64px * var(--k))}
+  .pp q{font-size:calc(29px * var(--k))}.pp p,.steps p,.qa .a{font-size:calc(16px * var(--k))}.pp .who{font-size:calc(13px * var(--k))}
+  .pp .orb{width:calc(52px * var(--k));height:calc(52px * var(--k))}
+  .steps{column-gap:calc(48px * var(--k))}.steps::before{right:calc((100% - 96px * var(--k)) / 3 - 22px)}
+  .steps h3{font-size:calc(26px * var(--k))}
+  .qa summary{font-size:calc(18px * var(--k));padding:calc(24px * var(--k)) 0}
+}
 @media (min-width:1440px){.kin{margin-top:calc(40px * var(--k));padding:calc(18px * var(--k)) calc(22px * var(--k))}.kin-tx strong{font-size:calc(15.5px * var(--k))}.kin-go{font-size:calc(14.5px * var(--k))}.kin-tx em{font-size:calc(12px * var(--k))}.kin-ic img{width:calc(40px * var(--k));height:calc(40px * var(--k))}}
 </style>
 <style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="우리가족 매니저 · 한국사 매니저 · 보카매니저"><meta property="og:title" content="우리가족 매니저"><meta property="og:description" content="초대받은 가족만 들어오는 우리 집 전용 공간. 가족 채팅과 움직이는 이모티콘·위치확인·도착 알림·아이 학교 하루와 입시 도우미·날씨·일정·가계부·장보기를 한곳에."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/family/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/family-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/family-1200x630.png"><meta property="og:image:alt" content="우리가족 매니저 — 초대받은 가족만 들어오는 우리 집 전용 공간. 가족 채팅과 움직이는 이모티콘·위치확인·도착 알림·아이 학교 하루와 입시 도우미·날씨·일정·가계부·장보기를 한곳에."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/family/"></head>
@@ -534,7 +606,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   <div class="wrap">
     <a class="brand" href="#top"><img src="data:image/webp;base64,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" alt="" width="32" height="32">우리가족 매니저</a>
     <nav class="nav-links" aria-label="주요 메뉴">
-      <a href="#film">영상</a><a href="#day">하루</a><a href="#inside">기능</a><a href="#promise">약속</a><a class="fam" href="../" title="같은 제작자의 다른 앱">앱 패밀리</a>
+      <a href="#film">영상</a><a href="#day">하루</a><a href="#inside">기능</a><a href="#promise">약속</a><a href="#faq">질문</a><a class="fam" href="../" title="같은 제작자의 다른 앱">앱 패밀리</a>
       <a class="pill magnetic" href="#get">지금 시작</a>
     </nav>
   </div>
@@ -698,6 +770,47 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   </div>
 </section>
 
+<!-- 한 사람 한 사람에게 (2026-10-15 미르 보충) — 역할별 편익. 근거: store_assets/listing_copy_2026-10-13_v0.26.1.md §본문 · facts/family.json features·extras -->
+<section class="people" id="people" data-sky="night">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Everyone at home</span>
+      <h2 class="h2" data-ln>엄마·아빠부터 할머니까지,<br>한 사람 한 사람에게 맞게.</h2>
+      <p>같은 대화방에 있어도 필요한 것은 저마다 달라요. 우리 가족 한 사람 한 사람이 이 앱에서 얻는 것을 모아 봤어요.</p>
+    </div>
+    <div class="pp">
+      <article class="rv-l" style="--c:var(--purple);--c2:#A397FA">
+        <span class="orb" aria-hidden="true"></span>
+        <span class="who">엄마 · 아빠</span>
+        <q>묻지 않아도, 잘 도착한 걸 알아요.</q>
+        <p>집·학교·학원에 가족이 도착하거나 나서면 가족 대화방에 말풍선 한 줄이 조용히 올라와요. 아이 시간표와 오늘 급식, 이번 달 남은 예산과 장보기 목록까지 한 앱에서 챙겨요.</p>
+        <ul class="facts rv-l"><li>도착·출발 말풍선</li><li>아이 학교 하루</li><li>가계부·장보기</li></ul>
+      </article>
+      <article class="rv-l" style="--c:var(--kid1);--c2:var(--kid1b)">
+        <span class="orb" aria-hidden="true"></span>
+        <span class="who">어린 아이</span>
+        <q>처음 쓰는 메신저가, 우리 가족 대화방이에요.</q>
+        <p>초대받은 가족만 들어오니 모르는 사람이 말을 걸 일이 없어요. 보호자가 켜 주는 «간단 화면»엔 큰 버튼 네 개만 남고, 움직이는 이모티콘으로 마음을 전하는 재미도 있어요. 만 14세 미만은 보호자가 승인한 뒤에 위치 공유가 시작돼요.</p>
+        <ul class="facts rv-l"><li>초대받은 가족만</li><li>큰 버튼 «간단 화면»</li><li>보호자 승인</li></ul>
+      </article>
+      <article class="rv-l" style="--c:var(--kid2);--c2:var(--kid2b)">
+        <span class="orb" aria-hidden="true"></span>
+        <span class="who">중·고등학생</span>
+        <q>입시 일정도 수행평가도, 놓치지 않게.</q>
+        <p>학년에 맞는 입시 일정이 남은 날과 함께 보이고, 시험 공부 계획과 수행평가 마감도 한곳에 정리돼요. 성적과 원서 준비는 나와 보호자만 볼 수 있어요.</p>
+        <ul class="facts rv-l"><li>입시 일정 D-day</li><li>수행평가 마감</li><li>성적은 나와 보호자만</li></ul>
+      </article>
+      <article class="rv-l" style="--c:var(--blue);--c2:#A9DBFA">
+        <span class="orb" aria-hidden="true"></span>
+        <span class="who">할머니 · 할아버지</span>
+        <q>글씨는 크게, 손주 소식은 가까이.</q>
+        <p>글자 크기와 글꼴을 바꿀 수 있고, 휴대폰에서 키운 글씨는 앱에서도 그대로 커져요. 손주가 보낸 사진과 동영상, 음성 메시지를 가족 대화방에서 바로 받아 보세요. “어디야?” 대신 온 안부 카드에는 버튼 한 번으로 답해요.</p>
+        <ul class="facts rv-l"><li>큰 글씨 그대로</li><li>음성 메시지</li><li>버튼 하나로 안부</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- 일요일 -->
 <section class="sunday" data-sky="night">
   <div class="wrap rv">
@@ -803,6 +916,43 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   </div>
 </section>
 
+<!-- 시작은 세 걸음 (2026-10-15 미르 보충) — 근거: 스토어 문안 «QR코드나 초대 링크 하나면 가족이 들어옵니다»·로그인 4종·기능 관리 -->
+<section class="start" id="start" data-sky="night">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Getting started</span>
+      <h2 class="h2" data-ln>세 걸음이면,<br>우리 가족 대화방이 열려요.</h2>
+    </div>
+    <ol class="steps rv-l">
+      <li style="--c:var(--purple);--c2:#A397FA"><span class="st-n"><span class="odo">01</span></span><h3>버튼 하나로 시작</h3><p>카카오 · Google · Apple 계정이나 이메일 가운데 편한 것으로 시작해요. 가족마다 다른 방법을 골라도 괜찮아요.</p></li>
+      <li style="--c:var(--kid1);--c2:var(--kid1b)"><span class="st-n"><span class="odo">02</span></span><h3>가족방을 만들고 초대</h3><p>가족방을 만든 뒤 QR코드나 초대 링크를 보내면 끝. iPhone과 Android 가족이 같은 대화방에 모여요.</p></li>
+      <li style="--c:var(--mom);--c2:var(--mom2)"><span class="st-n"><span class="odo">03</span></span><h3>우리 집에 맞게</h3><p>집·학교·학원을 장소로 등록해 두면 도착 소식이 오기 시작해요. 아이 학교를 정해 두면 시간표와 급식도 함께 보여요. 필요 없는 기능은 「설정 → 기능 관리」에서 접어 두세요.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 자주 묻는 질문 (2026-10-15 미르 보충) — 답은 전부 스토어 문안·facts·changelog 근거(초대 코드 교체·내보낸 사람 재입장 불가 = changelog.dart:560) -->
+<section class="faq" id="faq" data-sky="night">
+  <div class="wrap"><div class="faq-in">
+    <div class="intro rv">
+      <span class="label">Questions</span>
+      <h2 class="h2" data-ln>궁금한 것들,<br>미리 답해 드려요.</h2>
+      <p>처음 시작하는 가족이 자주 묻는 것들이에요. 더 궁금한 점은 아래 문의 메일로 보내 주세요.</p>
+    </div>
+    <div class="qa rv">
+      <details><summary>iPhone과 Android 가족이 함께 쓸 수 있나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">네. 같은 가족 대화방에서 함께 써요. 카카오 · Google · Apple 계정이나 이메일 가운데 각자 편한 방법으로 시작하면 돼요.</p></details>
+      <details><summary>가족이 아닌 사람이 들어올 수는 없나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">초대받은 가족만 들어와요. 가족방에서 내보낸 사람은 다시 들어올 수 없고, 필요하면 초대 코드를 새로 바꿀 수도 있어요. 위치·대화·사진은 우리 가족 안에서만 공유돼요.</p></details>
+      <details><summary>내 위치는 늘 가족에게 보이나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">내 위치 공유는 켜기·끄기 두 가지로 내가 정해요. 켜거나 끄면 가족 대화방에 살짝 알려줘요. 만 14세 미만 아이는 보호자가 승인한 뒤에 위치 공유가 시작돼요.</p></details>
+      <details><summary>가족이 도착하면 어떻게 알 수 있나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">집·학교·학원 같은 장소를 등록해 두면, 가족이 도착하거나 나설 때 가족 대화방에 말풍선 한 줄로 알려줘요. 따로 묻지 않아도 대화 흐름 속에서 자연스럽게 확인해요.</p></details>
+      <details><summary>가계부를 쓰려면 문자 권한이 필요한가요?<span class="pm" aria-hidden="true"></span></summary><p class="a">아니요. 카드 결제 문자를 «공유하기»로 보내 줄 때만 등록돼요. 문자를 몰래 읽는 권한은 쓰지 않아요.</p></details>
+      <details><summary>아이 성적은 누가 볼 수 있나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">입시 도우미의 성적 기록과 원서 준비는 아이 본인과 보호자만 볼 수 있어요. 다른 가족에게는 보이지 않아요.</p></details>
+      <details><summary>휴대폰을 바꾸거나 앱을 다시 설치하면요?<span class="pm" aria-hidden="true"></span></summary><p class="a">같은 계정으로 다시 로그인하면 우리 가족 대화방과 일정, 가계부, 목록이 그대로 이어져요.</p></details>
+      <details><summary>기능이 많아서 어려울 것 같아요.<span class="pm" aria-hidden="true"></span></summary><p class="a">「설정 → 기능 관리」에서 필요한 기능만 골라 쓰고 나머지는 접어 두면 돼요. 글자 크기와 글꼴도 바꿀 수 있고, 보호자는 아이에게 큰 버튼 네 개뿐인 «간단 화면»을 켜 줄 수 있어요.</p></details>
+      <details><summary>그만 쓰고 싶을 땐 어떻게 하나요?<span class="pm" aria-hidden="true"></span></summary><p class="a">계정과 데이터를 언제든 남김없이 지울 수 있어요. 지우는 동안 지금 몇 번째 단계인지 차례로 보여 드려요.</p></details>
+    </div>
+  </div></div>
+</section>
+
 <!-- 다운로드 -->
 <section class="morning" id="get">
   <div class="dawnline"></div>
@@ -855,13 +1005,19 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
  * 햅틱 v2 «애플워치 용두처럼 섬세하게» — BRIEF.md 참조.
  *
  *  - Android(Chrome·삼성 인터넷): navigator.vibrate 마이크로 펄스.
- *      detent 3ms · tap 4ms · settle [3,40,5] · success [4,70,6]
+ *      detent 12ms · tap 16ms · settle [10,40,16] · success [14,70,18] (2026-10-02 실폰 상향)
  *  - 직전 펄스가 «끝난» 뒤 최소 40ms 간격. detent 는 간격 안이면 버리고,
  *    tap·settle·success 는 버리지 않고 간격이 열리는 순간으로 미룬다.
  *  - 첫 사용자 터치(pointerdown pointerType==='touch' / touchstart) 전에는 시도조차 안 한다.
  *  - prefers-reduced-motion: reduce 이거나 탭이 숨겨져 있으면 꺼진다.
- *  - iOS(vibrate 없음): iOS 18+ <input type=checkbox switch> 기법으로 tap 류만 «틱» 1회.
- *    연속 detent 는 iOS 에서 하지 않는다.
+ *  - iOS(vibrate 없음): iOS 18+ <input type=checkbox switch> 기법 «틱» 1회.
+ *    ⚠️ iOS 는 «사용자 제스처(click·touchend 등) 처리 중 동기 호출»일 때만 진동한다
+ *    (setTimeout·스크롤·rAF·IO 콜백에서 부르면 조용히 무시). 그래서 iOS 경로는
+ *      · tap·settle·success·pulse → 제스처 안이면 틱 1회, 밖이면 건너뜀(로그 ios-skip)
+ *      · detent(연속 눈금) → 하지 않는다
+ *      · 다이얼 경계 → 스크롤 중엔 «빚»으로 적어 두고 손가락을 뗄 때(touchend) 틱 1회
+ *    매 호출마다 display:none label+switch 를 새로 만들어 click 후 제거(알려진 동작 방식).
+ *    iOS 17 이하·시스템 햅틱 끔·저전력 모드에선 아무 일도 없이 지나간다(에러 0). (2026-10-15)
  *  - 데스크톱·미지원: 아무것도 안 한다(에러 0).
  *
  * API
@@ -897,6 +1053,14 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   var lastEnd = -1e9;        // 마지막 펄스가 끝나는 시각
   var pending = null;        // 미뤄 둔 우선 펄스 타이머
   var log = [];
+  var iosOwed = false;       // iOS: 스크롤 중 지난 다이얼 경계 — 손가락을 뗄 때 틱 1회로 갚는다
+  var GESTURE = /^(click|touchend|pointerup|mouseup|keydown|keyup|change|input)$/;
+  function iosMode() { return isIOS && !canVibrate(); }
+  function inGesture() {
+    if (!('event' in w)) return true;             // window.event 미지원 환경: 판단 불가 → 시도
+    var ev = w.event;                             // 디스패치 밖에선 undefined
+    return !!(ev && GESTURE.test(ev.type));
+  }
   var rmq = null;
   try { rmq = w.matchMedia ? w.matchMedia('(prefers-reduced-motion: reduce)') : null; } catch (e) { rmq = null; }
 
@@ -916,6 +1080,10 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   function onUp(e) {
     if (e.type.indexOf('pointer') === 0 && e.pointerType !== 'touch') return;
     touching = false; touchEndAt = now();
+    if (e.type === 'touchend') {
+      armed = true;
+      if (iosOwed) { iosOwed = false; emit('tap', P.tap); }   // touchend 는 사용자 활성화 이벤트 — 여기서 동기로
+    }
   }
   var opt = { capture: true, passive: true };
   try {
@@ -931,21 +1099,20 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   } catch (e) { /* 아주 오래된 환경 */ }
 
   // ── iOS 18+ switch 체크박스 기법 ──────────────────────────────────
-  var iosLabel = null;
   function iosTick() {
+    var lb = null, host = d.head || d.body || d.documentElement;
     try {
-      if (!iosLabel) {
-        iosLabel = d.createElement('label');
-        iosLabel.setAttribute('aria-hidden', 'true');
-        iosLabel.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
-        var cb = d.createElement('input');
-        cb.type = 'checkbox'; cb.setAttribute('switch', ''); cb.tabIndex = -1;
-        iosLabel.appendChild(cb);
-        (d.body || d.documentElement).appendChild(iosLabel);
-      }
-      iosLabel.click();
+      lb = d.createElement('label');
+      lb.setAttribute('aria-hidden', 'true');
+      lb.style.display = 'none';
+      var cb = d.createElement('input');
+      cb.type = 'checkbox'; cb.setAttribute('switch', ''); cb.tabIndex = -1;
+      lb.appendChild(cb);
+      host.appendChild(lb);
+      lb.click();                                   // 제스처 처리 중 «동기»여야 진동한다
       return true;
     } catch (e) { return false; }
+    finally { try { if (lb && lb.parentNode) lb.parentNode.removeChild(lb); } catch (e2) {} }
   }
 
   // ── 실제 발생 ────────────────────────────────────────────────────
@@ -962,13 +1129,16 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   function emit(kind, pattern) {
     if (!enabled()) return false;
     if (!canVibrate()) {
-      // iOS: tap 류(경계·버튼)만 1회. 연속 detent·settle 은 하지 않는다.
-      if (isIOS && kind === 'tap') {
-        var t0 = now();
+      // iOS: 제스처 안의 tap·settle·success·pulse 만 틱 1회. 연속 detent 는 하지 않는다.
+      if (isIOS && kind !== 'detent') {
+        var t0 = now(), ev = w.event;
+        if (!inGesture()) { log.push({ t: Math.round(t0), kind: 'ios-skip', src: kind, ev: ev ? ev.type : null, ok: false }); return false; }
         if (t0 - lastEnd < MIN_GAP) return false;
         lastEnd = t0;
-        log.push({ t: Math.round(t0), kind: 'ios-tap', pattern: 0, ok: true });
-        return iosTick();
+        var ok = iosTick();
+        log.push({ t: Math.round(t0), kind: 'ios-tap', src: kind, ev: ev ? ev.type : null, pattern: 0, ok: ok });
+        if (log.length > 200) log.shift();
+        return ok;
       }
       return false;
     }
@@ -1036,7 +1206,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
       }
       prevP = p;
       if (!finger) { feed(p, true); return; }      // 휠·키보드 스크롤: 위치만 따라가고 울리지 않는다
-      if (crossed) { feed(p, true); Haptics.tap(); return; } // 경계는 tap 하나(같은 순간 detent 중복 금지)
+      if (crossed) { feed(p, true); if (iosMode()) { if (touching) iosOwed = true; } else Haptics.tap(); return; } // 경계는 tap 하나(iOS: 손가락 뗄 때)
       feed(p, false);
     }
 
@@ -1100,7 +1270,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
     config: function (o) { for (var k in o) if (P.hasOwnProperty(k)) P[k] = o[k]; return P; },
     status: function () {
       return {
-        vibrate: canVibrate(), ios: isIOS, armed: armed, touching: touching,
+        vibrate: canVibrate(), ios: isIOS, iosOwed: iosOwed, armed: armed, touching: touching,
         reducedMotion: reduced(), hidden: hidden(), enabled: enabled(),
         pulses: { detent: P.detent, tap: P.tap, settle: P.settle, success: P.success }
       };
@@ -1123,7 +1293,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
   /* 햅틱 — 공용 모듈 Haptics(_shared/haptics.js, 빌드 시 인라인 — 용두 다이얼 «보통» 기본값).
      첫 터치 전·reduced-motion·탭 숨김이면 모듈이 스스로 끈다. 미지원 환경은 조용히 무시. */
   var HP = window.Haptics || {tap:function(){}, dial:function(){return {destroy:function(){}}}, rollDigits:function(){return function(){}}};
-  document.addEventListener('click',function(ev){ var a=ev.target.closest&&ev.target.closest('a,button'); if(a) HP.tap(); },true);
+  document.addEventListener('click',function(ev){ var a=ev.target.closest&&ev.target.closest('a,button,summary'); if(a) HP.tap(); },true);
   /* 자리 넘김 시각(ms): 각 자리 띠의 CSS 전환(--ease 곡선)을 풀어 «숫자가 반 칸 넘어가는 순간»마다 detent,
      곡선이 98% 닿는 순간 settle — 감속에 맞춰 간격이 벌어진다. */
   function bezierInv(x1,y1,x2,y2){
@@ -1139,7 +1309,7 @@ footer .copy{width:100%;font-size:12.5px;opacity:.85}
     el.innerHTML=parts.map(function(h,i){ return '<span class="ln"><span class="ln-i" style="--i:'+i+'">'+h.trim()+'</span></span>'; }).join('');
   });
   function idx(sel){ document.querySelectorAll(sel).forEach(function(box){ [].forEach.call(box.children,function(c,i){ c.style.setProperty('--i',i); }); }); }
-  idx('.facts'); idx('.sunday .trio'); idx('.zeros'); idx('.rows'); idx('.get');
+  idx('.facts'); idx('.sunday .trio'); idx('.zeros'); idx('.rows'); idx('.get'); idx('.steps');
   document.querySelectorAll('.rise i').forEach(function(c,i){ c.style.setProperty('--i',i); });
 
   /* 롤링 숫자(odometer): 자리마다 세로 띠를 아래→위로 굴리고 v5Std 곡선으로 감속. 1회만. */

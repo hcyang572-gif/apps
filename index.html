@@ -830,13 +830,19 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
  * 햅틱 v2 «애플워치 용두처럼 섬세하게» — BRIEF.md 참조.
  *
  *  - Android(Chrome·삼성 인터넷): navigator.vibrate 마이크로 펄스.
- *      detent 3ms · tap 4ms · settle [3,40,5] · success [4,70,6]
+ *      detent 12ms · tap 16ms · settle [10,40,16] · success [14,70,18] (2026-10-02 실폰 상향)
  *  - 직전 펄스가 «끝난» 뒤 최소 40ms 간격. detent 는 간격 안이면 버리고,
  *    tap·settle·success 는 버리지 않고 간격이 열리는 순간으로 미룬다.
  *  - 첫 사용자 터치(pointerdown pointerType==='touch' / touchstart) 전에는 시도조차 안 한다.
  *  - prefers-reduced-motion: reduce 이거나 탭이 숨겨져 있으면 꺼진다.
- *  - iOS(vibrate 없음): iOS 18+ <input type=checkbox switch> 기법으로 tap 류만 «틱» 1회.
- *    연속 detent 는 iOS 에서 하지 않는다.
+ *  - iOS(vibrate 없음): iOS 18+ <input type=checkbox switch> 기법 «틱» 1회.
+ *    ⚠️ iOS 는 «사용자 제스처(click·touchend 등) 처리 중 동기 호출»일 때만 진동한다
+ *    (setTimeout·스크롤·rAF·IO 콜백에서 부르면 조용히 무시). 그래서 iOS 경로는
+ *      · tap·settle·success·pulse → 제스처 안이면 틱 1회, 밖이면 건너뜀(로그 ios-skip)
+ *      · detent(연속 눈금) → 하지 않는다
+ *      · 다이얼 경계 → 스크롤 중엔 «빚»으로 적어 두고 손가락을 뗄 때(touchend) 틱 1회
+ *    매 호출마다 display:none label+switch 를 새로 만들어 click 후 제거(알려진 동작 방식).
+ *    iOS 17 이하·시스템 햅틱 끔·저전력 모드에선 아무 일도 없이 지나간다(에러 0). (2026-10-15)
  *  - 데스크톱·미지원: 아무것도 안 한다(에러 0).
  *
  * API
@@ -872,6 +878,14 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   var lastEnd = -1e9;        // 마지막 펄스가 끝나는 시각
   var pending = null;        // 미뤄 둔 우선 펄스 타이머
   var log = [];
+  var iosOwed = false;       // iOS: 스크롤 중 지난 다이얼 경계 — 손가락을 뗄 때 틱 1회로 갚는다
+  var GESTURE = /^(click|touchend|pointerup|mouseup|keydown|keyup|change|input)$/;
+  function iosMode() { return isIOS && !canVibrate(); }
+  function inGesture() {
+    if (!('event' in w)) return true;             // window.event 미지원 환경: 판단 불가 → 시도
+    var ev = w.event;                             // 디스패치 밖에선 undefined
+    return !!(ev && GESTURE.test(ev.type));
+  }
   var rmq = null;
   try { rmq = w.matchMedia ? w.matchMedia('(prefers-reduced-motion: reduce)') : null; } catch (e) { rmq = null; }
 
@@ -891,6 +905,10 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   function onUp(e) {
     if (e.type.indexOf('pointer') === 0 && e.pointerType !== 'touch') return;
     touching = false; touchEndAt = now();
+    if (e.type === 'touchend') {
+      armed = true;
+      if (iosOwed) { iosOwed = false; emit('tap', P.tap); }   // touchend 는 사용자 활성화 이벤트 — 여기서 동기로
+    }
   }
   var opt = { capture: true, passive: true };
   try {
@@ -906,21 +924,20 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   } catch (e) { /* 아주 오래된 환경 */ }
 
   // ── iOS 18+ switch 체크박스 기법 ──────────────────────────────────
-  var iosLabel = null;
   function iosTick() {
+    var lb = null, host = d.head || d.body || d.documentElement;
     try {
-      if (!iosLabel) {
-        iosLabel = d.createElement('label');
-        iosLabel.setAttribute('aria-hidden', 'true');
-        iosLabel.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';
-        var cb = d.createElement('input');
-        cb.type = 'checkbox'; cb.setAttribute('switch', ''); cb.tabIndex = -1;
-        iosLabel.appendChild(cb);
-        (d.body || d.documentElement).appendChild(iosLabel);
-      }
-      iosLabel.click();
+      lb = d.createElement('label');
+      lb.setAttribute('aria-hidden', 'true');
+      lb.style.display = 'none';
+      var cb = d.createElement('input');
+      cb.type = 'checkbox'; cb.setAttribute('switch', ''); cb.tabIndex = -1;
+      lb.appendChild(cb);
+      host.appendChild(lb);
+      lb.click();                                   // 제스처 처리 중 «동기»여야 진동한다
       return true;
     } catch (e) { return false; }
+    finally { try { if (lb && lb.parentNode) lb.parentNode.removeChild(lb); } catch (e2) {} }
   }
 
   // ── 실제 발생 ────────────────────────────────────────────────────
@@ -937,13 +954,16 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
   function emit(kind, pattern) {
     if (!enabled()) return false;
     if (!canVibrate()) {
-      // iOS: tap 류(경계·버튼)만 1회. 연속 detent·settle 은 하지 않는다.
-      if (isIOS && kind === 'tap') {
-        var t0 = now();
+      // iOS: 제스처 안의 tap·settle·success·pulse 만 틱 1회. 연속 detent 는 하지 않는다.
+      if (isIOS && kind !== 'detent') {
+        var t0 = now(), ev = w.event;
+        if (!inGesture()) { log.push({ t: Math.round(t0), kind: 'ios-skip', src: kind, ev: ev ? ev.type : null, ok: false }); return false; }
         if (t0 - lastEnd < MIN_GAP) return false;
         lastEnd = t0;
-        log.push({ t: Math.round(t0), kind: 'ios-tap', pattern: 0, ok: true });
-        return iosTick();
+        var ok = iosTick();
+        log.push({ t: Math.round(t0), kind: 'ios-tap', src: kind, ev: ev ? ev.type : null, pattern: 0, ok: ok });
+        if (log.length > 200) log.shift();
+        return ok;
       }
       return false;
     }
@@ -1011,7 +1031,7 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
       }
       prevP = p;
       if (!finger) { feed(p, true); return; }      // 휠·키보드 스크롤: 위치만 따라가고 울리지 않는다
-      if (crossed) { feed(p, true); Haptics.tap(); return; } // 경계는 tap 하나(같은 순간 detent 중복 금지)
+      if (crossed) { feed(p, true); if (iosMode()) { if (touching) iosOwed = true; } else Haptics.tap(); return; } // 경계는 tap 하나(iOS: 손가락 뗄 때)
       feed(p, false);
     }
 
@@ -1075,7 +1095,7 @@ html.hid *,html.hid *::before,html.hid *::after{animation-play-state:paused!impo
     config: function (o) { for (var k in o) if (P.hasOwnProperty(k)) P[k] = o[k]; return P; },
     status: function () {
       return {
-        vibrate: canVibrate(), ios: isIOS, armed: armed, touching: touching,
+        vibrate: canVibrate(), ios: isIOS, iosOwed: iosOwed, armed: armed, touching: touching,
         reducedMotion: reduced(), hidden: hidden(), enabled: enabled(),
         pulses: { detent: P.detent, tap: P.tap, settle: P.settle, success: P.success }
       };
