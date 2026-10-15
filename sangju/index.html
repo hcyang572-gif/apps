@@ -517,14 +517,14 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   .hero-phone,.deok .par,.compo .phone{animation:none!important}
 }
 
-/* ═════ 히어로 두 갈래 — 시민은 찾고·신청하고·제안 / 공무원은 접수·처리·발굴 (3초 안에) ═════ */
+/* ═════ 히어로 두 갈래 — 시민은 찾고·신청하고·제안 / 공무원은 접수·처리·기획 (3초 안에) ═════ */
 .hero-cta{display:grid;justify-items:center;gap:10px}
 .lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vw,20px);width:min(100%,640px)}
 .lane{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px clamp(12px,2vw,20px) 14px;border-radius:var(--r-card);background:var(--card);text-decoration:none;color:var(--text);text-align:left;
   box-shadow:var(--e2),inset 0 0 0 1px var(--border);transition:transform var(--t-fast) var(--e);-webkit-tap-highlight-color:transparent;min-width:0}
 .lane::before{content:"";position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--lc)}
 .lane.citizen{--lc:var(--primary);--lt:var(--life);--li:var(--life-i)} .lane.officer{--lc:var(--civic);--lt:var(--care);--li:var(--care-i)}
-.lane:active{transform:scale(.98)}
+/* 2026-10-15 «잘못 누르면 랜딩을 벗어난다» — 갈래 카드는 링크가 아닌 안내 카드로(열기 단추 제거) */
 .ln-who{font-size:12.5px;font-weight:800;color:var(--lc);letter-spacing:.01em}
 .ln-steps{list-style:none;margin:0;padding:0;display:grid;gap:7px}
 .ln-steps li{display:flex;align-items:center;gap:9px;font-size:clamp(15px,1.5vw,18px);font-weight:800;letter-spacing:-.025em;white-space:nowrap}
@@ -533,7 +533,7 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
 .ln-sum{display:none;font-size:14px;font-weight:800;letter-spacing:-.02em}
 .ln-go{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:800;color:var(--lc);white-space:nowrap}
 .ln-go svg{width:14px;height:14px;transition:transform var(--t-fast) var(--e)}
-.lane:hover .ln-go svg{transform:translate(2px,-2px)}
+
 .js .lanes.rv li{opacity:0;transform:translateX(-8px)}
 .js .lanes.rv.in li{opacity:1;transform:none;transition:opacity 500ms var(--e-soft) calc(var(--n) * 110ms + 380ms),transform 600ms var(--e-soft) calc(var(--n) * 110ms + 380ms)}
 .js .lanes.rv.in .officer li{transition-delay:calc(var(--n) * 110ms + 620ms)}
@@ -1374,18 +1374,16 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     <p class="lead rv" style="--si:2">상주시 지원사업 <b class="num">124</b>개를 한곳에. 시민과 공무원이 같은 자료로 이어져요.</p>
     <div class="hero-cta rv" style="--si:3">
       <div class="lanes rv" id="lanes">
-        <a class="lane citizen" href="https://hcyang572-gif.github.io/sangju-policy-mobile/" target="_blank" rel="noopener" aria-label="시민용 열기 — 찾고, 신청하고, 제안해요">
+        <div class="lane citizen">
           <span class="ln-who">시민</span>
           <ol class="ln-steps"><li style="--n:0"><i>1</i>찾고</li><li style="--n:1"><i>2</i>신청하고</li><li style="--n:2"><i>3</i>제안해요</li></ol>
           <span class="ln-sum">찾고 · 신청 · 제안</span>
-          <span class="ln-go">시민용 열기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-        </a>
-        <a class="lane officer" href="https://hcyang572-gif.github.io/sangju-policy-admin/" target="_blank" rel="noopener" aria-label="공무원용 열기 — 접수하고, 처리하고, 새 사업을 발굴해요. 상주시 공무원 전용, 로그인 필요">
+        </div>
+        <div class="lane officer">
           <span class="ln-who">공무원</span>
-          <ol class="ln-steps"><li style="--n:0"><i>1</i>접수하고</li><li style="--n:1"><i>2</i>처리하고</li><li style="--n:2"><i>3</i>발굴해요</li></ol>
-          <span class="ln-sum">접수 · 처리 · 발굴</span>
-          <span class="ln-go">공무원용 열기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-        </a>
+          <ol class="ln-steps"><li style="--n:0"><i>1</i>접수하고</li><li style="--n:1"><i>2</i>처리하고</li><li style="--n:2"><i>3</i>기획해요</li></ol>
+          <span class="ln-sum">접수 · 처리 · 기획</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1400,7 +1398,6 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     <div class="film-head">
       <p class="overline rv">1분 소개 영상</p>
       <h2 class="wipe" id="filmT">상주시 정책플랫폼을<br>1분으로 만나 보세요.</h2>
-      <p class="lead rv" style="--si:1">화면에 들어오면 소리 없이 바로 재생돼요. 소리는 단추를 눌러 켜 주세요.</p>
       <div class="kbar" id="kbar" role="note"><span><span class="ka">진동·전체 화면 영상까지 제대로 보시려면</span><span class="ki">전체 화면 영상까지 제대로 보시려면</span></span>
         <a id="kbarGo" href="#"><span class="ka">크롬으로 열기</span><span class="ki">사파리로 열기</span></a><button type="button" id="kbarX" aria-label="안내 닫기">✕</button></div>
     </div>
@@ -1768,7 +1765,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
         <li class="cyc-card c1"><span class="cyc-n"><i>1</i>시민</span><b>제안하고 공감해요</b><span class="d">공감과 의견이 모여 제안이 무르익어요</span></li>
         <li class="cyc-card c2"><span class="cyc-n"><i>2</i>공무원</span><b>공감순으로 살펴요</b><span class="d">검토하고 답변해요</span></li>
         <li class="cyc-card c4"><span class="cyc-n"><i>4</i>새 사업</span><b>등록하면 시민에게</b><span class="d">«새로 추가된 지원사업» 알림</span></li>
-        <li class="cyc-card c3"><span class="cyc-n"><i>3</i>보고서</span><b>수요를 짚어 발굴</b><span class="d">공감 큰 제안·분야별 수요</span></li>
+        <li class="cyc-card c3"><span class="cyc-n"><i>3</i>보고서</span><b>수요를 짚어 기획</b><span class="d">공감 큰 제안·분야별 수요</span></li>
       </ol>
       <span class="cyc-like" style="--k:0;--x:-30px;--y:-26px" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21V10l4.5-7 1 .6a2 2 0 0 1 .9 2.2L12.5 9H19a2 2 0 0 1 2 2.4l-1.5 7A2.4 2.4 0 0 1 17 20.5H7z"/><path d="M7 10.5H4V21h3"/></svg></span><span class="cyc-like" style="--k:1;--x:30px;--y:-28px" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21V10l4.5-7 1 .6a2 2 0 0 1 .9 2.2L12.5 9H19a2 2 0 0 1 2 2.4l-1.5 7A2.4 2.4 0 0 1 17 20.5H7z"/><path d="M7 10.5H4V21h3"/></svg></span><span class="cyc-like" style="--k:2;--x:0px;--y:34px" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21V10l4.5-7 1 .6a2 2 0 0 1 .9 2.2L12.5 9H19a2 2 0 0 1 2 2.4l-1.5 7A2.4 2.4 0 0 1 17 20.5H7z"/><path d="M7 10.5H4V21h3"/></svg></span>
       <span class="cyc-orb" aria-hidden="true"></span>
@@ -2330,7 +2327,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     return HP.pulse(HXP[kind]);
   }
   function rollHaptic(){ setTimeout(function(){ if(!document.hidden) HX('settle',true); },1300); }   // 숫자가 멈추는 순간 1회만
-  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.lane,.more,.nav-open,.brand,footer nav a,.knots button,.fields button,.legend button,.qr,.how div,.ap-toc a,.xp-btn,.xp-close,.back-to,.film-ui button,.film-big,.st-next,.secnav a,.kbar a,.kbar button,.gear-btn,.tm-close'); if(a) HX('tap'); });
+  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.more,.nav-open,.brand,footer nav a,.knots button,.fields button,.legend button,.qr,.how div,.ap-toc a,.xp-btn,.xp-close,.back-to,.film-ui button,.film-big,.st-next,.secnav a,.kbar a,.kbar button,.gear-btn,.tm-close'); if(a) HX('tap'); });
 
   /* ── 무한 반복(덕장 흔들림 1곳)은 화면에 보일 때만, 탭 숨김이면 정지 ── */
   function tabVis(){ root.classList.toggle('tab-off',document.hidden); }
