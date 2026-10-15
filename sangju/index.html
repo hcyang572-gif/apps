@@ -1320,7 +1320,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .btn:active,.xp-btn:active,.xp-close:active,.legend button:active,.fields button:active,.mrw li:active{transform:scale(.95);transition-duration:90ms}
 /* [깔끔] 모바일: 공무원앱·PC 화면 묶음은 세로로 쌓지 않고 옆으로 넘겨 봐요(다음 장이 살짝 보임) */
 @media (max-width:759px){
-  .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
+  .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:22px;scrollbar-width:none;touch-action:pan-x pan-y}   /* 2026-10-15 «옆으로 넘길 때 위아래로 흔들림» — 안쪽이 16px 넘쳐 세로로도 스크롤되던 것 */
   .ap-gal.webs::-webkit-scrollbar{display:none}
   .ap-gal.webs>figure{scroll-snap-align:start;min-width:0}
 }
@@ -1374,12 +1374,15 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .fb-play[data-s="1"] .fb-rail li:nth-child(1),.fb-play[data-s="2"] .fb-rail li:nth-child(2),.fb-play[data-s="3"] .fb-rail li:nth-child(3),.fb-play[data-s="done"] .fb-rail li{opacity:1}
 .fb-play[data-s="1"] .fb-rail li:nth-child(1),.fb-play[data-s="3"] .fb-rail li:nth-child(3){transform:translateY(-4px);box-shadow:inset 0 0 0 2px var(--primary),var(--e2)}
 .fb-play[data-s="2"] .fb-rail li:nth-child(2){transform:translateY(-4px);box-shadow:inset 0 0 0 2px var(--civic),var(--e2)}
-#care .sec-head,#bench .sec-head,#survey .sec-head,.rep-copy{position:relative}
+#apps .sec-head,.film-head,.walk-head,#cycle .sec-head,.rep-copy{position:relative}
+.gear-btn.hunt-t{position:relative}
+.gear-btn.hunt-t::after{content:"";position:absolute;right:-4px;top:-4px;width:11px;height:11px;background:var(--secondary);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hgSpark 2.4s ease-in-out infinite}
+.gear-btn.hunt-t.got::after{display:none}
 .hid-gam{position:absolute;right:0;top:0;display:grid;place-items:center;width:48px;height:48px;padding:0;border:0;border-radius:50%;background:color-mix(in srgb,var(--secondary) 12%,transparent);cursor:pointer;opacity:.75;animation:hgNudge 6s var(--e-soft) 2s infinite;transition:opacity 300ms var(--e),filter 300ms var(--e),transform 420ms cubic-bezier(.34,1.56,.64,1)}
 .hid-gam svg{width:26px;height:28px;overflow:visible}
 @keyframes hgNudge{0%,86%,100%{transform:none}90%{transform:rotate(-14deg) scale(1.08)}94%{transform:rotate(10deg) scale(1.08)}97%{transform:rotate(-4deg)}}
 .hid-gam:hover{opacity:1}
-.sec-head>.hid-gam,.rep-copy>.hid-gam{top:calc(1.4em + 22px)} #care .sec-head>.hid-gam{top:-6px} @media (max-width:359px){#care .sec-head>.hid-gam{top:-12px;width:38px;height:38px}}
+.sec-head>.hid-gam,.rep-copy>.hid-gam,.film-head>.hid-gam,.walk-head>.hid-gam{top:calc(1.4em + 22px)} @media (max-width:379px){.film-head>.hid-gam,.walk-head>.hid-gam{top:-14px;width:40px;height:40px}}
 .hid-gam::before{content:"";position:absolute;right:4px;top:3px;width:9px;height:9px;background:var(--secondary);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hgSpark 2.4s ease-in-out infinite}
 @keyframes hgSpark{0%,100%{opacity:.25;transform:scale(.6) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(45deg)}}
 .hid-gam::after{content:"눌러 보세요";position:absolute;right:calc(100% + 4px);top:50%;transform:translateY(-50%);padding:3px 9px;border-radius:var(--r-pill);font-size:11.5px;font-weight:800;white-space:nowrap;color:var(--accent-text);background:var(--card);box-shadow:var(--e1),inset 0 0 0 1px var(--border);opacity:0;transition:opacity 300ms var(--e);pointer-events:none}
@@ -1399,6 +1402,44 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 @media (max-width:759px){.huntchip{top:calc(100% + 8px);left:12px;height:26px;font-size:12px}}
 @media (orientation:landscape) and (max-height:360px){.huntchip{display:none}}
 .egg-toast{white-space:normal;width:max-content;max-width:calc(100vw - 32px);text-align:center;line-height:1.45}
+/* ═════ 시정구호 이스터에그(2026-10-15 «가장 화려하게, 전체 화면으로») — 1막 별하늘 «이상을 꿈꾸고» · 2막 별이 모여 곶감과 빛줄기 «현실로 만드는» · 3막 파문과 상주 보물 폭죽 «대한민국의 중심, 상주» · 끝에 시정구호 ═════ */
+.sl-btn{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;border-radius:inherit;-webkit-tap-highlight-color:transparent;position:relative}
+.sl-btn img{transition:transform 420ms cubic-bezier(.34,1.56,.64,1)}
+.sl-btn:active img{transform:scale(.98)}
+.sl-btn::after{content:"";position:absolute;right:-6px;top:-6px;width:12px;height:12px;background:var(--secondary);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:hgSpark 2.4s ease-in-out infinite}
+.slx{position:fixed;inset:0;z-index:90;display:none;overflow:hidden;cursor:pointer;color:#FFF6EA;
+  background:radial-gradient(120% 90% at 50% 110%,#5A2A12 0%,#2A140B 45%,#120A07 100%);opacity:0;transition:opacity 500ms var(--e-soft)}
+.slx.on{display:block} .slx.vis{opacity:1}
+.slx .sky i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#FFE7B8;box-shadow:0 0 calc(var(--s) * 3) #FFC56B;opacity:0;animation:skyIn 900ms ease-out forwards,skyTw 1.6s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + 900ms)}
+@keyframes skyIn{to{opacity:.95}} @keyframes skyTw{0%,100%{opacity:.95}50%{opacity:.35}}
+.slx.act2 .sky i{transition:transform 1100ms cubic-bezier(.6,0,.3,1),opacity 900ms ease 300ms;transform:translate(var(--tx),var(--ty)) scale(.4);opacity:0!important;animation:none}
+.slx .rays{position:absolute;left:50%;top:46%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,197,107,.20) 0deg 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 55%);mask:radial-gradient(circle,#000 0,transparent 55%);opacity:0;transform:scale(.4) rotate(0)}
+.slx.act2 .rays{opacity:1;transform:scale(1) rotate(40deg);transition:opacity 900ms ease 700ms,transform 6s linear 700ms}
+.slx .big{position:absolute;left:50%;top:46%;width:min(46vmin,260px);aspect-ratio:40/44;transform:translate(-50%,-50%) scale(0) rotate(-40deg);opacity:0;filter:drop-shadow(0 0 40px rgba(255,170,80,.65))}
+.slx .big svg{width:100%;height:100%;overflow:visible}
+.slx.act2 .big{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0);transition:transform 1200ms cubic-bezier(.34,1.56,.64,1) 900ms,opacity 400ms ease 900ms}
+.slx.act3 .big{transform:translate(-50%,-50%) scale(.82);transition:transform 700ms var(--e-soft)}
+.slx.fin .big,.slx.fin .rays{opacity:0;transition:opacity 600ms ease}
+.slx .rp{position:absolute;left:50%;top:46%;width:30vmin;height:30vmin;margin:-15vmin 0 0 -15vmin;border-radius:50%;border:2px solid rgba(255,197,107,.85);box-shadow:0 0 30px rgba(255,170,80,.4),inset 0 0 30px rgba(255,170,80,.25);opacity:0;transform:scale(.2)}
+.slx.act3 .rp{animation:slRip 2200ms var(--e-soft) forwards;animation-delay:calc(var(--k) * 330ms)}
+@keyframes slRip{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(7)}}
+.slx .cf{position:absolute;left:50%;top:46%;width:var(--s);height:calc(var(--s) * 1.1);margin:calc(var(--s) * -.55) 0 0 calc(var(--s) * -.5);opacity:0}
+.slx .cf svg{width:100%;height:100%;overflow:visible}
+.slx.act3 .cf{animation:slBurst 2600ms cubic-bezier(.15,.75,.3,1) forwards;animation-delay:calc(200ms + var(--k) * 12ms)}
+@keyframes slBurst{0%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}12%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--bx),calc(var(--by) + 14vh)) scale(1) rotate(var(--br))}}
+.slx .ln{position:absolute;left:0;right:0;top:calc(46% + min(30vmin,190px));margin:0;padding:0 20px;text-align:center;font-size:clamp(26px,6.4vw,64px);font-weight:900;letter-spacing:-.02em;line-height:1.2;opacity:0;transform:translateY(18px);filter:blur(6px);text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.slx .ln.on{opacity:1;transform:none;filter:none;transition:opacity 700ms var(--e-soft),transform 900ms var(--e-soft),filter 700ms var(--e-soft)}
+.slx .ln.off{opacity:0;transform:translateY(-14px);filter:blur(4px);transition:opacity 500ms ease,transform 600ms ease,filter 500ms ease}
+.slx .ln.l3{background:linear-gradient(100deg,#FFD58A 20%,#FFF6EA 40%,#FFB15C 60%,#FFD58A 80%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:slShine 2.4s linear infinite}
+@keyframes slShine{to{background-position:-250% 0}}
+.slx .ln small{display:block;margin-bottom:8px;font-size:clamp(12px,1.6vw,16px);font-weight:800;letter-spacing:.3em;color:#FFC56B;-webkit-text-fill-color:#FFC56B}
+.slx .finale{position:absolute;left:50%;top:50%;width:min(88vw,900px);padding:clamp(18px,3vw,36px);border-radius:24px;background:#FFFDFB;box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,197,107,.6),0 0 60px rgba(255,170,80,.35);transform:translate(-50%,-44%) scale(.9);opacity:0}
+.slx .finale img{display:block;width:100%;height:auto}
+.slx.fin .finale{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity 700ms var(--e-soft),transform 900ms cubic-bezier(.34,1.56,.64,1)}
+.slx .x{position:absolute;right:calc(14px + env(safe-area-inset-right));top:calc(14px + env(safe-area-inset-top));width:44px;height:44px;border:0;border-radius:50%;font-size:18px;color:#FFF6EA;background:rgba(255,255,255,.12);cursor:pointer}
+.slx .tip{position:absolute;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom));margin:0;text-align:center;font-size:12.5px;font-weight:700;color:rgba(255,246,234,.55)}
+@media (prefers-reduced-motion: reduce){.sl-btn::after{animation:none}.slx *{animation:none!important;transition:none!important}.slx .sky,.slx .rays,.slx .rp,.slx .cf,.slx .big,.slx .ln{display:none}.slx .finale{opacity:1;transform:translate(-50%,-50%)}}
 /* [재미] 숨은 곶감 */
 .egg{position:fixed;inset:0 0 auto 0;height:0;z-index:80;pointer-events:none}
 .egg svg{position:absolute;top:-60px;width:34px;height:38px;overflow:visible;animation:eggDrop 1900ms cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:calc(var(--k) * 70ms)}
@@ -1473,7 +1514,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="film-head">
       <p class="overline rv">1분 소개 영상</p>
-      <h2 class="wipe" id="filmT">상주시 정책플랫폼을<br>1분으로 만나 보세요.</h2>
+      <h2 class="wipe" id="filmT">상주시 정책플랫폼을<br>1분으로 만나 보세요.</h2><button type="button" class="hid-gam" data-g="gam" aria-label="숨은 상주 — 곶감"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg></button>
       <div class="kbar" id="kbar" role="note"><span><span class="ka">진동·전체 화면 영상까지 제대로 보시려면</span><span class="ki">전체 화면 영상까지 제대로 보시려면</span></span>
         <a id="kbarGo" href="#"><span class="ka">크롬으로 열기</span><span class="ki">사파리로 열기</span></a><button type="button" id="kbarX" aria-label="안내 닫기">✕</button></div>
     </div>
@@ -1501,7 +1542,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">세 개의 앱 · 하나의 자료</p>
-      <h2 class="wipe">시민의 휴대폰부터<br>사무실 PC까지.</h2>
+      <h2 class="wipe">시민의 휴대폰부터<br>사무실 PC까지.</h2><button type="button" class="hid-gam" data-g="bike" aria-label="숨은 상주 — 자전거"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-bike" x="-20" y="-24" width="40" height="44"/></svg></button>
       <p class="lead rv" style="--si:1"><b>세 앱이 같은 자료를 함께 써요.</b> 시민이 신청하면 공무원 화면에 곧바로, 공무원이 답하면 시민 화면에 바로 보여요.</p>
       <span class="demo-note rv" style="--si:2">시연용 가상 자료로 찍은 실제 화면</span>
     </div>
@@ -1601,7 +1642,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 <section id="walk">
   <div class="wrap walk-head">
     <p class="overline rv">시민 · 다섯 걸음</p>
-    <h2 class="wipe">시민은 찾고, 신청하고,<br>없으면 제안해요.</h2>
+    <h2 class="wipe">시민은 찾고, 신청하고,<br>없으면 제안해요.</h2><button type="button" class="hid-gam" data-g="rice" aria-label="숨은 상주 — 쌀"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-rice" x="-20" y="-24" width="40" height="44"/></svg></button>
     <p class="lead rv" style="--si:1">스크롤을 내리면 걸음마다 쓰는 화면이 바뀌어요. 모두 지금 열리는 실제 시민용 화면입니다.</p>
   </div>
   <div class="track" id="track">
@@ -1843,7 +1884,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">① 모은다 → ② 읽는다 → ③ 쓴다</p>
-      <h2 class="wipe">시민의 제안이<br>새 사업이 되기까지.</h2>
+      <h2 class="wipe">시민의 제안이<br>새 사업이 되기까지.</h2><button type="button" class="hid-gam" data-g="wave" aria-label="숨은 상주 — 낙동강"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-wave" x="-20" y="-24" width="40" height="44"/></svg></button>
       <p class="lead rv" style="--si:1"><b>목소리를 모으고, 보고서로 읽고, 새 정책으로 써요.</b> 이 순환이 플랫폼의 목적이에요.</p>
     </div>
     <div class="cyc rv" id="cyc">
@@ -1873,7 +1914,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">설문조사 · 2026. 9. 11. ~ 9. 30.</p>
-      <h2 class="wipe">먼저 묻고,<br>들은 대로 담았어요.</h2><button type="button" class="hid-gam" data-g="rice" aria-label="숨은 상주 — 쌀"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-rice" x="-20" y="-24" width="40" height="44"/></svg></button>
+      <h2 class="wipe">먼저 묻고,<br>들은 대로 담았어요.</h2>
       <p class="lead rv" style="--si:1"><b>공무원과 시민 모두 «필요하다»가 다수였어요.</b> 들은 이야기는 플랫폼에 담았거나 앞으로 할 일로 정리했어요.</p>
     </div>
     <div class="sv-grid">
@@ -1971,7 +2012,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">벤치마킹 · 2026. 10. 12.(월) 여수시</p>
-      <h2 class="wipe">먼저 해 본 곳에서,<br>배워 왔어요.</h2><button type="button" class="hid-gam" data-g="bike" aria-label="숨은 상주 — 자전거"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-bike" x="-20" y="-24" width="40" height="44"/></svg></button>
+      <h2 class="wipe">먼저 해 본 곳에서,<br>배워 왔어요.</h2>
       <p class="lead rv" style="--si:1">연구팀이 여수시 이순신도서관과 여수시청년지원센터를 찾아 무인 안내 로봇과 정보 키오스크를 직접 써 봤어요.</p>
     </div>
     <div class="bn-top">
@@ -2015,7 +2056,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">누구나 쉽게</p>
-      <h2 class="wipe">어르신도, 처음 쓰는 분도.</h2><button type="button" class="hid-gam" data-g="gam" aria-label="숨은 상주 — 곶감"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg></button>
+      <h2 class="wipe">어르신도, 처음 쓰는 분도.</h2>
     </div>
     <ol class="rows">
       <li class="row rv"><span class="n num">01</span><b><span class="aa" aria-hidden="true">가</span>글자를 크게.</b><span class="d">위쪽 「가」 단추를 누르면 모든 글자가 125%로 커져요. 휴대폰 글자 크기 설정도 그대로 따라갑니다.</span></li>
@@ -2030,12 +2071,11 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 <!-- ═════ 상주시 시정구호(세 앱 공통 이미지 · 원색·원래 비율) ═════ -->
 <section id="slogan" class="slogan-band" aria-label="상주시 시정구호">
   <div class="wrap">
-    <figure class="sl rv">
+    <figure class="sl rv"><button type="button" class="sl-btn" id="slBtn" aria-label="상주시 시정구호 — 눌러 보세요">
       <picture>
         <source media="(min-width:600px)" srcset="img/slogan-wide.png" width="1201" height="122">
         <img src="img/slogan-stack.png" width="901" height="183" alt="이상을 꿈꾸고, 현실로 만드는, 대한민국의 중심 상주" decoding="async">
-      </picture>
-      <figcaption>시민의 목소리를 정책으로 — 상주시 시정구호와 함께</figcaption>
+      </picture></button>
     </figure>
   </div>
 </section>
@@ -2089,10 +2129,10 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
       <a href="https://hcyang572-gif.github.io/sangju-policy-mobile/" target="_blank" rel="noopener">개인정보 처리방침(시민용 맨 아래)</a>
       <a href="mailto:hcyang572@korea.kr">문의</a>
     </nav>
-    <p class="foot-note">연구 과제의 결과물로 만든 시민 참여형 정책 플랫폼입니다. 사업별 세부 내용과 신청 자격은 각 사업의 담당 부서에 확인해 주세요.<button type="button" class="hid-gam" data-g="wave" aria-label="숨은 상주 — 낙동강"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#h-wave" x="-20" y="-24" width="40" height="44"/></svg></button></p>
+    <p class="foot-note">연구 과제의 결과물로 만든 시민 참여형 정책 플랫폼입니다. 사업별 세부 내용과 신청 자격은 각 사업의 담당 부서에 확인해 주세요.</p>
   </div>
 </footer>
-<div class="egg" id="egg" aria-hidden="true"></div><p class="egg-toast" id="eggT" role="status" hidden></p>
+<div class="egg" id="egg" aria-hidden="true"></div><div class="slx" id="slx" role="dialog" aria-label="상주시 시정구호 — 이상을 꿈꾸고, 현실로 만드는, 대한민국의 중심 상주"></div><p class="egg-toast" id="eggT" role="status" hidden></p>
 <div class="tm-back" id="teamDlg" hidden><div class="tm" role="dialog" aria-modal="true" aria-labelledby="tmT" aria-describedby="tmS" tabindex="-1"><div class="tm-head"><svg class="tm-gam" viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg><div><h2 class="tm-title" id="tmT">톱니바퀴</h2><p class="tm-sub" id="tmS">제6기 미래상주 희망연구팀</p></div></div><span class="tm-silk" aria-hidden="true"></span><ul class="tm-list"><li style="--k:0"><span class="tm-role r-lead">팀장</span><span class="tm-name">김광석</span><span class="tm-dept">공업6</span></li><li style="--k:1"><span class="tm-role r-mgr">총무</span><span class="tm-name">박성덕</span><span class="tm-dept">공업7</span></li><li style="--k:2"><span class="tm-role">팀원</span><span class="tm-name">김범식</span><span class="tm-dept">녹지6</span></li><li style="--k:3"><span class="tm-role">팀원</span><span class="tm-name">이동희</span><span class="tm-dept">시설6</span></li><li style="--k:4"><span class="tm-role">팀원</span><span class="tm-name">함영식</span><span class="tm-dept">공업7</span></li><li style="--k:5"><span class="tm-role">팀원</span><span class="tm-name">양호창</span><span class="tm-dept">공업8</span></li></ul><button type="button" class="btn btn-pri tm-close" id="teamClose">닫기</button></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <button type="button" class="back-to" id="backTo" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>보던 곳으로 돌아가기</button>
@@ -2758,18 +2798,48 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
       bike:'자전거 — 자전거 도시 상주. 상주자전거박물관도 있어요.',
       rice:'쌀 — 삼백(三白)의 첫째. 너른 들에서 나는 하얀 쌀이에요.',
       cocoon:'누에고치 — 삼백(三白)의 하나. 함창 명주의 하얀 실이 여기서 나와요.',
-      wave:'낙동강 — 경천섬과 상주보를 품은 상주의 큰 물줄기예요.' };
-    var hg=$$('.hid-gam'), got=0, hc=$('#huntChip'), hn=$('#huntN');
+      wave:'낙동강 — 경천섬과 상주보를 품은 상주의 큰 물줄기. 시민의 목소리도 이렇게 흘러 정책이 돼요.',
+      team:'만든 사람들 — 제6기 미래상주 희망연구팀 «톱니바퀴»가 이 플랫폼을 만들었어요.' };
+    var hg=$$('.hid-gam'), tmo=$('#teamOpen'), got=0, hc=$('#huntChip'), hn=$('#huntN'), HT=hg.length+(tmo?1:0);
     function eggMsg(t,ms){ var e=$('#eggT'); if(!e) return; e.textContent=t; e.hidden=false; clearTimeout(eggMsg.t); eggMsg.t=setTimeout(function(){ e.hidden=true; },ms||2600); }
-    if(hc){ hn.textContent='0/'+hg.length;
+    if(hc){ hn.textContent='0/'+HT;
       addEventListener('scroll',function(){ var on=scrollY>innerHeight*.6; if(hc.hidden===on) hc.hidden=!on; },{passive:true});
-      hc.addEventListener('click',function(){ HX('tap'); eggMsg(got>=hg.length?'삼백의 고장 상주, 다섯 가지를 모두 찾으셨어요!':'곶감·자전거·쌀·누에고치·낙동강이 제목 옆에 숨어 있어요. 흔들리는 그림을 찾아 눌러 보세요!',3200); }); }
+      hc.addEventListener('click',function(){ HX('tap'); eggMsg(got>=HT?'숨은 상주 여섯 가지를 모두 찾으셨어요!':'곶감·자전거·쌀·누에고치·낙동강은 제목 옆에, 하나는 맨 아래 «만든 사람들»에 숨어 있어요. 반짝이는 곳을 눌러 보세요!',3600); }); }
     if('IntersectionObserver' in window){ var hio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; var b=e.target; hio.unobserve(b);
       if(b.classList.contains('got')) return; b.classList.add('hint'); setTimeout(function(){ b.classList.remove('hint'); },2600); }); },{threshold:1, rootMargin:'0px 0px -20% 0px'}); hg.forEach(function(b){ hio.observe(b); }); }
-    hg.forEach(function(b){ b.addEventListener('click',function(){ if(b.classList.contains('got')) return; b.classList.add('got'); got++;
-      if(hn){ hn.textContent=got+'/'+hg.length; hc.classList.remove('pop'); void hc.offsetWidth; hc.classList.add('pop'); }
-      if(got<hg.length){ eggMsg('('+got+'/'+hg.length+') '+(HUNT[b.getAttribute('data-g')]||'')); HX('tap'); }
-      else { if(hc) hc.classList.add('all'); eggMsg('다섯 가지를 다 찾으셨어요! 삼백의 고장 상주에 오신 것을 환영해요.',3600); dropGam(['gam','h-rice','h-cocoon','h-bike','h-wave']); } }); });
+    function huntFind(key,el){ if(el.classList.contains('got')) return; el.classList.add('got'); got++;
+      if(hn){ hn.textContent=got+'/'+HT; hc.classList.remove('pop'); void hc.offsetWidth; hc.classList.add('pop'); }
+      if(got<HT){ eggMsg('('+got+'/'+HT+') '+(HUNT[key]||'')); HX('tap'); }
+      else { if(hc) hc.classList.add('all'); eggMsg('숨은 상주 여섯 가지를 다 찾으셨어요! 삼백의 고장 상주에 오신 것을 환영해요.',3600); dropGam(['gam','h-rice','h-cocoon','h-bike','h-wave']); } }
+    hg.forEach(function(b){ b.addEventListener('click',function(){ huntFind(b.getAttribute('data-g'),b); }); });
+    if(tmo){ tmo.classList.add('hunt-t'); tmo.addEventListener('click',function(){ huntFind('team',tmo); }); }
+
+    // 시정구호 이스터에그 — 전체 화면 3막(약 8초). 아무 곳이나 누르거나 Esc 로 닫아요
+    var slb=$('#slBtn'), slx=$('#slx'), slT=[];
+    function slClose(){ if(!slx.classList.contains('on')) return; slT.forEach(clearTimeout); slT=[]; slx.classList.remove('vis');
+      setTimeout(function(){ slx.className='slx'; slx.innerHTML=''; document.documentElement.style.overflow=''; try{ slb.focus({preventScroll:true}); }catch(e){} },500); }
+    if(slb&&slx){ slx.addEventListener('click',slClose); addEventListener('keydown',function(e){ if(e.key==='Escape') slClose(); });
+      slb.addEventListener('click',function(){ if(slx.classList.contains('on')) return;
+        var W=innerWidth, H=innerHeight, cx=W/2, cy=H*.46, img=$('img',slb), src=img&&(img.currentSrc||img.src), h='<div class="sky">', NS=W<600?70:130, ic=['gam','h-rice','h-cocoon','h-bike','h-wave'];
+        for(var i=0;i<NS;i++){ var x=Math.random()*W, y=Math.random()*H*.92; h+='<i style="--x:'+Math.round(x)+'px;--y:'+Math.round(y)+'px;--s:'+(1.5+Math.random()*3).toFixed(1)+'px;--d:'+Math.round(Math.random()*900)+'ms;--tx:'+Math.round(cx-x)+'px;--ty:'+Math.round(cy-y)+'px"></i>'; }
+        h+='</div><div class="rays"></div>';
+        for(var k=0;k<4;k++) h+='<i class="rp" style="--k:'+k+'"></i>';
+        var NC=W<600?34:56; for(var c=0;c<NC;c++){ var a=Math.random()*Math.PI*2, d=(.35+Math.random()*.6)*Math.max(W,H)*.6;
+          h+='<span class="cf" style="--k:'+c+';--s:'+Math.round(22+Math.random()*26)+'px;--bx:'+Math.round(Math.cos(a)*d)+'px;--by:'+Math.round(Math.sin(a)*d)+'px;--br:'+Math.round(Math.random()*720-360)+'deg"><svg viewBox="-20 -24 40 44"><use href="#'+ic[c%ic.length]+'" x="-20" y="-24" width="40" height="44"/></svg></span>'; }
+        h+='<span class="big"><svg viewBox="-20 -24 40 44"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg></span>';
+        h+='<p class="ln l1">이상을 꿈꾸고,</p><p class="ln l2">현실로 만드는,</p><p class="ln l3"><small>SANGJU</small>대한민국의 중심, 상주</p>';
+        if(src) h+='<div class="finale"><img src="'+src+'" alt=""></div>';
+        h+='<button type="button" class="x" aria-label="닫기">✕</button><p class="tip">아무 곳이나 누르면 닫혀요</p>';
+        slx.innerHTML=h; slx.classList.add('on'); document.documentElement.style.overflow='hidden'; void slx.offsetWidth; slx.classList.add('vis'); HX('tap');
+        var L=function(n){ return $('.ln.l'+n,slx); }, at=function(ms,fn){ slT.push(setTimeout(fn,ms)); };
+        if(reduce){ slx.classList.add('fin'); at(4000,slClose); return; }
+        at(500,function(){ L(1).classList.add('on'); });
+        at(2300,function(){ L(1).classList.add('off'); slx.classList.add('act2'); HX('tap'); });
+        at(3000,function(){ L(2).classList.add('on'); });
+        at(4600,function(){ L(2).classList.add('off'); slx.classList.add('act3'); HX('arrive'); });
+        at(5000,function(){ L(3).classList.add('on'); });
+        at(7600,function(){ L(3).classList.add('off'); slx.classList.add('fin'); });
+        at(10600,slClose); }); }
 
     // 숨은 곶감 — 머리띠 표지를 2초 안에 다섯 번
     var brand=$('#nav .brand') || $('.brand'), egg=$('#egg'), eggT=$('#eggT'), taps=[], eggOn=false;
