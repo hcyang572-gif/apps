@@ -1309,6 +1309,65 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   .quote blockquote{font-size:clamp(24px,1.6vw,34px)} .rf-q b{font-size:clamp(19.5px,1.3vw,27px)} .rf-a{font-size:clamp(16.5px,1.05vw,21px)} .rf-q small,.rf-who{font-size:clamp(13px,.85vw,17px)}
   .st{height:clamp(26px,1.8vw,36px);font-size:clamp(12px,.8vw,16px)} .rf li{grid-template-columns:clamp(7.5em,8vw,10em) minmax(0,1fr) minmax(0,1.15fr) clamp(6.5em,7vw,9em)}
 }
+
+/* ═════ 미리보기 2026-10-15 — 다듬기 + 재미(정본 토큰만 사용) ═════ */
+/* [손맛] 누르면 살짝 눌렸다가 «통» 튀어 돌아옴 */
+.btn,.xp-btn,.xp-close,.qz-opts button,.qz-again,.legend button,.fields button,.mrw li{transition:transform 420ms cubic-bezier(.34,1.56,.64,1),box-shadow 200ms var(--e),background 200ms var(--e),color 200ms var(--e)}
+.btn:active,.xp-btn:active,.xp-close:active,.qz-opts button:active,.qz-again:active,.legend button:active,.fields button:active,.mrw li:active{transform:scale(.95);transition-duration:90ms}
+/* [깔끔] 모바일: 공무원앱·PC 화면 묶음은 세로로 쌓지 않고 옆으로 넘겨 봐요(다음 장이 살짝 보임) */
+@media (max-width:759px){
+  .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
+  .ap-gal.webs::-webkit-scrollbar{display:none}
+  .ap-gal.webs>figure{scroll-snap-align:start;min-width:0}
+}
+/* [고도화] ①②③ 단계를 누르면 위 순환도에서 그 단계 카드가 또렷해져요 */
+.mrw li{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mrw li[aria-pressed="true"]{box-shadow:var(--e2),inset 0 0 0 2px var(--mc)}
+.mrw li:focus-visible{outline:3px solid var(--mc);outline-offset:3px}
+.cyc .cyc-card{transition:filter 320ms var(--e),transform 420ms cubic-bezier(.34,1.56,.64,1)}
+.cyc[data-hl] .cyc-card{filter:saturate(.3) opacity(.5)}
+.cyc[data-hl="1"] .cyc-card.c1,.cyc[data-hl="2"] .cyc-card.c2,.cyc[data-hl="2"] .cyc-card.c3,.cyc[data-hl="3"] .cyc-card.c4{filter:none;transform:scale(1.04)}
+.mrw-tip{margin:10px 0 0;font-size:13.5px;font-weight:700;color:var(--muted)}
+/* [재미] 30초 체험 */
+#try .qz{position:relative;margin-top:var(--g-head);padding:clamp(18px,2.6vw,36px);border-radius:var(--r-card);background:var(--card);box-shadow:var(--e2),inset 0 0 0 1px var(--border);max-width:860px}
+.qz-bar{height:4px;border-radius:4px;background:color-mix(in srgb,var(--primary) 14%,var(--card));overflow:hidden;margin-bottom:clamp(14px,2vw,22px)}
+.qz-bar i{display:block;height:100%;width:calc(var(--qp,0) * 100%);background:var(--primary);border-radius:inherit;transition:width 420ms var(--e-soft)}
+.qz-q{border:0;margin:0 0 clamp(14px,2vw,22px);padding:0;min-width:0}
+.qz-q legend{display:flex;align-items:center;gap:10px;padding:0;margin-bottom:10px;font-size:clamp(17px,1.2vw,21px);font-weight:800;color:var(--ink,inherit)}
+.qz-q legend .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-size:13px;color:var(--on-primary);background:var(--primary)}
+.qz-opts{display:flex;flex-wrap:wrap;gap:8px}
+.qz-opts button{min-height:44px;padding:0 16px;border:0;border-radius:var(--r-pill);font:inherit;font-size:15px;font-weight:700;color:inherit;background:color-mix(in srgb,var(--primary) 6%,var(--card));
+  box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--primary) 26%,var(--border));cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qz-opts button[aria-pressed="true"]{color:var(--on-primary);background:var(--primary);box-shadow:none}
+.qz-q.dim legend{opacity:.55}
+.qz-res{border-top:1px solid var(--border);padding-top:clamp(14px,2vw,22px)}
+.qz-h{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:17px}
+.qz-h svg{width:26px;height:28px;overflow:visible;animation:qzSwing 1.6s var(--e-soft) 1}
+@keyframes qzSwing{0%{transform:rotate(-14deg)}40%{transform:rotate(9deg)}70%{transform:rotate(-4deg)}100%{transform:none}}
+.qz-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.qz-list li{display:grid;gap:2px;padding:12px 14px;border-radius:var(--r-btn,12px);background:color-mix(in srgb,var(--primary) 5%,var(--card));box-shadow:inset 0 0 0 1px var(--border);
+  opacity:0;transform:translateY(8px);animation:qzIn 420ms var(--e-soft) forwards;animation-delay:calc(var(--k) * 90ms)}
+.qz-list li b{font-size:15.5px}
+.qz-list li span{font-size:13px;font-weight:700;color:var(--muted)}
+.qz-list li em{font-style:normal;color:var(--accent-text)}
+@keyframes qzIn{to{opacity:1;transform:none}}
+.qz-note{margin:12px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+.qz-act{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:14px}
+.qz-again{min-height:44px;padding:0 16px;border:0;border-radius:var(--r-pill);font:inherit;font-weight:800;font-size:14px;color:var(--accent-text);background:none;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--accent-text) 35%,var(--border));cursor:pointer}
+/* [재미] 숨은 곶감 */
+.egg{position:fixed;inset:0 0 auto 0;height:0;z-index:80;pointer-events:none}
+.egg svg{position:absolute;top:-60px;width:34px;height:38px;overflow:visible;animation:eggDrop 1900ms cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:calc(var(--k) * 70ms)}
+.egg svg line{stroke:var(--thread,#A9846A);stroke-width:1.2}
+@keyframes eggDrop{0%{transform:translateY(0) rotate(-8deg)}55%{transform:translateY(calc(var(--y) + 70px)) rotate(6deg)}80%{transform:translateY(calc(var(--y) + 60px)) rotate(-3deg)}100%{transform:translateY(calc(var(--y) + 64px)) rotate(0)}}
+.egg.out svg{transition:opacity 500ms var(--e),transform 500ms var(--e);opacity:0}
+.egg-toast{position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top));z-index:81;margin:0;transform:translateX(-50%);padding:10px 18px;border-radius:var(--r-pill);font-size:14.5px;font-weight:800;color:var(--on-primary);background:var(--primary);box-shadow:var(--glz);white-space:nowrap}
+.egg-toast[hidden]{display:none}
+@media (prefers-reduced-motion: reduce){
+  .btn,.xp-btn,.xp-close,.qz-opts button,.qz-again,.legend button,.fields button,.mrw li,.cyc .cyc-card,.qz-bar i{transition:none!important}
+  .btn:active,.xp-btn:active,.xp-close:active,.qz-opts button:active,.qz-again:active,.legend button:active,.fields button:active,.mrw li:active{transform:none}
+  .qz-list li{animation:none;opacity:1;transform:none} .qz-h svg{animation:none} .egg svg{animation:none;display:none}
+  .cyc[data-hl="1"] .cyc-card.c1,.cyc[data-hl="2"] .cyc-card.c2,.cyc[data-hl="2"] .cyc-card.c3,.cyc[data-hl="3"] .cyc-card.c4{transform:none}
+}
 </style>
 <style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="우리가족 매니저 · 한국사 매니저 · 보카매니저"><meta property="og:title" content="상주시 정책플랫폼"><meta property="og:description" content="상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/sangju/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="400"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:alt" content="상주시 정책플랫폼 — 상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/sangju/"></head>
 <body>
@@ -1549,6 +1608,33 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 </section>
 
 
+<!-- ═════ 30초 체험 — 나에게 맞는 지원사업(미리보기 2026-10-15) · 사업명은 시민앱 data.json 실제 목록 ═════ -->
+<section id="try" aria-labelledby="tryT">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="overline rv">30초 체험</p>
+      <h2 class="wipe" id="tryT">세 가지만 고르면,<br>맞는 사업이 보여요.</h2>
+      <p class="lead rv" style="--si:1">시민앱 «맞춤 찾기»를 세 문항으로 줄여 봤어요. 고르는 대로 지금 실린 124개 사업에서 찾아 드려요.</p>
+    </div>
+    <div class="qz rv" id="qz" style="--si:2">
+      <div class="qz-bar" aria-hidden="true"><i></i></div>
+      <fieldset class="qz-q" data-q="0"><legend><span class="num">1</span>나는 지금…</legend>
+        <div class="qz-opts"><button type="button" data-c="청년">사회에 막 나선 청년</button><button type="button" data-c="결혼·신혼부부,임신·출산">결혼·출산을 앞뒀어요</button><button type="button" data-c="영유아·보육,청소년·교육,다자녀·가족">아이를 키워요</button><button type="button" data-c="노인·어르신">어르신이에요</button></div></fieldset>
+      <fieldset class="qz-q" data-q="1"><legend><span class="num">2</span>요즘 마음 쓰이는 것은</legend>
+        <div class="qz-opts"><button type="button" data-c="주거·부동산">집</button><button type="button" data-c="건강·의료">건강</button><button type="button" data-c="일자리·구직,소상공인·기업">일자리 · 가게</button><button type="button" data-c="저소득·기초수급">살림살이</button></div></fieldset>
+      <fieldset class="qz-q" data-q="2"><legend><span class="num">3</span>상주와 나는</legend>
+        <div class="qz-opts"><button type="button" data-c="">오래 살았어요</button><button type="button" data-c="전입·정착">이사 왔거나 올 거예요</button><button type="button" data-c="귀농·귀촌,농림축수산업">농사짓거나 귀농해요</button></div></fieldset>
+      <div class="qz-res" id="qzRes" aria-live="polite" hidden>
+        <p class="qz-h"><svg viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg><b>이런 사업이 있어요</b></p>
+        <ol class="qz-list" id="qzList"></ol>
+        <p class="qz-note">실제 사업 목록에서 고른 예시예요. 신청 자격은 시민앱 사업 상세에서 꼭 확인해 주세요.</p>
+        <div class="qz-act"><a class="btn btn-pri" href="https://hcyang572-gif.github.io/sangju-policy-mobile/" target="_blank" rel="noopener">시민앱에서 맞춤 찾기<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a><button type="button" class="qz-again" id="qzAgain">다시 고르기</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ═════ 신청한 뒤에는 — 피드백 과정 (2026-10-15) ═════ -->
 <section id="feedback">
   <div class="wrap">
@@ -1634,7 +1720,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">한 타래에 꿴 것</p>
-      <h2 class="rv">상주의 지원사업을,<br>한눈에.</h2>
+      <h2 class="wipe">상주의 지원사업을,<br>한눈에.</h2>
       <p class="lead rv" style="--si:1">상주시 홈페이지의 정책 정보를 모아 분야별로 정리했어요. 숫자는 지금 시민용 화면에 실린 그대로입니다.</p>
     </div>
     <svg class="garland rv" aria-hidden="true" preserveAspectRatio="none"><line x1="0" y1="10" x2="100%" y2="10"/><svg x="6%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:0" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="17%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:1" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="28%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:2" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="39%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:3" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="50%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:4" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="61%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:5" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="72%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:6" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="83%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:7" x="-9" y="-2" width="18" height="19.8"/></svg><svg x="94%" y="10" overflow="visible"><use class="g" href="#gam" style="--k:8" x="-9" y="-2" width="18" height="19.8"/></svg></svg>
@@ -1663,7 +1749,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap rep-grid">
     <div class="rep-copy">
       <p class="overline rv civ">PC 관리앱 · 시민 의견을 읽는 자동 보고서</p>
-      <h2 class="rv">단추 한 번에,<br>현황 보고서.</h2>
+      <h2 class="wipe">단추 한 번에,<br>현황 보고서.</h2>
       <p class="lead rv" style="--si:1"><b>기간을 고르고 단추를 누르면, 시민의 신청과 제안을 읽어 보고서를 자동으로 써요.</b> 한글(hwpx)·PDF로 나오고, 한글 프로그램이 없는 PC에서도 돼요.</p>
       <ul class="rep-list">
         <li class="rv" style="--si:0"><i></i><b>시민 공감이 큰 정책제안</b><span>공감 수 상위 제안을 그림으로 정리해요.</span></li>
@@ -1746,6 +1832,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
       <li class="m2" style="--k:1"><span class="vb"><span>② 읽는다</span><small>공무원앱 · PC 관리앱</small></span><b>공감순 정렬 · 자동 현황 보고서</b><p>공감순으로 살피고, 보고서가 분야별 수요와 공급을 저절로 정리해요.</p></li>
       <li class="m3" style="--k:2"><span class="vb"><span>③ 쓴다</span><small>담당 부서</small></span><b>답변 · 반영 · 새 사업 등록</b><p>«신규 시책 검토 권고»를 실마리로 새 정책을 검토해요. 새 사업을 등록하면 시민 홈에 알림이 떠요.</p></li>
     </ol>
+    <p class="mrw-tip rv">단계를 누르면 위 순환도에서 그 자리가 또렷해져요.</p>
     <p class="mrw-note rv">새 사업은 담당 부서가 검토해 정해요. 보고서는 어디부터 볼지 짚어 줘요.</p>
   </div>
 </section>
@@ -1897,7 +1984,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   <div class="wrap">
     <div class="sec-head">
       <p class="overline rv">누구나 쉽게</p>
-      <h2 class="rv">어르신도, 처음 쓰는 분도.</h2>
+      <h2 class="wipe">어르신도, 처음 쓰는 분도.</h2>
     </div>
     <ol class="rows">
       <li class="row rv"><span class="n num">01</span><b><span class="aa" aria-hidden="true">가</span>글자를 크게.</b><span class="d">위쪽 「가」 단추를 누르면 모든 글자가 125%로 커져요. 휴대폰 글자 크기 설정도 그대로 따라갑니다.</span></li>
@@ -1974,6 +2061,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     <p class="foot-note">연구 과제의 결과물로 만든 시민 참여형 정책 플랫폼입니다. 사업별 세부 내용과 신청 자격은 각 사업의 담당 부서에 확인해 주세요.</p>
   </div>
 </footer>
+<div class="egg" id="egg" aria-hidden="true"></div><p class="egg-toast" id="eggT" role="status" hidden></p>
 <div class="tm-back" id="teamDlg" hidden><div class="tm" role="dialog" aria-modal="true" aria-labelledby="tmT" aria-describedby="tmS" tabindex="-1"><div class="tm-head"><svg class="tm-gam" viewBox="-20 -24 40 44" aria-hidden="true"><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg><div><h2 class="tm-title" id="tmT">톱니바퀴</h2><p class="tm-sub" id="tmS">제6기 미래상주 희망연구팀</p></div></div><span class="tm-silk" aria-hidden="true"></span><ul class="tm-list"><li style="--k:0"><span class="tm-role r-lead">팀장</span><span class="tm-name">김광석</span><span class="tm-dept">공업6</span></li><li style="--k:1"><span class="tm-role r-mgr">총무</span><span class="tm-name">박성덕</span><span class="tm-dept">공업7</span></li><li style="--k:2"><span class="tm-role">팀원</span><span class="tm-name">김범식</span><span class="tm-dept">녹지6</span></li><li style="--k:3"><span class="tm-role">팀원</span><span class="tm-name">이동희</span><span class="tm-dept">시설6</span></li><li style="--k:4"><span class="tm-role">팀원</span><span class="tm-name">함영식</span><span class="tm-dept">공업7</span></li><li style="--k:5"><span class="tm-role">팀원</span><span class="tm-name">양호창</span><span class="tm-dept">공업8</span></li></ul><button type="button" class="btn btn-pri tm-close" id="teamClose">닫기</button></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <button type="button" class="back-to" id="backTo" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>보던 곳으로 돌아가기</button>
@@ -2282,6 +2370,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
        tap 16 · step «톡톡» [12,40,12] · arrive «도-옹» [10,30,18,30,28] · light = detent · settle(숫자 멈춤) 1회
        규칙: 같은 결은 120ms 안에 두 번 없음 · 저절로 나는 것은 손가락이 닿아 있거나 막 뗀 1.2초 안에만 · 섹션당 2순간 이하(단계는 첫·끝만)
              움직임 줄이기면 tap 외 끔 · 카톡 인앱은 진동이 막혀 있어 호출하지 않음(«크롬으로 열기» 안내로 대신) · iOS 는 공용 모듈이 제스처 안 틱 1회로 줄임 ── */
+  var HXSEC=['apps','cycle','open'];   // 섹션 통과 진동은 이 세 장에서만(2026-10-15 «63회는 과하다» → 30회 이하)
   var HXP={ step:[12,40,12], arrive:[10,30,18,30,28] }, hxLast={}, fingerAt=0, fingerOn=false;
   addEventListener('touchstart',function(){ fingerOn=true; },{passive:true,capture:true});
   addEventListener('touchend',function(){ fingerOn=false; fingerAt=Date.now(); },{passive:true,capture:true});
@@ -2294,7 +2383,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     return HP.pulse(HXP[kind]);
   }
   function rollHaptic(){ setTimeout(function(){ if(!document.hidden) HX('settle',true); },1300); }   // 숫자가 멈추는 순간 1회만
-  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.lane,.more,.nav-open,.brand,footer nav a,.knots button,.fields button,.legend button,.qr,.how div,.ap-toc a,.xp-btn,.xp-close,.back-to,.film-ui button,.film-big,.st-next,.secnav a,.kbar a,.kbar button,.gear-btn,.tm-close'); if(a) HX('tap'); });
+  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.btn,.lane,.more,.nav-open,.brand,footer nav a,.knots button,.fields button,.legend button,.qr,.how div,.ap-toc a,.xp-btn,.xp-close,.back-to,.film-ui button,.film-big,.st-next,.secnav a,.kbar a,.kbar button,.gear-btn,.tm-close,.qz-opts button,.qz-again'); if(a) HX('tap'); });
 
   /* ── 무한 반복(덕장 흔들림 1곳)은 화면에 보일 때만, 탭 숨김이면 정지 ── */
   function tabVis(){ root.classList.toggle('tab-off',document.hidden); }
@@ -2415,7 +2504,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll,{passive:true}); frame();
   // 다이얼 구간 햅틱(정본): 손가락 스크롤 중 걸음 진행 8%마다 detent, 걸음 경계에서 tap
   function trackP(el){ var n=nav.offsetHeight, r=el.getBoundingClientRect(), sp=r.height-(innerHeight-n); return Math.min(1,Math.max(0,(n-r.top)/(sp||1)))*100; }
-  HP.dial(track,{stepPct:100/N*0.08, boundaries:[1,2,3,4].map(function(k){return k*100/N;}), progress:trackP});
+  HP.dial(track,{stepPct:1000, boundaries:[1,2,3,4].map(function(k){return k*100/N;}), progress:trackP});
 
   dots.forEach(function(d){ d.addEventListener('click',function(){ gestAt=0; restI=+d.getAttribute('data-i'); gliding=true; var n=nav.offsetHeight, top=track.getBoundingClientRect().top+scrollY,
       sp=track.offsetHeight-(innerHeight-n), k=+d.getAttribute('data-i'); scrollTo({top:top-n+sp*(k+0.5)/N, behavior:reduce?'auto':'smooth'}); }); });
@@ -2512,7 +2601,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
     var p=Math.min(1,Math.max(0,y/(docH-H||1))), pr=Math.round(p*100);
     if(pr!==lastP){ lastP=pr; prog.setAttribute('aria-valuenow',pr); if(!reduce) bike.style.setProperty('--p',p.toFixed(4)); }
     var cur=-1; for(var i=0;i<secTop.length;i++){ if(secTop[i]-H*0.35<=y) cur=i; }
-    if(cur!==lastS){ if(lastS>-2 && cur>lastS) HX('light',true); lastS=cur;
+    if(cur!==lastS){ if(lastS>-2 && cur>lastS && HXSEC.indexOf(secEls[cur]&&secEls[cur].id)>=0) HX('light',true); lastS=cur;
       secA.forEach(function(a,i){ a.classList.toggle('done',i<cur); if(i===cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
       if(cur<0){ chip.hidden=true; } else { chip.hidden=false; chip.innerHTML='<b>'+'①②③④⑤⑥⑦⑧⑨'.charAt(cur)+'</b> '+secA[cur].textContent.replace(/^\d+\.\s*/,'')+' · '+(cur+1)+'/'+secA.length; } }
     chip.classList.remove('dim'); clearTimeout(chipT); chipT=setTimeout(function(){ chip.classList.add('dim'); },1500);
@@ -2592,6 +2681,52 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
   if(IO){ var xpIO=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ xpWarm(document.getElementById(e.target.getAttribute('aria-controls'))); xpIO.unobserve(e.target); } }); },{rootMargin:'600px 0px'});
     $$('.xp-btn').forEach(function(b){ xpIO.observe(b); }); }
 
+
+  /* ═════ 미리보기 2026-10-15 — 30초 체험 · 순환 단계 짚기 · 숨은 곶감 ═════ */
+  (function(){
+    // 순환 ①②③ — 누르면 위 순환도의 해당 카드만 또렷하게(다시 누르면 전체)
+    var cyc=$('#cyc'), ms=$$('#mrw li');
+    ms.forEach(function(li,i){ li.setAttribute('role','button'); li.setAttribute('tabindex','0'); li.setAttribute('aria-pressed','false');
+      function go(){ var on=li.getAttribute('aria-pressed')!=='true';
+        ms.forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+        if(on){ li.setAttribute('aria-pressed','true'); cyc&&cyc.setAttribute('data-hl',String(i+1)); } else cyc&&cyc.removeAttribute('data-hl');
+        HX('tap'); }
+      li.addEventListener('click',go); li.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
+
+    // 30초 체험
+    var Q=$('#qz'); if(Q){
+      var P=[["일반 전입지원금","인구정책실 인구정책팀",["주거·부동산","전입·정착"]],["학생 전입지원금","인구정책실 인구정책팀",["청소년·교육","청년","전입·정착"]],["전입학생 기숙사비","인구정책실 인구정책팀",["청소년·교육","청년","주거·부동산","전입·정착"]],["출산 육아지원금(전입세대)","건강증진과 출산지원팀",["임신·출산","영유아·보육","다자녀·가족","전입·정착"]],["쓰레기봉투 및 태극기·소화기세트 지원","주소지 읍·면·동 행정복지센터",["주거·부동산","교통·안전","환경·에너지","전입·정착"]],["상주시 시민안전보험","안전재난실",["교통·안전"]],["상주시민 자전거보험","안전재난실",["교통·안전"]],["관내 관광지 입장료 면제","인구정책실 인구정책팀",["문화·체육·관광","전입·정착"]],["상주시 미혼남녀 만남사업","인구정책실 인구정책팀",["청년","결혼·신혼부부","모집·공모"]],["작은결혼식","인구정책실 인구정책팀",["청년","결혼·신혼부부"]],["결혼장려금","인구정책실 인구정책팀",["청년","결혼·신혼부부"]],["신혼부부 주택구입 대출이자 지원","건축과 건축행정팀",["주거·부동산","결혼·신혼부부"]],["신혼부부 임차보증금 이자지원","사회복지과 생활보장팀",["주거·부동산","결혼·신혼부부"]],["청년 신혼부부 월세 지원","건축과 건축행정팀",["청년","주거·부동산","결혼·신혼부부"]],["산전·산후 의료비 지원","건강증진과 출산지원팀",["임신·출산","여성","건강·의료"]],["35세 이상 산모 의료비 지원","건강증진과 출산지원팀",["임신·출산","여성","건강·의료"]],["소중한 우리아이 맞이 백일해 예방접종","예방접종실",["임신·출산","건강·의료"]],["상주시 공공산후조리원 이용료 감면","건강증진과 출산지원팀",["임신·출산","여성"]],["출산 육아지원금(상주시민)","건강증진과 출산지원팀",["임신·출산","영유아·보육","다자녀·가족"]],["부모급여","아이여성행복과 보육아동지원팀",["영유아·보육"]],["첫만남 이용권 지원","건강증진과 출산지원팀",["임신·출산","영유아·보육"]],["출산 축하박스(해피박스)","건강증진과 출산지원팀",["임신·출산","영유아·보육"]],["출생가정 종량제 봉투 무상 지원","주소지 읍·면·동 행정복지센터",["임신·출산","환경·에너지"]],["출생가정 상·하수도 요금 감면","상수도사업소(상수도행정팀)",["임신·출산","영유아·보육","주거·부동산"]],["소상공인 출산장려 아이보듬 지원","투자경제과 지역경제팀",["임신·출산","소상공인·기업"]],["초보 엄마아빠 북돋움 책선물","상주시립도서관",["임신·출산","영유아·보육","문화·체육·관광"]],["산모·신생아 건강관리 지원","건강증진과 출산지원팀",["임신·출산","여성","건강·의료"]],["임산부 및 영유아 영양관리(영양플러스 사업)","아이맘플러스센터",["임신·출산","영유아·보육","여성","저소득·기초수급"]],["바구니 카시트 대여사업","아이맘플러스센터",["임신·출산","영유아·보육"]],["저소득층 기저귀·조제분유 지원","건강증진과 출산지원팀",["임신·출산","영유아·보육","저소득·기초수급"]],["상주형 24시 시간제 보육서비스","아이여성행복과 보육아동지원팀",["영유아·보육"]],["공동육아나눔터 0세 특화반 운영","공동육아나눔터 0세특화반 담당자",["영유아·보육"]],["상주소방서 119아이행복 돌봄터 운영","아이여성행복과 보육아동지원팀",["영유아·보육","청소년·교육"]],["아픈아이 동행서비스","아이여성행복과 여성가족팀",["영유아·보육","청소년·교육"]],["아동수당","아이여성행복과 보육아동지원팀",["영유아·보육"]],["가정양육수당","아이여성행복과 보육아동지원팀",["영유아·보육"]],["아이돌봄 지원","아이여성행복과 여성가족팀",["영유아·보육","청소년·교육","다자녀·가족","한부모·조손"]],["가족심리치료 프로그램","아이여성행복과 여성가족팀",["다자녀·가족"]],["다함께돌봄센터 평일 연장 및 주말·휴일 운영","다함께돌봄센터 1호점(536-9396) / 2호점(533-3303)",["청소년·교육"]],["공동육아나눔터 운영","공동육아나눔터 담당자",["영유아·보육","청소년·교육"]],["우리동네 아빠교실","아이여성행복과 여성가족팀",["영유아·보육","청소년·교육"]],["중·고등학생 입학준비금 지원","총무과 교육후생팀",["청소년·교육"]],["청년 구직자 자격증 취득 지원사업","인구정책실",["청년","일자리·구직"]],["청년 월세 지원 사업","인구정책실 일자리청년팀",["청년","저소득·기초수급","주거·부동산"]],["기업 근로자 기숙사 임차비 지원사업","투자경제과 기업지원팀",["일자리·구직","주거·부동산","소상공인·기업","전입·정착"]],["상주형 일자리 공감페이 지원사업","투자경제과 기업지원팀",["일자리·구직","소상공인·기업","전입·정착"]],["노인일자리 및 사회활동지원사업","노인장애인복지과 노인복지팀",["노인·어르신","저소득·기초수급","일자리·구직"]],["65세이상 대상포진 무료 예방접종","예방접종실",["노인·어르신","건강·의료"]],["효도수당","노인장애인복지과 노인복지팀",["노인·어르신"]],["다자녀 출생아 건강보험금 지원","건강증진과 출산지원팀",["임신·출산","영유아·보육","다자녀·가족","다문화·외국인"]],["세자녀 이상 가족 진료비 지원","아이맘플러스센터",["다자녀·가족","건강·의료"]],["다자녀 가정 큰 집 마련 이자 지원","인구정책실 인구정책팀",["다자녀·가족","주거·부동산"]],["다자녀 가정 상·하수도 요금 감면","상수도사업소(상수도행정팀)",["다자녀·가족","주거·부동산"]],["다자녀 가정 종량제 봉투 무상 지원","주소지 읍·면·동 행정복지센터",["다자녀·가족","환경·에너지"]],["상주시 육아종합지원센터 연회비 면제","아이여성행복과 보육아동지원팀",["영유아·보육","다자녀·가족"]],["다자녀 가정 상주시 관광시설이용료 할인혜택","인구정책실 인구정책팀",["다자녀·가족","문화·체육·관광"]],["다자녀 가정 농수산물 구입 지원","인구정책실 인구정책팀",["다자녀·가족"]],["다자녀 가정 이사비 지원","인구정책실 인구정책팀",["다자녀·가족","주거·부동산"]],["열린 맘 임신 출산 서비스","아이여성행복과 여성가족팀",["임신·출산","다문화·외국인","여성"]],["다문화가족 교육활동비 지원","아이여성행복과 여성가족팀",["청소년·교육","다문화·외국인"]],["찾아가는 다문화가족공부방","아이여성행복과 여성가족팀",["영유아·보육","청소년·교육","다문화·외국인"]],["가족심리치료 프로그램(다문화)","아이여성행복과 여성가족팀",["다문화·외국인"]],["귀농귀촌인 주거임대료 지원","인구정책실 농촌활력팀",["귀농·귀촌","주거·부동산"]],["귀농귀촌인 주택수리비 지원","인구정책실 농촌활력팀",["귀농·귀촌","주거·부동산"]],["귀농인 정착지원","인구정책실 농촌활력팀",["농림축수산업","귀농·귀촌"]],["귀농인 농어촌 진흥기금(융자)","인구정책실 농촌활력팀",["농림축수산업","귀농·귀촌"]],["귀농인 농지 임차료 지원","인구정책실 농촌활력팀",["농림축수산업","귀농·귀촌"]],["귀농 농업창업 및 주택구입 정책지원 사업","인구정책실 농촌활력팀",["농림축수산업","귀농·귀촌","주거·부동산"]],["귀농 농업창업 및 주택구입 정책자금 이차보전","인구정책실 농촌활력팀",["농림축수산업","귀농·귀촌","주거·부동산"]],["농어민수당","농업정책과 농정기획팀",["농림축수산업"]],["청년후계농 선발 및 영농정착 지원","농업정책과 농정기획팀",["청년","농림축수산업","귀농·귀촌","모집·공모"]],["청년후계농 선발 및 영농정착 지원(교육)","농촌지원과 교육훈련팀",["청년","농림축수산업","귀농·귀촌","모집·공모"]],["귀농인 농기계 임대료 할인","농촌지원과 농업기계팀",["농림축수산업","귀농·귀촌"]],["한부모가족 중고교 입학자녀 교복","아이여성행복과 여성가족팀",["청소년·교육","한부모·조손","저소득·기초수급"]],["유치원 급식 지원사업","아이여성행복과 보육아동지원팀",["영유아·보육"]],["난임 진료 관련 교통비 지원사업","건강증진과 (출산장려팀)",["임신·출산","건강·의료","여성"]],["상하수도 요금 감면","상수도사업소(상수도행정팀)",["장애인","다자녀·가족","한부모·조손","다문화·외국인","저소득·기초수급","주거·부동산"]],["에너지효율개선사업","사회복지과 생활보장팀",["저소득·기초수급","주거·부동산","환경·에너지"]],["암환자 의료비 지원","건강증진과 (진료팀)",["저소득·기초수급","건강·의료"]],["취약계층 인플루엔자 예방접종 사업","보건위생과 (감염병 관리팀)",["장애인","저소득·기초수급","건강·의료","농림축수산업","보훈·유공자"]],["취약계층 사람유두종바이러스(HPV) 예방접종 사업","보건위생과 (감염병 관리팀)",["여성","저소득·기초수급","건강·의료"]],["취약계층 대상포진 예방접종 사업","보건위생과 (감염병 관리팀)",["노인·어르신","저소득·기초수급","건강·의료"]],["영유아 건강검진 사업","건강증진과 (출산장려팀)",["영유아·보육","건강·의료"]],["어린이 국가예방 접종 지원사업","보건위생과 (감염병 관리팀)",["영유아·보육","건강·의료"]],["방문건강 관리사업","건강증진과 (방문보건팀)",["노인·어르신","1인가구","건강·의료"]],["금연클리닉 운영","건강증진과 (건강관리팀)",["건강·의료"]],["임신부 엽산제, 철분제 지원","건강증진과 (출산장려팀)",["임신·출산","여성","건강·의료"]],["영유아 정장제 지원","건강증진과 (출산장려팀)",["영유아·보육","건강·의료"]],["치매치료비 지원사업","건강증진과 (건강관리팀)",["노인·어르신","건강·의료"]],["치매진단 및 감별검사비 지원사업","건강증진과 (건강관리팀)",["노인·어르신","건강·의료"]],["장애인 보조기기 지원","사회복지과 (생활보장팀)",["장애인","저소득·기초수급","건강·의료"]],["노인틀니 지원","사회복지과 (생활보장팀)",["노인·어르신","저소득·기초수급","건강·의료"]],["노인 임플란트 지원","사회복지과 (생활보장팀)",["노인·어르신","저소득·기초수급","건강·의료"]],["희귀질환자 의료비 지원","건강증진과 (방문보건팀)",["저소득·기초수급","건강·의료"]],["청소년 산모 임신, 출산의료비 지원","건강증진과 (출산장려팀)",["임신·출산","청소년·교육","여성","건강·의료"]],["임신부 초음파 및 기타검사 무료쿠폰 발급","건강증진과 (출산장려팀)",["임신·출산","여성","건강·의료"]],["임신부 및 예비신부 무료검사","건강증진과 (출산장려팀)",["임신·출산","여성","건강·의료","결혼·신혼부부"]],["영유아 발달장애 정밀검사비 지원","건강증진과 (출산장려팀)",["영유아·보육","장애인","저소득·기초수급","건강·의료"]],["아토피 천식 예방관리 사업 의료비 지원사업","건강증진과 (건강관리팀)",["영유아·보육","청소년·교육","건강·의료"]],["신생아 청각 선별검사비 지원","건강증진과 (출산장려팀)",["임신·출산","영유아·보육","건강·의료"]],["선천성 대사이상 환아관리","건강증진과 (출산장려팀)",["건강·의료"]],["선천성 대사이상 검사비 지원","건강증진과 (출산장려팀)",["임신·출산","건강·의료"]],["미숙아 및 선천성 이상아 의료비 지원","건강증진과 (출산장려팀)",["임신·출산","영유아·보육","건강·의료"]],["난임시술비 지원사업","건강증진과 (출산장려팀)",["임신·출산","건강·의료","저소득·기초수급","여성"]],["난임시술비 확대 지원사업","건강증진과 (출산장려팀)",["임신·출산","건강·의료","여성"]],["고위험 임산부 의료비 지원사업","건강증진과 (출산장려팀)",["임신·출산","여성","건강·의료"]],["자활 및 일자리 사업","사회복지팀",["저소득·기초수급","일자리·구직"]],["국민기초생활보장제도","사회복지과",["저소득·기초수급","건강·의료","주거·부동산"]],["저소득 의료급여","사회복지과",["저소득·기초수급","건강·의료","장애인"]],["저소득층자활사업","상주자활센터",["저소득·기초수급","일자리·구직"]],["저소득 한부모가족 아동양육비 지원","아이여성행복과",["영유아·보육","청소년·교육","한부모·조손","저소득·기초수급"]],["청소년한부모 아동양육비 지원","아이여성행복과",["영유아·보육","청소년·교육","한부모·조손","저소득·기초수급"]],["저소득 한부모가족 학용품비 지원","아이여성행복과",["청소년·교육","한부모·조손","저소득·기초수급"]],["저소득 한부모가족 월동연료비 지원","아이여성행복과",["한부모·조손","저소득·기초수급"]],["보육료 지원사업","아이여성행복과",["영유아·보육","장애인"]],["지방세 서비스","세정과",["주거·부동산"]],["청소년부모 아동양육비 지원","아이여성행복과 청소년지원팀",["영유아·보육","청소년·교육","저소득·기초수급"]],["청소년부모 아동양육비 추가 지원","아이여성행복과 청소년지원팀",["영유아·보육","청소년·교육","저소득·기초수급"]],["여성청소년 생리용품 바우처 지원","아이여성행복과 청소년지원팀",["청소년·교육","여성","건강·의료","저소득·기초수급"]],["저소득 한부모가족 교복비 지원","아이여성행복과",["청소년·교육","한부모·조손","저소득·기초수급"]],["신혼부부 전세자금대출 이자지원","사회복지과 생활보장팀 및 읍면동 행정복지센터",["주거·부동산","결혼·신혼부부"]],["전입학생 고등·대학생 기숙사비 지원","인구정책실 인구정책팀 및 읍면동 행정복지센터",["청소년·교육","청년","주거·부동산","전입·정착"]],["2026년 아토피 천식 예방관리사업 운영","건강증진과 건강관리팀",["영유아·보육","청소년·교육","건강·의료"]],["상주시 폐건전지, 종이팩, 투명페트병 교환사업 안내","환경관리과",["환경·에너지"]]], pick=[null,null,null], qs=$$('.qz-q',Q), res=$('#qzRes'), list=$('#qzList');
+      function esc(t){ var d=document.createElement('span'); d.textContent=t; return d.innerHTML; }
+      function show(){
+        var n=pick.filter(function(v){ return v!==null; }).length; Q.style.setProperty('--qp',(n/3).toFixed(3));
+        qs.forEach(function(f,i){ f.classList.toggle('dim', pick[i]!==null && n<3 && false); });
+        if(n<3){ res.hidden=true; return; }
+        var W=[2,1.5,1.2], sc=P.map(function(p,idx){ var s=0, hit=[];
+          pick.forEach(function(c,qi){ if(!c) return; c.split(',').forEach(function(k){ if(p[2].indexOf(k)>=0){ s+=W[qi]; if(hit.indexOf(k)<0) hit.push(k); } }); });
+          return {p:p,s:s,hit:hit,idx:idx}; }).filter(function(x){ return x.s>0; });
+        sc.sort(function(a,b){ return b.s-a.s || b.hit.length-a.hit.length || a.idx-b.idx; });
+        var top=sc.slice(0,3);
+        list.innerHTML=top.length? top.map(function(x,k){ return '<li style="--k:'+k+'"><b>'+esc(x.p[0])+'</b><span><em>'+esc(x.hit.join(' · '))+'</em>'+(x.p[1]?' · '+esc(x.p[1]):'')+'</span></li>'; }).join('')
+          : '<li style="--k:0"><b>딱 맞는 사업을 못 찾았어요</b><span>시민앱 맞춤 찾기에서 19가지 상황으로 더 자세히 골라 보세요.</span></li>';
+        var was=res.hidden; res.hidden=false; if(was){ HX('arrive'); }
+      }
+      qs.forEach(function(f,qi){ $$('button',f).forEach(function(b){ b.setAttribute('aria-pressed','false');
+        b.addEventListener('click',function(){ $$('button',f).forEach(function(o){ o.setAttribute('aria-pressed','false'); }); b.setAttribute('aria-pressed','true'); pick[qi]=b.getAttribute('data-c'); show(); }); }); });
+      $('#qzAgain').addEventListener('click',function(){ pick=[null,null,null]; $$('button[aria-pressed]',Q).forEach(function(b){ b.setAttribute('aria-pressed','false'); }); show();
+        try{ qs[0].querySelector('button').focus({preventScroll:true}); }catch(e){} });
+    }
+
+    // 숨은 곶감 — 머리띠 표지를 2초 안에 다섯 번
+    var brand=$('#nav .brand') || $('.brand'), egg=$('#egg'), eggT=$('#eggT'), taps=[], eggOn=false;
+    if(brand&&egg){ brand.addEventListener('click',function(){ var t=Date.now(); taps=taps.filter(function(x){ return t-x<2000; }); taps.push(t);
+      if(taps.length<5||eggOn) return; taps=[]; eggOn=true;
+      var w=innerWidth, n=Math.max(5,Math.min(9,Math.round(w/90))), h='';
+      for(var i=0;i<n;i++){ var x=Math.round((i+.5)*w/n)-17, y=40+((i*37)%5)*14;
+        h+='<svg viewBox="-20 -60 40 104" style="left:'+x+'px;--k:'+i+';--y:'+y+'px"><line x1="0" y1="-60" x2="0" y2="-16"/><use href="#gam" x="-20" y="-24" width="40" height="44"/></svg>'; }
+      egg.innerHTML=h; egg.classList.remove('out');
+      eggT.textContent='숨은 곶감을 찾으셨어요! 상주 곶감, 한 타래 드려요.'; eggT.hidden=false; HX('arrive');
+      setTimeout(function(){ egg.classList.add('out'); },2600); setTimeout(function(){ egg.innerHTML=''; eggT.hidden=true; eggOn=false; },3200); }); }
+  })();
   if(mq.addEventListener) mq.addEventListener('change',function(e){ reduce=e.matches; });
 })();
 </script>
