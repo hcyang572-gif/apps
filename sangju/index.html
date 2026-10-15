@@ -1320,7 +1320,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .btn:active,.xp-btn:active,.xp-close:active,.legend button:active,.fields button:active,.mrw li:active{transform:scale(.95);transition-duration:90ms}
 /* [깔끔] 모바일: 공무원앱·PC 화면 묶음은 세로로 쌓지 않고 옆으로 넘겨 봐요(다음 장이 살짝 보임) */
 @media (max-width:759px){
-  .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:22px;scrollbar-width:none;touch-action:pan-x pan-y}   /* 2026-10-15 «옆으로 넘길 때 위아래로 흔들림» — 안쪽이 16px 넘쳐 세로로도 스크롤되던 것 */
+  .ap-gal.webs{display:grid;grid-auto-flow:column;grid-auto-columns:86%;grid-template-columns:none;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:22px;scrollbar-width:none;touch-action:pan-y}   /* 2026-10-15 «옆으로 넘길 때 위아래로 흔들림» — 세로 넘침 제거 + 옆 손짓은 JS 가 방향을 잠가 직접 넘김(아래 hlock) */
   .ap-gal.webs::-webkit-scrollbar{display:none}
   .ap-gal.webs>figure{scroll-snap-align:start;min-width:0}
 }
@@ -1355,7 +1355,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .like-note{font-size:13px;font-weight:700;color:var(--muted)}
 .case-n .odo.bump{display:inline-block;animation:likePop 520ms cubic-bezier(.34,1.56,.64,1);color:var(--accent-text)}
 .fb-play{margin-top:var(--g-head,28px);display:grid;gap:14px;max-width:760px}
-.fb-btn{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:var(--r-pill);font:inherit;font-size:15px;font-weight:800;color:var(--on-primary);background:var(--primary);box-shadow:var(--e1);cursor:pointer;transition:transform 420ms cubic-bezier(.34,1.56,.64,1)}
+/* .fb-btn 단추는 2026-10-15 제거 */ .fb-btn{display:none;justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:0;border-radius:var(--r-pill);font:inherit;font-size:15px;font-weight:800;color:var(--on-primary);background:var(--primary);box-shadow:var(--e1);cursor:pointer;transition:transform 420ms cubic-bezier(.34,1.56,.64,1)}
 .fb-btn:active{transform:scale(.95);transition-duration:90ms}
 .fb-btn svg{width:16px;height:16px;fill:currentColor}
 .fb-rail{position:relative;padding-top:18px}
@@ -1413,15 +1413,24 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .slx .sky i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#FFE7B8;box-shadow:0 0 calc(var(--s) * 3) #FFC56B;opacity:0;animation:skyIn 900ms ease-out forwards,skyTw 1.6s ease-in-out infinite;animation-delay:var(--d),calc(var(--d) + 900ms)}
 @keyframes skyIn{to{opacity:.95}} @keyframes skyTw{0%,100%{opacity:.95}50%{opacity:.35}}
 .slx.act2 .sky i{transition:transform 1100ms cubic-bezier(.6,0,.3,1),opacity 900ms ease 300ms;transform:translate(var(--tx),var(--ty)) scale(.4);opacity:0!important;animation:none}
-.slx .rays{position:absolute;left:50%;top:46%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,rgba(255,197,107,.20) 0deg 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 55%);mask:radial-gradient(circle,#000 0,transparent 55%);opacity:0;transform:scale(.4) rotate(0)}
-.slx.act2 .rays{opacity:1;transform:scale(1) rotate(40deg);transition:opacity 900ms ease 700ms,transform 6s linear 700ms}
-.slx .big{position:absolute;left:50%;top:46%;width:min(46vmin,260px);aspect-ratio:40/44;transform:translate(-50%,-50%) scale(0) rotate(-40deg);opacity:0;filter:drop-shadow(0 0 40px rgba(255,170,80,.65))}
+.slx .garl{position:absolute;left:50%;top:calc(46% - min(23vmin,130px) - 96px);width:min(92vw,720px);height:150px;transform:translateX(-50%);opacity:0;overflow:visible}
+.slx .garl path{fill:none;stroke:#E8C9A0;stroke-width:1.4;stroke-dasharray:900;stroke-dashoffset:900}
+.slx .garl .hg{transform-box:fill-box;transform-origin:50% 0;opacity:0}
+.slx.act2 .garl{opacity:1;transition:opacity 500ms ease 500ms}
+.slx.act2 .garl path{stroke-dashoffset:0;transition:stroke-dashoffset 1400ms var(--e-soft) 500ms}
+.slx.act2 .garl .hg{animation:garlIn 900ms cubic-bezier(.34,1.56,.64,1) forwards,garlSway 3.2s ease-in-out infinite;animation-delay:calc(800ms + var(--k) * 90ms),calc(1700ms + var(--k) * 90ms)}
+@keyframes garlIn{0%{opacity:0;transform:translateY(-26px) rotate(-18deg)}100%{opacity:1;transform:none}}
+@keyframes garlSway{0%,100%{transform:rotate(0)}50%{transform:rotate(5deg)}}
+.slx .dust i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#F6D9A6;opacity:0}
+.slx.act2 .dust i{animation:dustUp 3.4s ease-out forwards;animation-delay:var(--d)}
+@keyframes dustUp{0%{opacity:0;transform:translateY(20px)}25%{opacity:.85}100%{opacity:0;transform:translateY(-120px)}}
+.slx.fin .garl,.slx.fin .dust{opacity:0;transition:opacity 600ms ease}
+.slx .big{position:absolute;left:50%;top:46%;width:min(46vmin,260px);aspect-ratio:40/44;transform:translate(-50%,-50%) scale(0) rotate(-40deg);opacity:0;filter:drop-shadow(0 18px 28px rgba(0,0,0,.45))}
 .slx .big svg{width:100%;height:100%;overflow:visible}
 .slx.act2 .big{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0);transition:transform 1200ms cubic-bezier(.34,1.56,.64,1) 900ms,opacity 400ms ease 900ms}
 .slx.act3 .big{transform:translate(-50%,-50%) scale(.82);transition:transform 700ms var(--e-soft)}
-.slx.fin .big,.slx.fin .rays{opacity:0;transition:opacity 600ms ease}
-.slx .rp{position:absolute;left:50%;top:46%;width:30vmin;height:30vmin;margin:-15vmin 0 0 -15vmin;border-radius:50%;border:2px solid rgba(255,197,107,.85);box-shadow:0 0 30px rgba(255,170,80,.4),inset 0 0 30px rgba(255,170,80,.25);opacity:0;transform:scale(.2)}
+.slx.fin .big{opacity:0;transition:opacity 600ms ease}
+.slx .rp{position:absolute;left:50%;top:46%;width:30vmin;height:30vmin;margin:-15vmin 0 0 -15vmin;border-radius:50%;border:1.5px solid rgba(232,201,160,.7);opacity:0;transform:scale(.2)}
 .slx.act3 .rp{animation:slRip 2200ms var(--e-soft) forwards;animation-delay:calc(var(--k) * 330ms)}
 @keyframes slRip{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(7)}}
 .slx .cf{position:absolute;left:50%;top:46%;width:var(--s);height:calc(var(--s) * 1.1);margin:calc(var(--s) * -.55) 0 0 calc(var(--s) * -.5);opacity:0}
@@ -1439,7 +1448,44 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .slx.fin .finale{opacity:1;transform:translate(-50%,-50%) scale(1);transition:opacity 700ms var(--e-soft),transform 900ms cubic-bezier(.34,1.56,.64,1)}
 .slx .x{position:absolute;right:calc(14px + env(safe-area-inset-right));top:calc(14px + env(safe-area-inset-top));width:44px;height:44px;border:0;border-radius:50%;font-size:18px;color:#FFF6EA;background:rgba(255,255,255,.12);cursor:pointer}
 .slx .tip{position:absolute;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom));margin:0;text-align:center;font-size:12.5px;font-weight:700;color:rgba(255,246,234,.55)}
-@media (prefers-reduced-motion: reduce){.sl-btn::after{animation:none}.slx *{animation:none!important;transition:none!important}.slx .sky,.slx .rays,.slx .rp,.slx .cf,.slx .big,.slx .ln{display:none}.slx .finale{opacity:1;transform:translate(-50%,-50%)}}
+@media (prefers-reduced-motion: reduce){.sl-btn::after{animation:none}.slx *{animation:none!important;transition:none!important}.slx .sky,.slx .garl,.slx .dust,.slx .rp,.slx .cf,.slx .big,.slx .ln{display:none}.slx .finale{opacity:1;transform:translate(-50%,-50%)}}
+/* ═════ 숨은 상주 완성(2026-10-15 «상주와 이어지는 고급스러운 연출») — 상주의 밤 풍경
+   산 능선이 겹겹이 → 낙동강이 은빛으로 흐르고 → 강둑을 자전거가 지나고 → 하늘에 명주실(누에고치)이 엮이고 → 곶감 타래가 내려오고 들판(쌀)이 물결 → «모두 찾으셨어요» ═════ */
+.slx.hf{background:linear-gradient(180deg,#0E1424 0%,#1C1B2E 38%,#3A2318 78%,#4A2A14 100%)}
+.slx .hf-land{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;overflow:visible}
+.slx .hf-m{opacity:0;transform:translateY(40px)}
+.slx.s1 .hf-m{opacity:1;transform:none;transition:opacity 1200ms var(--e-soft),transform 1600ms var(--e-soft)}
+.slx.s1 .hf-m.m2{transition-delay:250ms} .slx.s1 .hf-m.m3{transition-delay:500ms}
+.slx .hf-river{fill:none;stroke:url(#hfRiv);stroke-width:7;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400}
+.slx .hf-glint{fill:none;stroke:#F4F1E8;stroke-width:2;stroke-linecap:round;stroke-dasharray:60 1340;stroke-dashoffset:1400;opacity:0}
+.slx.s2 .hf-river{stroke-dashoffset:0;transition:stroke-dashoffset 2200ms cubic-bezier(.4,0,.2,1)}
+.slx.s2 .hf-glint{opacity:.9;animation:glint 3.2s linear 1.6s infinite}
+@keyframes glint{to{stroke-dashoffset:0}}
+.slx .hf-field{opacity:0}
+.slx.s2 .hf-field{opacity:1;transition:opacity 1400ms ease 600ms}
+.slx .hf-field path{animation:field 4s ease-in-out infinite}
+@keyframes field{0%,100%{transform:translateX(0)}50%{transform:translateX(-14px)}}
+.slx .hf-bike{position:absolute;left:0;bottom:calc(62% * .34);width:clamp(34px,6vmin,52px);height:auto;opacity:0;transform:translateX(-12vw)}
+.slx .hf-bike svg{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 0 6px rgba(160,210,240,.5))}
+.slx.s3 .hf-bike{opacity:1;animation:ride 6.5s cubic-bezier(.45,.05,.55,.95) forwards}
+@keyframes ride{0%{transform:translateX(-12vw)}100%{transform:translateX(108vw)}}
+.slx .hf-silk path{fill:none;stroke:rgba(255,248,235,.75);stroke-width:1.1;stroke-linecap:round;stroke-dasharray:1600;stroke-dashoffset:1600;filter:drop-shadow(0 0 4px rgba(255,240,215,.8))}
+.slx.s3 .hf-silk path{stroke-dashoffset:0;transition:stroke-dashoffset 2600ms cubic-bezier(.4,0,.2,1)}
+.slx.s3 .hf-silk path:nth-child(2){transition-delay:350ms} .slx.s3 .hf-silk path:nth-child(3){transition-delay:700ms}
+.slx .hf-gar{position:absolute;top:0;left:0;right:0;height:42%;overflow:visible}
+.slx .hf-gar .str{transform:translateY(-110%)}
+.slx.s4 .hf-gar .str{transform:none;transition:transform 1500ms cubic-bezier(.34,1.3,.64,1);transition-delay:calc(var(--k) * 180ms)}
+.slx .hf-gar .gg{transform-box:fill-box;transform-origin:50% 0;animation:garlSway 3.4s ease-in-out infinite;animation-delay:calc(var(--k) * -400ms)}
+.slx .hf-won{position:absolute;left:0;right:0;top:40%;transform:translateY(-50%);margin:0;padding:0 20px;text-align:center;opacity:0;filter:blur(6px)}
+.slx .hf-won small{display:block;font-size:clamp(11px,1.4vw,14px);font-weight:700;letter-spacing:.42em;color:#E8C9A0}
+.slx .hf-won strong{display:block;margin-top:12px;font-size:clamp(32px,7.4vw,80px);font-weight:800;letter-spacing:-.035em;line-height:1.12;background:linear-gradient(100deg,#E9C27A 15%,#FFF6E6 38%,#F1B866 60%,#E9C27A 85%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:slShine 3s linear infinite}
+.slx .hf-won span{display:block;margin-top:16px;font-size:clamp(13px,1.7vw,17px);font-weight:500;line-height:1.6;color:rgba(255,246,234,.78)}
+.slx.s5 .hf-won{opacity:1;filter:none;transition:opacity 1100ms var(--e-soft),filter 1100ms var(--e-soft)}
+.slx .hf-six{position:absolute;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:clamp(10px,2.4vw,28px);margin:0;padding:0;list-style:none;opacity:0}
+.slx .hf-six li{display:grid;justify-items:center;gap:4px;font-size:clamp(10.5px,1.2vw,12.5px);font-weight:600;color:rgba(255,246,234,.7)}
+.slx .hf-six svg{width:clamp(26px,4.4vmin,38px);height:auto;overflow:visible}
+.slx.s5 .hf-six{opacity:1;transition:opacity 900ms ease 700ms}
+@media (prefers-reduced-motion: reduce){.slx.hf *{animation:none!important;transition:none!important}.slx.hf .hf-m,.slx.hf .hf-field,.slx.hf .hf-won,.slx.hf .hf-six{opacity:1;transform:none;filter:none}.slx.hf .hf-river{stroke-dashoffset:0}.slx.hf .hf-bike{display:none}.slx.hf .hf-gar .str{transform:none}}
 /* [재미] 숨은 곶감 */
 .egg{position:fixed;inset:0 0 auto 0;height:0;z-index:80;pointer-events:none}
 .egg svg{position:absolute;top:-60px;width:34px;height:38px;overflow:visible;animation:eggDrop 1900ms cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:calc(var(--k) * 70ms)}
@@ -1802,7 +1848,6 @@ main b:not(.num){font-weight:700}
       <span class="demo-note rv" style="--si:2">시연용 가상 자료로 찍은 실제 화면</span>
     </div>
     <div class="fb-play rv" id="fbPlay" style="--si:2">
-      <button type="button" class="fb-btn" id="fbBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><span id="fbBtnT">3초 만에 보기</span></button>
       <div class="fb-rail"><span class="fb-dot" aria-hidden="true"></span><ol>
         <li><i class="num">1</i><b>시민 · 신청</b><span>확인 번호를 받아요</span></li>
         <li class="off"><i class="num">2</i><b>공무원 · 처리</b><span>곧바로 도착, 승인해요</span></li>
@@ -2864,6 +2909,20 @@ main b:not(.num){font-weight:700}
         HX('tap'); }
       li.addEventListener('click',go); li.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 
+    // 옆 손짓 방향 잠금(2026-10-15 «휴대폰에서 좌우로 밀면 약간 흔들림») — 처음 움직임으로 방향을 정하고, 옆이면 세로 스크롤을 막고 직접 넘긴다
+    function hlock(el,isScroller){ var x0,y0,sl0,mode=null,lastX,lastT,vx=0;
+      el.addEventListener('touchstart',function(e){ var t=e.touches[0]; x0=lastX=t.clientX; y0=t.clientY; sl0=el.scrollLeft; mode=null; vx=0; lastT=e.timeStamp; },{passive:true});
+      el.addEventListener('touchmove',function(e){ if(e.touches.length>1) return; var t=e.touches[0], dx=t.clientX-x0, dy=t.clientY-y0;
+        if(mode===null){ if(Math.abs(dx)<6&&Math.abs(dy)<6) return; mode=Math.abs(dx)>Math.abs(dy)?'h':'v'; if(mode==='h'&&isScroller) el.style.scrollSnapType='none'; }
+        if(mode!=='h') return; if(e.cancelable) e.preventDefault();
+        if(isScroller){ el.scrollLeft=sl0-dx; var dt=e.timeStamp-lastT; if(dt>0) vx=(t.clientX-lastX)/dt; lastX=t.clientX; lastT=e.timeStamp; } },{passive:false});
+      el.addEventListener('touchend',function(){ if(mode==='h'&&isScroller){ var items=el.children, w=items[0]?items[0].getBoundingClientRect().width+parseFloat(getComputedStyle(el).columnGap||0):el.clientWidth;
+          var i=Math.round((el.scrollLeft-(vx*-180))/w); i=Math.max(0,Math.min(items.length-1,i));
+          el.scrollTo({left:i*w,behavior:reduce?'auto':'smooth'}); setTimeout(function(){ el.style.scrollSnapType=''; },420); }
+        mode=null; },{passive:true}); }
+    $$('.ap-gal.webs').forEach(function(g){ hlock(g,true); });
+    if($('#repVis')) hlock($('#repVis'),false);
+
     // 보고서 지면 넘겨 보기 — 누르거나 옆으로 밀면 맨 앞 장이 맨 뒤로(2026-10-15)
     var rv=$('#repVis'), rn=$('#repNext'), rpg=$('#repPg');
     if(rv&&rn){ var ps=[$('.paper.p1',rv),$('.paper.p2',rv),$('.paper.p3',rv)], pi=0, busy=false;
@@ -2887,11 +2946,14 @@ main b:not(.num){font-weight:700}
           lb.appendChild(h); setTimeout(function(x){ return function(){ x.remove(); }; }(h),820); } } }); }
 
     // 신청 → 처리 → 확인 3초 재생
-    var fp=$('#fbPlay'), fb=$('#fbBtn'), fbt=$('#fbBtnT'), fl=$('#fbLive'), fT=[];
-    if(fp&&fb){ var lines=['① 시민이 신청하고 확인 번호를 받아요','② 공무원 화면에 곧바로 도착하고, 승인해요','③ 시민이 내 신청 현황에서 «승인»과 안내문을 확인해요'];
-      fb.addEventListener('click',function(){ fT.forEach(clearTimeout); fT=[]; fp.removeAttribute('data-s'); void fp.offsetWidth;
-        [1,2,3].forEach(function(n,i){ fT.push(setTimeout(function(){ fp.setAttribute('data-s',String(n)); fl.textContent=lines[i]; HX('tap'); }, i*1000+30)); });
-        fT.push(setTimeout(function(){ fp.setAttribute('data-s','done'); fbt.textContent='다시 보기'; HX('arrive'); }, 3100)); }); }
+    var fp=$('#fbPlay'), fl=$('#fbLive'), fT=[];   // 2026-10-15 «버튼 없이 화면에 들어오면 자동 재생»
+    if(fp){ var lines=['① 시민이 신청하고 확인 번호를 받아요','② 공무원 화면에 곧바로 도착하고, 승인해요','③ 시민이 내 신청 현황에서 «승인»과 안내문을 확인해요'];
+      function fbRun(){ fT.forEach(clearTimeout); fT=[]; fp.removeAttribute('data-s'); void fp.offsetWidth;
+        if(reduce){ fp.setAttribute('data-s','done'); return; }
+        [1,2,3].forEach(function(n,i){ fT.push(setTimeout(function(){ fp.setAttribute('data-s',String(n)); fl.textContent=lines[i]; }, 300+i*1000)); });
+        fT.push(setTimeout(function(){ fp.setAttribute('data-s','done'); }, 3400)); }
+      if('IntersectionObserver' in window){ var fio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) fbRun(); else { fT.forEach(clearTimeout); fT=[]; } }); },{threshold:.6}); fio.observe(fp); }
+      else fp.setAttribute('data-s','done'); }
 
     // 숨은 상주 다섯 — 삼백(쌀·누에고치·곶감)·자전거·낙동강. 머리띠 아래 꼬리표로 몇 개 찾았는지 보여 줘요(2026-10-15 «더 다양하게, 더 쉽게»)
     var HUNT={ gam:'곶감 — 삼백(三白)의 하나. 겨울 햇살과 바람에 말린 상주의 자랑이에요.',
@@ -2910,7 +2972,7 @@ main b:not(.num){font-weight:700}
     function huntFind(key,el){ if(el.classList.contains('got')) return; el.classList.add('got'); got++;
       if(hn){ hn.textContent=got+'/'+HT; hc.classList.remove('pop'); void hc.offsetWidth; hc.classList.add('pop'); }
       if(got<HT){ eggMsg('('+got+'/'+HT+') '+(HUNT[key]||'')); HX('tap'); }
-      else { if(hc) hc.classList.add('all'); eggMsg('숨은 상주 여섯 가지를 다 찾으셨어요! 삼백의 고장 상주에 오신 것을 환영해요.',3600); dropGam(['gam','h-rice','h-cocoon','h-bike','h-wave']); } }
+      else { if(hc) hc.classList.add('all'); setTimeout(huntFinale,700); } }
     hg.forEach(function(b){ b.addEventListener('click',function(){ huntFind(b.getAttribute('data-g'),b); }); });
     if(tmo){ tmo.classList.add('hunt-t'); tmo.addEventListener('click',function(){ huntFind('team',tmo); }); }
 
@@ -2922,7 +2984,10 @@ main b:not(.num){font-weight:700}
       slb.addEventListener('click',function(){ if(slx.classList.contains('on')) return;
         var W=innerWidth, H=innerHeight, cx=W/2, cy=H*.46, img=$('img',slb), src=img&&(img.currentSrc||img.src), h='<div class="sky">', NS=W<600?70:130, ic=['gam','h-rice','h-cocoon','h-bike','h-wave'];
         for(var i=0;i<NS;i++){ var x=Math.random()*W, y=Math.random()*H*.92; h+='<i style="--x:'+Math.round(x)+'px;--y:'+Math.round(y)+'px;--s:'+(1.5+Math.random()*3).toFixed(1)+'px;--d:'+Math.round(Math.random()*900)+'ms;--tx:'+Math.round(cx-x)+'px;--ty:'+Math.round(cy-y)+'px"></i>'; }
-        h+='</div><div class="rays"></div>';
+        h+='</div><div class="dust">'; for(var q=0;q<(W<600?26:44);q++) h+='<i style="--x:'+Math.round(Math.random()*W)+'px;--y:'+Math.round(H*.25+Math.random()*H*.6)+'px;--s:'+(2+Math.random()*3).toFixed(1)+'px;--d:'+Math.round(400+Math.random()*1600)+'ms"></i>';
+        h+='</div><svg class="garl" viewBox="0 0 720 150" aria-hidden="true"><path d="M0 18 Q360 110 720 18"/>';
+        for(var gk=0;gk<9;gk++){ var gx=40+gk*80, gy=18+ (1-Math.pow((gx-360)/360,2))*46; h+='<g class="hg" style="--k:'+gk+'"><line x1="'+gx+'" y1="'+gy+'" x2="'+gx+'" y2="'+(gy+26)+'" stroke="#E8C9A0" stroke-width="1"/><use href="#gam" x="'+(gx-15)+'" y="'+(gy+22)+'" width="30" height="33"/></g>'; }
+        h+='</svg>';
         for(var k=0;k<4;k++) h+='<i class="rp" style="--k:'+k+'"></i>';
         var NC=W<600?34:56; for(var c=0;c<NC;c++){ var a=Math.random()*Math.PI*2, d=(.35+Math.random()*.6)*Math.max(W,H)*.6;
           h+='<span class="cf" style="--k:'+c+';--s:'+Math.round(22+Math.random()*26)+'px;--bx:'+Math.round(Math.cos(a)*d)+'px;--by:'+Math.round(Math.sin(a)*d)+'px;--br:'+Math.round(Math.random()*720-360)+'deg"><svg viewBox="-20 -24 40 44"><use href="#'+ic[c%ic.length]+'" x="-20" y="-24" width="40" height="44"/></svg></span>'; }
@@ -2940,6 +3005,43 @@ main b:not(.num){font-weight:700}
         at(5000,function(){ L(3).classList.add('on'); });
         at(7600,function(){ L(3).classList.add('off'); slx.classList.add('fin'); });
         at(10600,slClose); }); }
+
+    // 숨은 상주 완성 — 상주의 밤 풍경(약 10초, 아무 곳이나 누르면 닫힘)
+    function huntFinale(){ if(!slx||slx.classList.contains('on')) return;
+      var W=innerWidth, H=innerHeight, h='<div class="sky">', G='href="#gam"';
+      for(var i=0;i<(W<600?70:130);i++){ h+='<i style="--x:'+Math.round(Math.random()*W)+'px;--y:'+Math.round(Math.random()*H*.55)+'px;--s:'+(1+Math.random()*2.2).toFixed(1)+'px;--d:'+Math.round(Math.random()*900)+'ms"></i>'; }
+      h+='</div>';
+      // 하늘의 명주실
+      h+='<svg class="hf-silk" viewBox="0 0 1000 400" preserveAspectRatio="none" style="position:absolute;left:0;top:6%;width:100%;height:40%"><path d="M-20 300 C 200 120, 420 120, 620 220 S 900 330, 1020 150"/><path d="M-20 220 C 180 80, 480 60, 640 160 S 880 280, 1020 90"/><path d="M-20 350 C 260 200, 520 220, 700 280 S 920 300, 1020 230"/></svg>';
+      // 곶감 타래 셋
+      var GN=W<600?3:5, GX=W<600?[W*.16,W*.8]:[W*.12,W*.22,W*.78,W*.88];
+      h+='<svg class="hf-gar" viewBox="0 0 '+W+' '+Math.round(H*.42)+'" preserveAspectRatio="xMidYMin meet">';
+      GX.map(function(x,k){ return [Math.round(x), GN-(k%2&&W>=600?1:0)]; }).forEach(function(t,k){ h+='<g class="str" style="--k:'+k+'"><line x1="'+t[0]+'" y1="0" x2="'+t[0]+'" y2="'+(40+t[1]*38)+'" stroke="#C9A77E" stroke-width="1.2"/>';
+        for(var n=0;n<t[1];n++) h+='<g class="gg" style="--k:'+(k*3+n)+'"><use '+G+' x="'+(t[0]-17)+'" y="'+(34+n*38)+'" width="34" height="37"/></g>';
+        h+='</g>'; });
+      h+='</svg>';
+      // 산 능선 · 낙동강 · 들판
+      h+='<svg class="hf-land" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMax slice"><defs><linearGradient id="hfRiv" x1="0" x2="1"><stop offset="0" stop-color="#7FB7D6"/><stop offset=".5" stop-color="#D9EEF7"/><stop offset="1" stop-color="#7FB7D6"/></linearGradient>'
+        +'<linearGradient id="hfF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9A441"/><stop offset="1" stop-color="#7A4A16"/></linearGradient></defs>'
+        +'<path class="hf-m m1" d="M0 190 L90 120 L180 165 L290 85 L400 150 L520 70 L640 140 L760 95 L880 150 L1000 110 L1000 400 L0 400Z" fill="#2B2A3D"/>'
+        +'<path class="hf-m m2" d="M0 230 L120 170 L240 215 L360 150 L500 205 L620 160 L760 210 L880 170 L1000 200 L1000 400 L0 400Z" fill="#33283A"/>'
+        +'<path class="hf-m m3" d="M0 270 L150 230 L300 260 L450 220 L620 255 L780 225 L1000 255 L1000 400 L0 400Z" fill="#3B2A2A"/>'
+        +'<path class="hf-river" d="M-10 300 C 180 270, 330 330, 520 300 S 820 268, 1010 296"/><path class="hf-glint" d="M-10 300 C 180 270, 330 330, 520 300 S 820 268, 1010 296"/>'
+        +'<g class="hf-field"><path d="M-30 335 Q 40 322 110 335 T 250 335 T 390 335 T 530 335 T 670 335 T 810 335 T 950 335 T 1090 335 L1090 400 L-30 400Z" fill="url(#hfF)"/>'
+        +'<path d="M-30 352 Q 40 342 110 352 T 250 352 T 390 352 T 530 352 T 670 352 T 810 352 T 950 352 T 1090 352 L1090 400 L-30 400Z" fill="#B9822E" opacity=".75"/></g></svg>';
+      h+='<span class="hf-bike"><svg viewBox="-20 -24 40 44"><use href="#h-bike" x="-20" y="-24" width="40" height="44"/></svg></span>';
+      h+='<p class="hf-won"><small>SANGJU · 숨은 상주 6 / 6</small><strong>모두 찾으셨어요</strong><span>쌀·누에고치·곶감, 삼백(三白)의 고장<br>자전거와 낙동강의 도시, 상주에 오신 것을 환영해요</span></p>';
+      h+='<ul class="hf-six">'; [['gam','곶감'],['h-rice','쌀'],['h-cocoon','누에고치'],['h-bike','자전거'],['h-wave','낙동강'],['gam','만든 사람들']].forEach(function(c){ h+='<li><svg viewBox="-20 -24 40 44"><use href="#'+c[0]+'" x="-20" y="-24" width="40" height="44"/></svg>'+c[1]+'</li>'; }); h+='</ul>';
+      h+='<button type="button" class="x" aria-label="닫기">✕</button><p class="tip">아무 곳이나 누르면 닫혀요</p>';
+      slx.innerHTML=h; slx.setAttribute('aria-label','숨은 상주 여섯 가지를 모두 찾으셨어요'); slx.classList.add('on','hf'); document.documentElement.style.overflow='hidden'; void slx.offsetWidth; slx.classList.add('vis'); HX('tap');
+      var at=function(ms,fn){ slT.push(setTimeout(fn,ms)); };
+      if(reduce){ slx.classList.add('s1','s2','s4','s5'); at(5000,slClose); return; }
+      at(150,function(){ slx.classList.add('s1'); });
+      at(1100,function(){ slx.classList.add('s2'); });
+      at(2300,function(){ slx.classList.add('s3'); HX('tap'); });
+      at(3400,function(){ slx.classList.add('s4'); });
+      at(4600,function(){ slx.classList.add('s5'); HX('arrive'); });
+      at(11500,slClose); }
 
     // 숨은 곶감 — 머리띠 표지를 2초 안에 다섯 번
     var brand=$('#nav .brand') || $('.brand'), egg=$('#egg'), eggT=$('#eggT'), taps=[], eggOn=false;
