@@ -2910,15 +2910,18 @@ main b:not(.num){font-weight:700}
       li.addEventListener('click',go); li.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 
     // 옆 손짓 방향 잠금(2026-10-15 «휴대폰에서 좌우로 밀면 약간 흔들림») — 처음 움직임으로 방향을 정하고, 옆이면 세로 스크롤을 막고 직접 넘긴다
-    function hlock(el,isScroller){ var x0,y0,sl0,mode=null,lastX,lastT,vx=0;
-      el.addEventListener('touchstart',function(e){ var t=e.touches[0]; x0=lastX=t.clientX; y0=t.clientY; sl0=el.scrollLeft; mode=null; vx=0; lastT=e.timeStamp; },{passive:true});
-      el.addEventListener('touchmove',function(e){ if(e.touches.length>1) return; var t=e.touches[0], dx=t.clientX-x0, dy=t.clientY-y0;
+    function hlock(el,isScroller){ var x0,y0,sl0,dx=0,mode=null,lastX,lastT,vx=0,idx0=0;
+      function cardW(){ var c=el.children[0]; return c?c.getBoundingClientRect().width+(parseFloat(getComputedStyle(el).columnGap)||0):el.clientWidth; }
+      el.addEventListener('touchstart',function(e){ var t=e.touches[0]; x0=lastX=t.clientX; y0=t.clientY; sl0=el.scrollLeft; dx=0; mode=null; vx=0; lastT=e.timeStamp; if(isScroller) idx0=Math.round(sl0/cardW()); },{passive:true});
+      el.addEventListener('touchmove',function(e){ if(e.touches.length>1) return; var t=e.touches[0], dy=t.clientY-y0; dx=t.clientX-x0;
         if(mode===null){ if(Math.abs(dx)<6&&Math.abs(dy)<6) return; mode=Math.abs(dx)>Math.abs(dy)?'h':'v'; if(mode==='h'&&isScroller) el.style.scrollSnapType='none'; }
         if(mode!=='h') return; if(e.cancelable) e.preventDefault();
         if(isScroller){ el.scrollLeft=sl0-dx; var dt=e.timeStamp-lastT; if(dt>0) vx=(t.clientX-lastX)/dt; lastX=t.clientX; lastT=e.timeStamp; } },{passive:false});
-      el.addEventListener('touchend',function(){ if(mode==='h'&&isScroller){ var items=el.children, w=items[0]?items[0].getBoundingClientRect().width+parseFloat(getComputedStyle(el).columnGap||0):el.clientWidth;
-          var i=Math.round((el.scrollLeft-(vx*-180))/w); i=Math.max(0,Math.min(items.length-1,i));
-          el.scrollTo({left:i*w,behavior:reduce?'auto':'smooth'}); setTimeout(function(){ el.style.scrollSnapType=''; },420); }
+      el.addEventListener('touchend',function(){ if(mode==='h'&&isScroller){
+          // 손가락이 왼쪽(dx<0)이면 다음 장, 오른쪽이면 앞 장 — 짧게 휙 넘겨도(속도) 넘어감
+          var di=0; if(dx<-30||vx<-.35) di=1; else if(dx>30||vx>.35) di=-1;
+          var n=el.children.length, i=Math.max(0,Math.min(n-1,idx0+di));
+          el.scrollTo({left:i*cardW(),behavior:reduce?'auto':'smooth'}); setTimeout(function(){ el.style.scrollSnapType=''; },450); }
         mode=null; },{passive:true}); }
     $$('.ap-gal.webs').forEach(function(g){ hlock(g,true); });
     if($('#repVis')) hlock($('#repVis'),false);
