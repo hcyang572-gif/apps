@@ -1401,7 +1401,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .huntchip.all{color:var(--on-primary);background:var(--primary)} .huntchip.all b{color:inherit}
 @media (max-width:759px){.huntchip{top:calc(100% + 8px);left:12px;height:26px;font-size:12px}}
 @media (orientation:landscape) and (max-height:360px){.huntchip{display:none}}
-.egg-toast{white-space:normal;width:max-content;max-width:calc(100vw - 32px);text-align:center;line-height:1.45}
+
 /* ═════ 시정구호 이스터에그(2026-10-15 «가장 화려하게, 전체 화면으로») — 1막 별하늘 «이상을 꿈꾸고» · 2막 별이 모여 곶감과 빛줄기 «현실로 만드는» · 3막 파문과 상주 보물 폭죽 «대한민국의 중심, 상주» · 끝에 시정구호 ═════ */
 .sl-btn{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;border-radius:inherit;-webkit-tap-highlight-color:transparent;position:relative}
 .sl-btn img{transition:transform 420ms cubic-bezier(.34,1.56,.64,1)}
@@ -1448,6 +1448,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .egg.out svg{transition:opacity 500ms var(--e),transform 500ms var(--e);opacity:0}
 .egg-toast{position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top));z-index:81;margin:0;transform:translateX(-50%);padding:10px 18px;border-radius:var(--r-pill);font-size:14.5px;font-weight:800;color:var(--on-primary);background:var(--primary);box-shadow:var(--glz);white-space:nowrap}
 .egg-toast[hidden]{display:none}
+.egg-toast{white-space:normal;width:max-content;max-width:min(560px,calc(100vw - 32px));text-align:center;line-height:1.45;word-break:keep-all}   /* 2026-10-15 «이스터에그 문구가 잘려 보여» — 긴 안내는 줄바꿈 */
 @media (prefers-reduced-motion: reduce){
   .btn,.xp-btn,.xp-close,.legend button,.fields button,.mrw li,.cyc .cyc-card{transition:none!important}
   .btn:active,.xp-btn:active,.xp-close:active,.legend button:active,.fields button:active,.mrw li:active{transform:none}
