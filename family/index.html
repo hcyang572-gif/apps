@@ -1341,7 +1341,7 @@ footer .copy{font-size:12.5px;line-height:1.6}
     if(!d) return;
     if(d.info && d.info.playerState!==undefined) frameEl.setAttribute('data-ps',d.info.playerState);
     if(d.event==='onError'){ ready=false; fallback(); return; }
-    if(d.event==='onReady'||d.event==='infoDelivery'||d.event==='initialDelivery'){ if(!ready){ ready=true; frameEl.classList.add('ready'); if(poll){clearInterval(poll);poll=null;} } }
+    if(d.event==='onReady'||d.event==='infoDelivery'||d.event==='initialDelivery'){ if(!ready){ ready=true; frameEl.classList.add('ready'); if(poll){clearInterval(poll);poll=null;} if(hasIO&&!filmVis) cmd('pauseVideo'); } }
   });
   (function mount(){
     var o=location.origin, q='autoplay=1&mute=1&loop=1&playlist='+ytId+'&playsinline=1&rel=0&modestbranding=1&controls=0&enablejsapi=1';
@@ -1358,6 +1358,10 @@ footer .copy{font-size:12.5px;line-height:1.6}
     function arm(){ setTimeout(function(){ if(!ready) fallback(); },10000); }
     if(hasIO){ var fio=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ fio.disconnect(); arm(); } },{rootMargin:'300px 0px'}); fio.observe(frameEl); } else arm();
   })();
+  /* 화면에 영상이 들어오면 재생, 벗어나면 일시정지(소리 켜기 상태는 그대로 유지) */
+  var filmVis=false;
+  if(hasIO) new IntersectionObserver(function(es){ filmVis=es[0].isIntersecting; if(ready) cmd(filmVis?'playVideo':'pauseVideo'); },{threshold:.35}).observe(frameEl);
+  document.addEventListener('visibilitychange',function(){ if(!ready) return; if(document.hidden) cmd('pauseVideo'); else if(filmVis||!hasIO) cmd('playVideo'); });
   btn.addEventListener('click',function(){
     on=!on;
     if(on){cmd('unMute');cmd('setVolume',[80]);cmd('playVideo');} else cmd('mute');
