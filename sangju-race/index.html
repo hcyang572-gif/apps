@@ -891,9 +891,9 @@ function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(funct
 addEventListener('scroll', onScroll, {passive:true}); onScroll();
 document.addEventListener('visibilitychange', function(){ root.classList.toggle('paused', document.hidden); });
 
-// 레이스 미리보기 — 60초를 6초로. 1회차: 사각이 4등 / 2회차: 사각이 첫 승
+// 레이스 미리보기 — 60초를 6초로. 1회차: 시안 영상과 같게 샤샤 우승(한톨→도리와 수니→샤샤 막판 역전), 사각이 4등 / 2회차: 사각이 첫 승
 var PLAN = {
-  r1: {shasha:[0,.32,.52,.62,.78,.93], hantol:[0,.22,.42,.62,.84,.97], dori:[0,.16,.36,.58,.86,1], sagak:[0,-.05,.12,.38,.68,.88]},
+  r1: {shasha:[0,.32,.52,.62,.8,1], hantol:[0,.22,.42,.62,.86,.95], dori:[0,.16,.36,.58,.84,.97], sagak:[0,-.05,.12,.38,.68,.9]},
   r2: {shasha:[0,.32,.52,.62,.76,.9], hantol:[0,.22,.42,.62,.82,.94], dori:[0,.16,.36,.58,.84,.97], sagak:[0,-.05,.16,.48,.86,1]}
 };
 var NAME = {}; $$('#lanes .ln').forEach(function(l){ var img = $('.rn', l), id = (img.className.match(/r-(\w+)/) || [])[1]; l._id = id; NAME[id] = $('.nm', l).textContent; var rk = document.createElement('span'); rk.className = 'rk'; l.appendChild(rk); });
