@@ -3,7 +3,7 @@
 <head><script>(function(){try{var ua=navigator.userAgent||'';if(!/KAKAOTALK/i.test(ua))return;var u=location.href;location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(u);if(/Android/i.test(ua))setTimeout(function(){if(!document.hidden){location.href='intent://'+u.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(u)+';end';}},1200);}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>상주 원정 레이스</title>
+<title>야구장 전광판에서 60초, 상주로 달린다 · 상주 원정 레이스</title>
 <meta name="description" content="삼성 라이온즈 대구 홈경기의 쉬는 시간(클리닝타임) 60초, 상주 캐릭터 4종이 전광판에서 대구부터 상주까지 달리고 관중은 QR로 1등을 맞힙니다. 연 2회 «상주 원정 데이» 제안 구상.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#070C22">
@@ -437,9 +437,57 @@ footer p+p{margin-top:6px}
   .lb-box{animation:none!important}.lb-stage img{transition:none!important}
   .odo .dg .col,.dn .sg,.yrs .yb i,.gauge .bar i,.inn .ct i,.phone .pg{transition:none!important}
 }
+.ctx{display:grid;gap:18px;margin-bottom:22px}
+@media (min-width:860px){.ctx{grid-template-columns:1.25fr 1fr;align-items:center}}
+.ctx-fig,.pop-fig{margin:0;padding:12px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.ctx-fig svg,.pop-fig svg{display:block;width:100%;height:auto;font-family:var(--font)}
+.f-out{fill:color-mix(in srgb,var(--c-shasha) 26%,transparent);stroke:color-mix(in srgb,var(--c-shasha) 55%,transparent)}
+.f-in{fill:color-mix(in srgb,var(--c-dori) 34%,transparent);stroke:color-mix(in srgb,var(--c-dori) 60%,transparent)}
+.f-rake path{stroke:var(--tx2);stroke-width:2;stroke-dasharray:4 5;fill:none}
+.f-crew circle{fill:var(--tx)}.f-crew path{stroke:var(--tx);stroke-width:3;stroke-linecap:round;fill:none}
+.f-board{fill:#0A1230;stroke:var(--cyan);stroke-width:2}
+.f-bt1{fill:#F2F5FF;font-size:26px;font-weight:900}.f-bt2{fill:var(--gold);font-size:24px;font-weight:900}
+.f-seat circle{fill:var(--c-sagak)}
+.f-eye path{stroke:var(--pred);stroke-width:2;stroke-dasharray:6 6;fill:none}
+.f-lb,.p-lb2{fill:var(--tx);font-size:22px;font-weight:800}
+.ctk{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.ctk li{padding:14px 16px;border-radius:var(--r2);background:var(--card);border:1px solid var(--line)}
+.ctk span{display:block;font-size:12px;font-weight:800;color:var(--pred);letter-spacing:.04em}
+.ctk b{display:block;font-size:17px;margin-top:2px}
+.ctk small{display:block;font-size:13px;color:var(--tx3);margin-top:2px}
+.how3{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:12px}
+@media (min-width:860px){.how3{grid-template-columns:repeat(3,1fr)}}
+.how3 li{display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);min-width:0}
+.how3 li.hl{border-color:color-mix(in srgb,var(--cyan) 45%,transparent)}
+.how3 .t{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:.04em}
+.how3 b{font-size:19px}
+.how3 small{font-size:13.5px;color:var(--tx2);margin-bottom:8px}
+.how3 img{margin-top:auto;border-radius:12px;border:1px solid var(--line)}
+.mtk{margin-top:auto;padding:14px 12px 10px;border-radius:12px;background:#0A1230;border:1px solid var(--line)}
+.mtk-r{display:flex;align-items:center;justify-content:space-between;position:relative;margin:0 10px}
+.mtk-r::before{content:"";position:absolute;left:4px;right:4px;top:50%;height:3px;background:linear-gradient(90deg,#8590B2,#3CE1FF 70%,#FFC83D);transform:translateY(-50%)}
+.mtk-r i{position:relative;width:10px;height:10px;border-radius:50%;background:#8590B2;font-style:normal}
+.mtk-r i.k{background:#3CE1FF}.mtk-r i.g{background:#FFC83D;width:14px;height:14px}
+.mtk-r i.s::after,.mtk-r i.k::after,.mtk-r i.g::after{position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;color:#B9C2DE;white-space:nowrap}
+.mtk-r i.s::after{content:"대구"}.mtk-r i.k::after{content:"경천섬";color:#3CE1FF}.mtk-r i.g::after{content:"상주";color:#FFC83D}
+.mtk-c{display:flex;justify-content:center;gap:6px;margin-top:30px}.mtk-c img{width:44px;height:44px}
+.p-std{fill:color-mix(in srgb,var(--c-hantol) 22%,transparent);stroke:color-mix(in srgb,var(--c-hantol) 55%,transparent)}
+.p-gate{fill:var(--card2);stroke:var(--tx2)}
+.p-tent path{fill:var(--c-dori)}.p-tent rect{fill:color-mix(in srgb,var(--c-dori) 25%,transparent);stroke:var(--c-dori)}
+.p-lb{fill:var(--tx);font-size:26px;font-weight:900}.p-sm{fill:var(--tx2);font-size:19px;font-weight:700}
+.p-in,.p-out{fill:none;stroke-width:2.5;stroke-dasharray:7 6}.p-in{stroke:var(--pred)}.p-out{stroke:var(--gold)}
+.pop-fig{margin-bottom:4px}
+.shl{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:6px}
+.shl li{position:relative;padding-left:18px;font-size:15px;color:var(--tx)}
+.shl li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--pred)}
+.yrs ol{height:236px}
+.yrs ol li.y1 .yb i{background:linear-gradient(180deg,var(--gold),var(--c-dori))}
+.yrs .yt{font-size:11px;color:var(--tx3);text-align:center;line-height:1.3;min-height:2.6em}
+.yrs .say .tot{margin-top:14px;padding:12px 14px;border-radius:var(--r2);background:var(--card);border:1px solid var(--line);color:var(--tx)}
+.yrs .say .tot b{font-size:18px}.yrs .say .tot small{display:block;font-size:12px;color:var(--tx3)}
 @media print{#nav,.sky,.vid .ctl{display:none}.rv{opacity:1;transform:none}body{background:#fff;color:#000}}
 </style>
-<style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="상주 원정 레이스"><meta property="og:title" content="상주 원정 레이스"><meta property="og:description" content="삼성 라이온즈 대구 홈경기의 쉬는 시간(클리닝타임) 60초, 상주 캐릭터 4종이 전광판에서 대구부터 상주까지 달리고 관중은 QR로 1등을 맞힙니다. 연 2회 «상주 원정 데이» 제안 구상."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/sangju-race/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/sangju-race-r4-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/sangju-race-r4-1200x630.png"><meta property="og:image:alt" content="상주 원정 레이스 — 삼성 라이온즈 대구 홈경기의 쉬는 시간(클리닝타임) 60초, 상주 캐릭터 4종이 전광판에서 대구부터 상주까지 달리고 관중은 QR로 1등을 맞힙니다. 연 2회 «상주 원정 데이» 제안 구상."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/sangju-race/"></head>
+<style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="상주 원정 레이스"><meta property="og:title" content="야구장 전광판에서 60초, 상주로 달린다"><meta property="og:description" content="삼성 라이온즈 대구 홈경기의 쉬는 시간(클리닝타임) 60초, 상주 캐릭터 4종이 전광판에서 대구부터 상주까지 달리고 관중은 QR로 1등을 맞힙니다. 연 2회 «상주 원정 데이» 제안 구상."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/sangju-race/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/sangju-race-r5-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/sangju-race-r5-1200x630.png"><meta property="og:image:alt" content="야구장 전광판에서 60초, 상주로 달린다 — 삼성 라이온즈 대구 홈경기의 쉬는 시간(클리닝타임) 60초, 상주 캐릭터 4종이 전광판에서 대구부터 상주까지 달리고 관중은 QR로 1등을 맞힙니다. 연 2회 «상주 원정 데이» 제안 구상."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/sangju-race/"></head>
 <body>
 <div class="sky" aria-hidden="true"><i></i><i></i><i></i></div>
 
@@ -447,7 +495,7 @@ footer p+p{margin-top:6px}
   <div class="in">
     <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>상주 원정 레이스</a>
     <nav class="nav-r" aria-label="바로가기">
-      <a href="#break">쉬는 시간</a><a href="#race">레이스</a><a href="#predict">예측</a><a href="#effect">효과</a><a href="#budget">예산</a><a href="#prep">준비</a><a class="k" href="#files">자료실</a>
+      <a href="#break">클리닝타임</a><a href="#race">레이스</a><a href="#predict">예측</a><a href="#shop">매점</a><a href="#effect">효과</a><a href="#budget">예산</a><a href="#prep">준비</a><a class="k" href="#files">자료실</a>
     </nav>
   </div>
   <div class="track" aria-hidden="true">
@@ -462,11 +510,11 @@ footer p+p{margin-top:6px}
   <div class="wrap grid">
     <div>
       <span class="kick">상주 원정 레이스 · 제안 구상</span>
-      <h1>야구장 전광판에서 60초,<br><em>상주를 달린다</em></h1>
+      <h1>야구장 전광판에서 60초,<br><em>상주로 달린다</em></h1>
       <p class="sub">대구 야구장 쉬는 시간, 상주 캐릭터들이 상주까지 달리고 관중은 QR로 1등을 맞힌다</p>
       <div class="cta">
-        <a class="btn p" href="#race" data-hap>▶ 레이스 보기</a>
-        <a class="btn" href="#files" data-hap>↓ 자료 받기</a>
+        <a class="btn p" href="#break" data-hap>↓ 클리닝타임부터 보기</a><a class="btn" href="#race" data-hap>▶ 레이스 보기</a>
+        <a class="btn" href="#files" data-hap>자료실</a>
       </div>
       <div class="stats" aria-label="핵심 숫자">
         <div><b class="odo"><span class="dg" data-d="6">6</span><span class="dg" data-d="0">0</span>초</b><span>전광판 레이스</span></div>
@@ -484,24 +532,57 @@ footer p+p{margin-top:6px}
 
 <section id="break">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>01</b>쉬는 시간</span><h2 class="rv">클리닝타임,<br>관중이 함께하는 쉬는 시간</h2><p class="lead rv">5회말이 끝나면 그라운드를 고르는 약 95초. 관중이 자리를 지키는 이 시간에 전광판 이벤트가 열립니다.</p></div>
+    <div class="sec-head"><span class="no"><b>01</b>클리닝타임이란</span><h2 class="rv">5회말이 끝나면,<br>야구장은 잠시 쉬어 갑니다</h2><p class="lead rv">이 쉬는 시간이 «클리닝타임»입니다.</p></div>
+    <div class="ctx">
+      <figure class="ctx-fig rv">
+        <svg viewBox="0 0 560 330" role="img" aria-label="클리닝타임 그림 — 그라운드는 정비, 관중은 전광판을 본다">
+          <path class="f-out" d="M280 318 L62 150 Q280 40 498 150 Z"/>
+          <path class="f-in" d="M280 300 L352 228 L280 156 L208 228 Z"/>
+          <g class="f-rake"><path d="M232 236h40M242 250h40M290 214h40M300 228h40"/></g>
+          <g class="f-crew"><circle cx="256" cy="206" r="7"/><path d="M256 213v18M256 222l16 10M272 232l8 6"/><circle cx="318" cy="188" r="7"/><path d="M318 195v18M318 204l-16 10M302 214l-8 6"/></g>
+          <rect class="f-board" x="170" y="10" width="220" height="82" rx="10"/>
+          <text class="f-bt1" x="280" y="44" text-anchor="middle">클리닝타임</text>
+          <text class="f-bt2" x="280" y="76" text-anchor="middle">약 95초</text>
+          <g class="f-seat"><circle cx="40" cy="262" r="7"/><circle cx="64" cy="276" r="7"/><circle cx="88" cy="290" r="7"/><circle cx="112" cy="304" r="7"/><circle cx="30" cy="290" r="7"/><circle cx="54" cy="304" r="7"/><circle cx="520" cy="262" r="7"/><circle cx="496" cy="276" r="7"/><circle cx="472" cy="290" r="7"/><circle cx="448" cy="304" r="7"/><circle cx="530" cy="290" r="7"/><circle cx="506" cy="304" r="7"/></g>
+          <g class="f-eye"><path d="M76 252 L196 96"/><path d="M484 252 L364 96"/></g>
+          <text class="f-lb" x="280" y="142" text-anchor="middle">① 그라운드 정비</text>
+          <text class="f-lb" x="70" y="236" text-anchor="middle">② 관중</text>
+          <text class="f-lb" x="490" y="236" text-anchor="middle">② 관중</text>
+        </svg>
+      </figure>
+      <ul class="ctk">
+        <li class="rv"><span>언제</span><b>5회말이 끝난 뒤</b><small>6회가 시작되기 전, 약 95초</small></li>
+        <li class="rv"><span>그라운드는</span><b>흙을 고르고 정비</b><small>경기가 잠시 멈춥니다</small></li>
+        <li class="rv"><span>관중은</span><b>자리에서 쉬며 전광판을 봅니다</b><small>응원 영상 · 관중 비추기 같은 전광판 이벤트</small></li>
+      </ul>
+    </div>
     <div class="rv">
       <div class="inn" aria-label="경기 흐름 — 5회말 뒤 클리닝타임">
         <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span class="ct">클리닝타임<br>약 95초<i></i></span><span>6</span><span>7</span><span>8</span><span>9</span>
       </div>
       <div class="inn-cap"><span>1회</span><span><b>━</b> 이 중 60초 = 상주 레이스</span><span>9회</span></div>
     </div>
-    <div class="ct-row">
-      <figure class="rv"><img src="img/cut_qr.webp" width="1100" height="619" alt="전광판 시안 — 오늘 1등은? QR 예측 화면" loading="lazy"><figcaption>전광판 시안 — «오늘 1등은?» 예측 화면</figcaption></figure>
-      <div class="vs rv"><div><b>보통의 클리닝타임</b>응원 영상 · 관중 비추기 · 그라운드 이벤트</div><div class="us"><b>상주 원정 데이</b>상주 캐릭터 4종이 전광판에서 대구 → 상주 60초 레이스</div></div>
-    </div>
+  </div>
+</section>
+
+
+<section id="idea">
+  <div class="wrap">
+    <div class="sec-head"><span class="no"><b>02</b>그 시간에 우리는</span><h2 class="rv">쉬는 시간 60초,<br>전광판에서 상주로 달립니다</h2><p class="lead rv">상주 캐릭터 4종이 대구를 출발해 상주 명소를 지나고, 마지막은 경천섬. 결승선은 «상주»입니다.</p></div>
+    <ol class="how3">
+      <li class="rv"><span class="t">3~5회말</span><b>QR로 1등 예측</b><small>전광판 QR을 찍어 4종 중 1등을 고릅니다. 10초, 가입 없이.</small><img src="img/cut_qr.webp" width="1100" height="619" alt="전광판 시안 — 오늘 1등은? QR 예측 화면" loading="lazy"></li>
+      <li class="rv hl"><span class="t">클리닝타임 60초</span><b>상주 명소 레이스</b><small>대구 → 상주 명소 → 경천섬 → «상주» 결승</small>
+        <div class="mtk" aria-hidden="true"><div class="mtk-r"><i class="s"></i><i></i><i></i><i></i><i></i><i class="k"></i><i class="g"></i></div><div class="mtk-c"><img src="img/dori.svg" alt="" width="44" height="44"><img src="img/shasha.svg" alt="" width="44" height="44"><img src="img/hantol.svg" alt="" width="44" height="44"><img src="img/sagak.svg" alt="" width="44" height="44"></div></div></li>
+      <li class="rv"><span class="t">레이스 직후</span><b>결과 · 적중률</b><small>1등과 적중률, «오늘 지나온 상주»가 전광판에 뜹니다.</small><img src="img/cut_result.webp" width="1100" height="619" alt="전광판 시안 — 결과와 적중률 화면" loading="lazy"></li>
+    </ol>
+    <div class="vs rv"><div><b>보통의 클리닝타임</b>응원 영상 · 관중 비추기 · 그라운드 이벤트</div><div class="us"><b>상주 원정 데이</b>상주 캐릭터 4종이 전광판에서 대구 → 상주 60초 레이스</div></div>
   </div>
 </section>
 
 
 <section id="race">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>02</b>60초 레이스</span><h2 class="rv">상주 캐릭터 4종이<br>대구에서 상주까지 달립니다</h2><p class="lead rv">상주 명소를 지나 마지막은 늘 경천섬, 결승선은 «상주».</p></div>
+    <div class="sec-head"><span class="no"><b>03</b>60초 레이스</span><h2 class="rv">상주 캐릭터 4종이<br>대구에서 상주까지 달립니다</h2><p class="lead rv">상주 명소를 지나 마지막은 늘 경천섬, 결승선은 «상주».</p></div>
     <div class="race rv" id="raceBox">
       <div class="top">
         <div class="tabs" role="group" aria-label="회차 선택"><button type="button" data-m="r1" aria-pressed="true" data-hap>1회차 · 7월</button><button type="button" data-m="r2" aria-pressed="false" data-hap>2회차 · 9월</button></div>
@@ -543,7 +624,7 @@ footer p+p{margin-top:6px}
 
 <section id="predict">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>03</b>QR 예측</span><h2 class="rv">관중은 QR로<br>오늘의 1등을 고릅니다</h2><p class="lead rv">3~5회말 사이 10초면 끝. 가입도, 상품도 없이 맞히는 재미와 명예만.</p></div>
+    <div class="sec-head"><span class="no"><b>04</b>QR 예측</span><h2 class="rv">관중은 QR로<br>오늘의 1등을 고릅니다</h2><p class="lead rv">3~5회말 사이 10초면 끝. 가입도, 상품도 없이 맞히는 재미와 명예만.</p></div>
     <div class="pq">
       <div class="phone rv" aria-label="예측 화면 미리보기">
         <div class="sc">
@@ -567,7 +648,7 @@ footer p+p{margin-top:6px}
 
 <section id="next">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>04</b>이어지는 이야기</span><h2 class="rv">한 번으로 끝나지 않고,<br>다음 원정 데이로 이어집니다</h2></div>
+    <div class="sec-head"><span class="no"><b>05</b>이어지는 이야기</span><h2 class="rv">한 번으로 끝나지 않고,<br>다음 원정 데이로 이어집니다</h2></div>
     <div class="acts">
       <article class="card act rv"><span class="m">1회차 · 7월</span><h3>누에 «사각이»는 아직 0승</h3><p>레이스가 끝나면 숏폼으로 «첫 승 목표»를 공개합니다(1회차 실제 참여 수로 계산).</p></article>
       <div class="card gauge rv" id="gauge"><span class="m" style="font-size:13px;font-weight:900;color:var(--tx3)">#사각이첫승 게이지</span><div class="bar"><i></i></div><div class="lab"><span>예측 1건 = 1칸</span><b>목표 도달 → 첫 승</b></div><img src="img/cut_gauge.webp" width="1100" height="619" alt="전광판 시안 — 첫 승 게이지" loading="lazy"></div>
@@ -577,14 +658,41 @@ footer p+p{margin-top:6px}
 </section>
 
 
+<section id="shop">
+  <div class="wrap">
+    <div class="sec-head"><span class="no"><b>06</b>야구장 팝업스토어</span><h2 class="rv">경기 날 하루,<br>구장 앞에 매장이 열립니다</h2><p class="lead rv">야구장 팝업스토어는 경기 날 구장 광장·게이트 앞에 하루만 여는 임시 매장입니다. 관중은 입장 전과 퇴장길에 들릅니다.</p></div>
+    <figure class="pop-fig rv">
+      <svg viewBox="0 0 640 230" role="img" aria-label="팝업스토어 위치 그림 — 구장 게이트 앞 광장, 입장 전과 퇴장길에 들르는 임시 매장">
+        <path class="p-std" d="M430 30 Q640 30 640 120 Q640 210 430 210 Z"/>
+        <rect class="p-gate" x="414" y="88" width="30" height="64" rx="6"/>
+        <text class="p-lb" x="540" y="126" text-anchor="middle">구장</text>
+        <text class="p-sm" x="429" y="178" text-anchor="middle">게이트</text>
+        <g class="p-tent"><path d="M150 112 L190 84 L230 112 Z"/><rect x="156" y="112" width="68" height="44"/><path d="M240 112 L280 84 L320 112 Z"/><rect x="246" y="112" width="68" height="44"/></g>
+        <text class="p-lb2" x="235" y="76" text-anchor="middle">상주 매점</text>
+        <text class="p-sm" x="235" y="184" text-anchor="middle">광장 · 하루만</text>
+        <path class="p-in" d="M20 66 Q235 26 404 104"/><text class="p-sm" x="20" y="40">입장 전 →</text>
+        <path class="p-out" d="M404 136 Q235 216 20 186"/><text class="p-sm" x="20" y="222">← 퇴장길</text>
+      </svg>
+      <figcaption class="src">위치는 구단 협의 후 확정</figcaption>
+    </figure>
+    <div class="shop">
+      <img class="rv" src="img/pop_persp.webp" width="1100" height="688" alt="구장 광장 상주 매점 투시도 시안" loading="lazy">
+      <div class="rv"><span class="kick">우리는 여기서 이렇게</span><h3>구장 매점 한 칸이<br>상주로 바뀐 날</h3>
+        <ul class="shl"><li>입점 업체가 자기 천막·매대로 상주 먹거리를 정가에 팝니다</li><li>캐릭터 4종 기둥 앞에서 사진 한 장</li><li>레이스가 끝나면 «오늘의 우승 캐릭터» 판으로 바뀝니다</li><li>명소 QR로 «오늘 지나온 상주» 여행 정보</li></ul>
+        <p class="src">입점 업체 자기 설비 · 개별 포장 완제품 정가 판매 · 시는 공통 사업 안내판(위치·운영시간·업체 균등 목록)만</p></div>
+    </div>
+  </div>
+</section>
+
+
 <section id="effect">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>05</b>효과</span><h2 class="rv">2만여 명이 한 화면을 보는 순간,<br>상주를 60초</h2><p class="lead rv">구장 안에서 보고, 숏폼으로 구장 밖까지.</p></div>
+    <div class="sec-head"><span class="no"><b>07</b>효과</span><h2 class="rv">2만여 명이 한 화면을 보는 순간,<br>상주를 60초</h2><p class="lead rv">구장 안에서 보고, 숏폼으로 구장 밖까지.</p></div>
     <ul class="eff">
 <li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M10 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span><b class="odo"><span class="dg" data-d="2">2</span><span class="dg" data-d="3">3</span>,<span class="dg" data-d="5">5</span><span class="dg" data-d="2">2</span><span class="dg" data-d="1">1</span></b><i>명</i><span class="lbl">삼성 홈경기 평균 관중</span><small>경북매일 2026</small></li>
-<li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><b class="odo"><span class="dg" data-d="3">3</span>.<span class="dg" data-d="7">7</span><span class="dg" data-d="6">6</span></b><i>만 명</i><span class="lbl">두 번의 원정 데이 현장 관중</span><small>착석 관중 18,817 × 2경기 · 추정</small></li>
+<li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><b class="odo"><span class="dg" data-d="3">3</span>.<span class="dg" data-d="7">7</span><span class="dg" data-d="6">6</span></b><i>만 명</i><span class="lbl">두 번의 원정 데이 착석 관중</span><small>착석 관중 18,817 × 2경기 · 추정</small></li>
 <li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M10 9l5 3-5 3z"/></svg></span><b class="odo"><span class="dg" data-d="1">1</span>.<span class="dg" data-d="6">6</span><span class="dg" data-d="2">2</span>~<span class="dg" data-d="5">5</span>.<span class="dg" data-d="6">6</span><span class="dg" data-d="2">2</span></b><i>만 회</i><span class="lbl">숏폼 조회(구단 공동 게시 시 위쪽)</span><small>상주시 유튜브 평균 2,026회 × 8편 · 추정</small></li>
-<li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2M20 14v2"/></svg></span><b class="odo"><span class="dg" data-d="9">9</span><span class="dg" data-d="4">4</span><span class="dg" data-d="0">0</span>~<span class="dg" data-d="2">2</span>,<span class="dg" data-d="8">8</span><span class="dg" data-d="2">2</span><span class="dg" data-d="0">0</span></b><i>건</i><span class="lbl">경기당 QR 예측 참여</span><small>착석 관중 × 5~15% · 가정</small></li>
+<li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2M20 14v2"/></svg></span><b class="odo"><span class="dg" data-d="9">9</span><span class="dg" data-d="4">4</span><span class="dg" data-d="0">0</span>~<span class="dg" data-d="2">2</span>,<span class="dg" data-d="8">8</span><span class="dg" data-d="2">2</span><span class="dg" data-d="0">0</span></b><i>건</i><span class="lbl">경기당 QR 예측 참여</span><small>착석 관중 18,817 × 5~15% · 가정</small></li>
 <li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span><b class="odo"><span class="dg" data-d="0">0</span></b><i>건</i><span class="lbl">국내 «지역 캐릭터 전광판 레이스» 선례</span><small>2026-10 검색 기준</small></li>
     </ul>
     <p class="src">2026 프로야구 관중 역대 최다 경신(머니투데이 2026). 추정치는 결산 때 실제 수치로 공개합니다.</p>
@@ -594,17 +702,17 @@ footer p+p{margin-top:6px}
 
 <section id="budget">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>06</b>예산</span><h2 class="rv">1년차 2,810만 원,<br>원정 데이 2회</h2><p class="lead rv">회당 약 1,405만 원. 모든 금액은 추정이며 구단 견적으로 확정합니다.</p></div>
+    <div class="sec-head"><span class="no"><b>08</b>예산</span><h2 class="rv">1년차 2,810만 원,<br>원정 데이 2회</h2><p class="lead rv">회당 약 1,405만 원. 모든 금액은 추정이며 구단 견적으로 확정합니다.</p></div>
     <div class="bud" id="bud">
       <div class="dnw"><svg viewBox="0 0 200 200" class="dn" role="img" aria-label="1년차 예산 구성 도넛 차트"><circle r="70" cx="100" cy="100" class="bg"/><circle class="sg" r="70" cx="100" cy="100" style="--len:45.46;--off:0.00;--C:439.82;--d:0ms" stroke="#3CE1FF"/><circle class="sg" r="70" cx="100" cy="100" style="--len:114.64;--off:-46.96;--C:439.82;--d:120ms" stroke="#8B6CF0"/><circle class="sg" r="70" cx="100" cy="100" style="--len:9.46;--off:-163.10;--C:439.82;--d:240ms" stroke="#1FA2D6"/><circle class="sg" r="70" cx="100" cy="100" style="--len:72.07;--off:-174.05;--C:439.82;--d:360ms" stroke="#8FC93A"/><circle class="sg" r="70" cx="100" cy="100" style="--len:169.75;--off:-247.63;--C:439.82;--d:480ms" stroke="#E8742A"/><circle class="sg" r="70" cx="100" cy="100" style="--len:19.44;--off:-418.88;--C:439.82;--d:600ms" stroke="#8590B2"/></svg><div class="dnc"><small>1년차 시비</small><b>2,810</b><span>만 원 · 추정</span></div></div>
       <div>
-        <ul class="leg"><li style="--k:#3CE1FF"><i></i><b>전광판 광고</b><span class="v">300<small>만 원</small></span><span class="pc">11%</span><small class="how">클리닝타임 1,000 × 2회 + 장내 노출 500 × 2회</small></li><li style="--k:#8B6CF0"><i></i><b>레이스 영상(기존 시안 자산 활용)</b><span class="v">741.9<small>만 원</small></span><span class="pc">26%</span><small class="how">전광판 규격 변환 1,535 + 음향 757 + 송출 시험 1,714 + 경기 조립 400 + 결말 2종 추가 1,200 + 대체 화면 300 + 검수·인수인계 1,513</small></li><li style="--k:#1FA2D6"><i></i><b>명소 구간 모듈 보정</b><span class="v">70<small>만 원</small></span><span class="pc">2%</span><small class="how">100 × 7개(전광판 글자·배경 대비)</small></li><li style="--k:#8FC93A"><i></i><b>QR 예측 시스템</b><span class="v">470<small>만 원</small></span><span class="pc">17%</span><small class="how">개발 8인일·운영 2인일·호스팅 — 경품 0·이름·연락처 수집 0</small></li><li style="--k:#E8742A"><i></i><b>운영·안내물·숏폼</b><span class="v">1,094<small>만 원</small></span><span class="pc">39%</span><small class="how">회차 운영 2,520 × 2 + 안내물 1,900 + 숏폼·결산 4,000</small></li><li style="--k:#8590B2"><i></i><b>예비비</b><span class="v">133.8<small>만 원</small></span><span class="pc">5%</span><small class="how">직접비 26,759 × 5%</small></li></ul>
+        <ul class="leg"><li style="--k:#3CE1FF"><i></i><b>전광판 광고</b><span class="v">300<small>만 원</small></span><span class="pc">11%</span><small class="how">클리닝타임 1,000 × 2회 + 장내 노출 500 × 2회</small></li><li style="--k:#8B6CF0"><i></i><b>레이스 영상(기존 시안 자산 활용)</b><span class="v">741.9<small>만 원</small></span><span class="pc">26%</span><small class="how">전광판 규격 변환 1,535 + 음향 757 + 송출 시험 1,714 + 경기 조립 400 + 결말 2종 추가 1,200 + 대체 화면 300 + 검수·인수인계 1,513</small></li><li style="--k:#1FA2D6"><i></i><b>명소 구간 모듈 보정</b><span class="v">70<small>만 원</small></span><span class="pc">2%</span><small class="how">100 × 7개(전광판 글자·배경 대비)</small></li><li style="--k:#8FC93A"><i></i><b>QR 예측 시스템</b><span class="v">470<small>만 원</small></span><span class="pc">17%</span><small class="how">개발 8인일·운영 2인일·호스팅 — 예측 1건당 약 875~2,625원 · 경품 0·이름·연락처 수집 0</small></li><li style="--k:#E8742A"><i></i><b>운영·안내물·숏폼</b><span class="v">1,094<small>만 원</small></span><span class="pc">39%</span><small class="how">회차 운영 2,520 × 2 + 안내물 1,900 + 숏폼·결산 4,000</small></li><li style="--k:#8590B2"><i></i><b>예비비</b><span class="v">133.8<small>만 원</small></span><span class="pc">5%</span><small class="how">직접비 26,759 × 5%</small></li></ul>
         <div class="chips"><span class="chip ok">시가 주는 경품·할인·무료 물품 없음</span><span class="chip ok">매점·협찬 비용은 시 예산 밖</span><span class="chip">정부광고 절차 해당 시 약 2,840만 원</span><span class="chip">견적 초과 시 절감안 약 2,350만 원</span></div>
       </div>
     </div>
     <div class="yrs" id="yrs">
-      <ol aria-label="연차별 예산 막대"><li><span class="yk">1년차<small>2회</small></span><span class="yb"><i style="--h:1.000"></i></span><b>2,810<small>만 원</small></b></li><li><span class="yk">2년차<small>3회 가정</small></span><span class="yb"><i style="--h:0.663"></i></span><b>1,862<small>만 원</small></b></li><li><span class="yk">3년차<small>3회 가정</small></span><span class="yb"><i style="--h:0.663"></i></span><b>1,862<small>만 원</small></b></li></ol>
-      <div class="say rv"><h3>2년차부터 회당 약 620만 원</h3><p>1년차에 만든 캐릭터·명소 구간·결말 영상을 다시 씁니다. 3년 8회 누계 6,534만 원(추정).</p></div>
+      <ol aria-label="연차별 예산 막대"><li class="y1"><span class="yk">1년차<small>원정 데이 2회</small></span><span class="yb"><i style="--h:1.000"></i></span><b>약 2,810<small>만 원</small></b><span class="yt">28,097천원 · 제안</span></li><li><span class="yk">2년차<small>3회 가정</small></span><span class="yb"><i style="--h:0.663"></i></span><b>약 1,862<small>만 원</small></b><span class="yt">18,619천원 · 성과 보고 후 결정</span></li><li><span class="yk">3년차<small>3회 가정</small></span><span class="yb"><i style="--h:0.663"></i></span><b>약 1,862<small>만 원</small></b><span class="yt">18,619천원 · 성과 보고 후 결정</span></li></ol>
+      <div class="say rv"><h3>2·3년차는 각 약 1,862만 원</h3><p>1년차에 전광판에 맞춘 영상을 다시 쓰고, 횟수(3회 가정)는 1년차 성과 보고 뒤 정합니다.</p><p class="tot">3년 8회 누계 <b>약 6,534만 원</b><small>65,335천원 · 추정</small></p></div>
     </div>
   </div>
 </section>
@@ -612,7 +720,7 @@ footer p+p{margin-top:6px}
 
 <section id="prep">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>07</b>준비와 당일</span><h2 class="rv">채택 뒤 구단 협의부터,<br>당일은 다섯 단계</h2><p class="lead rv">추경이 성립하기 전에는 계약하지 않고, 협의가 안 되면 그 단계에서 멈춥니다.</p></div>
+    <div class="sec-head"><span class="no"><b>09</b>준비와 당일</span><h2 class="rv">채택 뒤 구단 협의부터,<br>당일은 다섯 단계</h2><p class="lead rv">추경이 성립하기 전에는 계약하지 않고, 협의가 안 되면 그 단계에서 멈춥니다.</p></div>
     <ol class="steps"><li class="rv"><span class="n">1</span><b>협의</b><small>2026-12 ~ 2027-03</small></li><li class="rv"><span class="n">2</span><b>예산 · 계약</b><small>2027-04 ~ 06</small></li><li class="rv"><span class="n">3</span><b>1회차 · 연재</b><small>2027-07 ~ 08</small></li><li class="rv"><span class="n">4</span><b>2회차</b><small>2027-09</small></li><li class="rv"><span class="n">5</span><b>결산</b><small>2027-10 ~ 11</small></li></ol>
     <ol class="flow" aria-label="원정 데이 당일 흐름">
       <li class="rv"><span class="t">개문</span><div><b>입장 · 상주 매점</b><span>구장 광장에서 상주 먹거리</span></div></li>
@@ -622,10 +730,6 @@ footer p+p{margin-top:6px}
       <li class="rv"><span class="t">경기 후</span><div><b>숏폼 · 결산 공개</b><span>관광 누리집으로 연결</span></div></li>
     </ol>
     <p class="flowcap">당일 일정은 잠정안이며, 구단 소관 항목은 모두 구단 협의 후 확정합니다.</p>
-    <div class="shop">
-      <img class="rv" src="img/pop_persp.webp" width="1100" height="688" alt="구장 광장 상주 매점 투시도 시안" loading="lazy">
-      <div class="rv"><span class="kick">상주 매점</span><h3>업체는 팔고, 시는 안내만</h3><p>입점 업체 자기 설비 · 개별 포장 완제품 정가 판매 · 시는 공통 사업 안내판(위치·운영시간·업체 균등 목록)만</p></div>
-    </div>
     <div class="more">
       <details><summary><span>사전 준비 일정<small>협의 → 예산·계약 → 1·2회차 → 결산</small></span></summary><div class="body"><ul class="kv"><li><b>2026-12 ~ 2027-03 · 협의</b><span>채택 뒤 삼성 의향 — 원정 데이 2경기 일자(원정 팬 많은 주말·인기 상대 우선)·전광판 규격·클리닝타임 길이·장내 노출 → 견적 · «정부광고» 해당 여부 서면 확인</span></li><li><b>2027-04 ~ 06 · 예산 · 계약</b><span>1회 추경(시비) → 광고 계약 · 영상·예측 페이지 용역 발주 · 매점 입점 공개 모집 — 추경 성립 전 계약 없음</span></li><li><b>2027-07 ~ 08 · 1회차 · 연재</b><span>레이스(사각이 패배)·QR 예측·상주 매점·현장 숏폼 → 산식대로 첫 승 목표 산출·공개</span></li><li><b>2027-09 · 2회차</b><span>첫 승 도전 — 게이지 판정 → 결말, 매점·숏폼</span></li><li><b>2027-10 ~ 11 · 결산</b><span>예언왕·미션 결과·참여 수·매점 매출 합계 공개</span></li></ul></div></details>
       <details><summary><span>원정 데이별 D-day<small>D-210 ~ D</small></span></summary><div class="body"><ul class="kv"><li><b>D-210</b><span>채택·착수 — 소관부서 지정, 추진계획 결재, 정부광고 해당 여부 서면 문의</span></li><li><b>D-180</b><span>구단 의향 미팅 — 2경기 후보일·클리닝타임 길이·전광판 규격</span></li><li><b>D-150</b><span>견적 → 추경 요구 · 캐릭터 이용 범위 확인</span></li><li><b>D-75</b><span>추경 의결·예산 배정 — 배정 전 계약·발주·공고 0</span></li><li><b>D-45</b><span>매점 입점 공개 모집 · 협찬 공개 안내(자발 신청만)</span></li><li><b>D-14</b><span>전광판 송출 시험 · QR 부하 시험 · 소개 숏폼</span></li><li><b>D-7</b><span>보도자료 · 장내 진행 원고 · 게이트 배포 승인서</span></li><li><b>D</b><span>1회차 원정 데이(예시 일정 2027-07-20, KBO 일정 공개 후 확정)</span></li><li><b>D2</b><span>2회차 원정 데이(예시 일정 2027-09-14, KBO 일정 공개 후 확정) — 1회차 실참여로 첫 승 목표 자동 산출·공개</span></li></ul></div></details>
@@ -646,17 +750,17 @@ footer p+p{margin-top:6px}
 
 <section id="files">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>08</b>자료실</span><h2 class="rv">시안 자료,<br>바로 열고 받기</h2></div>
+    <div class="sec-head"><span class="no"><b>10</b>자료실</span><h2 class="rv">시안 자료,<br>바로 열고 받기</h2></div>
     <ul class="dl">
 <li class="rv"><a class="th" href="https://www.youtube.com/watch?v=F8pys7155mE" target="_blank" rel="noopener" aria-label="시안 영상 · 전광판 가로판 유튜브에서 보기"><img src="img/yt_wide.webp" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></a><div class="tx"><b>시안 영상 · 전광판 가로판</b><span>60초 레이스 전체 흐름 · 가로판 · 1920×1080 · 126초</span><div class="btns"><a class="b p" href="https://www.youtube.com/watch?v=F8pys7155mE" target="_blank" rel="noopener" data-hap>▶ 유튜브에서 보기</a></div></div></li>
 <li class="rv"><a class="th tall" href="https://www.youtube.com/watch?v=YBqqqmSo28I" target="_blank" rel="noopener" aria-label="시안 영상 · 숏폼 세로판 유튜브에서 보기"><img src="img/yt_tall.webp" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span></a><div class="tx"><b>시안 영상 · 숏폼 세로판</b><span>하이라이트 세로판 · 세로판 · 1080×1920 · 82초</span><div class="btns"><a class="b p" href="https://www.youtube.com/watch?v=YBqqqmSo28I" target="_blank" rel="noopener" data-hap>▶ 유튜브에서 보기</a></div></div></li>
-<li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="시안 캡처 11장 11장"><div class="trk"><button type="button" data-open="2" data-i="0" aria-label="QR 예측 · 보기 전용 크게 보기"><img src="img/t_c_cut_01_qr_v2.webp" alt="" loading="lazy" draggable="false"><span class="cap">QR 예측 · 보기 전용</span></button><button type="button" data-open="2" data-i="1" aria-label="경천섬 범월교 접전 · 보기 전용 크게 보기"><img src="img/t_c_cut_02_island.webp" alt="" loading="lazy" draggable="false"><span class="cap">경천섬 범월교 접전 · 보기 전용</span></button><button type="button" data-open="2" data-i="2" aria-label="결과·적중률 · 보기 전용 크게 보기"><img src="img/t_c_cut_03_result.webp" alt="" loading="lazy" draggable="false"><span class="cap">결과·적중률 · 보기 전용</span></button><button type="button" data-open="2" data-i="3" aria-label="첫 승 게이지 · 보기 전용 크게 보기"><img src="img/t_c_cut_04_gauge.webp" alt="" loading="lazy" draggable="false"><span class="cap">첫 승 게이지 · 보기 전용</span></button><button type="button" data-open="2" data-i="4" aria-label="함창명주 추월 · 보기 전용 크게 보기"><img src="img/t_c_cut_10_overtake.webp" alt="" loading="lazy" draggable="false"><span class="cap">함창명주 추월 · 보기 전용</span></button><button type="button" data-open="2" data-i="5" aria-label="상주 주막 · 보기 전용 크게 보기"><img src="img/t_c_cut_07_jumak.webp" alt="" loading="lazy" draggable="false"><span class="cap">상주 주막 · 보기 전용</span></button><button type="button" data-open="2" data-i="6" aria-label="국립낙동강생물자원관 · 보기 전용 크게 보기"><img src="img/t_c_cut_08_nnibr.webp" alt="" loading="lazy" draggable="false"><span class="cap">국립낙동강생물자원관 · 보기 전용</span></button><button type="button" data-open="2" data-i="7" aria-label="협찬 추첨(선택 옵션) · 보기 전용 크게 보기"><img src="img/t_c_cut_05_draw.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 추첨(선택 옵션) · 보기 전용</span></button><button type="button" data-open="2" data-i="8" aria-label="협찬 경품 안내(선택 옵션) 크게 보기"><img src="img/t_c_cut_06_prize.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 경품 안내(선택 옵션)</span></button><button type="button" data-open="2" data-i="9" aria-label="협찬 전환 화면 크게 보기"><img src="img/t_c_cut_09_slate.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 전환 화면</span></button><button type="button" data-open="2" data-i="10" aria-label="부채 QR 응모 크게 보기"><img src="img/t_c_cut_11_fanqr.webp" alt="" loading="lazy" draggable="false"><span class="cap">부채 QR 응모</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 11</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="tx"><b>시안 캡처 11장</b><span>QR 예측 · 경천섬 접전 · 결과 · 게이지 · 명소 구간 · 협찬 옵션 화면</span><div class="btns"><button type="button" class="b" data-open="2" data-hap>열기 <small>11장</small></button><a class="b p" href="media/race_captures.zip" download="상주원정레이스_시안캡처_협찬화면3장.zip" data-hap>↓ 협찬 화면 3장 ZIP <small>714KB</small></a></div></div><script type="application/json" id="g2">{"t": "시안 캡처 11장", "s": [{"src": "img/v_cut_01_qr_v2.webp", "pdf": null, "th": "img/t_s_cut_01_qr_v2.webp", "cap": "QR 예측 · 보기 전용", "dl": []}, {"src": "img/v_cut_02_island.webp", "pdf": null, "th": "img/t_s_cut_02_island.webp", "cap": "경천섬 범월교 접전 · 보기 전용", "dl": []}, {"src": "img/v_cut_03_result.webp", "pdf": null, "th": "img/t_s_cut_03_result.webp", "cap": "결과·적중률 · 보기 전용", "dl": []}, {"src": "img/v_cut_04_gauge.webp", "pdf": null, "th": "img/t_s_cut_04_gauge.webp", "cap": "첫 승 게이지 · 보기 전용", "dl": []}, {"src": "img/v_cut_10_overtake.webp", "pdf": null, "th": "img/t_s_cut_10_overtake.webp", "cap": "함창명주 추월 · 보기 전용", "dl": []}, {"src": "img/v_cut_07_jumak.webp", "pdf": null, "th": "img/t_s_cut_07_jumak.webp", "cap": "상주 주막 · 보기 전용", "dl": []}, {"src": "img/v_cut_08_nnibr.webp", "pdf": null, "th": "img/t_s_cut_08_nnibr.webp", "cap": "국립낙동강생물자원관 · 보기 전용", "dl": []}, {"src": "img/v_cut_05_draw.webp", "pdf": null, "th": "img/t_s_cut_05_draw.webp", "cap": "협찬 추첨(선택 옵션) · 보기 전용", "dl": []}, {"src": "media/cut_06_prize.png", "pdf": null, "th": "img/t_s_cut_06_prize.webp", "cap": "협찬 경품 안내(선택 옵션)", "dl": [{"href": "media/cut_06_prize.png", "name": "시안캡처_09_협찬경품안내_선택옵션.png", "lab": "PNG", "size": "299KB"}]}, {"src": "media/cut_09_slate.png", "pdf": null, "th": "img/t_s_cut_09_slate.webp", "cap": "협찬 전환 화면", "dl": [{"href": "media/cut_09_slate.png", "name": "시안캡처_10_협찬전환화면.png", "lab": "PNG", "size": "61KB"}]}, {"src": "media/cut_11_fanqr.png", "pdf": null, "th": "img/t_s_cut_11_fanqr.webp", "cap": "부채 QR 응모", "dl": [{"href": "media/cut_11_fanqr.png", "name": "시안캡처_11_부채QR응모.png", "lab": "PNG", "size": "353KB"}]}], "zip": {"href": "media/race_captures.zip", "name": "상주원정레이스_시안캡처_협찬화면3장.zip", "size": "714KB"}}</script></li>
+<li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="시안 캡처 11장 11장"><div class="trk"><button type="button" data-open="2" data-i="0" aria-label="QR 예측 · 보기 전용 크게 보기"><img src="img/t_c_cut_01_qr_v3.webp" alt="" loading="lazy" draggable="false"><span class="cap">QR 예측 · 보기 전용</span></button><button type="button" data-open="2" data-i="1" aria-label="경천섬 범월교 접전 · 보기 전용 크게 보기"><img src="img/t_c_cut_02_island.webp" alt="" loading="lazy" draggable="false"><span class="cap">경천섬 범월교 접전 · 보기 전용</span></button><button type="button" data-open="2" data-i="2" aria-label="결과·적중률 · 보기 전용 크게 보기"><img src="img/t_c_cut_03_result.webp" alt="" loading="lazy" draggable="false"><span class="cap">결과·적중률 · 보기 전용</span></button><button type="button" data-open="2" data-i="3" aria-label="첫 승 게이지 · 보기 전용 크게 보기"><img src="img/t_c_cut_04_gauge.webp" alt="" loading="lazy" draggable="false"><span class="cap">첫 승 게이지 · 보기 전용</span></button><button type="button" data-open="2" data-i="4" aria-label="함창명주 추월 · 보기 전용 크게 보기"><img src="img/t_c_cut_10_overtake.webp" alt="" loading="lazy" draggable="false"><span class="cap">함창명주 추월 · 보기 전용</span></button><button type="button" data-open="2" data-i="5" aria-label="상주 주막 · 보기 전용 크게 보기"><img src="img/t_c_cut_07_jumak.webp" alt="" loading="lazy" draggable="false"><span class="cap">상주 주막 · 보기 전용</span></button><button type="button" data-open="2" data-i="6" aria-label="국립낙동강생물자원관 · 보기 전용 크게 보기"><img src="img/t_c_cut_08_nnibr.webp" alt="" loading="lazy" draggable="false"><span class="cap">국립낙동강생물자원관 · 보기 전용</span></button><button type="button" data-open="2" data-i="7" aria-label="협찬 추첨(선택 옵션) · 보기 전용 크게 보기"><img src="img/t_c_cut_05_draw.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 추첨(선택 옵션) · 보기 전용</span></button><button type="button" data-open="2" data-i="8" aria-label="협찬 경품 안내(선택 옵션) 크게 보기"><img src="img/t_c_cut_06_prize.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 경품 안내(선택 옵션)</span></button><button type="button" data-open="2" data-i="9" aria-label="협찬 전환 화면 크게 보기"><img src="img/t_c_cut_09_slate.webp" alt="" loading="lazy" draggable="false"><span class="cap">협찬 전환 화면</span></button><button type="button" data-open="2" data-i="10" aria-label="부채 QR 응모 크게 보기"><img src="img/t_c_cut_11_fanqr.webp" alt="" loading="lazy" draggable="false"><span class="cap">부채 QR 응모</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 11</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="tx"><b>시안 캡처 11장</b><span>QR 예측 · 경천섬 접전 · 결과 · 게이지 · 명소 구간 · 협찬 옵션 화면</span><div class="btns"><button type="button" class="b" data-open="2" data-hap>열기 <small>11장</small></button><a class="b p" href="media/race_captures.zip" download="상주원정레이스_시안캡처_협찬화면3장.zip" data-hap>↓ 협찬 화면 3장 ZIP <small>714KB</small></a></div></div><script type="application/json" id="g2">{"t": "시안 캡처 11장", "s": [{"src": "img/v_cut_01_qr_v3.webp", "pdf": null, "th": "img/t_s_cut_01_qr_v3.webp", "cap": "QR 예측 · 보기 전용", "dl": []}, {"src": "img/v_cut_02_island.webp", "pdf": null, "th": "img/t_s_cut_02_island.webp", "cap": "경천섬 범월교 접전 · 보기 전용", "dl": []}, {"src": "img/v_cut_03_result.webp", "pdf": null, "th": "img/t_s_cut_03_result.webp", "cap": "결과·적중률 · 보기 전용", "dl": []}, {"src": "img/v_cut_04_gauge.webp", "pdf": null, "th": "img/t_s_cut_04_gauge.webp", "cap": "첫 승 게이지 · 보기 전용", "dl": []}, {"src": "img/v_cut_10_overtake.webp", "pdf": null, "th": "img/t_s_cut_10_overtake.webp", "cap": "함창명주 추월 · 보기 전용", "dl": []}, {"src": "img/v_cut_07_jumak.webp", "pdf": null, "th": "img/t_s_cut_07_jumak.webp", "cap": "상주 주막 · 보기 전용", "dl": []}, {"src": "img/v_cut_08_nnibr.webp", "pdf": null, "th": "img/t_s_cut_08_nnibr.webp", "cap": "국립낙동강생물자원관 · 보기 전용", "dl": []}, {"src": "img/v_cut_05_draw.webp", "pdf": null, "th": "img/t_s_cut_05_draw.webp", "cap": "협찬 추첨(선택 옵션) · 보기 전용", "dl": []}, {"src": "media/cut_06_prize.png", "pdf": null, "th": "img/t_s_cut_06_prize.webp", "cap": "협찬 경품 안내(선택 옵션)", "dl": [{"href": "media/cut_06_prize.png", "name": "시안캡처_09_협찬경품안내_선택옵션.png", "lab": "PNG", "size": "299KB"}]}, {"src": "media/cut_09_slate.png", "pdf": null, "th": "img/t_s_cut_09_slate.webp", "cap": "협찬 전환 화면", "dl": [{"href": "media/cut_09_slate.png", "name": "시안캡처_10_협찬전환화면.png", "lab": "PNG", "size": "61KB"}]}, {"src": "media/cut_11_fanqr.png", "pdf": null, "th": "img/t_s_cut_11_fanqr.webp", "cap": "부채 QR 응모", "dl": [{"href": "media/cut_11_fanqr.png", "name": "시안캡처_11_부채QR응모.png", "lab": "PNG", "size": "353KB"}]}], "zip": {"href": "media/race_captures.zip", "name": "상주원정레이스_시안캡처_협찬화면3장.zip", "size": "714KB"}}</script></li>
 <li class="rv"><button type="button" class="th" data-open="3" aria-label="캐릭터 라인업 열기"><img src="img/t_c_characters_lineup.webp" alt="" loading="lazy"></button><div class="tx"><b>캐릭터 라인업</b><span>도리와 수니(원본 자리) · 샤샤 · 한톨 · 사각이</span><div class="btns"><button type="button" class="b" data-open="3" data-hap>열기</button><span class="b vo">보기 전용</span></div></div><script type="application/json" id="g3">{"t": "캐릭터 라인업", "s": [{"src": "img/v_characters_lineup.webp", "pdf": null, "th": "img/t_s_characters_lineup.webp", "cap": "캐릭터 라인업 · 보기 전용", "dl": []}]}</script></li>
 <li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="협찬 부채 시안 3종 3장"><div class="trk"><button type="button" data-open="4" data-i="0" aria-label="A 전광판형 · 보기 전용 크게 보기"><img src="img/t_c_fan_A.webp" alt="" loading="lazy" draggable="false"><span class="cap">A 전광판형 · 보기 전용</span></button><button type="button" data-open="4" data-i="1" aria-label="B «골라 드는 내 픽» · 보기 전용 크게 보기"><img src="img/t_c_fan_B.webp" alt="" loading="lazy" draggable="false"><span class="cap">B «골라 드는 내 픽» · 보기 전용</span></button><button type="button" data-open="4" data-i="2" aria-label="C 협찬사형 · 보기 전용 크게 보기"><img src="img/t_c_fan_C.webp" alt="" loading="lazy" draggable="false"><span class="cap">C 협찬사형 · 보기 전용</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 3</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="tx"><b>협찬 부채 시안 3종</b><span>A 전광판형 · B «골라 드는 내 픽» · C 협찬사형 — 협찬사명은 공란</span><div class="btns"><button type="button" class="b" data-open="4" data-hap>열기 <small>3장</small></button><span class="b vo">보기 전용</span></div></div><script type="application/json" id="g4">{"t": "협찬 부채 시안 3종", "s": [{"src": "img/v_fan_A.webp", "pdf": null, "th": "img/t_s_fan_A.webp", "cap": "A 전광판형 · 보기 전용", "dl": []}, {"src": "img/v_fan_B.webp", "pdf": null, "th": "img/t_s_fan_B.webp", "cap": "B «골라 드는 내 픽» · 보기 전용", "dl": []}, {"src": "img/v_fan_C.webp", "pdf": null, "th": "img/t_s_fan_C.webp", "cap": "C 협찬사형 · 보기 전용", "dl": []}]}</script></li>
-<li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="상주 매점 시안 3장"><div class="trk"><button type="button" data-open="5" data-i="0" aria-label="투시도 · 보기 전용 크게 보기"><img src="img/t_c_shop_perspective.webp" alt="" loading="lazy" draggable="false"><span class="cap">투시도 · 보기 전용</span></button><button type="button" data-open="5" data-i="1" aria-label="평면 배치 크게 보기"><img src="img/t_c_shop_plan.webp" alt="" loading="lazy" draggable="false"><span class="cap">평면 배치</span></button><button type="button" data-open="5" data-i="2" aria-label="공통 안내 그래픽 · 보기 전용 크게 보기"><img src="img/t_c_shop_graphics.webp" alt="" loading="lazy" draggable="false"><span class="cap">공통 안내 그래픽 · 보기 전용</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 3</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="tx"><b>상주 매점 시안</b><span>투시도 · 평면 배치 · 공통 안내 그래픽</span><div class="btns"><button type="button" class="b" data-open="5" data-hap>열기 <small>3장</small></button><a class="b p" href="media/shop_plan.png" download="상주매점_평면.png" data-hap>↓ 평면</a></div></div><script type="application/json" id="g5">{"t": "상주 매점 시안", "s": [{"src": "img/v_shop_perspective.webp", "pdf": null, "th": "img/t_s_shop_perspective.webp", "cap": "투시도 · 보기 전용", "dl": []}, {"src": "media/shop_plan.png", "pdf": null, "th": "img/t_s_shop_plan.webp", "cap": "평면 배치", "dl": [{"href": "media/shop_plan.png", "name": "상주매점_평면.png", "lab": "PNG", "size": "147KB"}]}, {"src": "img/v_shop_graphics.webp", "pdf": null, "th": "img/t_s_shop_graphics.webp", "cap": "공통 안내 그래픽 · 보기 전용", "dl": []}]}</script></li>
-<li class="rv"><button type="button" class="th" data-open="6" aria-label="운영 흐름도 열기"><img src="img/t_c_flow.webp" alt="" loading="lazy"></button><div class="tx"><b>운영 흐름도</b><span>사전 준비 → 당일 → 사후 확산, 한 장 요약</span><div class="btns"><button type="button" class="b" data-open="6" data-hap>열기</button><a class="b p" href="media/flow.png" download="상주원정레이스_운영흐름도.png" data-hap>↓ PNG <small>177KB</small></a><a class="b p" href="media/flow.svg" download="상주원정레이스_운영흐름도.svg" data-hap>↓ SVG <small>127KB</small></a></div></div><script type="application/json" id="g6">{"t": "운영 흐름도", "s": [{"src": "media/flow.png", "pdf": null, "th": "img/t_s_flow.webp", "cap": "운영 흐름도", "dl": [{"href": "media/flow.png", "name": "상주원정레이스_운영흐름도.png", "lab": "PNG", "size": "177KB"}, {"href": "media/flow.svg", "name": "상주원정레이스_운영흐름도.svg", "lab": "SVG", "size": "127KB"}]}]}</script></li>
+<li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="상주 매점 시안 4장"><div class="trk"><button type="button" data-open="5" data-i="0" aria-label="위치 약도 크게 보기"><img src="img/t_c_shop_location.webp" alt="" loading="lazy" draggable="false"><span class="cap">위치 약도</span></button><button type="button" data-open="5" data-i="1" aria-label="투시도 · 보기 전용 크게 보기"><img src="img/t_c_shop_perspective.webp" alt="" loading="lazy" draggable="false"><span class="cap">투시도 · 보기 전용</span></button><button type="button" data-open="5" data-i="2" aria-label="평면 배치 크게 보기"><img src="img/t_c_shop_plan.webp" alt="" loading="lazy" draggable="false"><span class="cap">평면 배치</span></button><button type="button" data-open="5" data-i="3" aria-label="공통 안내 그래픽 · 보기 전용 크게 보기"><img src="img/t_c_shop_graphics.webp" alt="" loading="lazy" draggable="false"><span class="cap">공통 안내 그래픽 · 보기 전용</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 4</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="tx"><b>상주 매점 시안</b><span>위치 약도 · 투시도 · 평면 배치 · 공통 안내 그래픽</span><div class="btns"><button type="button" class="b" data-open="5" data-hap>열기 <small>4장</small></button><a class="b p" href="media/shop_location.png" download="상주매점_위치약도.png" data-hap>↓ 위치</a><a class="b p" href="media/shop_plan.png" download="상주매점_평면.png" data-hap>↓ 평면</a></div></div><script type="application/json" id="g5">{"t": "상주 매점 시안", "s": [{"src": "media/shop_location.png", "pdf": null, "th": "img/t_s_shop_location.webp", "cap": "위치 약도", "dl": [{"href": "media/shop_location.png", "name": "상주매점_위치약도.png", "lab": "PNG", "size": "15KB"}]}, {"src": "img/v_shop_perspective.webp", "pdf": null, "th": "img/t_s_shop_perspective.webp", "cap": "투시도 · 보기 전용", "dl": []}, {"src": "media/shop_plan.png", "pdf": null, "th": "img/t_s_shop_plan.webp", "cap": "평면 배치", "dl": [{"href": "media/shop_plan.png", "name": "상주매점_평면.png", "lab": "PNG", "size": "208KB"}]}, {"src": "img/v_shop_graphics.webp", "pdf": null, "th": "img/t_s_shop_graphics.webp", "cap": "공통 안내 그래픽 · 보기 전용", "dl": []}]}</script></li>
+<li class="rv"><button type="button" class="th" data-open="6" aria-label="운영 흐름도 열기"><img src="img/t_c_flow.webp" alt="" loading="lazy"></button><div class="tx"><b>운영 흐름도</b><span>사전 준비 → 당일 → 사후 확산, 한 장 요약</span><div class="btns"><button type="button" class="b" data-open="6" data-hap>열기</button><a class="b p" href="media/flow.png" download="상주원정레이스_운영흐름도.png" data-hap>↓ PNG <small>178KB</small></a><a class="b p" href="media/flow.svg" download="상주원정레이스_운영흐름도.svg" data-hap>↓ SVG <small>128KB</small></a></div></div><script type="application/json" id="g6">{"t": "운영 흐름도", "s": [{"src": "media/flow.png", "pdf": null, "th": "img/t_s_flow.webp", "cap": "운영 흐름도", "dl": [{"href": "media/flow.png", "name": "상주원정레이스_운영흐름도.png", "lab": "PNG", "size": "178KB"}, {"href": "media/flow.svg", "name": "상주원정레이스_운영흐름도.svg", "lab": "SVG", "size": "128KB"}]}]}</script></li>
 <li class="rv"><div class="th car" data-car tabindex="0" role="group" aria-roledescription="넘겨 보기" aria-label="분석보고서 4장"><div class="trk"><button type="button" data-open="7" data-i="0" aria-label="1쪽 · 표지·요약 크게 보기"><img src="img/t_c_report_p1.webp" alt="" loading="lazy" draggable="false"><span class="cap">1쪽 · 표지·요약</span></button><button type="button" data-open="7" data-i="1" aria-label="2쪽 · 예산 산출·효과 크게 보기"><img src="img/t_c_report_p2.webp" alt="" loading="lazy" draggable="false"><span class="cap">2쪽 · 예산 산출·효과</span></button><button type="button" data-open="7" data-i="2" aria-label="3쪽 · 사전 추진 크게 보기"><img src="img/t_c_report_p3.webp" alt="" loading="lazy" draggable="false"><span class="cap">3쪽 · 사전 추진</span></button><button type="button" data-open="7" data-i="3" aria-label="4쪽 · 당일 운영·문제와 대응 크게 보기"><img src="img/t_c_report_p4.webp" alt="" loading="lazy" draggable="false"><span class="cap">4쪽 · 당일 운영·문제와 대응</span></button></div><button type="button" class="cv pv" aria-label="이전 장" data-hap>‹</button><button type="button" class="cv nx" aria-label="다음 장" data-hap>›</button><span class="cnt"><b>1</b> / 4</span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="tx"><b>분석보고서</b><span>예산 산출 · 효과 · 사전 추진 · 당일 운영 · 문제와 대응, 한 권 4쪽</span><div class="btns"><button type="button" class="b" data-open="7" data-hap>열기 <small>4장</small></button><a class="b p" href="media/report.pdf" download="상주원정레이스_분석보고서.pdf" data-hap>↓ PDF <small>113KB</small></a></div></div><script type="application/json" id="g7">{"t": "분석보고서", "s": [{"src": "media/report_p1.webp", "pdf": "media/report.pdf", "th": "img/t_s_report_p1.webp", "cap": "1쪽 · 표지·요약", "dl": [{"href": "media/report.pdf", "name": "상주원정레이스_분석보고서.pdf", "lab": "PDF", "size": "113KB"}], "pg": 1}, {"src": "media/report_p2.webp", "pdf": "media/report.pdf", "th": "img/t_s_report_p2.webp", "cap": "2쪽 · 예산 산출·효과", "dl": [{"href": "media/report.pdf", "name": "상주원정레이스_분석보고서.pdf", "lab": "PDF", "size": "113KB"}], "pg": 2}, {"src": "media/report_p3.webp", "pdf": "media/report.pdf", "th": "img/t_s_report_p3.webp", "cap": "3쪽 · 사전 추진", "dl": [{"href": "media/report.pdf", "name": "상주원정레이스_분석보고서.pdf", "lab": "PDF", "size": "113KB"}], "pg": 3}, {"src": "media/report_p4.webp", "pdf": "media/report.pdf", "th": "img/t_s_report_p4.webp", "cap": "4쪽 · 당일 운영·문제와 대응", "dl": [{"href": "media/report.pdf", "name": "상주원정레이스_분석보고서.pdf", "lab": "PDF", "size": "113KB"}], "pg": 4}]}</script></li>
-<li class="rv"><button type="button" class="th" data-open="8" aria-label="이 페이지 QR 열기"><img src="img/t_c_qr.webp" alt="" loading="lazy"></button><div class="tx"><b>이 페이지 QR</b><span>인쇄물·발표 자료에 넣는 QR(가운데 캐릭터)</span><div class="btns"><button type="button" class="b" data-open="8" data-hap>열기</button><a class="b p" href="media/qr.png" download="상주원정레이스_QR.png" data-hap>↓ PNG <small>64KB</small></a><a class="b p" href="media/qr.svg" download="상주원정레이스_QR.svg" data-hap>↓ SVG <small>67KB</small></a></div></div><script type="application/json" id="g8">{"t": "이 페이지 QR", "s": [{"src": "media/qr.png", "pdf": null, "th": "img/t_s_qr.webp", "cap": "이 페이지 QR", "dl": [{"href": "media/qr.png", "name": "상주원정레이스_QR.png", "lab": "PNG", "size": "64KB"}, {"href": "media/qr.svg", "name": "상주원정레이스_QR.svg", "lab": "SVG", "size": "67KB"}]}]}</script></li>
+<li class="rv"><button type="button" class="th" data-open="8" aria-label="이 페이지 QR 열기"><img src="img/t_c_qr.webp" alt="" loading="lazy"></button><div class="tx"><b>이 페이지 QR</b><span>인쇄물·발표 자료에 넣는 QR(가운데 캐릭터)</span><div class="btns"><button type="button" class="b" data-open="8" data-hap>열기</button><a class="b p" href="media/qr.png" download="상주원정레이스_QR.png" data-hap>↓ PNG <small>428KB</small></a><a class="b p" href="media/qr.svg" download="상주원정레이스_QR.svg" data-hap>↓ SVG <small>108KB</small></a></div></div><script type="application/json" id="g8">{"t": "이 페이지 QR", "s": [{"src": "media/qr.png", "pdf": null, "th": "img/t_s_qr.webp", "cap": "이 페이지 QR", "dl": [{"href": "media/qr.png", "name": "상주원정레이스_QR.png", "lab": "PNG", "size": "428KB"}, {"href": "media/qr.svg", "name": "상주원정레이스_QR.svg", "lab": "SVG", "size": "108KB"}]}]}</script></li>
     </ul>
   </div>
 </section>
@@ -664,9 +768,9 @@ footer p+p{margin-top:6px}
 
 <section class="faq" id="faq">
   <div class="wrap">
-    <div class="sec-head"><span class="no"><b>09</b>묻고 답하기</span><h2 class="rv">자주 나올 질문</h2></div>
+    <div class="sec-head"><span class="no"><b>11</b>묻고 답하기</span><h2 class="rv">자주 나올 질문</h2></div>
     <div class="list">
-<details class="rv"><summary><span>다른 시군은 하루 행사로 하는데, 2경기에 2,810만 원은 많지 않나?</span><i aria-hidden="true"></i></summary><p>타 시군은 비용·성과를 공개하지 않습니다. 레이스 영상은 이미 만든 시안을 전광판에 맞춰 쓰므로 영상 제작비가 약 1,400만 원에서 약 810만 원으로 줄고, 1년차에 맞춘 영상을 다시 써서 2년차부터 회당 약 620만 원(3회 가정)으로 내려갑니다. 경품·무료 배포가 없어 감사 시비도 없습니다.</p></details>
+<details class="rv"><summary><span>다른 시군은 하루 행사로 하는데, 2경기에 2,810만 원은 많지 않나?</span><i aria-hidden="true"></i></summary><p>타 시군은 비용·성과를 공개하지 않습니다. 레이스 영상은 이미 만든 시안을 전광판에 맞춰 쓰므로 영상 관련 비용이 전면 제작 약 1,400만 원에서 약 812만 원으로 줄고, 2·3년차는 그 영상을 다시 써서 각 약 1,862만 원(3회 가정, 성과 보고 후 결정)입니다. 경품·무료 배포가 없어 감사 시비도 없습니다.</p></details>
 <details class="rv"><summary><span>구단이 클리닝타임 60초를 정말 내주나?</span><i aria-hidden="true"></i></summary><p>채택 뒤 의향 확인 → 견적 → 추경 순서이고, 추경 성립 전에는 계약하지 않습니다. 단축 75초판도 준비하며, 안 되면 광고료를 집행하지 않습니다.</p></details>
 <details class="rv"><summary><span>결말을 미리 만들어 두면 조작 아닌가?</span><i aria-hidden="true"></i></summary><p>처음부터 «연출 레이스»라고 알립니다. 결말 파일의 지문을 예측 전에 공개하고 경기 뒤 누구나 대조할 수 있게 합니다. 첫 승 목표도 1회차 실참여로 계산해 미리 공개하고, 사람이 고르는 순간이 없습니다.</p></details>
 <details class="rv"><summary><span>9월에 목표에 못 닿으면?</span><i aria-hidden="true"></i></summary><p>미리 난수로 정해 봉인한 패배 영상이 나갑니다. «사각이 2년차 재도전»으로 이야기가 이어집니다.</p></details>
