@@ -304,6 +304,33 @@ section{padding:88px 0 0;position:relative}
 .flow b{display:block;font-size:15.5px}
 .flow span{font-size:13px;color:var(--tx2)}
 .flowcap{font-size:13px;color:var(--tx3);margin-top:10px}
+/* R6-g 효과 흐름 3단 · 구단 협의 관문 · 협업 선례 넘겨 보기 */
+.wave{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+@media (min-width:760px){.wave{grid-template-columns:repeat(3,1fr)}}
+.wave li{position:relative;padding:14px 16px;border-radius:var(--r2);background:linear-gradient(160deg,color-mix(in srgb,var(--cyan) 12%,transparent),var(--card));border:1px solid color-mix(in srgb,var(--cyan) 28%,transparent);display:flex;flex-direction:column;gap:2px;min-width:0}
+.wave .t{font-size:12px;font-weight:800;color:var(--pred)}
+.wave b{font-size:16px}
+.wave span{font-size:13px;color:var(--tx2)}
+@media (min-width:760px){.wave li:not(:last-child)::after{content:"›";position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:20px;font-weight:900;color:var(--pred);z-index:1}}
+.gt{list-style:none;padding:0;margin:0;display:grid;gap:8px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:760px){.gt{grid-template-columns:repeat(3,1fr)}}
+.gt li{padding:12px;border-radius:12px;border:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
+.gt .g{font-size:12px;font-weight:900;color:var(--pred)}
+.gt .g small{font-weight:700;color:var(--tx3);margin-left:6px}
+.gt b{color:var(--tx);font-size:14.5px}
+.gt span{font-size:12.5px;color:var(--tx2)}
+.cs{position:relative;min-width:0}
+.more details{min-width:0}
+.cs-trk{list-style:none;margin:0;padding:2px 0 4px;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.cs-trk::-webkit-scrollbar{display:none}
+.cs-trk li{flex:0 0 min(240px,78%);scroll-snap-align:start;padding:14px;border-radius:12px;border:1px solid var(--line);display:flex;flex-direction:column;gap:3px;min-width:0}
+.cs-trk .y{font-size:12px;font-weight:800;color:var(--pred)}
+.cs-trk b{color:var(--tx);font-size:15px}
+.cs-trk span{font-size:13px;color:var(--tx2)}
+.cs-trk a{margin-top:auto;padding-top:6px;font-size:12px;color:var(--tx3)}
+.cs-nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:8px}
+.cs-nav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.cs-nav .cnt{font-size:12.5px;color:var(--tx3);font-variant-numeric:tabular-nums;margin-right:auto}
 .shop{display:grid;gap:16px;margin-top:26px;align-items:center}
 @media (min-width:860px){.shop{grid-template-columns:1.2fr 1fr}}
 .shop img{border-radius:var(--r2);border:1px solid var(--line)}
@@ -603,11 +630,12 @@ footer p+p{margin-top:6px}
       <div class="mod-sum"><span>경기마다 명소 5곳을 지나며 60초를 달린다.</span><b>60초</b></div>
     </div>
     <ul class="cast">
-<li class="rv" style="--c:#E8742A"><img src="img/dori.svg" alt="도리와 수니" width="120" height="120" loading="lazy"><b>도리와 수니</b><span>곶감 · 상주시 공식 캐릭터</span><small>막판 뒷심</small></li>
-<li class="rv" style="--c:#8FC93A"><img src="img/shasha.svg" alt="샤샤" width="120" height="120" loading="lazy"><b>샤샤</b><span>샤인머스캣</span><small>출발 1등, 포즈 잡다 역전당함</small></li>
-<li class="rv" style="--c:#1FA2D6"><img src="img/hantol.svg" alt="한톨" width="120" height="120" loading="lazy"><b>한톨</b><span>상주쌀 · 하늘색 머리띠</span><small>늘 2등 성실 주자</small></li>
-<li class="rv" style="--c:#8B6CF0"><img src="img/sagak.svg" alt="사각이" width="120" height="120" loading="lazy"><b>사각이</b><span>누에 · 함창명주</span><small>아직 0승 — 9월 첫 승 도전</small></li>
+<li class="rv" style="--c:#E8742A"><img src="img/dori.svg" alt="도리와 수니" width="120" height="120" loading="lazy"><b>도리와 수니</b><span>상주시 캐릭터 · 곶감</span><small>막판 뒷심</small></li>
+<li class="rv" style="--c:#8FC93A"><img src="img/shasha.svg" alt="샤샤" width="120" height="120" loading="lazy"><b>샤샤</b><span>새 캐릭터 · 샤인머스캣</span><small>출발 1등, 포즈 잡다 역전당함</small></li>
+<li class="rv" style="--c:#1FA2D6"><img src="img/hantol.svg" alt="한톨" width="120" height="120" loading="lazy"><b>한톨</b><span>새 캐릭터 · 상주쌀</span><small>늘 2등 성실 주자</small></li>
+<li class="rv" style="--c:#8B6CF0"><img src="img/sagak.svg" alt="사각이" width="120" height="120" loading="lazy"><b>사각이</b><span>새 캐릭터 · 누에(함창명주)</span><small>아직 0승 — 9월 첫 승 도전</small></li>
     </ul>
+    <p class="src">도리와 수니는 상주시 캐릭터 그대로, 샤샤·한톨·사각이는 상주 특산에서 착안한 새 캐릭터입니다.</p>
     <div class="vid">
       <div class="frame wide" id="vframe">
         <img class="poster" id="vposter" src="img/yt_wide.webp" alt="시안 영상 첫 화면">
@@ -688,6 +716,7 @@ footer p+p{margin-top:6px}
 <section id="effect">
   <div class="wrap">
     <div class="sec-head"><span class="no"><b>07</b>효과</span><h2 class="rv">2만여 명이 한 화면을 보는 순간,<br>상주를 60초</h2><p class="lead rv">구장 안에서 보고, 숏폼으로 구장 밖까지.</p></div>
+    <ol class="wave" aria-label="홍보 흐름"><li class="rv"><span class="t">상주</span><b>경천섬 등 명소 · 특산품</b><span>명소 7곳이 레이스 코스, 특산품은 캐릭터와 매점으로</span></li><li class="rv"><span class="t">야구장</span><b>집중 노출</b><span>2만여 관중이 한 화면을 보는 60초</span></li><li class="rv"><span class="t">전국</span><b>숏폼 홍보</b><span>레이스 하이라이트를 숏폼으로</span></li></ol>
     <ul class="eff">
 <li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M10 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></span><b class="odo"><span class="dg" data-d="2">2</span><span class="dg" data-d="3">3</span>,<span class="dg" data-d="5">5</span><span class="dg" data-d="2">2</span><span class="dg" data-d="1">1</span></b><i>명</i><span class="lbl">삼성 홈경기 평균 관중</span><small>경북매일 2026</small></li>
 <li class="rv"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><b class="odo"><span class="dg" data-d="3">3</span>.<span class="dg" data-d="7">7</span><span class="dg" data-d="6">6</span></b><i>만 명</i><span class="lbl">두 번의 원정 데이 착석 관중</span><small>착석 관중 18,817 × 2경기 · 추정</small></li>
@@ -732,6 +761,8 @@ footer p+p{margin-top:6px}
     <p class="flowcap">당일 일정은 잠정안이며, 구단 소관 항목은 모두 구단 협의 후 확정합니다.</p>
     <div class="more">
       <details><summary><span>사전 준비 일정<small>협의 → 예산·계약 → 1·2회차 → 결산</small></span></summary><div class="body"><ul class="kv"><li><b>2026-12 ~ 2027-03 · 협의</b><span>채택 뒤 삼성 의향 — 원정 데이 2경기 일자(원정 팬 많은 주말·인기 상대 우선)·전광판 규격·클리닝타임 길이·장내 노출 → 견적 · «정부광고» 해당 여부 서면 확인</span></li><li><b>2027-04 ~ 06 · 예산 · 계약</b><span>1회 추경(시비) → 광고 계약 · 영상·예측 페이지 용역 발주 · 매점 입점 공개 모집 — 추경 성립 전 계약 없음</span></li><li><b>2027-07 ~ 08 · 1회차 · 연재</b><span>레이스(사각이 패배)·QR 예측·상주 매점·현장 숏폼 → 산식대로 첫 승 목표 산출·공개</span></li><li><b>2027-09 · 2회차</b><span>첫 승 도전 — 게이지 판정 → 결말, 매점·숏폼</span></li><li><b>2027-10 ~ 11 · 결산</b><span>예언왕·미션 결과·참여 수·매점 매출 합계 공개</span></li></ul></div></details>
+      <details><summary><span>구단 협의 관문<small>G1 의향 → G6 송출 시험</small></span></summary><div class="body"><ol class="gt"><li><span class="g">G1<small>2027년 2월</small></span><b>의향 확인</b><span>예산 성립을 조건으로 한 구단 의향 회신</span></li><li><span class="g">G2<small>3월</small></span><b>견적 · 일자</b><span>견적서와 경기 일자 2개, 전광판 규격</span></li><li><span class="g">G3<small>4~5월</small></span><b>일자 유지 · 예산</b><span>일자 가확정 유지, 추경 성립</span></li><li><span class="g">G4<small>5~6월</small></span><b>계약</b><span>예산 배정 뒤에만 계약</span></li><li><span class="g">G5<small>6월</small></span><b>광장 · 반입</b><span>매점 자리·반입 협의, 입점 공개 모집</span></li><li><span class="g">G6<small>7월</small></span><b>송출 시험</b><span>전광판 리허설과 송출 확인 방식 합의</span></li></ol><p class="src">관문마다 안 되면 그 단계에서 멈춥니다. 1년차는 보류하고 다른 경기·구단을 찾습니다. 모든 일정은 구단 협의 후 확정.</p></div></details>
+      <details><summary><span>지자체 협업 선례 13건<small>야구장 · 경기장 홍보</small></span></summary><div class="body"><div class="cs" data-cs><ul class="cs-trk"><li><span class="y">2026 · 잠실 · 야구</span><b>봉화군</b><span>클리닝타임 이벤트 · 전광판 관광 영상, 2년 연속</span><a href="https://www.kbmaeil.com/article/20260607500024" target="_blank" rel="noopener">매일신문 보도</a></li><li><span class="y">2026 · 대구 · 야구</span><b>문경시</b><span>«문경시민의 날» · 전광판 축제 영상</span><a href="https://kbmaeil.com/article/20260901500504" target="_blank" rel="noopener">매일신문 보도</a></li><li><span class="y">2024 · 청주 · 야구</span><b>괴산군</b><span>입구 부스 · 전광판 영상 · 이닝 교체 퀴즈</span><a href="https://newsseoul.co.kr/news/view/1065568238867995" target="_blank" rel="noopener">뉴스서울 보도</a></li><li><span class="y">2023 · 대전 · 야구</span><b>영동군</b><span>출입구 부스 · 전광판 축제 영상</span><a href="https://newsseoul.co.kr/news/view/1065586819064136" target="_blank" rel="noopener">뉴스서울 보도</a></li><li><span class="y">2023 · 대구 · 야구</span><b>영양군</b><span>«영양군의 날» · 산나물축제 홍보</span><a href="https://www.metroseoul.co.kr/article/20230503500602" target="_blank" rel="noopener">메트로신문 보도</a></li><li><span class="y">2019 · 대전 · 야구</span><b>서천군</b><span>전광판 영상 · 특산품 홍보관</span><a href="https://www.ajunews.com/view/20190501100851820" target="_blank" rel="noopener">아주경제 보도</a></li><li><span class="y">2016 · 대구 · 야구</span><b>예천군</b><span>«예천군의 날» · 체험 부스</span><a href="https://kbmaeil.com/article/201607110166293" target="_blank" rel="noopener">매일신문 보도</a></li><li><span class="y">2023 · 광주 · 야구</span><b>장성군</b><span>입구 부스 · 꽃길축제 홍보</span><a href="https://www.metroseoul.co.kr/article/20230511500481" target="_blank" rel="noopener">메트로신문 보도</a></li><li><span class="y">2025 · 창원 · 야구</span><b>사천시</b><span>구단 스폰서십 · 전광판 홍보 · 캐릭터 포토존</span><a href="https://www.kukinews.com/article/view/kuk202507090226" target="_blank" rel="noopener">쿠키뉴스 보도</a></li><li><span class="y">2024 · 대구·광주 · 야구</span><b>대구시·광주시</b><span>«달빛시리즈» 공동 홍보 부스 · 관광 영상</span><a href="https://www.kbmaeil.com/article/202407140399622" target="_blank" rel="noopener">매일신문 보도</a></li><li><span class="y">2023 · 대전 · 축구</span><b>공주시</b><span>«공주시의 날» · 광장 농특산물 장터</span><a href="https://newsseoul.co.kr/news/view/1065575419779721" target="_blank" rel="noopener">뉴스서울 보도</a></li><li><span class="y">2024 · 농구</span><b>고성군(강원)</b><span>구단 우호협약 · 특산물 공동 판매</span><a href="https://www.kukinews.com/article/view/kuk202411110102" target="_blank" rel="noopener">쿠키뉴스 보도</a></li><li><span class="y">2008 · 축구</span><b>서울시</b><span>구단 공동마케팅 협약 · 전광판 상호 홍보</span><a href="https://mediahub.seoul.go.kr/archives/173207" target="_blank" rel="noopener">서울시 미디어허브 보도</a></li></ul><div class="cs-nav"><span class="cnt"><b>1</b> / 13</span><button type="button" class="pv" aria-label="이전 선례" data-hap>‹</button><button type="button" class="nx" aria-label="다음 선례" data-hap>›</button></div></div><p class="src">공개 보도 기준. 선례에서는 노출 방식만 참고하고, 경품·할인·무료 배포는 하지 않습니다.</p></div></details>
       <details><summary><span>원정 데이별 D-day<small>D-210 ~ D</small></span></summary><div class="body"><ul class="kv"><li><b>D-210</b><span>채택·착수 — 소관부서 지정, 추진계획 결재, 정부광고 해당 여부 서면 문의</span></li><li><b>D-180</b><span>구단 의향 미팅 — 2경기 후보일·클리닝타임 길이·전광판 규격</span></li><li><b>D-150</b><span>견적 → 추경 요구 · 캐릭터 이용 범위 확인</span></li><li><b>D-75</b><span>추경 의결·예산 배정 — 배정 전 계약·발주·공고 0</span></li><li><b>D-45</b><span>매점 입점 공개 모집 · 협찬 공개 안내(자발 신청만)</span></li><li><b>D-14</b><span>전광판 송출 시험 · QR 부하 시험 · 소개 숏폼</span></li><li><b>D-7</b><span>보도자료 · 장내 진행 원고 · 게이트 배포 승인서</span></li><li><b>D</b><span>1회차 원정 데이(예시 일정 2027-07-20, KBO 일정 공개 후 확정)</span></li><li><b>D2</b><span>2회차 원정 데이(예시 일정 2027-09-14, KBO 일정 공개 후 확정) — 1회차 실참여로 첫 승 목표 자동 산출·공개</span></li></ul></div></details>
       <details><summary><span>당일 운영표<small>D-1 ~ D+14</small></span></summary><div class="body"><ul class="kv"><li><b>D-1</b><span><em>시 주관 · 협찬사 · 구단</em> 공간·전원·배포 지점 2곳·줄 방향·수령 부스 확인 · 부채 전수 입고(5,000매 가정) · 추첨 시드 해시 사전 공개 · 게이트 배포 구단 승인서 <u>구단 협의 후 확정</u></span></li><li><b>12:00</b><span><em>입점 업체 · 안내물 설치 2</em> 업체 자기 천막·매대로 매점 설치(시 소유 부스 0)</span></li><li><b>15:00</b><span><em>시 주관 담당</em> 전원 브리핑 15분 — 역할·금지 표현·비상 연락·우천</span></li><li><b>15:30</b><span><em>시 총괄 · 구단 안전 · 협찬사 반장</em> 현장 3자 점검 — 배포 줄 방향·입장 동선과의 이격·수령 부스</span></li><li><b>17:00</b><span><em>협찬사</em> 개문 = 부채 배포 시작(전 관중 선착순·1인 1장·색 직접 선택)</span></li><li><b>3·4회말</b><span><em>구단 오퍼레이터</em> 전광판 예측 QR 장면 / 응모 안내는 별도 «제공: ○○» 슬레이트 <u>구단 협의 후 확정</u></span></li><li><b>5회말 개시</b><span><em>구단 신호 → 협찬사 시스템</em> 응모 마감(연장 없음) → 협찬사 자동 난수 추첨, 로그 협찬사 보관 <u>구단 협의 후 확정</u></span></li><li><b>클리닝타임</b><span><em>MC · 오퍼레이터 · 예측 운영자</em> 표준판 95초 — 예측 마감 → 봉인 지문 → 레이스 60초 → 결과(응모 화면은 끼우지 않음)</span></li><li><b>6회초</b><span><em>구단 · 협찬사</em> 슬레이트 → «제공: ○○ 당첨코드 끝 4자리» 8초(이름·번호 0) · 불허 시 조회 페이지만 <u>구단 협의 후 확정</u></span></li><li><b>경기 후</b><span><em>협찬사 · 업체 · 홍보</em> 수령 부스 일회용 코드 대조 · 퇴장객 영업 30분 → 철수·원상복구 · 숏폼 업로드 · 원본 파일 검증 페이지 게시</span></li><li><b>D+1 ~ D+14</b><span><em>유통 담당 · 협찬사</em> 매출 기록 접수 · 부채 결산 · 미수령 당첨 정보 즉시 파기(14일 잠정)</span></li></ul><p class="src">원정 데이 현장 21명(구단 제외) — 시 2(총괄·안전 연락, 촬영) · 용역 4(설치 2, 안내 2) · 입점 업체 8 · 협찬사 7(배포 4, 수령 2, 반장 1, 추정) + 원격 예측 운영자·응모 운영자 · 구단 MC·오퍼레이터·안전요원</p></div></details>
       <details><summary><span>돌발 상황 대응<small>우천 · 장애 · 인파</small></span></summary><div class="body"><ul class="kv"><li><b>우천 취소</b><span>팝업·배포 철수, 5회 미성립 노게임·경기 취소 시 그날 응모 무효·이월 없음(사전 고지), 추첨·당첨 확정분은 유지, 대체 원정 데이는 구단 협의(선거 구간 배제)</span></li><li><b>부채 소진</b><span>배포 지점 철수 — «부채가 없어도 전광판·구단 SNS QR로 같은 응모»</span></li><li><b>QR·서버 장애</b><span>짧은 주소·글자 화면으로 전환, 마감 연장 없음(공정성)</span></li><li><b>인파 과밀</b><span>㎡당 4명↑ 또는 줄이 입장 대기선에 닿으면 배포 즉시 중지 → 구단 안전요원 인계</span></li><li><b>폭염·쓰러짐</b><span>구단 의무실·119, 배포 일시 중지</span></li><li><b>시장·정치인 시구 요청</b><span>사양 — 시 총괄이 구단 창구로 정리</span></li></ul><p style="margin-top:12px;font-weight:700;color:var(--tx)">구단 협의 후 확정할 것</p><ul class="ul"><li>클리닝타임 실제 길이(표준 95초·최소 75초)</li><li>응모 마감 시점(5회말 개시 신호)</li><li>게이트 부채 배포 승인·지점·수령 부스</li><li>«제공: ○○» 슬레이트·당첨코드 표출</li><li>매점 공간·전원·반입</li><li>상주캠 고지 자막</li><li>우천 대체 일정</li><li>상황실 단일 창구</li></ul></div></details>
@@ -1177,6 +1208,15 @@ $$('[data-car]').forEach(function(c){ var trk = $('.trk', c), sl = $$('.trk>butt
   c.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') { e.preventDefault(); to(cur + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); to(cur - 1); } });
   addEventListener('resize', function(){ trk.scrollTo({left: cur * trk.clientWidth}); });
   mark(0); });
+
+// 협업 선례 넘겨 보기 — 스와이프·‹ ›
+$$('[data-cs]').forEach(function(c){ var trk = $('.cs-trk', c), it = $$('.cs-trk>li', c), num = $('.cnt b', c), n = it.length;
+  function step(){ return it.length > 1 ? it[1].offsetLeft - it[0].offsetLeft : trk.clientWidth; }
+  function idx(){ return Math.min(n - 1, Math.round(trk.scrollLeft / Math.max(1, step()))); }
+  var tm; trk.addEventListener('scroll', function(){ clearTimeout(tm); tm = setTimeout(function(){ num.textContent = idx() + 1; }, 60); }, {passive:true});
+  function to(i){ i = (i + n) % n; if (trk.scrollLeft + trk.clientWidth >= trk.scrollWidth - 2 && i > idx()) i = 0; trk.scrollTo({left: i * step(), behavior: RM ? 'auto' : 'smooth'}); num.textContent = i + 1; }
+  $('.pv', c).addEventListener('click', function(){ to(idx() - 1); });
+  $('.nx', c).addEventListener('click', function(){ to(idx() + 1); }); });
 
 // 햅틱
 $$('[data-hap]').forEach(function(b){ b.addEventListener('click', function(){ H.tap(); }); });
