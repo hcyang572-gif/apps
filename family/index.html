@@ -1406,19 +1406,18 @@ footer .copy{font-size:12.5px;line-height:1.6}
   (function(){
     var cue=document.getElementById('cue'); if(!cue) return;
     var ct=cue.querySelector('.ct'), heroIn=true, idle=0, moved=0, lastCur=-1, zone='';
-    function hide(){ if(cue.classList.contains('on')) cue.classList.remove('on'); }
+    function chip(off){ var hc=document.getElementById('hapchip'); if(!hc) return; hc.style.transition='opacity .3s'; hc.style.opacity=off?'0':''; hc.style.pointerEvents=off?'none':''; }
+    function hide(){ if(cue.classList.contains('on')){ cue.classList.remove('on'); chip(false); } }
     function show(z){
       zone=z; cue.classList.toggle('nt',z==='hero');
       ct.textContent = z==='hero' ? '아래로 내려 보세요' : '내리면 다음 화면이 나와요';
-      /* 배포본이 넣는 «진동 켜기» 칩(deploy.py HAPCHIP, 첫 탭 전 화면 아래)이 떠 있으면 그 위로 올린다 */
-      var vh=innerHeight, hc=document.getElementById('hapchip'), b=14;
-      if(hc && hc.classList.contains('on') && !hc.classList.contains('bye')){ var hr=hc.getBoundingClientRect(); if(hr.height) b=Math.round(vh-hr.top+8); }
-      cue.style.bottom = b===14 ? '' : 'calc('+b+'px + 0px)';
+      /* 배포본이 넣는 «진동 켜기» 칩(deploy.py HAPCHIP, 첫 탭 전 화면 아래)과 자리가 같다 → 안내가 떠 있는 동안만 칩을 잠시 숨긴다 */
+      var vh=innerHeight, b=14;
       var top=vh-b-34-6;   /* 안내 윗변 - 여유 6px */
       if(z==='tour'){ var cx0=innerWidth/2, hit=cards.some(function(t){ var r=t.querySelector('.card').getBoundingClientRect(); return r.height && r.bottom>top && r.top<vh && r.right>cx0-120 && r.left<cx0+120; }); if(hit) return;
         var ph=tphone&&tphone.getBoundingClientRect(); if(ph && ph.bottom>top && !wideQ.matches) return; }
       if(z==='hero'){ var cx=innerWidth/2, bad=[].some.call(document.querySelectorAll('.hero .note,.hero-copy>*'),function(e){ var r=e.getBoundingClientRect(); return r.height && r.bottom>top && r.top<vh && r.right>cx-120 && r.left<cx+120; }); if(bad) return; }
-      cue.classList.remove('on'); void cue.offsetWidth; cue.classList.add('on');
+      chip(true); cue.classList.remove('on'); void cue.offsetWidth; cue.classList.add('on');
     }
     function judge(){
       var vh=innerHeight, y=scrollY, end=document.documentElement.scrollHeight-vh-40;
