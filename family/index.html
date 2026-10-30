@@ -417,6 +417,41 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 20px}
 footer nav a:hover{color:var(--ink)}
 footer .copy{font-size:12.5px;line-height:1.6}
 
+/* ───── 162차 다온: 스크롤 진행 막대 — 맨 위 3px 오로라 + 끝에 말풍선 점(투어 장면이 바뀔 때만 한 번 «톡»).
+   지원 브라우저는 animation-timeline:scroll()(스크롤 스레드), 그 밖·움직임 줄이기는 rAF 1회 묶음 JS로 scaleX/translateX만 ───── */
+.prog{position:fixed;top:0;left:0;right:0;height:14px;z-index:60;pointer-events:none;overflow:hidden;contain:strict}
+.prog .fill{position:absolute;left:0;right:0;top:0;height:3px;transform-origin:0 50%;transform:scaleX(0);border-radius:0 2px 2px 0;
+  background:linear-gradient(90deg,#5B4AE6 0%,#9A5FE0 48%,#3E9FE6 100%);box-shadow:0 0 10px rgba(124,107,245,.45)}
+.prog .tip{position:absolute;top:0;left:0;width:100%;height:3px;transform:translate3d(0,0,0)}
+.prog .tip i{position:absolute;right:auto;left:-5px;top:-1px;width:9px;height:8px;border-radius:50% 50% 50% 2px;background:#fff;
+  box-shadow:0 0 0 1.5px #7C6BF5,0 0 12px 2px rgba(124,107,245,.55);opacity:0;transform:scale(.6);transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease)}
+.prog.go .tip i{opacity:1;transform:none}
+.prog .tip i.pop{animation:tipPop .52s var(--spring) 1}
+@keyframes tipPop{0%{transform:scale(1)}38%{transform:translate3d(0,1px,0) scale(1.55)}100%{transform:scale(1)}}
+@supports (animation-timeline: scroll()){
+  @media (prefers-reduced-motion: no-preference){
+    .prog.css .fill{animation:progX linear both;animation-timeline:scroll(root block)}
+    .prog.css .tip{animation:tipX linear both;animation-timeline:scroll(root block)}
+  }
+}
+@keyframes progX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tipX{from{transform:translate3d(0,0,0)}to{transform:translate3d(100%,0,0)}}
+
+/* ───── 162차 다온: «아래로» 안내 — 히어로 첫 화면·투어 고정 구간에서 멈춰 있을 때만(투어 마지막 장면·페이지 끝 제외).
+   transform/opacity만 · 숨쉬기는 나타날 때 3회만(상시 루프 아님) · 움직임 줄이기면 정적 ───── */
+.cue{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;height:34px;padding:0 14px 0 7px;border:0;border-radius:999px;
+  background:var(--glass);color:var(--ink);font-size:13px;font-weight:650;letter-spacing:-.01em;cursor:pointer;
+  box-shadow:0 0 0 1px var(--line),0 14px 30px -16px rgba(40,30,90,.45);
+  opacity:0;transform:translate3d(-50%,10px,0);pointer-events:none;transition:opacity var(--t-base) var(--ease),transform var(--t-page) var(--push)}
+@media (hover:hover) and (pointer:fine){.cue{-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}}
+.cue.on{opacity:1;transform:translate3d(-50%,0,0);pointer-events:auto;transition:opacity var(--t-page) var(--ease),transform var(--t-palette) var(--push)}
+.cue.nt{--ink:#F6F4FF;--line:rgba(255,255,255,.16);--glass:rgba(27,21,70,.62);--accent:#C9C0FF;box-shadow:0 0 0 1px var(--line),0 16px 32px -14px rgba(2,0,18,.7)}
+.cue .cv{flex:none;display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:linear-gradient(135deg,#5B4AE6,#9A5FE0 60%,#7C6BF5);box-shadow:0 4px 10px -4px rgba(87,72,200,.7)}
+.cue .cv svg{display:block;width:12px;height:12px}
+.cue.on .cv svg{animation:cueb 1.9s var(--ease) .5s 3 both}
+@keyframes cueb{0%,100%{transform:translate3d(0,-1.5px,0);opacity:1}45%{transform:translate3d(0,2.5px,0);opacity:.75}}
+@media (hover:hover){.cue:hover{transform:translate3d(-50%,-2px,0)}}
+
 /* 탭 숨김·화면 밖이면 무한 모션 정지 */
 .hid .drift,.hero.idle .drift{animation-play-state:paused}
 
@@ -909,6 +944,8 @@ footer .copy{font-size:12.5px;line-height:1.6}
   </div>
 </footer>
 
+<div class="prog" id="prog" aria-hidden="true"><span class="fill"></span><span class="tip"><i></i></span></div>
+<button type="button" class="cue" id="cue" aria-label="아래로 내려 다음 내용 보기" tabindex="-1"><span class="cv" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M2.6 4.4 6 7.8l3.4-3.4" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ct">아래로 내려 보세요</span></button>
 <script>
 /*!
  * haptics.js — 랜딩 공용 햅틱 (정본). 의존성 없음. 각 빌드가 인라인해서 쓴다.
@@ -1284,7 +1321,7 @@ footer .copy{font-size:12.5px;line-height:1.6}
   var glows=[].slice.call(document.querySelectorAll('.glows i')), railBtns=[].slice.call(document.querySelectorAll('#rail button')), railInd=document.querySelector('#rail .ind');
   var cnum=document.getElementById('cnum'), tphone=document.getElementById('tphone');
   var TABS=['chat','loc','today','kids','life'], cur=-1, tourOn=false, wideQ=window.matchMedia('(min-width:960px),(min-width:640px) and (min-aspect-ratio:1/1)');
-  var capTop=0;
+  var capTop=0, sceneHook=null;
   function measureCap(){ var c=cards[0]&&cards[0].querySelector('.card'); capTop=c?parseFloat(getComputedStyle(c).top)||0:0; }
   function lineFor(k){ if(wideQ.matches) return innerHeight*.5; var pc=cards[k-1]&&cards[k-1].querySelector('.card'); return capTop+(pc?pc.offsetHeight*.8:60); }
   function moveInd(btn,ind){ if(!btn||!ind) return; ind.style.width=btn.offsetWidth+'px'; ind.style.transform='translate3d('+(btn.offsetLeft-4)+'px,0,0)'; }
@@ -1308,6 +1345,7 @@ footer .copy{font-size:12.5px;line-height:1.6}
     if(tphone && !reduce) tphone.style.transform=wideQ.matches?'rotate('+(i%2?1.2:-1.2)+'deg)':'none';
     loadV(i); loadV(i+1);
     syncVideo();
+    if(sceneHook && prev>=0) sceneHook(i,prev);
   }
   function compute(){
     var a=0;
@@ -1342,6 +1380,68 @@ footer .copy{font-size:12.5px;line-height:1.6}
       var rt=0; addEventListener('resize',function(){ if(innerWidth===lastW) return; clearTimeout(rt); rt=setTimeout(mk,250); });
     })();
   }
+
+  /* 진행 막대(162차): CSS 스크롤 타임라인이 되면 CSS만, 아니면(iOS 사파리·움직임 줄이기) passive 스크롤 + rAF 1회로 scaleX */
+  (function(){
+    var pg=document.getElementById('prog'); if(!pg) return;
+    var fill=pg.querySelector('.fill'), tip=pg.querySelector('.tip'), dot=pg.querySelector('.tip i');
+    var css=!reduce && window.CSS && CSS.supports && CSS.supports('animation-timeline','scroll()');
+    if(css) pg.classList.add('css');
+    else {
+      var q=false;
+      function upd(){ q=false; var m=document.documentElement.scrollHeight-innerHeight, p=m>0?Math.min(1,Math.max(0,scrollY/m)):0;
+        fill.style.transform='scaleX('+p.toFixed(4)+')'; tip.style.transform='translate3d('+(p*100).toFixed(2)+'%,0,0)'; }
+      addEventListener('scroll',function(){ if(!q){ q=true; requestAnimationFrame(upd); } },{passive:true});
+      addEventListener('resize',function(){ if(!q){ q=true; requestAnimationFrame(upd); } });
+      upd();
+    }
+    /* 점은 맨 위를 벗어나면 보이고(scroll 이벤트에서 클래스만), 투어 장면이 바뀔 때만 한 번 톡 */
+    var gq=false; function goTip(){ gq=false; pg.classList.toggle('go',scrollY>24); }
+    addEventListener('scroll',function(){ if(!gq){ gq=true; requestAnimationFrame(goTip); } },{passive:true}); goTip();
+    if(!reduce){ sceneHook=function(){ dot.classList.remove('pop'); void dot.offsetWidth; dot.classList.add('pop'); };
+      dot.addEventListener('animationend',function(){ dot.classList.remove('pop'); }); }
+  })();
+
+  /* «아래로» 안내(162차): 스크롤이 멈춘 뒤에만 판단(상시 루프 없음). 히어로 맨 위 · 투어 고정 구간(마지막 장면 전) · 설명과 겹치면 안 띄움 */
+  (function(){
+    var cue=document.getElementById('cue'); if(!cue) return;
+    var ct=cue.querySelector('.ct'), heroIn=true, idle=0, moved=0, lastCur=-1, zone='';
+    function hide(){ if(cue.classList.contains('on')) cue.classList.remove('on'); }
+    function show(z){
+      zone=z; cue.classList.toggle('nt',z==='hero');
+      ct.textContent = z==='hero' ? '아래로 내려 보세요' : '내리면 다음 화면이 나와요';
+      /* 배포본이 넣는 «진동 켜기» 칩(deploy.py HAPCHIP, 첫 탭 전 화면 아래)이 떠 있으면 그 위로 올린다 */
+      var vh=innerHeight, hc=document.getElementById('hapchip'), b=14;
+      if(hc && hc.classList.contains('on') && !hc.classList.contains('bye')){ var hr=hc.getBoundingClientRect(); if(hr.height) b=Math.round(vh-hr.top+8); }
+      cue.style.bottom = b===14 ? '' : 'calc('+b+'px + 0px)';
+      var top=vh-b-34-6;   /* 안내 윗변 - 여유 6px */
+      if(z==='tour'){ var cx0=innerWidth/2, hit=cards.some(function(t){ var r=t.querySelector('.card').getBoundingClientRect(); return r.height && r.bottom>top && r.top<vh && r.right>cx0-120 && r.left<cx0+120; }); if(hit) return;
+        var ph=tphone&&tphone.getBoundingClientRect(); if(ph && ph.bottom>top && !wideQ.matches) return; }
+      if(z==='hero'){ var cx=innerWidth/2, bad=[].some.call(document.querySelectorAll('.hero .note,.hero-copy>*'),function(e){ var r=e.getBoundingClientRect(); return r.height && r.bottom>top && r.top<vh && r.right>cx-120 && r.left<cx+120; }); if(bad) return; }
+      cue.classList.remove('on'); void cue.offsetWidth; cue.classList.add('on');
+    }
+    function judge(){
+      var vh=innerHeight, y=scrollY, end=document.documentElement.scrollHeight-vh-40;
+      if(y>=end) return hide();
+      if(heroIn && y<8) return show('hero');
+      if(tourOn && cards.length && cur<cards.length-1){ var r=tbody.getBoundingClientRect(); if(r.top<=1 && r.bottom>=vh-1) return show('tour'); }
+      hide();
+    }
+    var FAST=/[?&]cuetest/.test(location.search);   /* 검사 전용(cue_check.py): 대기만 줄인다 */
+    function arm(){ clearTimeout(idle); idle=setTimeout(judge, FAST ? 250 : scrollY<8 ? 1400 : (moved>=3 ? 2600 : 1600)); }
+    window.addEventListener('scroll',function(){ hide(); if(cur!==lastCur){ if(lastCur>=0) moved++; lastCur=cur; } arm(); },{passive:true});
+    if(hasIO) new IntersectionObserver(function(es){ heroIn=es[0].isIntersecting; }).observe(hero);
+    addEventListener('resize',function(){ hide(); arm(); });
+    document.addEventListener('visibilitychange',function(){ if(document.hidden){ clearTimeout(idle); hide(); } else arm(); });
+    cue.addEventListener('click',function(){
+      var y;
+      if(zone==='tour' && cards[cur+1]){ var k=cur+1; y=cards[k].getBoundingClientRect().top+scrollY-lineFor(k)+30; }
+      else { var nx=hero.nextElementSibling; y=nx?nx.getBoundingClientRect().top+scrollY-(wideQ.matches?0:8):innerHeight; }
+      hide(); window.scrollTo({top:y,behavior:reduce?'auto':'smooth'});
+    });
+    if(FAST) window.__cue=function(){ return {heroIn:heroIn,tourOn:tourOn,cur:cur,n:cards.length,cls:cue.className}; };
+    if(document.readyState==='complete') arm(); else addEventListener('load',arm);
+  })();
 
   /* 기능 전체: 세그먼트 탭 */
   var seg=document.getElementById('seg');
