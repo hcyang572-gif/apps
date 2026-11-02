@@ -2,653 +2,624 @@
 <html lang="ko">
 <head><script>(function(){try{var ua=navigator.userAgent||'';if(!/KAKAOTALK/i.test(ua))return;var u=location.href;location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(u);if(/Android/i.test(ua))setTimeout(function(){if(!document.hidden){location.href='intent://'+u.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(u)+';end';}},1200);}catch(e){}})();</script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>닿음 — 복지 사각지대 현장 업무 도우미</title>
-<meta name="description" content="정보원 발굴 명단 이후 방문 순서·기록·보고를 한 흐름으로 잇는 복지 공무원 현장 업무 도구. 정기 명단과 실시간 신고를 하루 한 경로로. 상주시청 적용 예시 · 시연 모드 · 가상 데이터.">
+<meta name="description" content="한국사회보장정보원 발굴 명단을 받은 날부터 처리 기한·방문 순서·현장 메모·결재 보고·사후관리까지 한 흐름으로 잇는 복지 담당 공무원 전용 도구. 같은 계정이면 PC↔폰 실시간 연동. 상주시청 적용 예시 · 시연 모드 · 가상 데이터.">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#F3F5F4">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F7F7F4">
+<meta name="color-scheme" content="only light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='114' fill='%2317594F'/%3E%3Ccircle cx='184' cy='262' r='72' fill='%23fff' fill-opacity='.56'/%3E%3Ccircle cx='328' cy='262' r='72' fill='%23fff'/%3E%3Cpath d='M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z' fill='%23F2C36B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="preload" as="image" href="img/p01.webp">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
+<link rel="preload" as="image" href="img/pc_s3.webp" imagesrcset="img/pc_s3.webp 1x, img/pc_s3@2x.webp 2x">
 <style>
-/* 닿음 랜딩 — 토큰은 앱 B안 «소나무빛»(03_시제품/shared/s11_page.css:6-15) + 실시간 신고 주황(앱 화면 실측). 라이트 고정. */
+/* ─────────────────────────────────────────────────────────────
+   닿음 랜딩 — S11-j (🩵 미르, 2026-11-03)
+   바탕 시안: 화령 랜딩 시안 A «빛이 도는 밝은 작업실»(APP-LANDING hwaryoung/_work/drafts_s22b/A — 원본은 고치지 않고 복사)
+   재질: 밝은 바탕 + 천천히 흐르는 메시 빛(강물 청록 + 감빛) + SVG 그레인 · 글꼴 SUIT Variable
+   색: 앱 화면 실측(강물 #0E6A6F · 감 #C9521B) · 라이트 고정
+   움직임: 히어로 줄 단위 떠오름 · 한 흐름 선 그리기 · 우선순위 화면 고정 + 확대 둘러보기
+   ───────────────────────────────────────────────────────────── */
 :root{
-  --bg:#F3F5F4; --bg2:#EAF0EE; --surface:#FFFFFF; --ink:#14211F; --ink2:#46534F; --ink3:#7E8B88; --line:#DCE4E1;
-  --pine:#17594F; --pine2:#0F463F; --pine3:#0B332E; --pine-soft:#E3EEEB; --star:#F2C36B; --mustard:#D9A441; --mustard-soft:#F8EFDB; --mustard-ink:#6E4E12;
-  --sig:#E0622F; --sig-soft:#FCEBE3;
-  --d1:0 0 0 1px rgba(20,33,31,.06),0 1px 2px rgba(20,33,31,.04);
-  --d2:0 0 0 1px rgba(20,33,31,.05),0 18px 48px -12px rgba(15,70,63,.22);
-  --d3:0 0 0 1px rgba(20,33,31,.06),0 40px 90px -30px rgba(11,51,46,.42);
-  --ease:cubic-bezier(.2,.7,.2,1); --ease2:cubic-bezier(.65,0,.35,1);
-  --wrap:min(1160px, 100% - 32px);
-  --font:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  color-scheme:light;
+  --bg:#F7F7F4; --card:#FFFFFF; --ink:#16232A; --ink-2:#3B4A50; --muted:#67767B; --line:#E2E5E1;
+  --teal:#0E6A6F; --teal-d:#0A5156; --teal-t:rgba(14,106,111,.10);
+  --gam:#C9521B; --gam-t:rgba(201,82,27,.10);
+  --apricot:#F0AE86; --apricot-t:rgba(240,174,134,.30);
+  --star:#F2C36B;
+  --e1:0 1px 2px rgba(22,35,42,.05);
+  --e2:0 1px 2px rgba(22,35,42,.04),0 10px 30px -14px rgba(22,35,42,.16);
+  --e3:0 2px 6px rgba(22,35,42,.05),0 30px 60px -28px rgba(22,35,42,.28);
+  --r:18px; --r-s:12px; --r-pill:999px;
+  --e:cubic-bezier(.2,.7,.3,1); --e-zoom:cubic-bezier(.65,0,.25,1);
+  --nav:60px;
+  color-scheme:only light;
 }
-@media (min-width:1440px){:root{--wrap:min(1260px, 100% - 120px)}}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;word-break:keep-all;overflow-wrap:anywhere;font-feature-settings:"tnum"}
-img{max-width:100%;height:auto;display:block}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg);scroll-padding-top:calc(var(--nav) + 8px)}
+body{margin:0;background:transparent;color:var(--ink);overflow-x:hidden;
+  font-family:"SUIT Variable",SUIT,"Pretendard Variable","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+  font-size:16px;line-height:1.6;letter-spacing:-.012em;word-break:keep-all;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit}
-.wrap{width:var(--wrap);margin-inline:auto}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.num{font-variant-numeric:tabular-nums}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left)) 0 max(16px,env(safe-area-inset-right))}
+@media (min-width:768px){.wrap{padding:0 40px}}
+.wrap.wide,.wrap.wide-h{max-width:1600px}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
 
-/* 상단 바 */
-.bar{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s}
-.bar.on{background:rgba(243,245,244,.88);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);box-shadow:0 1px 0 var(--line)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.02em}
-.brand svg{width:32px;height:32px}
-.bar nav{display:flex;gap:4px;align-items:center}
-.bar nav a.l{font-size:14px;color:var(--ink2);text-decoration:none;padding:8px 10px;border-radius:10px}
-.bar nav a.l:hover{background:rgba(23,89,79,.07);color:var(--pine)}
-@media (max-width:900px){.bar nav a.l{display:none}}
-.prog{position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--pine);transform-origin:0 50%;transform:scaleX(0)}
+/* ── 배경: 흐르는 메시 빛 + 그레인 ── */
+.mesh{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:var(--bg)}
+.mesh i{position:absolute;border-radius:50%;will-change:transform}
+.mesh .m1{width:70vmax;height:70vmax;left:-18vmax;top:-26vmax;background:radial-gradient(closest-side,rgba(14,106,111,.20),rgba(14,106,111,0));animation:drift1 34s ease-in-out infinite alternate}
+.mesh .m2{width:64vmax;height:64vmax;right:-20vmax;top:6vmax;background:radial-gradient(closest-side,rgba(240,174,134,.42),rgba(240,174,134,0));animation:drift2 40s ease-in-out infinite alternate}
+.mesh .m3{width:50vmax;height:50vmax;left:24vmax;bottom:-30vmax;background:radial-gradient(closest-side,rgba(14,106,111,.10),rgba(240,174,134,0));animation:drift3 46s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(14vmax,10vmax) scale(1.08)}}
+@keyframes drift2{to{transform:translate(-12vmax,14vmax) scale(.94)}}
+@keyframes drift3{to{transform:translate(-10vmax,-8vmax) scale(1.1)}}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.14 0 0 0 0 0.16 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-.btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;font:700 16px/1 var(--font);text-decoration:none;border-radius:14px;padding:16px 22px;border:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
-.btn.p{background:var(--pine);color:#fff;box-shadow:0 10px 24px -10px rgba(15,70,63,.65),inset 0 1px 0 rgba(255,255,255,.14)}
-.btn.p:hover{background:var(--pine2);transform:translateY(-1px)}
-.btn.g{background:var(--surface);color:var(--ink);box-shadow:var(--d1)}
-.btn.g:hover{transform:translateY(-1px);box-shadow:var(--d2)}
-.btn.s{padding:10px 14px;font-size:14px;border-radius:11px}
-.btn svg{width:18px;height:18px;flex:none}
+/* ── 머리줄 + 진행 막대 ── */
+#nav{position:fixed;inset:0 0 auto;height:calc(var(--nav) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);z-index:50;display:flex;align-items:center;
+  background:rgba(247,247,244,.72);-webkit-backdrop-filter:saturate(1.3) blur(16px);backdrop-filter:saturate(1.3) blur(16px);border-bottom:1px solid rgba(22,35,42,.06)}
+#nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.02em;white-space:nowrap;color:var(--ink);text-decoration:none}
+.brand-mark{width:30px;height:30px;flex:none;border-radius:9px;overflow:hidden;box-shadow:var(--e1)}
+.brand-mark svg{width:30px;height:30px;display:block}
+.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0;line-height:1.1}
+.nav-r{display:flex;align-items:center;gap:4px}
+.nav-l{display:flex;gap:2px}
+.nav-l a{font-size:14px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:8px 12px;border-radius:var(--r-pill);transition:background .2s var(--e)}
+@media (hover:hover){.nav-l a:hover{background:rgba(22,35,42,.05)}}
+.nav-cta{font-size:14px;font-weight:700;color:#fff;text-decoration:none;padding:8px 14px;border-radius:var(--r-pill);background:var(--teal);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),var(--e1);margin-left:6px;white-space:nowrap}
+@media (max-width:860px){.nav-l{display:none}}
+#prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--teal),#6FB0A8 55%,var(--apricot));box-shadow:0 0 12px rgba(14,106,111,.35)}
 
-/* 히어로 */
-.hero{position:relative;padding:120px 0 0;overflow:hidden;background:radial-gradient(1200px 520px at 50% -10%,#FFFFFF 0%,rgba(255,255,255,0) 70%),var(--bg)}
-.contour{position:absolute;inset:0;pointer-events:none;opacity:.55}
-.hero .wrap{position:relative;text-align:center}
-.chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--mustard-ink);background:var(--mustard-soft);border-radius:999px;padding:7px 13px}
-.chip i{width:7px;height:7px;border-radius:50%;background:var(--mustard)}
-.hero h1{margin:22px auto 0;font-size:clamp(40px,7.4vw,92px);line-height:1.04;letter-spacing:-.045em;font-weight:800;max-width:none}
-.hero h1 em{font-style:normal;color:var(--pine);position:relative;white-space:nowrap}
-.hero .sub{margin:22px auto 0;font-size:clamp(17px,2vw,21px);color:var(--ink2);max-width:36ch;line-height:1.55}
-.hero .sub b{color:var(--ink);font-weight:700}
-.cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+/* ── 히어로 ── */
+.hero{padding:calc(var(--nav) + 56px) 0 24px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--teal-d);letter-spacing:.01em;
+  padding:6px 12px 6px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(14,106,111,.16)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-t)}
+h1{margin:20px 0 0;font-weight:800;font-size:clamp(34px,3.5vw,60px);line-height:1.12;letter-spacing:-.045em}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+h1 .ln>span{display:inline-block}
+h1 .soft{font-weight:300;color:var(--ink-2)}
+.js h1 .ln>span{transform:translateY(105%);opacity:0;transition:transform 1s var(--e),opacity .8s var(--e)}
+.js .ready h1 .ln>span{transform:none;opacity:1}
+.js .ready h1 .ln:nth-child(2)>span{transition-delay:.12s}
+.js .ready h1 .ln:nth-child(3)>span{transition-delay:.24s}
+.lead{margin:24px 0 0;max-width:620px;font-size:clamp(16px,1.6vw,19px);line-height:1.7;color:var(--ink-2)}
+.lead b{font-weight:700;color:var(--ink)}
+.fade{transition:opacity .9s var(--e) .45s,transform .9s var(--e) .45s}
+.js .fade{opacity:0;transform:translateY(12px)}
+.js .ready .fade{opacity:1;transform:none}
 
-/* 두 입구 → 한 경로 그림 */
-.flow{position:relative;margin:56px auto 0;max-width:1060px}
-.flow svg{width:100%;height:auto;overflow:visible}
-.flow .lbl{font:700 15px var(--font);fill:var(--ink)}
-.flow .lbl2{font:500 12.5px var(--font);fill:var(--ink3)}
-.flow .dot text{font:700 13px var(--font);fill:var(--pine)}
-.flow .dot.ins text{fill:#fff}
-@media (max-width:640px){.flow .lbl,.flow .lbl2,.flow .dot text{display:none}.flow{margin-top:40px}}
-.flow-cap{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:6px;font-size:13px;color:var(--ink3)}
-.flow-cap span{display:inline-flex;align-items:center;gap:7px}
-.flow-cap i{width:18px;height:3px;border-radius:2px;background:var(--pine)}
-.flow-cap i.o{background:repeating-linear-gradient(90deg,var(--sig) 0 5px,transparent 5px 9px)}
-.stage{position:relative;margin:40px auto 0;max-width:1120px;padding-bottom:0}
-.browser{position:relative;border-radius:18px 18px 0 0;background:var(--surface);box-shadow:var(--d3);overflow:hidden}
-.browser .tb{display:flex;align-items:center;gap:7px;height:36px;padding:0 14px;background:#F7F9F8;border-bottom:1px solid var(--line)}
-.browser .tb i{width:10px;height:10px;border-radius:50%;background:#DCE4E1}
-.browser .tb span{margin-left:12px;font-size:12px;color:var(--ink3);background:#fff;border:1px solid var(--line);border-radius:7px;padding:3px 12px;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.arrive{position:absolute;right:-1%;top:22%;width:min(36%,360px);border-radius:20px;box-shadow:0 30px 70px -20px rgba(11,51,46,.5);overflow:hidden;transform:translate3d(0,24px,0);opacity:0;transition:transform .9s var(--ease) .5s,opacity .6s .5s}
-.in .arrive,.arrive.in{transform:none;opacity:1}
-.ding{position:absolute;right:calc(-1% + 12px);top:calc(22% - 44px);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--sig);background:#fff;border-radius:999px;padding:7px 12px;box-shadow:var(--d2);opacity:0;transition:opacity .4s 1.2s}
-.in .ding{opacity:1}
-.ding i{width:8px;height:8px;border-radius:50%;background:var(--sig);animation:pulse 1.8s ease-out infinite;animation-play-state:paused}
-.in .ding i{animation-play-state:running}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,98,47,.45)}80%,100%{box-shadow:0 0 0 10px rgba(224,98,47,0)}}
-@media (max-width:1100px){.arrive{right:0}.ding{right:12px}}
-@media (max-width:720px){.arrive{position:relative;right:auto;top:auto;width:86%;margin:-56px auto 0}.ding{display:none}.browser .tb span{max-width:70%}}
+.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+@media (min-width:861px){h1 .ln{white-space:nowrap}}
+.duo{margin:28px 0 0;display:grid;gap:1px;background:var(--line);border-radius:var(--r-s);overflow:hidden;box-shadow:var(--e1);max-width:560px}
+.duo>div{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;background:rgba(255,255,255,.8);padding:14px 16px}
+.duo dt{font-size:15px;font-weight:800;color:var(--teal-d);letter-spacing:-.02em}
+.duo dt.ph{color:var(--gam)}
+.duo dd{margin:0}
+.duo dd b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.02em}
+.duo dd span{display:block;font-size:13px;color:var(--muted);margin-top:1px}
+.hero-act{margin-top:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15.5px;font-weight:700;text-decoration:none;padding:12px 20px;border-radius:var(--r-pill);
+  color:#fff;background:linear-gradient(170deg,#138089,var(--teal-d));box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px -10px rgba(14,106,111,.7);transition:transform .25s var(--e),box-shadow .25s var(--e)}
+.btn svg{width:17px;height:17px}
+@media (hover:hover){.btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 14px 28px -12px rgba(14,106,111,.75)}}
+.note{font-size:13px;font-weight:600;color:var(--muted)}
+.visual{position:relative;padding:0 7% 12% 0}
+.visual .pc{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07)}
+.visual em,.sync{position:absolute;font-style:normal;font-size:12px;font-weight:700;color:var(--ink-2);background:rgba(255,255,255,.92);
+  padding:5px 10px;border-radius:var(--r-pill);box-shadow:var(--e1),inset 0 0 0 1px var(--line);white-space:nowrap}
+.visual .pc em{left:12px;bottom:12px}
+.phone{position:absolute;right:0;bottom:0;width:27%;border-radius:22px;padding:5px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4)}
+.phone img{border-radius:17px}
+.phone em{left:50%;top:-14px;transform:translateX(-50%)}
+.sync{left:8%;bottom:2%;display:flex;align-items:center;gap:6px;color:var(--teal-d)}
+.sync svg{width:15px;height:15px}
+.sync i{width:7px;height:7px;border-radius:50%;background:#2BA36B;box-shadow:0 0 0 3px rgba(43,163,107,.18)}
+.js .ready .visual .phone{animation:float 9s ease-in-out 1.6s infinite alternate}
+@keyframes float{to{transform:translateY(-8px)}}
 
-/* 공통 섹션 */
-.sec{padding:clamp(80px,11vw,150px) 0}
-.sec.alt{background:var(--surface)}
-.eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.crit{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--pine);background:var(--pine-soft);border-radius:10px;padding:8px 12px 8px 8px}
-.crit b{display:grid;place-items:center;min-width:28px;height:28px;border-radius:8px;background:var(--pine);color:#fff;font-size:13px}
-.crit small{font-weight:600;color:var(--ink3);font-size:12.5px}
-h2{margin:18px 0 0;font-size:clamp(30px,4.6vw,56px);line-height:1.12;letter-spacing:-.04em;font-weight:800}
-h2 .k{color:var(--pine)}
-.lead{margin:18px 0 0;font-size:clamp(16.5px,1.6vw,19px);color:var(--ink2);max-width:46ch}
-h3{margin:0;font-size:clamp(19px,2vw,23px);letter-spacing:-.025em;line-height:1.3}
-.rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity .8s var(--ease),transform .9s var(--ease)}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
-.shot{border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--d2);position:relative}
-.shot img{width:100%}
-.tag{position:absolute;left:12px;bottom:12px;font-size:11.5px;font-weight:700;color:var(--mustard-ink);background:rgba(248,239,219,.95);border-radius:999px;padding:4px 10px}
-.zoom{cursor:zoom-in}
+/* 주요 기능 — 벤토 */
+.feats{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--e1)}
+.feat{background:rgba(255,255,255,.86);padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.feat svg{width:22px;height:22px;flex:none;color:var(--teal);margin-top:2px}
+.feat b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.02em}
+.feat span{display:block;font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+.feat .who{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:600;color:var(--muted);vertical-align:1px}
 
-/* 한눈에 */
-.glance{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border-top:1px solid var(--line)}
-.glance article{padding:30px 28px 8px 0;position:relative}
-.glance article+article{padding-left:28px;border-left:1px solid var(--line)}
-.glance .no{font:800 13px var(--font);color:var(--pine);letter-spacing:.08em}
-.glance h3{margin-top:12px;font-size:clamp(21px,2.3vw,27px)}
-.glance p{margin:10px 0 0;color:var(--ink2);font-size:15.5px}
-.glance .mini{margin-top:20px;border-radius:12px;overflow:hidden;box-shadow:var(--d1);aspect-ratio:16/10;background:#fff}
-.glance .mini img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
-@media (max-width:860px){.glance{grid-template-columns:1fr}.glance article,.glance article+article{padding:26px 0 18px;border-left:0;border-top:1px solid var(--line)}}
+/* ── 공통 섹션 머리 ── */
+.sec-h{padding:96px 0 0;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.sec-no{font-size:14px;font-weight:700;color:var(--teal-d);font-variant-numeric:tabular-nums}
+h2{margin:8px 0 0;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.15}
+.sec-h p{margin:0;max-width:460px;color:var(--ink-2);font-size:16px}
+.rv{opacity:1}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s var(--e),transform .8s var(--e)}
+.js .rv.in{opacity:1;transform:none}
 
-/* 01 데이터 */
-.data-flow{display:grid;grid-template-columns:1.1fr auto 1fr auto .9fr;align-items:center;gap:18px;margin-top:56px}
-.col{display:grid;gap:12px}
-.src{background:var(--surface);border-radius:16px;padding:18px 20px;box-shadow:var(--d1);position:relative}
-.sec.alt .src{background:var(--bg)}
-.src .num{font:800 clamp(28px,3.2vw,38px)/1 var(--font);letter-spacing:-.03em;color:var(--pine)}
-.src .num small{font-size:.5em;font-weight:700;margin-left:2px}
-.src .nm{margin-top:8px;font-weight:700;font-size:15px}
-.src .ds{margin-top:4px;font-size:13.5px;color:var(--ink3)}
-.src .org{position:absolute;top:16px;right:16px;font-size:11.5px;font-weight:700;color:var(--pine);background:var(--pine-soft);border-radius:6px;padding:3px 7px}
-.arrow{width:42px;height:42px;display:grid;place-items:center;color:var(--pine)}
-.arrow svg{width:28px;height:28px}
-.core{background:linear-gradient(160deg,var(--pine) 0%,var(--pine2) 60%,var(--pine3) 100%);color:#fff;border-radius:22px;padding:26px;box-shadow:var(--d3);position:relative;overflow:hidden}
-.core::after{content:"";position:absolute;inset:auto -30% -60% auto;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(242,195,107,.28),transparent)}
-.core .lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
-.core .lg svg{width:34px;height:34px}
-.core ol{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px;position:relative;z-index:1}
-.core li{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.09);border-radius:11px;padding:10px 12px;font-size:15px}
-.core li b{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.16);font-size:12.5px;flex:none}
-.gain{display:grid;gap:10px}
-.gain div{border-left:3px solid var(--star);padding:4px 0 4px 14px}
-.gain b{display:block;font-size:16px}
-.gain span{font-size:14px;color:var(--ink2)}
-.aux{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--ink2)}
-.aux b{color:var(--ink);margin-right:6px}
-.aux span{background:var(--bg);border-radius:999px;padding:6px 12px;box-shadow:var(--d1)}
-.sec:not(.alt) .aux span{background:#fff}
-.priv{margin-top:18px;display:flex;gap:12px;align-items:flex-start;background:var(--pine-soft);border-radius:14px;padding:16px 18px;font-size:15px;color:var(--pine2)}
-.priv svg{width:22px;height:22px;flex:none;margin-top:1px}
-.wide-shot{margin-top:40px}
-@media (max-width:980px){.data-flow{grid-template-columns:1fr}.arrow{justify-self:center;transform:rotate(90deg)}}
+/* ── 01 한 흐름 ①~⑨ ── */
+.flow{margin-top:40px;display:grid;grid-template-columns:4fr 3fr 2fr;gap:14px}
+.lane{position:relative;border-radius:var(--r);background:rgba(255,255,255,.78);box-shadow:var(--e2),inset 0 0 0 1px rgba(22,35,42,.05);padding:18px 18px 20px}
+.lane-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--teal-d);letter-spacing:-.01em}
+.lane-h svg{width:16px;height:16px}
+.lane.ph .lane-h{color:var(--gam)}
+.lane ol{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px;position:relative}
+.lane.pc1 ol{grid-template-columns:repeat(4,1fr)}
+.lane.ph ol{grid-template-columns:repeat(3,1fr)}
+.lane.pc2 ol{grid-template-columns:repeat(2,1fr)}
+.lane li{position:relative;z-index:1}
+.lane li i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-style:normal;font-size:15px;font-weight:800;color:#fff;background:var(--teal);box-shadow:0 0 0 5px var(--teal-t)}
+.lane.ph li i{background:var(--gam);box-shadow:0 0 0 5px var(--gam-t)}
+.lane li b{display:block;margin-top:12px;font-size:15px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
+.lane li span{display:block;margin-top:3px;font-size:13px;color:var(--muted);line-height:1.45}
+.lane ol::before{content:"";position:absolute;left:17px;right:17px;top:16px;height:2px;background:linear-gradient(90deg,var(--teal),#6FB0A8);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.1s var(--e-zoom) .2s;z-index:0}
+.lane.ph ol::before{background:linear-gradient(90deg,var(--gam),var(--apricot))}
+.flow.in .lane ol::before{transform:scaleX(1)}
+.flow.in .lane.ph ol::before{transition-delay:.7s}
+.flow.in .lane.pc2 ol::before{transition-delay:1.2s}
+.flow .lane li{opacity:0;transform:translateY(8px);transition:opacity .5s var(--e),transform .5s var(--e)}
+.flow.in .lane li{opacity:1;transform:none}
+.flow-sync{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-2);padding:12px 16px;border-radius:var(--r-s);background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px var(--line)}
+.flow-sync svg{width:18px;height:18px;color:var(--teal);flex:none}
 
-/* 02 AI */
-.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative;counter-reset:p}
-.pipe::before{content:"";position:absolute;left:4%;right:4%;top:27px;height:2px;background:var(--line)}
-.pipe .fill{position:absolute;left:4%;top:27px;height:2px;width:92%;background:var(--pine);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.6s var(--ease2) .2s}
-.pipe.in .fill{transform:scaleX(1)}
-.step{position:relative;padding:0 14px 0 0}
-.step .c{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--surface);box-shadow:var(--d2);color:var(--pine);position:relative;z-index:1}
-.step .c svg{width:26px;height:26px}
-.step:nth-child(4) .c{background:var(--pine);color:#fff}
-.step h3{margin-top:18px;font-size:18px}
-.step p{margin:6px 0 0;font-size:14.5px;color:var(--ink2)}
-.step .n{font:800 12px var(--font);color:var(--ink3);letter-spacing:.06em;margin-top:16px;display:block}
-@media (max-width:860px){.pipe{grid-template-columns:1fr 1fr;row-gap:30px}.pipe::before,.pipe .fill{display:none}}
-@media (max-width:420px){.pipe{grid-template-columns:1fr}}
-.ai-split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:center;margin-top:64px}
-.score{display:grid;gap:14px}
-.meter{background:var(--surface);border-radius:16px;padding:18px 20px;box-shadow:var(--d1)}
-.sec.alt .meter{background:var(--bg)}
-.meter .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.meter .top b{font-size:15px}
-.meter .top span{font:800 26px/1 var(--font);color:var(--pine);letter-spacing:-.02em}
-.meter .trk{margin-top:12px;height:8px;border-radius:99px;background:var(--line);overflow:hidden;position:relative}
-.meter .trk i{position:absolute;inset:0;border-radius:99px;background:var(--pine);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.2s var(--ease) .2s}
-.meter .trk i.r{background:var(--ink3)}
-.meter.in .trk i{transform:scaleX(var(--v))}
-.meter p{margin:8px 0 0;font-size:13.5px;color:var(--ink3)}
-.human{margin-top:6px;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink2)}
-.human b{color:var(--ink)}
-.safety{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.safety span{font-size:13.5px;font-weight:600;border-radius:9px;padding:7px 11px;background:var(--sig-soft);color:#8A3412}
-@media (max-width:900px){.ai-split{grid-template-columns:1fr}}
+/* ── 02 우선순위: 화면 둘러보기 (시안 A 그대로) ── */
+.tour{position:relative;height:340vh}
+.stage{position:sticky;top:var(--nav);height:calc(100vh - var(--nav));height:calc(100svh - var(--nav));display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;padding-top:24px;padding-bottom:24px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;position:relative}
+.steps::before{content:"";position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--line);border-radius:2px}
+.steps .bar{position:absolute;left:15px;top:20px;width:2px;height:calc(100% - 40px);background:linear-gradient(var(--teal),var(--apricot));transform-origin:0 0;transform:scaleY(0);border-radius:2px;transition:transform .7s var(--e-zoom)}
+.step{position:relative;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:16px 0}
+.step>div{opacity:.42;transition:opacity .5s var(--e)}
+.step.on>div,.m-step .step>div{opacity:1}
+.step .n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:#fff;color:var(--muted);box-shadow:inset 0 0 0 1.5px var(--line);position:relative;z-index:1;transition:all .5s var(--e)}
+.step.on .n{color:#fff;background:var(--teal);box-shadow:0 0 0 5px var(--teal-t)}
+.step b{display:block;font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.35;padding-top:4px}
+.step>div>span{display:block;font-size:15.5px;color:var(--ink-2);line-height:1.6;margin-top:4px}
+.what{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
+.screen{position:relative;width:100%;max-width:calc((100svh - var(--nav) - 48px) * 16 / 10);justify-self:center;
+  aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07)}
+.zoom{position:absolute;inset:0;transform-origin:0 0;transition:transform 1.1s var(--e-zoom)}
+.zoom img{width:100%;height:100%}
+.hl{position:absolute;border-radius:10px;opacity:0;transition:opacity .6s var(--e);
+  box-shadow:0 0 0 1.5px var(--teal),0 0 0 6px rgba(14,106,111,.14),0 0 0 9999px rgba(22,35,42,.22)}
+.hl.on{opacity:1}
+.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;display:grid;place-items:center;
+  font-size:13px;font-weight:800;color:#fff;background:var(--teal);box-shadow:0 0 0 3px #fff,0 4px 12px rgba(14,106,111,.35);
+  transform:scale(var(--inv,1));transition:transform 1.1s var(--e-zoom),opacity .5s var(--e);opacity:0}
+.screen.started .mk{opacity:1}
+.cap{position:absolute;left:12px;bottom:10px;font-size:11px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.88);padding:3px 8px;border-radius:var(--r-pill)}
+.m-step{display:none}
 
-/* 03 구체성 — 4화면 넘겨 보기 */
-.tabs{display:flex;gap:6px;margin-top:44px;padding:6px;background:var(--surface);border-radius:16px;box-shadow:var(--d1);width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
-.sec.alt .tabs{background:var(--bg)}
-.tabs button{display:flex;align-items:center;gap:8px;font:700 15px var(--font);color:var(--ink2);background:none;border:0;border-radius:11px;padding:11px 16px;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
-.tabs button b{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;background:var(--pine-soft);color:var(--pine);font-size:12px}
-.tabs button[aria-selected="true"]{background:var(--pine);color:#fff}
-.tabs button[aria-selected="true"] b{background:rgba(255,255,255,.2);color:#fff}
-.viewer{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:center;margin-top:28px}
-.vtext h3{font-size:clamp(23px,2.6vw,32px)}
-.vtext p{color:var(--ink2);margin:12px 0 0}
-.vtext ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px}
-.vtext li{display:flex;gap:10px;font-size:15.5px}
-.vtext li::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--pine);margin-top:9px}
-.vpane{display:none}.vpane.on{display:block;animation:fadeup .55s var(--ease)}
-@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.vshot{aspect-ratio:16/11;border-radius:16px;overflow:hidden;box-shadow:var(--d2);background:#fff}
-.vshot img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
-@media (max-width:900px){.viewer{grid-template-columns:1fr}.vshot{order:-1}}
-.plan{margin-top:72px;display:grid;grid-template-columns:repeat(4,1fr);position:relative}
-.plan::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,var(--pine) 0 50%,var(--line) 50% 100%)}
-.plan div{position:relative;padding:44px 16px 0 0}
-.plan div::before{content:"";position:absolute;left:0;top:7px;width:18px;height:18px;border-radius:50%;background:var(--surface);border:3px solid var(--line)}
-.plan div.done::before{background:var(--pine);border-color:var(--pine)}
-.plan small{font-weight:700;color:var(--ink3);font-size:12.5px}
-.plan b{display:block;font-size:17px;margin-top:2px}
-.plan p{margin:6px 0 0;font-size:14px;color:var(--ink2)}
-.plan .st{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:var(--pine-soft);color:var(--pine)}
-.plan .st.pl{background:var(--bg2);color:var(--ink3)}
-@media (max-width:860px){.plan{grid-template-columns:1fr;gap:22px}.plan::before{left:8px;right:auto;top:0;bottom:0;width:2px;height:auto;background:linear-gradient(180deg,var(--pine) 0 50%,var(--line) 50% 100%)}.plan div{padding:0 0 0 36px}.plan div::before{top:3px}}
+/* ── 03 일차별 방문 ── */
+.split{margin-top:40px;display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.win{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07)}
+.win .cap{bottom:12px}
+.pts{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.pts li{display:grid;grid-template-columns:28px 1fr;gap:12px}
+.pts svg{width:22px;height:22px;color:var(--teal);margin-top:2px}
+.pts b{display:block;font-size:17px;font-weight:800;letter-spacing:-.025em}
+.pts span{display:block;font-size:15px;color:var(--ink-2);margin-top:2px}
+.km{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:center;padding:18px 20px;border-radius:var(--r);background:rgba(255,255,255,.8);box-shadow:var(--e2)}
+.km .big{grid-row:span 2;font-size:44px;font-weight:800;letter-spacing:-.04em;color:var(--teal-d);line-height:1}
+.km .bars{display:grid;gap:6px}
+.km .bars div{display:grid;grid-template-columns:62px 1fr 64px;gap:8px;align-items:center;font-size:12.5px;font-weight:600;color:var(--muted)}
+.km .bars u{display:block;height:8px;border-radius:8px;text-decoration:none;background:var(--line);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.2s var(--e-zoom) .2s}
+.km .bars u.a{background:linear-gradient(90deg,var(--teal),#5FA9A1)}
+.km.in .bars u{transform:scaleX(var(--w))}
+.km small{grid-column:2;font-size:12px;color:var(--muted)}
 
-/* 04 독창성 */
-.ba-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,3vw,40px);margin-top:52px;align-items:center}
-.ba{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--d2);background:#fff;user-select:none;touch-action:pan-y}
-.ba img{width:100%}
-.ba .after{position:absolute;inset:0;clip-path:inset(0 0 0 var(--x,50%))}
-.ba .h{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);transform:translateX(-1px);pointer-events:none}
-.ba .h::after{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2317594F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l-5 6 5 6M15 6l5 6-5 6'/%3E%3C/svg%3E") center/22px no-repeat;box-shadow:var(--d2)}
-.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
-.ba .lb{position:absolute;top:12px;font-size:12px;font-weight:800;border-radius:8px;padding:5px 9px;background:rgba(20,33,31,.78);color:#fff}
-.ba .lb.l{left:12px}.ba .lb.r{right:12px;background:var(--sig)}
-.ba-side h3{font-size:clamp(21px,2.3vw,27px)}
-.ba-side p{color:var(--ink2);margin:10px 0 0}
-.ba-side .card{margin-top:22px;max-width:380px;border-radius:18px;overflow:hidden;box-shadow:var(--d2)}
-@media (max-width:900px){.ba-wrap{grid-template-columns:1fr}}
-.uniq{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);margin-top:72px;align-items:start}
-.route{background:var(--surface);border-radius:20px;padding:26px;box-shadow:var(--d1)}
-.sec.alt .route{background:var(--bg)}
-.route .row{display:grid;grid-template-columns:96px 1fr auto;gap:12px;align-items:center;margin-top:16px;font-size:14.5px}
-.route .row .bar2{height:14px;border-radius:99px;background:var(--line);position:relative;overflow:hidden}
-.route .row .bar2 i{position:absolute;inset:0;border-radius:99px;transform-origin:0 50%;transform:scaleX(0);transition:transform 1.4s var(--ease) .2s}
-.route .row:first-of-type .bar2 i{background:var(--ink3)}
-.route .row:last-of-type .bar2 i{background:var(--pine)}
-.route.in .row .bar2 i{transform:scaleX(var(--v))}
-.route .row b{font-variant-numeric:tabular-nums;white-space:nowrap}
-.route .big{display:flex;align-items:baseline;gap:10px;margin-top:22px}
-.route .big strong{font:800 clamp(44px,6vw,64px)/1 var(--font);letter-spacing:-.04em;color:var(--pine)}
-.route .big span{font-size:14.5px;color:var(--ink2)}
-.route .note{margin:12px 0 0;font-size:12.5px;color:var(--ink3)}
-.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;margin-top:6px}
-.cmp th,.cmp td{text-align:left;padding:14px 12px;vertical-align:top;border-bottom:1px solid var(--line)}
-.cmp th{font-size:12.5px;color:var(--ink3);font-weight:700}
-.cmp td:last-child{color:var(--pine2);font-weight:600;background:rgba(227,238,235,.55)}
-.cmp td:first-child{font-weight:700;width:30%}
-@media (max-width:900px){.uniq{grid-template-columns:1fr}}
-@media (max-width:520px){.cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}.cmp thead{display:none}.cmp tr{border-bottom:1px solid var(--line);padding:10px 0}.cmp td{border:0;padding:4px 0}.cmp td:first-child{width:auto}.cmp td:last-child{padding:8px 10px;border-radius:9px;margin-top:4px}}
-.pr{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(20px,3vw,40px);margin-top:72px;align-items:center}
-@media (max-width:900px){.pr{grid-template-columns:1fr}}
+/* ── 04 현장 폰 ── */
+.phones{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;max-width:1100px;margin-left:auto;margin-right:auto}
+.ph-card{text-align:left}
+.ph-frame{border-radius:30px;padding:7px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4);max-width:300px;margin:0 auto;transition:transform .6s var(--e)}
+.ph-frame img{border-radius:24px}
+.ph-card:nth-child(2) .ph-frame{transform:translateY(-22px)}
+.ph-card p{max-width:300px;margin:22px auto 0}
+.ph-card p i{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-style:normal;font-size:13px;font-weight:800;color:#fff;background:var(--gam);margin-right:8px;vertical-align:1px}
+.ph-card p b{font-size:17px;font-weight:800;letter-spacing:-.025em}
+.ph-card p span{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2)}
+.ai{margin:48px auto 0;max-width:1100px;display:grid;grid-template-columns:1.3fr 1fr;gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--e2)}
+.ai>div{background:rgba(255,255,255,.88);padding:22px 24px}
+.ai h3{margin:0;font-size:18px;font-weight:800;letter-spacing:-.025em}
+.ai ol{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ai ol li{font-size:13px;font-weight:600;color:var(--ink-2);padding:10px 10px 11px;border-radius:10px;background:var(--teal-t);line-height:1.4}
+.ai ol li b{display:block;font-size:12px;color:var(--teal-d);margin-bottom:2px}
+.ai .score{display:flex;flex-direction:column;justify-content:center}
+.ai .score strong{font-size:40px;font-weight:800;letter-spacing:-.04em;color:var(--teal-d);line-height:1.1}
+.ai .score span{font-size:14px;color:var(--ink-2);margin-top:6px}
+.ai .score small{font-size:12px;color:var(--muted);margin-top:8px}
 
-/* 05 발전 가능성 */
-.biz{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
-.kpi{background:var(--surface);border-radius:20px;padding:26px;box-shadow:var(--d1);position:relative;overflow:hidden}
-.sec.alt .kpi{background:var(--bg)}
-.kpi .v{font:800 clamp(38px,4.6vw,56px)/1 var(--font);letter-spacing:-.04em;color:var(--pine)}
-.kpi .v small{font-size:.42em;font-weight:700;margin-left:3px;letter-spacing:0}
-.kpi b{display:block;margin-top:14px;font-size:16.5px}
-.kpi p{margin:6px 0 0;font-size:14px;color:var(--ink2)}
-.kpi .est{position:absolute;top:18px;right:18px;font-size:11.5px;font-weight:700;color:var(--mustard-ink);background:var(--mustard-soft);border-radius:6px;padding:3px 7px}
-@media (max-width:860px){.biz{grid-template-columns:1fr}}
-.out{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,3vw,48px);margin-top:64px;align-items:center}
-.road{display:grid;gap:10px;margin-top:20px}
-.road div{display:flex;gap:14px;align-items:center;background:var(--surface);border-radius:14px;padding:14px 16px;box-shadow:var(--d1);font-size:15px}
-.sec.alt .road div{background:var(--bg)}
-.road b{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--pine-soft);color:var(--pine);font-size:13px;flex:none}
-@media (max-width:900px){.out{grid-template-columns:1fr}}
+/* ── 05 보고·사후관리 ── */
+.duo-shot{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.duo-shot figure{margin:0}
+.duo-shot figcaption{margin-top:16px}
+.duo-shot figcaption b{display:block;font-size:17px;font-weight:800;letter-spacing:-.025em}
+.duo-shot figcaption span{display:block;font-size:14.5px;color:var(--ink-2);margin-top:2px}
+.duo-shot .no{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;background:var(--teal);margin-right:8px;vertical-align:2px}
 
-/* 06 ESG */
-.esg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line)}
-.esg div{padding:28px 24px 0 0}
-.esg div+div{padding-left:24px;border-left:1px solid var(--line)}
-.esg small{font:800 12.5px var(--font);letter-spacing:.08em;color:var(--pine)}
-.esg b{display:block;margin-top:10px;font-size:clamp(20px,2.2vw,25px);letter-spacing:-.02em}
-.esg p{margin:8px 0 0;color:var(--ink2);font-size:15px}
-@media (max-width:860px){.esg{grid-template-columns:1fr}.esg div,.esg div+div{padding:22px 0;border-left:0;border-top:1px solid var(--line)}}
+/* ── 06 숫자 ── */
+.nums{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--e1)}
+.nums>div{background:rgba(255,255,255,.86);padding:22px 22px 20px}
+.nums strong{display:block;font-size:clamp(30px,3vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+.nums b{display:block;margin-top:8px;font-size:15px;font-weight:700;letter-spacing:-.02em}
+.nums span{display:block;margin-top:2px;font-size:13px;color:var(--muted);line-height:1.5}
+.nums strong .tag,.tag{display:inline-block;margin:0 0 0 6px;font-size:11px;font-weight:700;color:var(--gam);background:var(--gam-t);padding:2px 7px;border-radius:var(--r-pill);vertical-align:3px}
 
-/* 영상 */
-.film{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
-.vbox{position:relative;margin:44px auto 0;max-width:1040px;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#0B332E;box-shadow:var(--d3)}
-.vbox iframe,.vbox #yt{position:absolute;inset:0;width:100%;height:100%;border:0}
-.snd{position:absolute;right:14px;bottom:14px;z-index:2}
-@media (max-height:440px) and (orientation:landscape){.vbox{max-width:min(1040px,150vh)}}
+/* ── 영상 ── */
+.vbox{position:relative;margin-top:36px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0d1417;box-shadow:var(--e3)}
+.vbox iframe,.vbox #yt{position:absolute;inset:0;width:100%;height:100%}
+.snd{position:absolute;right:14px;bottom:14px;padding:8px 14px;font-size:13px}
 
-/* 실제 화면 */
-.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px max(16px,calc((100vw - 1160px)/2)) 28px;margin-top:40px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
-.strip figure{flex:none;margin:0;scroll-snap-align:center;width:min(78vw,620px)}
-.strip figure.m{width:min(56vw,250px)}
-.strip .shot{height:min(52vw,400px)}
-.strip figure.m .shot{height:min(112vw,500px)}
-.strip .shot img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
-.strip figcaption{margin-top:12px;font-size:14.5px;color:var(--ink2)}
-.strip figcaption b{color:var(--ink);display:block;font-size:15.5px}
-.snav{display:flex;gap:8px;justify-content:flex-end}
-.snav button{width:44px;height:44px;border-radius:50%;border:0;background:var(--surface);box-shadow:var(--d1);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
-.snav svg{width:20px;height:20px}
-.headrow{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+/* ── 마무리 ── */
+.final{margin-top:110px;padding:64px 0 0}
+.final .box{position:relative;overflow:hidden;border-radius:28px;padding:clamp(36px,5vw,64px);background:rgba(255,255,255,.82);box-shadow:var(--e3),inset 0 0 0 1px rgba(22,35,42,.05);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.final .box::after{content:"";position:absolute;right:-12%;top:-60%;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(14,106,111,.16),rgba(14,106,111,0));pointer-events:none}
+.final h2{margin:0}
+.final p{margin:12px 0 0;color:var(--ink-2);font-size:16.5px}
+.final .url{margin-top:10px;font-size:13px;font-weight:600;color:var(--muted);word-break:break-all}
+.final .lg{width:76px;height:76px;border-radius:20px;overflow:hidden;box-shadow:var(--e2);margin-bottom:22px}
+.final .lg svg{width:76px;height:76px;display:block}
 
-/* 마무리 */
-.final{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--pine) 0%,var(--pine2) 55%,var(--pine3) 100%);color:#fff;text-align:center;padding:clamp(90px,12vw,150px) 0}
-.final .contour{opacity:.18}
-.final h2{color:#fff;margin:22px auto 0;max-width:16ch}
-.final p{color:rgba(255,255,255,.78);margin:16px auto 0;max-width:40ch;font-size:17px}
-.final .lg svg{width:72px;height:72px;margin:0 auto;filter:drop-shadow(0 14px 30px rgba(0,0,0,.3))}
-.final .btn.p{background:#fff;color:var(--pine2);box-shadow:0 14px 34px -12px rgba(0,0,0,.45)}
-.final .btn.p:hover{background:var(--star)}
-.final .btn.g{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
-.final .url{margin-top:22px;font-size:13.5px;color:rgba(255,255,255,.6)}
-footer{background:var(--pine3);color:rgba(255,255,255,.62);font-size:13px;padding:26px 0 calc(26px + env(safe-area-inset-bottom))}
-footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer{padding:56px 0 calc(40px + env(safe-area-inset-bottom));font-size:13px;color:var(--muted)}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px}
 
-/* 확대 보기 */
-dialog.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1500px);max-height:94vh}
-dialog.lb::backdrop{background:rgba(11,25,23,.82);backdrop-filter:blur(4px)}
-dialog.lb img{max-width:min(96vw,1500px);max-height:88vh;width:auto;border-radius:12px}
-dialog.lb button{position:fixed;top:14px;right:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;font-size:22px;cursor:pointer}
-dialog.lb p{color:#fff;text-align:center;margin:10px 0 0;font-size:14px}
-
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* ── 반응형 ── */
+@media (max-width:1024px){
+  .stage{grid-template-columns:240px 1fr;gap:24px}
+  .step>div>span{font-size:14px}
+  .step b{font-size:17px}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow .pc1{grid-column:1/-1}
+  .split{gap:32px}
+}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .feats{grid-template-columns:1fr 1fr}
+  .tour{height:300vh}
+  .stage{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:center;gap:20px}
+  .steps{display:none}
+  .screen{order:1;max-width:none}
+  .m-step{display:block;order:2;position:relative;min-height:150px}
+  .m-step .step{position:absolute;inset:0;padding:0;opacity:0;transform:translateY(8px);transition:opacity .45s var(--e),transform .45s var(--e)}
+  .m-step .step.on{opacity:1;transform:none}
+  .m-dots{display:flex;gap:6px;margin-bottom:12px}
+  .m-dots i{width:22px;height:3px;border-radius:3px;background:var(--line);transition:background .4s}
+  .m-dots i.on{background:var(--teal)}
+  .split{grid-template-columns:1fr}
+  .phones{grid-template-columns:1fr;gap:48px}
+  .ph-card:nth-child(2) .ph-frame{transform:none}
+  .ph-frame{max-width:260px}
+  .ai{grid-template-columns:1fr}
+  .duo-shot{grid-template-columns:1fr}
+  .nums{grid-template-columns:1fr 1fr}
+  .final .box{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .hero{padding-top:calc(var(--nav) + 40px)}
+  .feats{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}
+  .lane.pc1 ol{grid-template-columns:1fr 1fr;row-gap:18px}
+  .lane.pc1 ol::before{display:none}
+  .ai ol{grid-template-columns:1fr 1fr}
+  .mk{width:20px;height:20px;margin:-10px 0 0 -10px;font-size:11px}
+  .cap{display:none}
+  .nums{grid-template-columns:1fr}
+  .km .big{font-size:36px}
+  .nav-cta{padding:7px 12px;font-size:13px}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .mesh i,.js .ready .visual .phone{animation:none}
+  .js h1 .ln>span,.js .fade,.js .rv{transform:none;opacity:1;transition:none}
+  .zoom,.mk,.step,.steps .bar,.lane ol::before,.flow .lane li,.km .bars u{transition:none}
+}
+@media print{
+  .mesh,.grain,#nav{display:none}
+  .tour{height:auto}.stage{position:static;height:auto}
+  .js .rv,.js .fade,.flow .lane li{opacity:1;transform:none}
+}
 </style>
-<meta property="og:type" content="website"><meta property="og:site_name" content="닿음"><meta property="og:title" content="닿음 — 복지 사각지대 현장 업무 도우미"><meta property="og:description" content="정보원 발굴 명단 이후 방문 순서·기록·보고를 한 흐름으로 잇는 복지 공무원 현장 업무 도구. 정기 명단과 실시간 신고를 하루 한 경로로. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/daeum/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:alt" content="닿음 — 복지 사각지대 현장 업무 도우미 — 정보원 발굴 명단 이후 방문 순서·기록·보고를 한 흐름으로 잇는 복지 공무원 현장 업무 도구. 정기 명단과 실시간 신고를 하루 한 경로로. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/daeum/"></head>
+<meta property="og:type" content="website"><meta property="og:site_name" content="닿음"><meta property="og:title" content="닿음 — 복지 사각지대 현장 업무 도우미"><meta property="og:description" content="한국사회보장정보원 발굴 명단을 받은 날부터 처리 기한·방문 순서·현장 메모·결재 보고·사후관리까지 한 흐름으로 잇는 복지 담당 공무원 전용 도구. 같은 계정이면 PC↔폰 실시간 연동. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/daeum/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:alt" content="닿음 — 복지 사각지대 현장 업무 도우미 — 한국사회보장정보원 발굴 명단을 받은 날부터 처리 기한·방문 순서·현장 메모·결재 보고·사후관리까지 한 흐름으로 잇는 복지 담당 공무원 전용 도구. 같은 계정이면 PC↔폰 실시간 연동. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/daeum/"></head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
+<div class="mesh" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div>
+<div class="grain" aria-hidden="true"></div>
 
-<header class="bar" id="bar">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="닿음 처음으로"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect  rx="114" fill="url(#bg)"/><rect  rx="114" fill="url(#hl)"/><g filter="url(#sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg><span>닿음</span></a>
-    <nav aria-label="심사항목 바로가기">
-      <a class="l" href="#data">데이터 활용</a><a class="l" href="#ai">AI 혁신성</a><a class="l" href="#plan">구체성</a><a class="l" href="#uniq">독창성</a><a class="l" href="#biz">발전 가능성</a><a class="l" href="#esg">ESG</a>
-      <a class="btn p s" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험하기</a>
-    </nav>
+<header id="nav">
+  <div class="wrap wide-h">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="lg1bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="lg1hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="lg1sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect width="512" height="512" rx="114" fill="url(#lg1bg)"/><rect width="512" height="512" rx="114" fill="url(#lg1hl)"/><g filter="url(#lg1sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg></span>
+      <span>닿음<small>복지 사각지대 현장 업무 도우미</small></span>
+    </a>
+    <div class="nav-r">
+      <nav class="nav-l" aria-label="바로가기"><a href="#flow">한 흐름</a><a href="#prio">방문 순서</a><a href="#field">현장</a><a href="#report">보고</a></nav>
+      <a class="nav-cta" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험</a>
+    </div>
   </div>
-  <i class="prog" id="prog"></i>
+  <div id="prog"></div>
 </header>
 
 <main id="top">
-<!-- 히어로 -->
-<section class="hero" aria-labelledby="h1">
-  <svg class="contour" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="#17594F" stroke-opacity=".09" stroke-width="1.2">
-    <path d="M-40 640C180 560 300 700 520 640S860 470 1080 520 1380 650 1500 600"/><path d="M-40 690C200 610 320 750 540 690S880 520 1100 570 1390 700 1500 650"/><path d="M-40 740C220 660 340 800 560 740S900 570 1120 620 1400 750 1500 700"/>
-    <path d="M-40 790C240 710 360 850 580 790S920 620 1140 670 1410 800 1500 750"/><path d="M-40 230C160 300 320 180 520 250S880 380 1100 310 1360 210 1500 260"/><path d="M-40 180C170 250 330 130 530 200S890 330 1110 260 1370 160 1500 210"/></g></svg>
-  <div class="wrap">
-    <span class="chip rv"><i></i>시연 모드 · 가상 데이터 · 상주시청 적용 예시</span>
-    <h1 id="h1" class="rv d1">도움이 <em>닿을 때까지,</em><br>현장 곁에</h1>
-    <p class="sub rv d2"><b>복지 사각지대 현장 업무 도우미, 닿음.</b><br>정보원 정기 명단과 이웃의 실시간 신고를 오늘 하루 한 경로로 묶고, 방문·기록·보고까지 잇습니다.</p>
-    <div class="cta rv d3">
-      <a class="btn p" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
-      <a class="btn g" href="#glance">한눈에 보기</a>
+<section class="hero">
+  <div class="wrap wide-h" id="heroIn">
+    <span class="eyebrow fade" style="transition-delay:0s">상주시청 적용 예시 · 복지 담당 공무원 전용</span>
+    <div class="hero-grid">
+    <div class="hero-txt">
+    <h1>
+      <span class="ln"><span>발굴 명단을 받은 날부터</span></span>
+      <span class="ln"><span class="soft">집 앞 방문을 지나,</span></span>
+      <span class="ln"><span>보고서까지 한 흐름으로.</span></span>
+    </h1>
+    <p class="lead fade"><b>한국사회보장정보원 발굴 명단</b> 이후의 현장 업무 — 처리 기한, 방문 순서, 현장 메모, 결재 보고, 사후관리를 하나로 잇습니다. 같은 계정이면 사무실 PC와 현장 폰이 실시간으로 맞춰집니다.</p>
+    <dl class="duo fade">
+      <div><dt>사무실 PC</dt><dd><b>명단 · 기한 · 우선순위 · 일차별 방문 · 보고 · 사후관리</b><span>①②③④ → ⑧⑨ · 이음 엑셀 그대로 불러오기, 한글 결재 양식</span></dd></div>
+      <div><dt class="ph">현장 폰</dt><dd><b>집 앞 요약 · 길안내 · 확인과 메모</b><span>⑤⑥⑦ · 네이버 지도 길안내, AI 메모 초안 → 공무원 확정</span></dd></div>
+    </dl>
+    <div class="hero-act fade">
+      <a class="btn" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      <span class="note">로그인 없이 시연 모드 · 가구는 모두 가상</span>
+    </div>
+    </div>
+    <div class="visual fade" aria-label="닿음 화면">
+      <div class="pc"><img src="img/pc_s3.webp" srcset="img/pc_s3.webp 1x, img/pc_s3@2x.webp 2x" width="1440" height="900" alt="PC 우선순위 근거 화면 — 한국사회보장정보원 순위에서 오늘 방문 순서로"><em>PC · ③ 우선순위 근거</em></div>
+      <div class="phone"><img src="img/m_s5.webp" srcset="img/m_s5.webp 1x, img/m_s5@2x.webp 2x" width="390" height="844" alt="폰 집 앞 30초 요약 화면"><em>폰 · ⑤ 집 앞 요약</em></div>
+      <div class="sync"><i></i>같은 계정 · PC↔폰 실시간 연동</div>
+    </div>
     </div>
 
-    <figure class="flow rv d4" id="flow" aria-label="두 입구가 한 경로로 합쳐지는 그림: 정보원 정기 명단과 실시간 신고가 오늘 방문 경로 하나로 묶임">
-      <svg viewBox="0 0 1060 250" role="img" aria-hidden="true">
-        <defs><linearGradient id="fadeL" x1="0" x2="1"><stop offset="0" stop-color="#17594F" stop-opacity="0"/><stop offset=".25" stop-color="#17594F"/></linearGradient></defs>
-        <text class="lbl" x="0" y="34">① 정보원 정기 명단</text><text class="lbl2" x="0" y="54">발굴대상자 조회 서식 43열 그대로</text>
-        <text class="lbl" x="0" y="206" fill="#E0622F" style="fill:#E0622F">② 실시간 신고</text><text class="lbl2" x="0" y="226">주민 · 이웃 · 통장의 폰에서</text>
-        <path id="pA" d="M0 74 C 170 74, 230 128, 330 128" fill="none" stroke="url(#fadeL)" stroke-width="3.5" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-        <path id="pB" d="M0 182 C 170 182, 230 128, 330 128" fill="none" stroke="#E0622F" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7" opacity="0"/>
-        <path id="pR" d="M330 128 H 1040" fill="none" stroke="#17594F" stroke-width="3.5" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-        <g id="dots"></g>
-        <text class="lbl" x="1040" y="70" text-anchor="end">오늘 방문 경로</text><text class="lbl2" x="1040" y="90" text-anchor="end" id="dotsCap">한 번에 다시 계산</text>
-      </svg>
-      <figcaption class="flow-cap"><span><i></i>정보원 명단</span><span><i class="o"></i>실시간 신고 → 오늘 경로에 끼워 넣기</span></figcaption>
-    </figure>
-
-    <div class="stage" id="stage">
-      <div class="browser">
-        <div class="tb"><i></i><i></i><i></i><span>닿음 · 공무원 화면 — 오늘 찾아갈 집</span></div>
-        <img class="zoom" src="img/p01.webp" width="1600" height="1125" alt="닿음 공무원 첫 화면: 오늘 찾아갈 집 9곳, 정보원 정기 명단과 실시간 신고 두 입구가 오늘 방문 경로 하나로 합쳐짐" data-cap="공무원 첫 화면 — 두 입구, 한 경로 (시연 모드 · 가상 데이터)" fetchpriority="high">
-      </div>
-      <div class="ding">딩동 · 실시간 신고 도착<i></i></div>
-      <img class="arrive zoom" src="img/m02b.webp" width="760" height="692" alt="실시간 신고 도착 카드: 며칠째 안 보이고 우편물이 쌓였어요, 지금 경로 9번 집에서 110m, 오늘 경로에 끼워 넣기 단추" data-cap="실시간 신고 도착 카드 (시연 모드 · 가상 데이터)" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- 한눈에 -->
-<section class="sec alt" id="glance" aria-labelledby="g-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit" style="padding-left:12px">한눈에</span></div>
-    <h2 id="g-h" class="rv d1">명단이 온 <span class="k">다음</span>의 일,<br>그 하루를 돕습니다</h2>
-    <p class="lead rv d2">한국사회보장정보원이 위기정보 50종으로 명단을 보내면, 방문 순서·기록·보고는 읍면동 복지 공무원의 몫으로 남습니다. 닿음은 그 공백을 메웁니다.</p>
-    <div class="glance">
-      <article class="rv"><span class="no">01 · 두 입구, 한 경로</span><h3>신고가 오면, 오늘 경로에 바로</h3><p>정기 명단과 이웃의 신고를 같은 하루 경로에 합칩니다. 끼워 넣기 한 번에 순서와 시각을 다시 계산합니다.</p><div class="mini"><img class="zoom" src="img/p03.webp" width="1400" height="898" alt="끼워 넣은 뒤 오늘 경로 10곳" data-cap="끼워 넣은 뒤 — 오늘 경로 10곳 (시연 모드 · 가상 데이터)" loading="lazy"></div></article>
-      <article class="rv d1"><span class="no">02 · 순서의 이유</span><h3>왜 이 집을 먼저 가는지</h3><p>정보원 순위는 그대로 두고, 현장 사정을 더한 «정보원 N순위 → 오늘 M번째 · 이유»를 보여 줍니다.</p><div class="mini"><img class="zoom" src="img/p04.webp" width="1300" height="1003" alt="우선순위 이유 카드" data-cap="왜 이 집을 먼저 보나 — 이유 카드 (시연 모드 · 가상 데이터)" loading="lazy"></div></article>
-      <article class="rv d2"><span class="no">03 · 기록에서 보고까지</span><h3>AI 초안, 확정은 공무원</h3><p>상담 대본에서 기록 초안을 만들고, 공무원이 고쳐 확정합니다. 결재용 한글(hwpx) 보고서는 바로 내려받습니다.</p><div class="mini"><img class="zoom" src="img/p08.webp" width="1300" height="1205" alt="공무원 확정 기록" data-cap="기록 — 공무원 확정본 (시연 모드 · 가상 데이터)" loading="lazy"></div></article>
+    <div class="feats fade" id="feats" role="list" aria-label="주요 기능">
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg><div><b>이음 엑셀 그대로<span class="who">PC ①</span></b><span>조회 서식 43열을 새로 입력하지 않고 불러오기 · 브라우저 안에서만 읽음</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><div><b>처리 기한 · 근무일<span class="who">PC ②</span></b><span>차수 기한까지 남은 근무일과 하루 방문 수</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6M4 12h6M4 18h6M14 6c4 0 2 6 6 6M14 18c4 0 2-6 6-6"/></svg><div><b>«N순위 → 오늘 M번째»<span class="who">PC ③</span></b><span>한국사회보장정보원 순위는 그대로, 앞당긴 이유만 덧붙임</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg><div><b>읍면 묶음 일차별 방문<span class="who">PC ④</span></b><span>기한 안에 며칠이면 다 볼지, 순서는 끌어서 바꾸기</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M5 20h14"/></svg><div><b>현장 메모 AI 초안<span class="who">폰 ⑦</span></b><span>쟁점·욕구·연계 후보 초안 → 공무원이 고치고 «확정»</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4M8 14l2.5 2.5L16 13"/></svg><div><b>결재 보고서 · 사후관리<span class="who">PC ⑧⑨</span></b><span>한글 결재 양식 자동 생성, 다시 볼 날까지</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- 01 사회보장 데이터 활용 -->
-<section class="sec" id="data" aria-labelledby="d-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>01</b>사회보장 데이터 활용 <small>· 데이터 활용 적정도</small></span></div>
-    <h2 id="d-h" class="rv d1">정보원 서식 그대로,<br><span class="k">새로 입력할 것 없이</span></h2>
-    <p class="lead rv d2">한국사회보장정보원 공공데이터 3종이 화면마다 일합니다. 현장에서 쓰는 조회 엑셀을 그대로 불러옵니다.</p>
-    <div class="data-flow">
-      <div class="col">
-        <div class="src rv"><span class="org">정보원</span><div class="num">43열</div><div class="nm">복지사각지대 발굴대상자 조회 서식</div><div class="ds">발굴우선순위·발굴횟수·처리여부·고독사 우선방문 → 오늘 방문 순서</div></div>
-        <div class="src rv d1"><span class="org">정보원</span><div class="num">369건</div><div class="nm">중앙부처·지자체 복지서비스 OpenAPI</div><div class="ds">중앙 351 + 경북 13 · 상주 5 → 연계 후보·AI 추천 목록</div></div>
-        <div class="src rv d2"><span class="org">정보원</span><div class="num">3,868<small>가구</small></div><div class="nm">시군구별 수급권자 현황 (2025-12)</div><div class="ds">상주시 기초생계 수급가구 → 보고 비교 기준</div></div>
+<!-- 01 한 흐름 -->
+<section id="flow" aria-labelledby="flowH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">01 · 한 흐름</div><h2 id="flowH">사무실에서 현장으로, 다시 사무실로</h2></div>
+      <p>명단 한 장에서 사후관리까지 아홉 단계. 계획과 보고는 PC에서, 방문은 폰에서 합니다.</p>
+    </div>
+    <div class="flow rv" id="flowBox">
+      <div class="lane pc1">
+        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>사무실 PC · 계획</div>
+        <ol>
+          <li><i>1</i><b>명단 불러오기</b><span>이음 엑셀 43열</span></li>
+          <li><i>2</i><b>처리 기한</b><span>남은 근무일</span></li>
+          <li><i>3</i><b>우선순위</b><span>순위 − 앞당김 칸</span></li>
+          <li><i>4</i><b>일차별 방문</b><span>읍면끼리 묶기</span></li>
+        </ol>
       </div>
-      <div class="arrow rv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="core rv d1">
-        <div class="lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect  rx="114" fill="url(#bg)"/><rect  rx="114" fill="url(#hl)"/><g filter="url(#sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg>닿음</div>
-        <ol><li><b>1</b>오늘 — 두 입구를 한 경로로</li><li><b>2</b>방문 — 네이버 지도 길안내</li><li><b>3</b>기록 — AI 초안, 공무원 확정</li><li><b>4</b>보고 — 한글(hwpx) 결재 양식</li></ol>
+      <div class="lane ph">
+        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>현장 폰 · 방문</div>
+        <ol>
+          <li><i>5</i><b>집 앞 요약</b><span>30초</span></li>
+          <li><i>6</i><b>길안내</b><span>네이버 지도</span></li>
+          <li><i>7</i><b>확인 · 메모</b><span>AI 초안 → 확정</span></li>
+        </ol>
       </div>
-      <div class="arrow rv" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="gain rv d2">
-        <div><b>오늘 어디를, 왜 먼저</b><span>명단 순위 위에 현장 사정을 더한 순서</span></div>
-        <div><b>맞는 서비스 연결</b><span>공식 목록 안에서만 추천</span></div>
-        <div><b>보고 바로 출력</b><span>읍면 지표와 비교 기준이 함께</span></div>
+      <div class="lane pc2">
+        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>다시 PC · 보고</div>
+        <ol>
+          <li><i>8</i><b>보고서</b><span>한글 결재 양식</span></li>
+          <li><i>9</i><b>사후관리</b><span>재확인 날짜</span></li>
+        </ol>
       </div>
     </div>
-    <div class="aux rv"><b>보조 4기관 7종</b><span>행정안전부 인구·세대</span><span>기상청 기상특보</span><span>국토교통부 건축물대장</span><span>국립중앙의료원 병·의원·약국</span></div>
-    <div class="priv rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><span>명단 엑셀은 브라우저 안에서만 읽고 서버로 보내지 않습니다. 성명·주민번호·전화 열은 읽지 않습니다. 시연 가구는 모두 가상입니다.</span></div>
-    <div class="shot wide-shot rv"><img class="zoom" src="img/p10.webp" width="1400" height="1075" alt="닿음이 쓰는 데이터 화면: 정보원 OpenAPI 369, 수급권자 현황 3,868, 발굴대상자 조회 가상 시연 146" data-cap="데이터 활용 화면 (시연 모드 · 가상 데이터)" loading="lazy"><span class="tag">시연 모드 · 가상 데이터</span></div>
+    <div class="flow-sync rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>같은 계정으로 로그인하면 PC에서 확정한 방문 계획이 폰에, 폰에서 남긴 메모가 PC 보고서에 바로 나타납니다.</div>
   </div>
 </section>
 
-<!-- 02 AI 혁신성 -->
-<section class="sec alt" id="ai" aria-labelledby="a-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>02</b>AI 혁신성 <small>· AI 활용의 효과성·혁신성</small></span></div>
-    <h2 id="a-h" class="rv d1">AI는 초안까지,<br><span class="k">결정은 사람이</span></h2>
-    <p class="lead rv d2">생성형 AI가 상담 대본에서 쟁점·욕구·연계 후보 초안을 만들고, 공무원이 고쳐 «확정»합니다. 처리 과정 4칸은 화면에 늘 보입니다.</p>
-    <div class="pipe" id="pipe">
-      <i class="fill"></i>
-      <div class="step rv"><div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div><span class="n">STEP 1</span><h3>개인정보 가림</h3><p>이름·번호를 가린 뒤에만 AI로 보냅니다</p></div>
-      <div class="step rv d1"><div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg></div><span class="n">STEP 2</span><h3>규칙이 후보 50건</h3><p>공식 복지서비스 369건 가운데 추림</p></div>
-      <div class="step rv d2"><div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.6L20 9.5l-4.4 3.9L17 19l-5-3-5 3 1.4-5.6L4 9.5l5.8-.9z"/></svg></div><span class="n">STEP 3</span><h3>AI가 고르고 이유</h3><p>근거 낱말을 형광으로 표시</p></div>
-      <div class="step rv d3"><div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div><span class="n">STEP 4</span><h3>목록 밖 답 버림</h3><p>지어낸 서비스는 화면에 오르지 않습니다</p></div>
+<!-- 02 우선순위 둘러보기 -->
+<section id="prio" aria-labelledby="prioH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">02 · PC ③ 우선순위</div><h2 id="prioH">오늘 어디를, 왜 먼저</h2></div>
+      <p>한국사회보장정보원 발굴 순위를 지우지 않고, 현장 사정만큼 앞당긴 칸과 그 이유를 함께 보여 줍니다.</p>
     </div>
-    <div class="ai-split">
-      <div class="shot rv"><img class="zoom" src="img/p08.webp" width="1300" height="1205" alt="기록 화면: 공무원 확정 꼬리표, 행복이음 입력 순서로 복사, 확정본 인쇄" data-cap="기록 — AI 초안을 공무원이 확정 (시연 모드 · 가상 데이터)" loading="lazy"><span class="tag">시연 모드 · 가상 데이터</span></div>
+  </div>
+  <div class="tour" id="tour">
+    <div class="wrap stage wide">
+      <div>
+        <p class="what">우선순위 근거 화면</p>
+        <ol class="steps" id="steps">
+          <i class="bar" id="bar"></i>
+          <li class="step" data-i="1"><span class="n">1</span><div><b>발굴 순위는 그대로 둡니다</b><span>왼쪽 한국사회보장정보원 순위에서 오른쪽 방문 순서로. 자리를 옮긴 집만 선이 휩니다.</span></div></li>
+          <li class="step" data-i="2"><span class="n">2</span><div><b>앞당긴 칸과 이유를 한 줄로</b><span>«발굴 7순위 → 오늘 6번째». 오늘의 위험 · 만남 공백 · 닿지 않음 · 처리 기한, 최대 7칸.</span></div></li>
+          <li class="step" data-i="3"><span class="n">3</span><div><b>같은 이유는 두 번 더하지 않습니다</b><span>순위에 이미 든 위기정보는 다시 더하지 않고, 기준표는 화면에 늘 펼쳐 둡니다.</span></div></li>
+        </ol>
+      </div>
+      <div class="screen" id="screen">
+        <div class="zoom" id="zoom">
+          <img src="img/pc_s3@2x.webp" width="1440" height="900" alt="PC 우선순위 근거 화면 — 발굴 순위, 앞당김 칸, 기준표" loading="lazy">
+          <div class="hl" data-i="1" style="left:1%;top:13%;width:50%;height:67%"></div>
+          <div class="hl" data-i="2" style="left:53.5%;top:7.5%;width:45.5%;height:15.5%"></div>
+          <div class="hl" data-i="3" style="left:53.5%;top:24%;width:45.5%;height:42.5%"></div>
+          <span class="mk" style="left:1%;top:13%">1</span>
+          <span class="mk" style="left:53.5%;top:7.5%">2</span>
+          <span class="mk" style="left:53.5%;top:24%">3</span>
+        </div>
+        <span class="cap">시연 모드 · 가상 가구</span>
+      </div>
+      <div class="m-step" id="mstep">
+        <div class="m-dots"><i data-i="1"></i><i data-i="2"></i><i data-i="3"></i></div>
+        <div style="position:relative;min-height:120px">
+          <div class="step" data-i="1"><span class="n">1</span><div><b>발굴 순위는 그대로 둡니다</b><span>자리를 옮긴 집만 선이 휩니다.</span></div></div>
+          <div class="step" data-i="2"><span class="n">2</span><div><b>앞당긴 칸과 이유를 한 줄로</b><span>오늘의 위험 · 만남 공백 · 닿지 않음 · 처리 기한, 최대 7칸.</span></div></div>
+          <div class="step" data-i="3"><span class="n">3</span><div><b>같은 이유는 두 번 더하지 않습니다</b><span>순위에 이미 든 위기정보는 다시 더하지 않습니다.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 일차별 방문 -->
+<section id="plan" aria-labelledby="planH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">03 · PC ④ 일차별 방문</div><h2 id="planH">기한 안에, 며칠이면 다 볼까</h2></div>
+      <p>하루 방문 수와 상담 시간, 점심시간을 넣으면 읍면끼리 묶어 일차를 나눕니다.</p>
+    </div>
+    <div class="split">
+      <div>
+        <ul class="pts rv">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg><div><b>도착 시각까지 나옵니다</b><span>출발 → 집마다 도착·상담 → 복귀, 이동 시간은 도로 경로 기준.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10M9 12h10M9 19h10M5 5v.01M5 12v.01M5 19v.01"/></svg><div><b>순서는 끌어서 바꿉니다</b><span>현장 사정이 바뀌면 손으로 옮기고, 시각은 다시 계산됩니다.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg><div><b>확정하면 폰에 나타납니다</b><span>같은 계정 폰의 «오늘 동선»으로 바로 이어집니다.</span></div></li>
+        </ul>
+        <div class="km rv" id="km">
+          <div class="big num">48.3%</div>
+          <div class="bars">
+            <div><span>명단 순</span><u style="--w:1"></u><span class="num">127.3km</span></div>
+            <div><span>읍면 묶음</span><u class="a" style="--w:.517"></u><span class="num">65.8km</span></div>
+          </div>
+          <small>이동 거리 감소 · 시연 9곳, 직선×1.3 추정, 가상 가구</small>
+        </div>
+      </div>
+      <div class="win rv"><img src="img/pc_s4c.webp" srcset="img/pc_s4c.webp 1x, img/pc_s4c@2x.webp 2x" width="777" height="675" alt="PC 일차별 방문 화면 — 1일차·2일차, 집마다 도착 시각" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 현장 폰 -->
+<section id="field" aria-labelledby="fieldH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">04 · 현장 폰 ⑤⑥⑦</div><h2 id="fieldH">집 앞에서 30초, 나올 때 메모 한 번</h2></div>
+      <p>문 두드리기 전에 볼 것, 가는 길, 만난 결과까지 폰 한 손으로.</p>
+    </div>
+    <div class="phones">
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s5.webp" srcset="img/m_s5.webp 1x, img/m_s5@2x.webp 2x" width="390" height="844" alt="폰 집 앞 30초 요약 화면" loading="lazy"></div><p><i>5</i><b>집 앞 요약</b><span>명단에 오른 이유, 지난번 약속, 꼭 물을 것.</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s6.webp" srcset="img/m_s6.webp 1x, img/m_s6@2x.webp 2x" width="390" height="844" alt="폰 동선과 길안내 화면" loading="lazy"></div><p><i>6</i><b>동선 · 길안내</b><span>오늘 갈 집을 지도에 잇고, 네이버 지도로 바로 길안내.</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s7.webp" srcset="img/m_s7.webp 1x, img/m_s7@2x.webp 2x" width="390" height="844" alt="폰 만난 결과와 현장 메모 화면" loading="lazy"></div><p><i>7</i><b>확인 · 메모</b><span>만남·부재·거절, 말로 남긴 메모, 꼭 물을 것 확인.</span></p></div>
+    </div>
+    <div class="ai rv">
+      <div>
+        <h3>AI는 메모 초안까지, 확정은 공무원이</h3>
+        <ol>
+          <li><b>1</b>개인정보 가림</li>
+          <li><b>2</b>규칙이 후보 50건 추림</li>
+          <li><b>3</b>AI가 고르고 이유</li>
+          <li><b>4</b>목록 밖 답 버림</li>
+        </ol>
+      </div>
       <div class="score">
-        <div class="meter rv" style="--v:1"><div class="top"><b>첫 추천 적합</b><span>19~20/20</span></div><div class="trk"><i></i></div><p>가상 사연 20건 · 두 차례 측정</p></div>
-        <div class="meter rv d1" style="--v:.9"><div class="top"><b>상위 3개 적합</b><span>54/60</span></div><div class="trk"><i></i></div><p>같은 20건 · 규칙만 쓰면 34/60</p></div>
-        <div class="meter rv d2" style="--v:.7"><div class="top"><b>규칙만(AI 0회) 첫 추천</b><span style="color:var(--ink3)">14/20</span></div><div class="trk"><i class="r"></i></div><p>기준선 — AI가 첫 추천 6건을 더 맞힘</p></div>
-        <div class="meter rv d3" style="--v:0"><div class="top"><b>목록 밖 서비스</b><span>0건</span></div><p>공식 목록 안에서만 답합니다</p></div>
-        <div class="safety rv"><span>위기 낱말 → 생명 109 · 급하면 112·119</span><span>폭력 1366</span><span>생계 129</span><span>AI 실패 시 규칙 초안으로 자동 전환</span></div>
+        <strong class="num">19~20/20</strong>
+        <span>첫 추천 적합 · 상위 3개 54/60 · 목록 밖 서비스 0건</span>
+        <small>가상 사연 20건 측정 · 규칙만 쓸 때 14/20</small>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 03 구체성 -->
-<section class="sec" id="plan" aria-labelledby="p-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>03</b>구체성 <small>· 구성의 체계성·실행방안</small></span></div>
-    <h2 id="p-h" class="rv d1">오늘 · 방문 · 기록 · 보고,<br><span class="k">네 화면이면 하루가 끝</span></h2>
-    <div class="tabs rv" role="tablist" aria-label="네 화면">
-      <button role="tab" aria-selected="true" aria-controls="v1" id="t1"><b>1</b>오늘</button>
-      <button role="tab" aria-selected="false" aria-controls="v2" id="t2"><b>2</b>방문</button>
-      <button role="tab" aria-selected="false" aria-controls="v3" id="t3"><b>3</b>기록</button>
-      <button role="tab" aria-selected="false" aria-controls="v4" id="t4"><b>4</b>보고</button>
+<!-- 05 보고·사후관리 -->
+<section id="report" aria-labelledby="repH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">05 · PC ⑧⑨</div><h2 id="repH">메모가 모이면 보고서, 그다음은 다시 볼 날</h2></div>
+      <p>현장 메모가 결재 양식 보고서로 모이고, 재확인 날짜까지 한 화면에 남습니다.</p>
     </div>
-    <div class="vpane on" id="v1" role="tabpanel" aria-labelledby="t1"><div class="viewer"><div class="vtext"><h3>오늘 찾아갈 집</h3><p>두 입구에서 들어온 집을 한 경로로 묶습니다.</p><ul><li>정보원 명단 엑셀을 그대로 불러오기</li><li>실시간 신고 도착 → «오늘 경로에 끼워 넣기»</li><li>명단 밖 가구는 현장 등록 → 다음 정보원 명단과 대조</li></ul></div><div class="vshot"><img class="zoom" src="img/p01.webp" width="1600" height="1125" alt="오늘 화면" data-cap="1 오늘 (시연 모드 · 가상 데이터)" loading="lazy"></div></div></div>
-    <div class="vpane" id="v2" role="tabpanel" aria-labelledby="t2" hidden><div class="viewer"><div class="vtext"><h3>방문 순서와 길안내</h3><p>읍면별로 묶은 순서를 네이버 지도 길안내로 이어 줍니다.</p><ul><li>하루 방문 시각표</li><li>방문 구간별 길안내 단추</li><li>도착 표시로 오늘 진척 확인</li></ul></div><div class="vshot"><img class="zoom" src="img/p07b.webp" width="1400" height="931" alt="방문 경로 지도와 시각표" data-cap="2 방문 — 경로와 시각표 (시연 모드 · 가상 데이터)" loading="lazy"></div></div></div>
-    <div class="vpane" id="v3" role="tabpanel" aria-labelledby="t3" hidden><div class="viewer"><div class="vtext"><h3>상담 기록</h3><p>대본에서 초안을 만들고, 확정은 공무원이 합니다.</p><ul><li>«AI 초안 · 확인 전» → «공무원 확정»</li><li>행복이음 입력 순서로 복사</li><li>확정본 인쇄·PDF</li></ul></div><div class="vshot"><img class="zoom" src="img/p08a.webp" width="1300" height="1123" alt="기록 AI 초안 화면" data-cap="3 기록 — 초안 (시연 모드 · 가상 데이터)" loading="lazy"></div></div></div>
-    <div class="vpane" id="v4" role="tabpanel" aria-labelledby="t4" hidden><div class="viewer"><div class="vtext"><h3>보고</h3><p>이번 차수 현황과 읍면 지표를 한 화면에.</p><ul><li>한글(hwpx) 결재 양식 보고서 바로 출력</li><li>방문 명단 엑셀(정보원 43열 + 방문 4열)</li><li>두 입구·명단 밖 가구 집계</li></ul></div><div class="vshot"><img class="zoom" src="img/p09.webp" width="1400" height="888" alt="보고 현황 화면" data-cap="4 보고 (시연 모드 · 가상 데이터)" loading="lazy"></div></div></div>
-    <div class="plan rv" aria-label="추진 절차">
-      <div class="done"><small>2026-10</small><b>① 설계·데이터</b><p>현장 설문 6명, API 활용 승인, 정보원 서식 대응</p><span class="st">구현</span></div>
-      <div class="done"><small>2026-11</small><b>② 시제품</b><p>네 화면 + 주민 신고 화면, AI 서버 함수, 공개 배포</p><span class="st">구현</span></div>
-      <div><small>수상 후 6개월</small><b>③ 시범 운영</b><p>1개 시군 읍면동 2~3곳 실사용</p><span class="st pl">계획</span></div>
-      <div><small>시범 후</small><b>④ 기관 연계</b><p>정보원 시스템과 행정망 안에서 연계</p><span class="st pl">계획</span></div>
+    <div class="duo-shot">
+      <figure class="rv"><div class="win"><img src="img/pc_s8.webp" srcset="img/pc_s8.webp 1x, img/pc_s8@2x.webp 2x" width="1440" height="900" alt="PC 보고서 화면 — 복지 사각지대 현장 확인 결과 보고" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+        <figcaption><b><span class="no">8</span>보고서 자동 생성</b><span>한글(hwpx) 결재 양식, 기관 «상주시청». 방문 명단 엑셀도 함께.</span></figcaption></figure>
+      <figure class="rv"><div class="win"><img src="img/pc_s9.webp" srcset="img/pc_s9.webp 1x, img/pc_s9@2x.webp 2x" width="1440" height="900" alt="PC 사후관리 화면 — 재확인 날짜" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+        <figcaption><b><span class="no">9</span>사후관리</b><span>1·3·6개월 재확인을 놓치지 않게, 할 일과 날짜를 한 화면에.</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- 04 독창성 -->
-<section class="sec alt" id="uniq" aria-labelledby="u-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>04</b>독창성 <small>· 유사 서비스 대비 차별성</small></span></div>
-    <h2 id="u-h" class="rv d1">명단에 없는 위기도<br><span class="k">오늘 찾아갑니다</span></h2>
-    <div class="ba-wrap">
-      <div class="ba rv" id="ba" style="--x:50%">
-        <img src="img/p03a.webp" width="1400" height="898" alt="끼워 넣기 전: 신고 4건, 경로 9곳" loading="lazy">
-        <img class="after" src="img/p03.webp" width="1400" height="898" alt="끼워 넣은 뒤: 경로 10곳, 신고가 경로에 들어감" loading="lazy">
-        <span class="lb l">끼워 넣기 전 · 9곳</span><span class="lb r">끼워 넣은 뒤 · 10곳</span>
-        <i class="h"></i>
-        <input type="range" min="0" max="100" value="50" aria-label="끼워 넣기 전후 비교 — 좌우로 밀기">
-      </div>
-      <div class="ba-side rv d1">
-        <h3>두 입구, 한 경로</h3>
-        <p>정기 명단과 실시간 신고를 같은 하루 경로에 합칩니다. 지금 경로에서 얼마나 가까운지, 일정이 얼마나 늘어나는지 보고 한 번에 넣습니다.</p>
-        <div class="card"><img class="zoom" src="img/p02b.webp" width="800" height="692" alt="신고 도착 카드 확대" data-cap="실시간 신고 도착 카드 (시연 모드 · 가상 데이터)" loading="lazy"></div>
-      </div>
+<!-- 06 숫자 -->
+<section id="nums" aria-labelledby="numH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">06 · 데이터와 숫자</div><h2 id="numH">공공데이터로, 지금 동작하는 그대로</h2></div>
+      <p>한국사회보장정보원 공공데이터 3종과 보조 4기관 7종. 시연 가구는 모두 가상입니다.</p>
     </div>
-    <div class="uniq">
-      <div class="route rv" id="route">
-        <h3>농촌 방문 경로 묶기</h3>
-        <div class="row"><span>명단 순서</span><div class="bar2"><i style="--v:1"></i></div><b>127.3km</b></div>
-        <div class="row"><span>읍면 묶음</span><div class="bar2"><i style="--v:.517"></i></div><b>65.8km</b></div>
-        <div class="big"><strong data-count="48.3">48.3%</strong><span>이동 거리 감소</span></div>
-        <p class="note">시연 9곳 · 직선거리×1.3 추정 · 가상 가구</p>
-      </div>
-      <div class="rv d1">
-        <table class="cmp">
-          <thead><tr><th>기존 사례</th><th>하는 일</th><th>닿음이 다른 점</th></tr></thead>
-          <tbody>
-            <tr><td>위기가구 발굴·행복이음</td><td>위기정보로 명단 선별·통보, 조회·상담 기록</td><td>명단은 그대로 받고, 그 다음 «오늘 어디를 왜 먼저»·신고 당일 반영·보고 출력</td></tr>
-            <tr><td>AI 초기상담·안부전화</td><td>고위험가구에 AI 자동전화</td><td>전화가 닿지 않는 농촌 고령가구의 대면 방문</td></tr>
-            <tr><td>복지행정 AI 정책실험(경기)</td><td>방문 상담 음성 → 기록·서비스 추천</td><td>기록 앞(방문 순서)과 뒤(공무원 확정·결재 보고)까지</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="pr">
-      <div class="rv"><h3>순위는 지우지 않고, 이유를 더합니다</h3><p class="lead" style="font-size:16px">정보원 발굴순위 위에 한파특보·혼자 사는 고령·지난 방문 공백·주민 신호·미처리 기간을 더해 «정보원 N순위 → 오늘 M번째 · 이유»로 보여 줍니다. 점수 숫자 대신 이유를 씁니다.</p><p class="lead" style="font-size:16px;margin-top:12px">현장에서 본 명단 밖 가구는 메모로 등록하고, 다음 정보원 명단에 없으면 «신규 발굴 의뢰» 꼬리표가 붙습니다.</p></div>
-      <div class="shot rv d1"><img class="zoom" src="img/p05.webp" width="1200" height="1131" alt="우선순위 자세히 펼침: 가산 근거" data-cap="우선순위 근거 펼침 (시연 모드 · 가상 데이터)" loading="lazy"><span class="tag">시연 모드 · 가상 데이터</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 05 발전(사업화) 가능성 -->
-<section class="sec" id="biz" aria-labelledby="b-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>05</b>발전(사업화) 가능성 <small>· 사업화·현장 적용 실현 가능성</small></span></div>
-    <h2 id="b-h" class="rv d1">설치 없이 열고,<br><span class="k">전국 어디서나 같은 서식으로</span></h2>
-    <p class="lead rv d2">공공데이터 API와 정보원 서식을 그대로 쓰기 때문에, 어느 시군구든 같은 화면으로 시작합니다. PC·폰·태블릿 크기에 맞춰 보입니다.</p>
-    <div class="biz">
-      <div class="kpi rv"><div class="v">227<small>곳</small></div><b>전국 시군구 적용 대상</b><p>복지 부서 공무원 창구 + 주민 신고 입구</p></div>
-      <div class="kpi rv d1"><span class="est">추정</span><div class="v">45<small>원</small></div><b>AI 1회 비용 (약 44.6원)</b><p>AI 호출부가 한 곳이라 공공 클라우드·국산 모델로 바꿔도 화면 그대로</p></div>
-      <div class="kpi rv d2"><span class="est">추정</span><div class="v" style="font-size:clamp(30px,3.6vw,44px)">251~551<small>만원</small></div><b>시군당 연 도입 비용</b><p>AI 실비(현실 추정 월 약 4.3만원) + 유지보수</p></div>
-    </div>
-    <div class="out">
-      <div class="shot rv"><img class="zoom" src="img/p09.webp" width="1400" height="888" alt="보고 화면과 한글 보고서 단추" data-cap="보고 — 한글(hwpx) 결재 양식 출력 (시연 모드 · 가상 데이터)" loading="lazy"><span class="tag">시연 모드 · 가상 데이터</span></div>
-      <div class="rv d1">
-        <h3>시범에서 확산까지</h3>
-        <div class="road"><div><b>1</b>시범 1개 시군 — 이동 거리 20% 감소(보수 목표)·첫 추천 적합 80% 이상</div><div><b>2</b>정보원 시스템과 행정망 안에서 연계(개인정보 영향평가 선행)</div><div><b>3</b>전문기관 표준 모듈로 확산 — 소스·운영 문서 이관</div></div>
-        <p style="margin:16px 0 0;font-size:14px;color:var(--ink3)">자동 시험 파일 21개 · 한글(hwpx)·엑셀·PDF 출력 · 화면 대비 4.5:1·200% 확대 대응</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 06 ESG 혁신 -->
-<section class="sec alt" id="esg" aria-labelledby="e-h">
-  <div class="wrap">
-    <div class="eyebrow rv"><span class="crit"><b>06</b>ESG 혁신 <small>· 상생협력·탄소중립·윤리경영</small></span></div>
-    <h2 id="e-h" class="rv d1">덜 달리고, 더 정확하게,<br><span class="k">투명하게</span></h2>
-    <div class="esg">
-      <div class="rv"><small>환경</small><b>CO₂ 연 약 1.3t 감축</b><p>방문 차량 이동 감소 · 시군당, 이동 20% 감소·담당 10명 가정(추정)</p></div>
-      <div class="rv d1"><small>윤리</small><b>실제 개인정보 0건</b><p>순서 근거 공개 · 최종 결정은 공무원 · AI 답은 공식 목록 안에서만</p></div>
-      <div class="rv d2"><small>상생</small><b>지역 자원 연계</b><p>민간복지서비스·돌봄 제공기관 정보와 지역 후원·봉사 연결(계획)</p></div>
+    <div class="nums rv">
+      <div><strong class="num">43열</strong><b>발굴대상자 조회 서식</b><span>한국사회보장정보원 서식 그대로 불러오기</span></div>
+      <div><strong class="num">369건</strong><b>복지서비스 OpenAPI</b><span>중앙 351 + 경북 13 · 상주 5 · 연계 후보·AI 추천 목록</span></div>
+      <div><strong class="num">19~20/20</strong><b>첫 추천 적합</b><span>가상 사연 20건 · 목록 밖 0건</span></div>
+      <div><strong class="num">48.3%<span class="tag">추정</span></strong><b>방문 이동 거리 감소</b><span>시연 9곳 127.3 → 65.8km · 직선×1.3</span></div>
+      <div><strong class="num">227곳</strong><b>전국 시군구 적용</b><span>같은 서식·공공데이터라 어느 시군이든</span></div>
+      <div><strong class="num">약 45원<span class="tag">추정</span></strong><b>AI 1회 비용</b><span>사용량 과금 · 한도 초과 시 규칙 초안으로 전환</span></div>
     </div>
   </div>
 </section>
 
 
 
-<!-- 실제 화면 -->
-<section class="sec" id="screens" aria-labelledby="s-h" style="padding-bottom:clamp(60px,8vw,110px)">
-  <div class="wrap headrow">
-    <div><div class="eyebrow rv"><span class="crit" style="padding-left:12px">실제 화면</span></div>
-    <h2 id="s-h" class="rv d1">지금 동작하는 그대로</h2></div>
-    <div class="snav" aria-hidden="true"><button type="button" data-d="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" data-d="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
-  </div>
-  <div class="strip" id="strip" tabindex="0" aria-label="실제 화면 넘겨 보기">
-    <figure><div class="shot"><img class="zoom" src="img/p01.webp" width="1600" height="1125" alt="공무원 첫 화면" data-cap="공무원 첫 화면 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>공무원 첫 화면</b>오늘 찾아갈 집 · 두 입구</figcaption></figure>
-    <figure class="m"><div class="shot"><img class="zoom" src="img/m10.webp" width="620" height="1377" alt="주민 첫 화면: 이웃이 걱정돼요, 제 일이에요" data-cap="주민 첫 화면 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>주민 신고 화면</b>큰 단추 두 개</figcaption></figure>
-    <figure class="m"><div class="shot"><img class="zoom" src="img/m11.webp" width="620" height="1377" alt="주민 보낸 뒤: 담당 공무원에게 도착했어요" data-cap="보낸 뒤 도착 확인 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>도착 확인</b>«담당 공무원에게 도착했어요»</figcaption></figure>
-    <figure class="m"><div class="shot"><img class="zoom" src="img/m01.webp" width="620" height="1377" alt="공무원 모바일 첫 화면" data-cap="공무원 화면 — 폰 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>현장에서 폰으로</b>같은 화면, 세로 배치</figcaption></figure>
-    <figure><div class="shot"><img class="zoom" src="img/p07.webp" width="1600" height="1125" alt="방문 순서 길안내" data-cap="방문 순서 · 길안내 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>방문 순서 · 길안내</b>네이버 지도로 구간별 안내</figcaption></figure>
-    <figure><div class="shot"><img class="zoom" src="img/p06.webp" width="1300" height="851" alt="명단 밖 가구 신규 발굴 의뢰" data-cap="명단 밖 가구 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>명단 밖 가구</b>현장 등록 → 다음 명단과 대조</figcaption></figure>
-    <figure><div class="shot"><img class="zoom" src="img/p11.webp" width="1300" height="1060" alt="도입 비용 계산 화면" data-cap="도입 비용·탄소 계산 (시연 모드 · 가상 데이터)" loading="lazy"></div><figcaption><b>도입 비용 계산</b>AI 실비·이동 감소·CO₂</figcaption></figure>
-  </div>
-</section>
-
-<!-- 마무리 -->
-<section class="final" aria-labelledby="c-h">
-  <svg class="contour" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="1.2"><path d="M-40 420C180 340 300 480 520 420S860 250 1080 300 1380 430 1500 380"/><path d="M-40 470C200 390 320 530 540 470S880 300 1100 350 1390 480 1500 430"/><path d="M-40 140C160 210 320 90 520 160S880 290 1100 220 1360 120 1500 170"/></g></svg>
-  <div class="wrap" style="position:relative">
-    <div class="lg rv"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" ><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect  rx="114" fill="url(#bg)"/><rect  rx="114" fill="url(#hl)"/><g filter="url(#sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg></div>
-    <h2 id="c-h" class="rv d1">직접 눌러 보세요</h2>
-    <p class="rv d2">공무원 화면과 주민 화면을 나란히 열면, 신고가 공무원 화면에 도착하는 순간을 볼 수 있습니다.</p>
-    <div class="cta rv d3">
-      <a class="btn p" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
-      <a class="btn g" href="#glance">처음부터 다시</a>
+<section class="final" aria-labelledby="endH">
+  <div class="wrap wide">
+    <div class="box rv">
+      <div>
+        <div class="lg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="lg2bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="lg2hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="lg2sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect width="512" height="512" rx="114" fill="url(#lg2bg)"/><rect width="512" height="512" rx="114" fill="url(#lg2hl)"/><g filter="url(#lg2sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg></div>
+        <h2 id="endH">직접 눌러 보세요</h2>
+        <p>로그인 없이 시연 모드로 열립니다. 명단·가구는 모두 가상입니다.</p>
+        <div class="url">https://hcyang572-gif.github.io/daeum/officer/</div>
+      </div>
+      <a class="btn" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
     </div>
-    <div class="url rv">https://hcyang572-gif.github.io/daeum/</div>
   </div>
 </section>
 </main>
-<footer><div class="wrap"><span>닿음 — 복지 사각지대 현장 업무 도우미 · 상주시청 적용 예시</span><span>시연 모드 · 가상 데이터 · 실제 개인정보 0건 · 공공데이터 + 가상 가구</span></div></footer>
 
-<dialog class="lb" id="lb"><button type="button" aria-label="닫기">×</button><img alt=""><p></p></dialog>
+<footer>
+  <div class="wrap wide row">
+    <span>닿음 — 복지 사각지대 현장 업무 도우미 · 상주시청 적용 예시</span>
+    <span>시연 모드 · 가상 데이터 · 실제 개인정보 0건 · 공공데이터 + 가상 가구</span>
+  </div>
+</footer>
 
 <script>
 (function(){
-  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){document.getElementById('heroIn').classList.add('ready')})});
+
   // 등장
-  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px',threshold:.12});
-  document.querySelectorAll('.rv,.meter,.pipe,.route,.stage').forEach(function(el){io.observe(el)});
-  // 상단 바 + 진행선 (rAF 1회 묶음)
-  var bar=document.getElementById('bar'),prog=document.getElementById('prog'),tick=false;
-  function onS(){tick=false;var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;bar.classList.toggle('on',y>24);prog.style.transform='scaleX('+(h>0?y/h:0)+')'}
-  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onS)}},{passive:true});onS();
-  // 앵커 부드럽게
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(ev){var t=document.querySelector(a.getAttribute('href'));if(!t)return;ev.preventDefault();t.scrollIntoView({behavior:RM?'auto':'smooth'})})});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px',threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  // 한 흐름 칸: 번호가 차례로
+  document.querySelectorAll('#flowBox li').forEach(function(li,i){li.style.transitionDelay=(reduce?0:.15+i*.12)+'s'});
 
-  // 히어로 두 입구 → 한 경로
-  var NS='http://www.w3.org/2000/svg',g=document.getElementById('dots'),xs=[],n=9,x0=400,x1=1010;
-  for(var i=0;i<n;i++)xs.push(x0+(x1-x0)*i/(n-1));
-  function mk(x,lab,ins){var d=document.createElementNS(NS,'g');d.setAttribute('class','dot'+(ins?' ins':''));d.setAttribute('transform','translate('+x+',128)');
-    d.innerHTML='<circle r="17" fill="'+(ins?'#E0622F':'#fff')+'" stroke="'+(ins?'#E0622F':'#17594F')+'" stroke-width="2.5"/><text y="4.5" text-anchor="middle">'+lab+'</text>';d.style.transition='transform .8s cubic-bezier(.2,.7,.2,1),opacity .5s';return d}
-  var dots=xs.map(function(x,i){var d=mk(x,i+1);d.style.opacity=RM?1:0;g.appendChild(d);return d});
-  var flow=document.getElementById('flow'),pA=document.getElementById('pA'),pB=document.getElementById('pB'),pR=document.getElementById('pR'),cap=document.getElementById('dotsCap');
-  function anim(el,ms,delay){el.style.transition='stroke-dashoffset '+ms+'ms cubic-bezier(.65,0,.35,1) '+delay+'ms';el.style.strokeDashoffset=0}
-  function play(){
-    if(RM){pA.style.strokeDashoffset=0;pR.style.strokeDashoffset=0;pB.style.opacity=1;insert(true);return}
-    anim(pA,900,0);anim(pR,1300,700);
-    dots.forEach(function(d,i){setTimeout(function(){d.style.opacity=1},900+i*110)});
-    setTimeout(function(){pB.style.transition='opacity .6s';pB.style.opacity=1},2300);
-    setTimeout(function(){insert(false)},3000);
+  // 우선순위 화면 — 단계별 확대 영역(화면 비율 0~1)
+  var R={0:null,1:[.01,.13,.50,.67],2:[.535,.075,.455,.155],3:[.535,.24,.455,.425]};
+  var zoom=document.getElementById('zoom'),screen=document.getElementById('screen'),tour=document.getElementById('tour'),
+      prog=document.getElementById('prog'),bar=document.getElementById('bar'),cur=-1;
+  function view(i){
+    var s=1,tx=0,ty=0,r=R[i];
+    if(r){
+      var mob=matchMedia('(max-width:560px)').matches,pad=mob?1.04:1.12;
+      s=Math.min(1/(r[2]*pad),1/(r[3]*pad),mob?2.4:1.85); s=Math.max(s,1);
+      var cx=r[0]+r[2]/2,cy=r[1]+r[3]/2;
+      tx=Math.min(0,Math.max(1-s,.5-s*cx)); ty=Math.min(0,Math.max(1-s,.5-s*cy));
+    }
+    zoom.style.transform='translate('+(tx*100)+'%,'+(ty*100)+'%) scale('+s+')';
+    zoom.style.setProperty('--inv',(1/s).toFixed(3));
+    tour.querySelectorAll('[data-i]').forEach(function(el){el.classList.toggle('on',+el.dataset.i===i)});
+    bar.style.transform='scaleY('+(i<=1?0:(i-1)/2)+')';
+    if(i>0)screen.classList.add('started');
   }
-  function insert(now){ // 신고 집이 3번째로 들어가고 나머지가 한 칸씩 밀림 → 10곳
-    var nx=[];for(var i=0;i<10;i++)nx.push(x0+(x1-x0)*i/9);
-    dots.forEach(function(d,i){var j=i<2?i:i+1;d.setAttribute('transform','translate('+nx[j]+',128)');d.querySelector('text').textContent=j+1});
-    var ins=mk(nx[2],3,true);ins.setAttribute('transform','translate('+nx[2]+','+(now?128:182)+')');ins.style.opacity=now?1:0;g.appendChild(ins);
-    requestAnimationFrame(function(){requestAnimationFrame(function(){ins.style.opacity=1;ins.setAttribute('transform','translate('+nx[2]+',128)')})});
-    cap.textContent='9곳 → 10곳, 순서·시각 다시 계산';
+  var tick=false;
+  function onScroll(){
+    tick=false;
+    var d=document.documentElement,max=d.scrollHeight-innerHeight;
+    prog.style.transform='scaleX('+(max>0?scrollY/max:0)+')';
+    var rc=tour.getBoundingClientRect(),len=rc.height-innerHeight,p=Math.min(1,Math.max(0,-rc.top/len));
+    var i=p<.08?0:p<.4?1:p<.72?2:3;
+    if(i!==cur){cur=i;view(i)}
   }
-  var fio=new IntersectionObserver(function(es){if(es[0].isIntersecting){fio.disconnect();play()}},{threshold:.35});fio.observe(flow);
-
-  // 탭
-  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
-  tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(i)});t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var k=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;sel(k);tabs[k].focus()}})});
-  function sel(i){tabs.forEach(function(t,j){var on=i===j;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;var p=document.getElementById(t.getAttribute('aria-controls'));p.hidden=!on;p.classList.toggle('on',on)})}
-  sel(0);
-
-  // 전후 비교
-  var ba=document.getElementById('ba');if(ba){var r=ba.querySelector('input');r.addEventListener('input',function(){ba.style.setProperty('--x',r.value+'%')});
-    var bio=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!RM){bio.disconnect();var t0=null;function st(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/1400),v=50+28*Math.sin(p*Math.PI*1.5);ba.style.setProperty('--x',v+'%');r.value=v;if(p<1)requestAnimationFrame(st)}requestAnimationFrame(st)}},{threshold:.6});bio.observe(ba)}
-
-  // 숫자 굴리기
-  document.querySelectorAll('[data-count]').forEach(function(el){var to=parseFloat(el.dataset.count);var cio=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;cio.disconnect();if(RM)return;var t0=null;function st(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/1300),e=1-Math.pow(1-p,3);el.textContent=(to*e).toFixed(1)+'%';if(p<1)requestAnimationFrame(st)}requestAnimationFrame(st)},{threshold:.6});cio.observe(el)});
-
-  // 화면 넘기기
-  var strip=document.getElementById('strip');document.querySelectorAll('.snav button').forEach(function(b){b.addEventListener('click',function(){strip.scrollBy({left:(+b.dataset.d)*Math.min(640,strip.clientWidth*.8),behavior:RM?'auto':'smooth'})})});
-
-  // 확대 보기
-  var lb=document.getElementById('lb'),li=lb.querySelector('img'),lp=lb.querySelector('p');
-  document.querySelectorAll('img.zoom').forEach(function(im){im.addEventListener('click',function(){if(!lb.showModal)return;li.src=im.src;li.alt=im.alt;lp.textContent=im.dataset.cap||'';lb.showModal()})});
-  lb.addEventListener('click',function(e){if(e.target!==li)lb.close()});
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
+  addEventListener('resize',function(){cur=-1;onScroll()});
+  onScroll();
 
   // 영상: 화면 50% 들어오면 음소거 자동 재생, 벗어나면 일시정지
   var yt=document.getElementById('yt');
@@ -659,7 +630,7 @@ dialog.lb p{color:#fff;text-align:center;margin:10px 0 0;font-size:14px}
     var vio=new IntersectionObserver(function(es){var on=es[0].isIntersecting&&es[0].intersectionRatio>=.5;want=on;load();if(ready){if(on)player.playVideo();else player.pauseVideo()}},{threshold:[0,.5]});
     vio.observe(document.getElementById('vbox'));
     document.addEventListener('visibilitychange',function(){if(ready&&document.hidden)player.pauseVideo()});
-    snd.addEventListener('click',function(){if(!ready)return;if(player.isMuted()){player.unMute();player.setVolume(80);player.playVideo();snd.lastChild.textContent='소리 끄기'}else{player.mute();snd.lastChild.textContent='소리 켜기'}});
+    snd.addEventListener('click',function(){if(!ready)return;if(player.isMuted()){player.unMute();player.setVolume(80);player.playVideo();snd.textContent='소리 끄기'}else{player.mute();snd.textContent='소리 켜기'}});
   }
 })();
 </script>
