@@ -2796,7 +2796,7 @@ footer nav a::after{content:"";position:absolute;inset:-11px -10px}
          iOS 사파리는 video 요소 전체 화면(webkitEnterFullscreen)만 되므로 720p 그대로 들어간다. ── */
     // 2026-10-15 «PC에서 동영상이 찌그러져(뭉개져) 보임» — 720p 를 넓은 화면에 늘리던 것. 실제 화소 폭이 1400 이상이면 처음부터 1080p
     (function(){ var H=v.getAttribute('data-hd'), sd=navigator.connection&&navigator.connection.saveData;
-      if(H && !sd && v.getBoundingClientRect().width*(window.devicePixelRatio||1)>=1400){ v.src=H; v.removeAttribute('data-hd'); } })();
+      if(H && !sd && v.getBoundingClientRect().width*(window.devicePixelRatio||1)>=1100){ v.src=H; v.removeAttribute('data-hd'); } })();
     var frame=v.parentNode, fsb=$('#fFs'), SD=v.currentSrc||'', HD=v.getAttribute('data-hd'), onHD=false;
     function fsEl(){ return document.fullscreenElement||document.webkitFullscreenElement||null; }
     function swapSrc(url,cb){ var at=v.currentTime||0, go=!v.paused||true; if(!url||v.currentSrc.indexOf(url)>=0){ cb&&cb(); return; }
