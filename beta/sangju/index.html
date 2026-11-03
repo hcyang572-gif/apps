@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="ko">
-<head><meta name="robots" content="noindex"><script>(function(){try{var ua=navigator.userAgent||'';if(!/KAKAOTALK/i.test(ua))return;var u=location.href;location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(u);if(/Android/i.test(ua))setTimeout(function(){if(!document.hidden){location.href='intent://'+u.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent(u)+';end';}},1200);}catch(e){}})();</script>
+<head><meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>[미리보기] 상주시 정책플랫폼</title>
 <meta name="description" content="상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요.">
 <meta name="theme-color" content="#B84A1C">
 <meta name="color-scheme" content="light only">
-<link rel="icon" href="img/l_4130e4ef1a.png">
+<link rel="icon" href="img/l_080e5d2eb9.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
@@ -1169,7 +1169,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 #film{padding:clamp(35px,6svh,65px) 0 clamp(10px,2svh,20px)}
 .film-head{text-align:center}
 .film-head .lead{max-width:620px;margin:16px auto 0}
-.film{position:relative;margin:clamp(40px,7svh,90px) auto 0;max-width:1120px}
+.film{position:relative;margin:clamp(40px,7svh,90px) auto 0;max-width:min(1120px,max(320px,calc((100svh - 170px) * 16 / 9)))}
 .film-frame{position:relative;border-radius:var(--r-card);padding:clamp(6px,.8vw,10px);background:#1d1510;box-shadow:0 0 0 1px rgba(255,255,255,.12),var(--shadow)}
 .film-frame video{display:block;width:100%;aspect-ratio:16/9;border-radius:calc(var(--r-card) - 6px);background:#000;object-fit:cover}
 .film-frame::before{content:"";position:absolute;left:50%;bottom:100%;width:1.2px;height:clamp(40px,7svh,90px);background:var(--thread);opacity:.6;transform:translateX(-50%)}
@@ -1189,7 +1189,7 @@ html.fwait .hero-copy,html.fwait .hero-stage,html.fwait #nav .brand,html.fwait #
 .film-cap{margin:14px 0 0;text-align:center;font-size:13px;font-weight:700;color:var(--muted)}
 .film-ui button:focus-visible,.film-big:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media (max-width:479px){.film-ui button{height:44px;padding:0 13px;font-size:13px}.film-ui .lbl-l{display:none}}
-@media (min-width:1440px){.film{max-width:min(1500px,78vw)} .film-ui button{height:clamp(44px,2.9vw,56px);font-size:clamp(14.5px,.95vw,19px)} .film-cap{font-size:clamp(13px,.85vw,17px)}}
+@media (min-width:1440px){.film{max-width:min(1500px,78vw,max(320px,calc((100svh - 170px) * 16 / 9)))} .film-ui button{height:clamp(44px,2.9vw,56px);font-size:clamp(14.5px,.95vw,19px)} .film-cap{font-size:clamp(13px,.85vw,17px)}}
 
 /* 크게 보기(전체 화면) — 틀째 전체 화면이라 단추·자막이 함께 보인다 */
 .film-frame:fullscreen{padding:0;border-radius:0;background:#000;display:flex;align-items:center;justify-content:center;box-shadow:none}
@@ -1624,7 +1624,7 @@ footer nav a::after{content:"";position:absolute;inset:-11px -10px}
 @media (max-width:379px){.walk-head>.hid-gam,#feedback .sec-head>.hid-gam{width:44px;height:44px}}
 
 </style>
-<style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(20,22,32,.78);color:#fff;font:600 14px/1.2 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#7cd4ff;box-shadow:0 0 0 4px rgba(124,212,255,.25)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="우리가족 매니저 · 한국사 매니저 · 보카매니저"><meta property="og:title" content="상주시 정책플랫폼"><meta property="og:description" content="상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/sangju/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:width" content="800"><meta property="og:image:height" content="400"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/sangju.png"><meta property="og:image:alt" content="상주시 정책플랫폼 — 상주시 지원사업 124개를 한곳에서. 신청 뒤 결과 확인, 제안·공감·댓글 사례, 자동 보고서, 설문·벤치마킹까지 한 페이지에 담았어요."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/sangju/"></head>
+</head>
 <body>
 <script>document.documentElement.classList.add('js','fwait');(function(){var d=document.documentElement,f=function(){d.classList.remove('fwait')};setTimeout(f,1200);try{document.fonts&&document.fonts.load('800 40px "Pretendard Variable"').then(f,f)}catch(e){f()}})();try{var _u=navigator.userAgent||'';if(/KAKAOTALK/i.test(_u)&&!sessionStorage.getItem('kbarOff'))document.documentElement.classList.add('kakao',/iPhone|iPad|iPod/i.test(_u)?'kios':'kand')}catch(e){}</script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -1638,7 +1638,7 @@ footer nav a::after{content:"";position:absolute;inset:-11px -10px}
 
 <header id="nav">
   <div class="wrap">
-    <a class="brand" href="#hero" aria-label="상주시 정책플랫폼 처음으로"><img src="img/l_4130e4ef1a.png" alt="" width="32" height="32"><span><small>시민 참여형</small>상주시 정책플랫폼</span></a>
+    <a class="brand" href="#hero" aria-label="상주시 정책플랫폼 처음으로"><img src="img/l_080e5d2eb9.png" alt="" width="32" height="32"><span><small>시민 참여형</small>상주시 정책플랫폼</span></a>
     <div class="nav-r"><a class="nav-open" href="https://hcyang572-gif.github.io/sangju-policy-mobile/" target="_blank" rel="noopener" aria-label="시민용 열기">시민용<span class="nv-x"> 열기</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a class="nav-open civic" href="https://hcyang572-gif.github.io/sangju-policy-admin/" target="_blank" rel="noopener" aria-label="공무원용 열기 (상주시 공무원 전용, 로그인 필요)">공무원용<span class="nv-x"> 열기</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
   </div>
   <div id="prog" role="progressbar" aria-label="페이지 읽은 정도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
@@ -2289,7 +2289,7 @@ footer nav a::after{content:"";position:absolute;inset:-11px -10px}
 
 <footer>
   <div class="wrap">
-    <div class="foot-l"><img src="img/l_4130e4ef1a.png" alt="" width="36" height="36"><div><b>상주시 정책플랫폼</b>제6기 미래상주 희망연구팀 «톱니바퀴»</div></div>
+    <div class="foot-l"><img src="img/l_080e5d2eb9.png" alt="" width="36" height="36"><div><b>상주시 정책플랫폼</b>제6기 미래상주 희망연구팀 «톱니바퀴»</div></div>
     <button type="button" class="gear-btn rv" id="teamOpen" aria-haspopup="dialog" aria-controls="teamDlg"><span class="gear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span><span class="gear-t">만든 사람들</span></button>
     <nav aria-label="바로가기">
       <a href="https://hcyang572-gif.github.io/sangju-policy-mobile/" target="_blank" rel="noopener">시민용</a>
