@@ -11,14 +11,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='114' fill='%2317594F'/%3E%3Ccircle cx='184' cy='262' r='72' fill='%23fff' fill-opacity='.56'/%3E%3Ccircle cx='328' cy='262' r='72' fill='%23fff'/%3E%3Cpath d='M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z' fill='%23F2C36B'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2.0.5/fonts/variable/woff2/SUIT-Variable.css">
-<link rel="preload" as="image" href="img/pc_s3.webp" imagesrcset="img/pc_s3.webp 1x, img/pc_s3@2x.webp 2x">
+<link rel="preload" as="image" href="img/pc_today.webp" imagesrcset="img/pc_today.webp 1x, img/pc_today@2x.webp 2x">
 <style>
 /* ─────────────────────────────────────────────────────────────
-   닿음 랜딩 — S11-j (🩵 미르, 2026-11-03)
+   닿음 랜딩 — S11-j → S12-e 44 (🩵 미르, 2026-11-03: 완성 앱 s12e43 화면 · «하루 따라가기» 고정 장면 — 상주 정책플랫폼 랜딩 짜임 참고)
    바탕 시안: 화령 랜딩 시안 A «빛이 도는 밝은 작업실»(APP-LANDING hwaryoung/_work/drafts_s22b/A — 원본은 고치지 않고 복사)
    재질: 밝은 바탕 + 천천히 흐르는 메시 빛(강물 청록 + 감빛) + SVG 그레인 · 글꼴 SUIT Variable
    색: 앱 화면 실측(강물 #0E6A6F · 감 #C9521B) · 라이트 고정
-   움직임: 히어로 줄 단위 떠오름 · 한 흐름 선 그리기 · 우선순위 화면 고정 + 확대 둘러보기
+   움직임: 히어로 줄 단위 떠오름 · 하루 따라가기(화면 고정, PC↔폰 기기 전환) · PC↔폰 연결선 흐름
    ───────────────────────────────────────────────────────────── */
 :root{
   --bg:#F7F7F4; --card:#FFFFFF; --ink:#16232A; --ink-2:#3B4A50; --muted:#67767B; --line:#E2E5E1;
@@ -141,59 +141,6 @@ h2{margin:8px 0 0;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:
 .js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s var(--e),transform .8s var(--e)}
 .js .rv.in{opacity:1;transform:none}
 
-/* ── 01 한 흐름 ①~⑨ ── */
-.flow{margin-top:40px;display:grid;grid-template-columns:4fr 3fr 2fr;gap:14px}
-.lane{position:relative;border-radius:var(--r);background:rgba(255,255,255,.78);box-shadow:var(--e2),inset 0 0 0 1px rgba(22,35,42,.05);padding:18px 18px 20px}
-.lane-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--teal-d);letter-spacing:-.01em}
-.lane-h svg{width:16px;height:16px}
-.lane.ph .lane-h{color:var(--gam)}
-.lane ol{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px;position:relative}
-.lane.pc1 ol{grid-template-columns:repeat(4,1fr)}
-.lane.ph ol{grid-template-columns:repeat(3,1fr)}
-.lane.pc2 ol{grid-template-columns:repeat(2,1fr)}
-.lane li{position:relative;z-index:1}
-.lane li i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font-style:normal;font-size:15px;font-weight:800;color:#fff;background:var(--teal);box-shadow:0 0 0 5px var(--teal-t)}
-.lane.ph li i{background:var(--gam);box-shadow:0 0 0 5px var(--gam-t)}
-.lane li b{display:block;margin-top:12px;font-size:15px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
-.lane li span{display:block;margin-top:3px;font-size:13px;color:var(--muted);line-height:1.45}
-.lane ol::before{content:"";position:absolute;left:17px;right:17px;top:16px;height:2px;background:linear-gradient(90deg,var(--teal),#6FB0A8);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.1s var(--e-zoom) .2s;z-index:0}
-.lane.ph ol::before{background:linear-gradient(90deg,var(--gam),var(--apricot))}
-.flow.in .lane ol::before{transform:scaleX(1)}
-.flow.in .lane.ph ol::before{transition-delay:.7s}
-.flow.in .lane.pc2 ol::before{transition-delay:1.2s}
-.flow .lane li{opacity:0;transform:translateY(8px);transition:opacity .5s var(--e),transform .5s var(--e)}
-.flow.in .lane li{opacity:1;transform:none}
-.flow-sync{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink-2);padding:12px 16px;border-radius:var(--r-s);background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px var(--line)}
-.flow-sync svg{width:18px;height:18px;color:var(--teal);flex:none}
-
-/* ── 02 우선순위: 화면 둘러보기 (시안 A 그대로) ── */
-.tour{position:relative;height:340vh}
-.stage{position:sticky;top:var(--nav);height:calc(100vh - var(--nav));height:calc(100svh - var(--nav));display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;padding-top:24px;padding-bottom:24px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;position:relative}
-.steps::before{content:"";position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--line);border-radius:2px}
-.steps .bar{position:absolute;left:15px;top:20px;width:2px;height:calc(100% - 40px);background:linear-gradient(var(--teal),var(--apricot));transform-origin:0 0;transform:scaleY(0);border-radius:2px;transition:transform .7s var(--e-zoom)}
-.step{position:relative;display:grid;grid-template-columns:32px 1fr;gap:14px;padding:16px 0}
-.step>div{opacity:.42;transition:opacity .5s var(--e)}
-.step.on>div,.m-step .step>div{opacity:1}
-.step .n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;background:#fff;color:var(--muted);box-shadow:inset 0 0 0 1.5px var(--line);position:relative;z-index:1;transition:all .5s var(--e)}
-.step.on .n{color:#fff;background:var(--teal);box-shadow:0 0 0 5px var(--teal-t)}
-.step b{display:block;font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.35;padding-top:4px}
-.step>div>span{display:block;font-size:15.5px;color:var(--ink-2);line-height:1.6;margin-top:4px}
-.what{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--muted)}
-.screen{position:relative;width:100%;max-width:calc((100svh - var(--nav) - 48px) * 16 / 10);justify-self:center;
-  aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07)}
-.zoom{position:absolute;inset:0;transform-origin:0 0;transition:transform 1.1s var(--e-zoom)}
-.zoom img{width:100%;height:100%}
-.hl{position:absolute;border-radius:10px;opacity:0;transition:opacity .6s var(--e);
-  box-shadow:0 0 0 1.5px var(--teal),0 0 0 6px rgba(14,106,111,.14),0 0 0 9999px rgba(22,35,42,.22)}
-.hl.on{opacity:1}
-.mk{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;display:grid;place-items:center;
-  font-size:13px;font-weight:800;color:#fff;background:var(--teal);box-shadow:0 0 0 3px #fff,0 4px 12px rgba(14,106,111,.35);
-  transform:scale(var(--inv,1));transition:transform 1.1s var(--e-zoom),opacity .5s var(--e);opacity:0}
-.screen.started .mk{opacity:1}
-.cap{position:absolute;left:12px;bottom:10px;font-size:11px;font-weight:600;color:var(--muted);background:rgba(255,255,255,.88);padding:3px 8px;border-radius:var(--r-pill)}
-.m-step{display:none}
-
 /* ── 03 일차별 방문 ── */
 .split{margin-top:40px;display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
 .win{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07)}
@@ -212,27 +159,96 @@ h2{margin:8px 0 0;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:
 .km.in .bars u{transform:scaleX(var(--w))}
 .km small{grid-column:2;font-size:12px;color:var(--muted)}
 
+/* ── 01 하루 따라가기 — 화면 고정 + 장 넘김(상주 정책플랫폼 랜딩 «다섯 걸음» 짜임을 닿음 색으로) ── */
+.day-h{padding-bottom:8px}
+.track{position:relative;height:calc(8 * 78vh + 100vh)}
+.dstage{position:sticky;top:var(--nav);height:calc(100vh - var(--nav));height:calc(100svh - var(--nav));display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:56px;align-items:center;padding-top:20px;padding-bottom:20px}
+.chs{position:relative;min-height:300px}
+.ch{position:absolute;inset:0 0 auto;opacity:0;transform:translateY(18px);transition:opacity .55s var(--e),transform .7s var(--e);pointer-events:none}
+.ch.on{opacity:1;transform:none;pointer-events:auto}
+.ch-top{display:flex;align-items:center;gap:10px}
+.ch-idx{font-size:13px;font-weight:700;color:var(--muted)}
+.ch-idx b{font-size:22px;font-weight:800;color:var(--teal-d);letter-spacing:-.03em}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:var(--r-pill);color:var(--teal-d);background:var(--teal-t)}
+.chip.ph{color:var(--gam);background:var(--gam-t)}
+.chip svg{width:14px;height:14px}
+.ch h3{margin:16px 0 0;font-size:clamp(24px,2.4vw,32px);font-weight:800;letter-spacing:-.04em;line-height:1.25}
+.ch p{margin:12px 0 0;font-size:16px;line-height:1.7;color:var(--ink-2)}
+.stamp{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:600;color:var(--muted);padding:5px 10px;border-radius:8px;background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px var(--line)}
+.knots{display:flex;gap:6px;margin-top:0;position:absolute;left:0;bottom:-64px}
+.knots button{all:unset;cursor:pointer;width:26px;height:26px;display:grid;place-items:center;border-radius:50%}
+.knots i{display:block;width:8px;height:8px;border-radius:50%;background:var(--line);transition:all .35s var(--e)}
+.knots button.done i{background:#9CC6C1}
+.knots button.on i{width:22px;border-radius:6px;background:var(--teal)}
+.knots button.ph.on i{background:var(--gam)}
+.knots button:focus-visible{outline:3px solid var(--teal);outline-offset:1px}
+.devs{position:relative;height:100%;max-height:760px;perspective:1600px}
+.bw,.dph{position:absolute;transition:transform 1s var(--e-zoom),opacity .7s var(--e),filter .7s var(--e)}
+.bw{left:0;right:0;top:50%;margin-left:auto;margin-right:auto;width:min(100%,1100px);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--e3),0 0 0 1px rgba(22,35,42,.07);transform-origin:30% 50%}
+.bw-bar{height:34px;display:flex;align-items:center;gap:6px;padding:0 14px;background:#F1F2EF;border-bottom:1px solid var(--line)}
+.bw-bar i{width:10px;height:10px;border-radius:50%;background:#D9DCD7}
+.bw-bar span{margin-left:12px;flex:1;max-width:340px;height:20px;border-radius:6px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:11px;font-weight:600;color:var(--muted);display:flex;align-items:center;padding:0 10px}
+.scr{position:relative;aspect-ratio:16/10;overflow:hidden;background:#ECEAE5}
+.scr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:scale(1.02);transition:opacity .6s var(--e),transform 1s var(--e)}
+.scr img.on{opacity:1;transform:none}
+.dph{right:2%;top:50%;width:min(31%,300px);border-radius:34px;padding:8px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4),inset 0 0 0 1.5px #3A464B;transform-origin:50% 50%}
+.dph .scr{aspect-ratio:390/844;border-radius:27px}
+.dph::after{content:"";position:absolute;inset:8px;border-radius:27px;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,0) 38%)}
+.devs.pc .bw{transform:translateY(-50%)}
+.devs.pc .dph{transform:translate(18%,-42%) rotateY(-18deg) scale(.86);opacity:.0;filter:blur(2px)}
+.devs.ph .bw{transform:translate(-6%,-50%) rotateY(14deg) scale(.86);opacity:.32;filter:blur(1.5px) saturate(.7)}
+.devs.ph .dph{transform:translate(-100%,-50%);opacity:1}
+.syncdot{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--teal-d);background:rgba(255,255,255,.92);padding:6px 12px;border-radius:var(--r-pill);box-shadow:var(--e1),inset 0 0 0 1px var(--line);white-space:nowrap;z-index:2}
+.syncdot i{width:7px;height:7px;border-radius:50%;background:#2BA36B;box-shadow:0 0 0 3px rgba(43,163,107,.18)}
+
+/* ── 03 PC↔폰 실시간 ── */
+.live{margin-top:40px;display:grid;grid-template-columns:1.6fr auto .62fr;gap:28px;align-items:center}
+.live .win{transform:perspective(1400px) rotateY(6deg);transform-origin:100% 50%}
+.live .pf{border-radius:30px;padding:7px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4);transform:perspective(1400px) rotateY(-8deg);transform-origin:0 50%}
+.live .pf img{border-radius:24px}
+.wire{display:grid;gap:14px;justify-items:center;width:150px}
+.wire svg{width:150px;height:44px;overflow:visible}
+.wire path{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:6 8}
+.wire .a{stroke:var(--teal)} .wire .b{stroke:var(--gam)}
+.js .live.in .wire path{animation:flow 1.6s linear infinite}
+.wire .b{animation-direction:reverse!important}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.wire span{font-size:12.5px;font-weight:700;text-align:center;line-height:1.4;color:var(--ink-2)}
+.wire span b{display:block;color:var(--teal-d)} .wire span.g b{color:var(--gam)}
+.live-note{margin-top:22px;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink-2);padding:14px 18px;border-radius:var(--r-s);background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px var(--line)}
+.live-note i{width:8px;height:8px;flex:none;border-radius:50%;background:#2BA36B;box-shadow:0 0 0 4px rgba(43,163,107,.18)}
+
 /* ── 04 현장 폰 ── */
-.phones{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;max-width:1100px;margin-left:auto;margin-right:auto}
+.phones{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
 .ph-card{text-align:left}
-.ph-frame{border-radius:30px;padding:7px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4);max-width:300px;margin:0 auto;transition:transform .6s var(--e)}
+.ph-frame{border-radius:30px;padding:7px;background:#1B2529;box-shadow:var(--e3),0 0 0 1px rgba(255,255,255,.4);max-width:280px;margin:0 auto}
 .ph-frame img{border-radius:24px}
-.ph-card:nth-child(2) .ph-frame{transform:translateY(-22px)}
-.ph-card p{max-width:300px;margin:22px auto 0}
+.ph-card:nth-child(2n) .ph-frame{transform:translateY(-22px)}
+.ph-card p{max-width:280px;margin:20px auto 0}
 .ph-card p i{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-style:normal;font-size:13px;font-weight:800;color:#fff;background:var(--gam);margin-right:8px;vertical-align:1px}
 .ph-card p b{font-size:17px;font-weight:800;letter-spacing:-.025em}
 .ph-card p span{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2)}
-.ai{margin:48px auto 0;max-width:1100px;display:grid;grid-template-columns:1.3fr 1fr;gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--e2)}
-.ai>div{background:rgba(255,255,255,.88);padding:22px 24px}
-.ai h3{margin:0;font-size:18px;font-weight:800;letter-spacing:-.025em}
-.ai ol{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ai ol li{font-size:13px;font-weight:600;color:var(--ink-2);padding:10px 10px 11px;border-radius:10px;background:var(--teal-t);line-height:1.4}
-.ai ol li b{display:block;font-size:12px;color:var(--teal-d);margin-bottom:2px}
-.ai .score{display:flex;flex-direction:column;justify-content:center}
-.ai .score strong{font-size:40px;font-weight:800;letter-spacing:-.04em;color:var(--teal-d);line-height:1.1}
-.ai .score span{font-size:14px;color:var(--ink-2);margin-top:6px}
-.ai .score small{font-size:12px;color:var(--muted);margin-top:8px}
+.rule{margin:52px 0 0;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding:24px 26px;border-radius:var(--r);background:rgba(255,255,255,.84);box-shadow:var(--e2)}
+.rule h3{margin:0;font-size:18px;font-weight:800;letter-spacing:-.025em;line-height:1.35}
+.rule h3 small{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-top:4px;letter-spacing:0}
+.rule ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:r}
+.rule li{position:relative;font-size:13.5px;font-weight:600;color:var(--ink-2);padding:12px 12px 13px;border-radius:12px;background:var(--teal-t);line-height:1.45}
+.rule li b{display:block;font-size:12px;color:var(--teal-d);margin-bottom:2px}
+.rule li:last-child{background:var(--gam-t)} .rule li:last-child b{color:var(--gam)}
 
+/* ── 05 문서함 ── */
+.docs{margin-top:40px;display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start}
+.paper{position:relative;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 0 rgba(22,35,42,.04),0 24px 50px -24px rgba(22,35,42,.35),0 0 0 1px rgba(22,35,42,.06);transform:rotate(1.2deg)}
+.paper::before,.paper::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:6px;background:#fff;box-shadow:var(--e2)}
+.stack{position:relative;padding:10px 6px 0}
+.stack::before,.stack::after{content:"";position:absolute;left:14px;right:14px;top:22px;bottom:-10px;border-radius:6px;background:#FBFBF9;box-shadow:var(--e2);transform:rotate(-2.4deg)}
+.stack::after{transform:rotate(-.6deg);background:#fff}
+.stack .paper{z-index:1}
+.docs figcaption{margin-top:18px}
+.docs figcaption b{display:block;font-size:17px;font-weight:800;letter-spacing:-.025em}
+.docs figcaption span{display:block;font-size:14.5px;color:var(--ink-2);margin-top:2px}
+.doc-list{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.doc-list li{font-size:12.5px;font-weight:700;color:var(--ink-2);padding:5px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.8);box-shadow:inset 0 0 0 1px var(--line)}
 /* ── 05 보고·사후관리 ── */
 .duo-shot{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .duo-shot figure{margin:0}
@@ -269,58 +285,68 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
 
 /* ── 반응형 ── */
 @media (max-width:1024px){
-  .stage{grid-template-columns:240px 1fr;gap:24px}
-  .step>div>span{font-size:14px}
-  .step b{font-size:17px}
-  .flow{grid-template-columns:1fr 1fr}
-  .flow .pc1{grid-column:1/-1}
+  .dstage{grid-template-columns:280px 1fr;gap:28px}
+  .ch p{font-size:15px}
   .split{gap:32px}
+  .phones{grid-template-columns:1fr 1fr;gap:40px 28px}
+  .ph-card:nth-child(2n) .ph-frame{transform:none}
+  .rule{grid-template-columns:1fr}
 }
 @media (max-width:860px){
   .hero-grid{grid-template-columns:1fr;gap:36px}
   .feats{grid-template-columns:1fr 1fr}
-  .tour{height:300vh}
-  .stage{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:center;gap:20px}
-  .steps{display:none}
-  .screen{order:1;max-width:none}
-  .m-step{display:block;order:2;position:relative;min-height:150px}
-  .m-step .step{position:absolute;inset:0;padding:0;opacity:0;transform:translateY(8px);transition:opacity .45s var(--e),transform .45s var(--e)}
-  .m-step .step.on{opacity:1;transform:none}
-  .m-dots{display:flex;gap:6px;margin-bottom:12px}
-  .m-dots i{width:22px;height:3px;border-radius:3px;background:var(--line);transition:background .4s}
-  .m-dots i.on{background:var(--teal)}
+  .track{height:calc(8 * 70vh + 100vh)}
+  .dstage{grid-template-columns:1fr;grid-template-rows:1fr auto;gap:14px;align-items:stretch;padding-top:12px;padding-bottom:16px}
+  .devs{order:1;max-height:none;min-height:0}
+  .chs{order:2;min-height:178px}
+  .ch h3{margin-top:10px;font-size:21px}
+  .ch p{margin-top:6px;font-size:14.5px;line-height:1.6}
+  .stamp{display:none}
+  .knots{position:absolute;left:0;right:0;top:0;bottom:auto;justify-content:center}
+  .ch{top:26px}
+  .knots button{width:20px;height:20px}
+  .bw{width:100%}
+  .bw .scr{aspect-ratio:1/1}
+  .bw .scr img{object-position:45% 0}
+  .dph{right:auto;left:50%;width:auto;height:94%;aspect-ratio:auto}
+  .dph .scr{height:100%;width:auto;aspect-ratio:390/844}
+  .devs.pc .dph{transform:translate(-50%,-44%) scale(.9);opacity:0}
+  .devs.ph .bw{transform:translate(0,-50%) scale(.9);opacity:.18}
+  .devs.ph .dph{transform:translate(-50%,-50%);opacity:1}
+  .syncdot{display:none}
   .split{grid-template-columns:1fr}
-  .phones{grid-template-columns:1fr;gap:48px}
-  .ph-card:nth-child(2) .ph-frame{transform:none}
-  .ph-frame{max-width:260px}
-  .ai{grid-template-columns:1fr}
-  .duo-shot{grid-template-columns:1fr}
+  .live{grid-template-columns:1fr .5fr;gap:18px}
+  .wire{grid-column:1/-1;grid-row:2;width:auto;grid-template-columns:auto auto;gap:18px}
+  .wire svg{display:none}
+  .live .win,.live .pf{transform:none}
+  .docs{grid-template-columns:1fr}
   .nums{grid-template-columns:1fr 1fr}
   .final .box{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   .hero{padding-top:calc(var(--nav) + 40px)}
   .feats{grid-template-columns:1fr}
-  .flow{grid-template-columns:1fr}
-  .lane.pc1 ol{grid-template-columns:1fr 1fr;row-gap:18px}
-  .lane.pc1 ol::before{display:none}
-  .ai ol{grid-template-columns:1fr 1fr}
-  .mk{width:20px;height:20px;margin:-10px 0 0 -10px;font-size:11px}
+  .phones{grid-template-columns:1fr 1fr;gap:28px 14px}
+  .ph-card p b{font-size:15px}
+  .ph-card p span{font-size:13px}
+  .rule ol{grid-template-columns:1fr 1fr}
   .cap{display:none}
-  .nums{grid-template-columns:1fr}
   .km .big{font-size:36px}
   .nav-cta{padding:7px 12px;font-size:13px}
   .brand small{display:none}
+  .live{grid-template-columns:1fr}
+  .live .pf{max-width:220px;margin:0 auto}
+  .wire{grid-row:auto;grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
-  .mesh i,.js .ready .visual .phone{animation:none}
+  .mesh i,.js .ready .visual .phone,.js .live.in .wire path{animation:none}
   .js h1 .ln>span,.js .fade,.js .rv{transform:none;opacity:1;transition:none}
-  .zoom,.mk,.step,.steps .bar,.lane ol::before,.flow .lane li,.km .bars u{transition:none}
+  .ch,.scr img,.bw,.dph,.knots i,.km .bars u{transition:none}
 }
 @media print{
   .mesh,.grain,#nav{display:none}
-  .tour{height:auto}.stage{position:static;height:auto}
-  .js .rv,.js .fade,.flow .lane li{opacity:1;transform:none}
+  .track{height:auto}.dstage{position:static;height:auto}
+  .js .rv,.js .fade{opacity:1;transform:none}
 }
 </style>
 <meta property="og:type" content="website"><meta property="og:site_name" content="닿음"><meta property="og:title" content="닿음 — 복지 사각지대 현장 업무 도우미"><meta property="og:description" content="한국사회보장정보원 발굴 명단을 받은 날부터 처리 기한·방문 순서·현장 메모·결재 보고·사후관리까지 한 흐름으로 잇는 복지 담당 공무원 전용 도구. 같은 계정이면 PC↔폰 실시간 연동. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/daeum/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/daeum-1200x630.png"><meta property="og:image:alt" content="닿음 — 복지 사각지대 현장 업무 도우미 — 한국사회보장정보원 발굴 명단을 받은 날부터 처리 기한·방문 순서·현장 메모·결재 보고·사후관리까지 한 흐름으로 잇는 복지 담당 공무원 전용 도구. 같은 계정이면 PC↔폰 실시간 연동. 상주시청 적용 예시 · 시연 모드 · 가상 데이터."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/daeum/"></head>
@@ -333,11 +359,11 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
   <div class="wrap wide-h">
     <a class="brand" href="#top">
       <span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="lg1bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="lg1hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="lg1sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect width="512" height="512" rx="114" fill="url(#lg1bg)"/><rect width="512" height="512" rx="114" fill="url(#lg1hl)"/><g filter="url(#lg1sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg></span>
-      <span>닿음<small>복지 사각지대 현장 업무 도우미</small></span>
+      <span>복지 사각지대 현장 업무 도우미<small>닿음</small></span>
     </a>
     <div class="nav-r">
-      <nav class="nav-l" aria-label="바로가기"><a href="#flow">한 흐름</a><a href="#prio">방문 순서</a><a href="#field">현장</a><a href="#report">보고</a></nav>
-      <a class="nav-cta" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험</a>
+      <nav class="nav-l" aria-label="바로가기"><a href="#day">하루</a><a href="#route">동선</a><a href="#field">현장</a><a href="#docs">문서함</a></nav>
+      <a class="nav-cta" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험</a>
     </div>
   </div>
   <div id="prog"></div>
@@ -350,131 +376,133 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
     <div class="hero-grid">
     <div class="hero-txt">
     <h1>
-      <span class="ln"><span>발굴 명단을 받은 날부터</span></span>
+      <span class="ln"><span>나가기 전부터</span></span>
       <span class="ln"><span class="soft">집 앞 방문을 지나,</span></span>
-      <span class="ln"><span>보고서까지 한 흐름으로.</span></span>
+      <span class="ln"><span>보고서까지 한 번에.</span></span>
     </h1>
-    <p class="lead fade"><b>한국사회보장정보원 발굴 명단</b> 이후의 현장 업무 — 처리 기한, 방문 순서, 현장 메모, 결재 보고, 사후관리를 하나로 잇습니다. 같은 계정이면 사무실 PC와 현장 폰이 실시간으로 맞춰집니다.</p>
+    <p class="lead fade"><b>한국사회보장정보원 발굴 명단</b>을 받은 날부터 방문 · 기록 · 보고까지. 앞에서 누른 것이 다음 화면에 채워져, 같은 내용을 두 번 쓰지 않습니다.</p>
     <dl class="duo fade">
-      <div><dt>사무실 PC</dt><dd><b>명단 · 기한 · 우선순위 · 일차별 방문 · 보고 · 사후관리</b><span>①②③④ → ⑧⑨ · 이음 엑셀 그대로 불러오기, 한글 결재 양식</span></dd></div>
-      <div><dt class="ph">현장 폰</dt><dd><b>집 앞 요약 · 길안내 · 확인과 메모</b><span>⑤⑥⑦ · 네이버 지도 길안내, AI 메모 초안 → 공무원 확정</span></dd></div>
+      <div><dt>사무실 PC</dt><dd><b>오늘 · 동선 · 방문 계획 · 문서함 · 실적</b><span>네이버 지도 동선, 한글(hwpx) 보고서와 A4 인쇄</span></dd></div>
+      <div><dt class="ph">현장 폰</dt><dd><b>집 앞 요약 · 현장 확인 · 상담 · 기록</b><span>차 안 30초, 집 안에서 줄마다 한 번, 상담 직후 1분</span></dd></div>
     </dl>
     <div class="hero-act fade">
-      <a class="btn" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      <a class="btn" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
       <span class="note">로그인 없이 시연 모드 · 가구는 모두 가상</span>
     </div>
     </div>
     <div class="visual fade" aria-label="닿음 화면">
-      <div class="pc"><img src="img/pc_s3.webp" srcset="img/pc_s3.webp 1x, img/pc_s3@2x.webp 2x" width="1440" height="900" alt="PC 우선순위 근거 화면 — 한국사회보장정보원 순위에서 오늘 방문 순서로"><em>PC · ③ 우선순위 근거</em></div>
-      <div class="phone"><img src="img/m_s5.webp" srcset="img/m_s5.webp 1x, img/m_s5@2x.webp 2x" width="390" height="844" alt="폰 집 앞 30초 요약 화면"><em>폰 · ⑤ 집 앞 요약</em></div>
-      <div class="sync"><i></i>같은 계정 · PC↔폰 실시간 연동</div>
+      <div class="pc"><img src="img/pc_today.webp" srcset="img/pc_today.webp 1x, img/pc_today@2x.webp 2x" width="1440" height="900" alt="PC 오늘 화면 — 오늘 방문 4곳과 도착 시각, 처리 기한, 대기 문서"><em>PC · 오늘</em></div>
+      <div class="phone"><img src="img/m_home.webp" srcset="img/m_home.webp 1x, img/m_home@2x.webp 2x" width="390" height="844" alt="폰 집 앞 요약 화면 — 발굴 이유, 지난 기록, 주의, 받는 급여"><em>폰 · 집 앞</em></div>
+      <div class="sync"><i></i>같은 계정 · PC↔폰 실시간 반영</div>
     </div>
     </div>
 
-    <div class="feats fade" id="feats" role="list" aria-label="주요 기능">
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg><div><b>이음 엑셀 그대로<span class="who">PC ①</span></b><span>조회 서식 43열을 새로 입력하지 않고 불러오기 · 브라우저 안에서만 읽음</span></div></div>
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><div><b>처리 기한 · 근무일<span class="who">PC ②</span></b><span>차수 기한까지 남은 근무일과 하루 방문 수</span></div></div>
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6M4 12h6M4 18h6M14 6c4 0 2 6 6 6M14 18c4 0 2-6 6-6"/></svg><div><b>«N순위 → 오늘 M번째»<span class="who">PC ③</span></b><span>한국사회보장정보원 순위는 그대로, 앞당긴 이유만 덧붙임</span></div></div>
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg><div><b>읍면 묶음 일차별 방문<span class="who">PC ④</span></b><span>기한 안에 며칠이면 다 볼지, 순서는 끌어서 바꾸기</span></div></div>
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M5 20h14"/></svg><div><b>현장 메모 AI 초안<span class="who">폰 ⑦</span></b><span>쟁점·욕구·연계 후보 초안 → 공무원이 고치고 «확정»</span></div></div>
-      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4M8 14l2.5 2.5L16 13"/></svg><div><b>결재 보고서 · 사후관리<span class="who">PC ⑧⑨</span></b><span>한글 결재 양식 자동 생성, 다시 볼 날까지</span></div></div>
+    <div class="feats fade" role="list" aria-label="주요 기능">
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg><div><b>발굴 명단 43열 그대로</b><span>행복이음 내려받기 서식을 다시 입력하지 않고 불러오기</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg><div><b>네이버 지도 동선</b><span>명단 순서와 최적 순서의 거리·시간을 나란히</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10M9 12h10M9 19h10M5 5v.01M5 12v.01M5 19v.01"/></svg><div><b>방문 계획 손보기</b><span>순서를 바꾸거나 빼면 도착 시각이 다시 계산</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><div><b>집 앞 30초 요약</b><span>발굴 이유 · 지난 기록 · 주의 · 받는 급여</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><div><b>상담 자동 정리</b><span>고른 징후·서비스가 기록 칸에 미리 채워짐</span></div></div>
+      <div class="feat" role="listitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><div><b>문서함 A4 보고서</b><span>복명서 · 상담일지 · 연계 의뢰서 · 실적</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- 01 한 흐름 -->
-<section id="flow" aria-labelledby="flowH">
+<!-- 01 하루 따라가기 -->
+<section id="day" aria-labelledby="dayH">
   <div class="wrap wide">
-    <div class="sec-h">
-      <div><div class="sec-no">01 · 한 흐름</div><h2 id="flowH">사무실에서 현장으로, 다시 사무실로</h2></div>
-      <p>명단 한 장에서 사후관리까지 아홉 단계. 계획과 보고는 PC에서, 방문은 폰에서 합니다.</p>
-    </div>
-    <div class="flow rv" id="flowBox">
-      <div class="lane pc1">
-        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>사무실 PC · 계획</div>
-        <ol>
-          <li><i>1</i><b>명단 불러오기</b><span>이음 엑셀 43열</span></li>
-          <li><i>2</i><b>처리 기한</b><span>남은 근무일</span></li>
-          <li><i>3</i><b>우선순위</b><span>순위 − 앞당김 칸</span></li>
-          <li><i>4</i><b>일차별 방문</b><span>읍면끼리 묶기</span></li>
-        </ol>
-      </div>
-      <div class="lane ph">
-        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>현장 폰 · 방문</div>
-        <ol>
-          <li><i>5</i><b>집 앞 요약</b><span>30초</span></li>
-          <li><i>6</i><b>길안내</b><span>네이버 지도</span></li>
-          <li><i>7</i><b>확인 · 메모</b><span>AI 초안 → 확정</span></li>
-        </ol>
-      </div>
-      <div class="lane pc2">
-        <div class="lane-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>다시 PC · 보고</div>
-        <ol>
-          <li><i>8</i><b>보고서</b><span>한글 결재 양식</span></li>
-          <li><i>9</i><b>사후관리</b><span>재확인 날짜</span></li>
-        </ol>
-      </div>
-    </div>
-    <div class="flow-sync rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>같은 계정으로 로그인하면 PC에서 확정한 방문 계획이 폰에, 폰에서 남긴 메모가 PC 보고서에 바로 나타납니다.</div>
-  </div>
-</section>
-
-<!-- 02 우선순위 둘러보기 -->
-<section id="prio" aria-labelledby="prioH">
-  <div class="wrap wide">
-    <div class="sec-h">
-      <div><div class="sec-no">02 · PC ③ 우선순위</div><h2 id="prioH">오늘 어디를, 왜 먼저</h2></div>
-      <p>한국사회보장정보원 발굴 순위를 지우지 않고, 현장 사정만큼 앞당긴 칸과 그 이유를 함께 보여 줍니다.</p>
+    <div class="sec-h day-h">
+      <div><div class="sec-no">01 · 현장 업무 하루</div><h2 id="dayH">하루 따라가기</h2></div>
+      <p>아침 사무실에서 집 앞을 거쳐 저녁 보고까지 여덟 장면. 모두 지금 열리는 실제 화면입니다.</p>
     </div>
   </div>
-  <div class="tour" id="tour">
-    <div class="wrap stage wide">
-      <div>
-        <p class="what">우선순위 근거 화면</p>
-        <ol class="steps" id="steps">
-          <i class="bar" id="bar"></i>
-          <li class="step" data-i="1"><span class="n">1</span><div><b>발굴 순위는 그대로 둡니다</b><span>왼쪽 한국사회보장정보원 순위에서 오른쪽 방문 순서로. 자리를 옮긴 집만 선이 휩니다.</span></div></li>
-          <li class="step" data-i="2"><span class="n">2</span><div><b>앞당긴 칸과 이유를 한 줄로</b><span>«발굴 7순위 → 오늘 6번째». 오늘의 위험 · 만남 공백 · 닿지 않음 · 처리 기한, 최대 7칸.</span></div></li>
-          <li class="step" data-i="3"><span class="n">3</span><div><b>같은 이유는 두 번 더하지 않습니다</b><span>순위에 이미 든 위기정보는 다시 더하지 않고, 기준표는 화면에 늘 펼쳐 둡니다.</span></div></li>
-        </ol>
+  <div class="track" id="track">
+    <div class="wrap wide dstage">
+      <div class="chs" id="chs">
+        <article class="ch on" data-d="pc" data-s="0">
+          <div class="ch-top"><span class="ch-idx num"><b>01</b> / 08</span><span class="chip">PC · 아침</span></div>
+          <h3>오늘</h3>
+          <p>오늘 갈 집과 도착 시각, 처리 기한까지 남은 근무일, 만들 문서가 첫 화면에 모입니다.</p>
+          <span class="stamp">오늘 일 시작 · 방문 · 문서 대기</span>
+        </article>
+        <article class="ch" data-d="pc" data-s="1">
+          <div class="ch-top"><span class="ch-idx num"><b>02</b> / 08</span><span class="chip">PC · 출발 전</span></div>
+          <h3>동선</h3>
+          <p>오늘 갈 집이 네이버 지도에 순서대로. 명단 순서와 최적 순서의 거리·시간을 견주고, 길안내는 단추 한 번.</p>
+          <span class="stamp">최적화 전후 비교 · 네이버 지도 길안내</span>
+        </article>
+        <article class="ch" data-d="pc" data-s="2">
+          <div class="ch-top"><span class="ch-idx num"><b>03</b> / 08</span><span class="chip">PC · 출발 전</span></div>
+          <h3>방문 계획 손보기</h3>
+          <p>일차마다 같은 날 묶인 집을 가까운 순서로. ▲▼로 바꾸거나 빼면 도착 시각과 거리가 다시 계산되고, 확정하면 폰에 나타납니다.</p>
+          <span class="stamp">일차 · 순서 · 확정</span>
+        </article>
+        <article class="ch" data-d="ph" data-s="0">
+          <div class="ch-top"><span class="ch-idx num"><b>04</b> / 08</span><span class="chip ph">폰 · 집 앞</span></div>
+          <h3>집 앞 확인</h3>
+          <p>차 안에서 30초. 명단에 오른 이유, 지난 기록, 주의할 점, 받는 급여를 읽고 들어갑니다.</p>
+          <span class="stamp">발굴 이유 · 지난 기록 · 주의 · 받는 급여</span>
+        </article>
+        <article class="ch" data-d="ph" data-s="1">
+          <div class="ch-top"><span class="ch-idx num"><b>05</b> / 08</span><span class="chip ph">폰 · 상담하면서</span></div>
+          <h3>상담 자동 정리</h3>
+          <p>물어볼 순서가 카드로 넘어가고, 받을 수 있는 서비스는 원문 요약으로 곁에. 고른 것은 기록 칸으로 넘어갑니다.</p>
+          <span class="stamp">질문 카드 · 서비스 원문 요약 · 선정 결정 아님</span>
+        </article>
+        <article class="ch" data-d="ph" data-s="2">
+          <div class="ch-top"><span class="ch-idx num"><b>06</b> / 08</span><span class="chip ph">폰 · 상담 직후</span></div>
+          <h3>기록</h3>
+          <p>만남 · 부재 · 거절을 고르면 앞에서 고른 징후와 연계 후보가 이미 채워져 있습니다. 1분 말하거나 몇 줄 적고 확정.</p>
+          <span class="stamp">음성 원본은 남기지 않음</span>
+        </article>
+        <article class="ch" data-d="pc" data-s="3">
+          <div class="ch-top"><span class="ch-idx num"><b>07</b> / 08</span><span class="chip">PC · 저녁</span></div>
+          <h3>문서함</h3>
+          <p>복명서 · 상담일지 · 연계 의뢰서 · 주간 실적이 대기합니다. 만들기 → 받기 두 번, A4 인쇄도 바로.</p>
+          <span class="stamp">한글(hwpx) · 엑셀 · 인쇄·PDF</span>
+        </article>
+        <article class="ch" data-d="pc" data-s="4">
+          <div class="ch-top"><span class="ch-idx num"><b>08</b> / 08</span><span class="chip">PC · 차수 마감</span></div>
+          <h3>실적</h3>
+          <p>명단 몇 가구를 찾아가 몇 가구와 상담했는지, 부재로 다시 갈 집과 약속한 날까지 한 화면에.</p>
+          <span class="stamp">차수 실적 · 다시 갈 집</span>
+        </article>
+        <div class="knots" id="knots" role="group" aria-label="장면 이동"></div>
       </div>
-      <div class="screen" id="screen">
-        <div class="zoom" id="zoom">
-          <img src="img/pc_s3@2x.webp" width="1440" height="900" alt="PC 우선순위 근거 화면 — 발굴 순위, 앞당김 칸, 기준표" loading="lazy">
-          <div class="hl" data-i="1" style="left:1%;top:13%;width:50%;height:67%"></div>
-          <div class="hl" data-i="2" style="left:53.5%;top:7.5%;width:45.5%;height:15.5%"></div>
-          <div class="hl" data-i="3" style="left:53.5%;top:24%;width:45.5%;height:42.5%"></div>
-          <span class="mk" style="left:1%;top:13%">1</span>
-          <span class="mk" style="left:53.5%;top:7.5%">2</span>
-          <span class="mk" style="left:53.5%;top:24%">3</span>
+      <div class="devs pc" id="devs" aria-hidden="true">
+        <div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span>hcyang572-gif.github.io/daeum</span></div>
+          <div class="scr">
+            <img class="on" src="img/pc_today.webp" srcset="img/pc_today.webp 1x, img/pc_today@2x.webp 2x" width="1440" height="900" alt="">
+            <img src="img/pc_route.webp" srcset="img/pc_route.webp 1x, img/pc_route@2x.webp 2x" width="1440" height="900" alt="" loading="lazy">
+            <img src="img/pc_plan.webp" srcset="img/pc_plan.webp 1x, img/pc_plan@2x.webp 2x" width="1440" height="900" alt="" loading="lazy">
+            <img src="img/pc_docs.webp" srcset="img/pc_docs.webp 1x, img/pc_docs@2x.webp 2x" width="1440" height="900" alt="" loading="lazy">
+            <img src="img/pc_perf.webp" srcset="img/pc_perf.webp 1x, img/pc_perf@2x.webp 2x" width="1440" height="900" alt="" loading="lazy">
+          </div>
         </div>
-        <span class="cap">시연 모드 · 가상 가구</span>
-      </div>
-      <div class="m-step" id="mstep">
-        <div class="m-dots"><i data-i="1"></i><i data-i="2"></i><i data-i="3"></i></div>
-        <div style="position:relative;min-height:120px">
-          <div class="step" data-i="1"><span class="n">1</span><div><b>발굴 순위는 그대로 둡니다</b><span>자리를 옮긴 집만 선이 휩니다.</span></div></div>
-          <div class="step" data-i="2"><span class="n">2</span><div><b>앞당긴 칸과 이유를 한 줄로</b><span>오늘의 위험 · 만남 공백 · 닿지 않음 · 처리 기한, 최대 7칸.</span></div></div>
-          <div class="step" data-i="3"><span class="n">3</span><div><b>같은 이유는 두 번 더하지 않습니다</b><span>순위에 이미 든 위기정보는 다시 더하지 않습니다.</span></div></div>
-        </div>
+        <div class="dph"><div class="scr">
+          <img class="on" src="img/m_home.webp" srcset="img/m_home.webp 1x, img/m_home@2x.webp 2x" width="390" height="844" alt="" loading="lazy">
+          <img src="img/m_talk.webp" srcset="img/m_talk.webp 1x, img/m_talk@2x.webp 2x" width="390" height="844" alt="" loading="lazy">
+          <img src="img/m_record.webp" srcset="img/m_record.webp 1x, img/m_record@2x.webp 2x" width="390" height="844" alt="" loading="lazy">
+        </div></div>
+        <span class="syncdot"><i></i>같은 계정 · PC↔폰 실시간 반영</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 03 일차별 방문 -->
-<section id="plan" aria-labelledby="planH">
+<!-- 02 동선 -->
+<section id="route" aria-labelledby="routeH">
   <div class="wrap wide">
     <div class="sec-h">
-      <div><div class="sec-no">03 · PC ④ 일차별 방문</div><h2 id="planH">기한 안에, 며칠이면 다 볼까</h2></div>
-      <p>하루 방문 수와 상담 시간, 점심시간을 넣으면 읍면끼리 묶어 일차를 나눕니다.</p>
+      <div><div class="sec-no">02 · 동선</div><h2 id="routeH">네이버 지도로, 짧은 순서부터</h2></div>
+      <p>명단 순서 그대로 돌 때와 최적 순서로 돌 때를 나란히 놓습니다. 상주시청 출발·복귀 기준.</p>
     </div>
     <div class="split">
       <div>
         <ul class="pts rv">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg><div><b>도착 시각까지 나옵니다</b><span>출발 → 집마다 도착·상담 → 복귀, 이동 시간은 도로 경로 기준.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10M9 12h10M9 19h10M5 5v.01M5 12v.01M5 19v.01"/></svg><div><b>순서는 끌어서 바꿉니다</b><span>현장 사정이 바뀌면 손으로 옮기고, 시각은 다시 계산됩니다.</span></div></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg><div><b>확정하면 폰에 나타납니다</b><span>같은 계정 폰의 «오늘 동선»으로 바로 이어집니다.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><div><b>지도 위에 오늘 순서</b><span>번호 표시를 따라 하루 동선이 이어집니다.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h6"/></svg><div><b>최적화 전후 비교</b><span>명단 순서 · 최적 순서의 거리와 시간을 막대로. 상담 시간은 그대로.</span></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>길안내는 단추 한 번</b><span>이름·주소 대신 순번만 넘겨 네이버 지도 길안내가 시작됩니다.</span></div></li>
         </ul>
         <div class="km rv" id="km">
           <div class="big num">48.3%</div>
@@ -485,8 +513,28 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
           <small>이동 거리 감소 · 시연 9곳, 직선×1.3 추정, 가상 가구</small>
         </div>
       </div>
-      <div class="win rv"><img src="img/pc_s4c.webp" srcset="img/pc_s4c.webp 1x, img/pc_s4c@2x.webp 2x" width="777" height="675" alt="PC 일차별 방문 화면 — 1일차·2일차, 집마다 도착 시각" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+      <div class="win rv"><img src="img/pc_route.webp" srcset="img/pc_route.webp 1x, img/pc_route@2x.webp 2x" width="1440" height="900" alt="PC 동선 화면 — 네이버 지도 위 오늘 4곳 순서, 명단 순서와 최적 순서 거리·시간 비교" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
     </div>
+  </div>
+</section>
+
+<!-- 03 PC↔폰 -->
+<section id="live" aria-labelledby="liveH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">03 · PC↔폰</div><h2 id="liveH">PC에서 확정, 폰에 바로</h2></div>
+      <p>계획은 PC에서, 방문은 폰에서. 같은 계정이면 따로 보내지 않아도 맞춰집니다.</p>
+    </div>
+    <div class="live rv">
+      <div class="win"><img src="img/pc_plan.webp" srcset="img/pc_plan.webp 1x, img/pc_plan@2x.webp 2x" width="1440" height="900" alt="PC 방문 계획 화면 — 일차별 집과 도착 시각, 확정" loading="lazy"></div>
+      <div class="wire">
+        <svg viewBox="0 0 150 44" aria-hidden="true"><path class="a" d="M4 14H146"/><path class="b" d="M4 30H146"/></svg>
+        <span><b>방문 계획 →</b>폰 동선</span>
+        <span class="g"><b>← 현장 기록</b>PC 문서함</span>
+      </div>
+      <div class="pf"><img src="img/m_route.webp" srcset="img/m_route.webp 1x, img/m_route@2x.webp 2x" width="390" height="844" alt="폰 동선 화면 — PC에서 확정한 오늘 4곳" loading="lazy"></div>
+    </div>
+    <p class="live-note rv"><i></i>같은 계정으로 로그인하면 PC에서 확정한 계획이 폰 동선에, 폰에서 남긴 기록이 PC 문서함에 실시간으로 반영됩니다.</p>
   </div>
 </section>
 
@@ -494,63 +542,67 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
 <section id="field" aria-labelledby="fieldH">
   <div class="wrap wide">
     <div class="sec-h">
-      <div><div class="sec-no">04 · 현장 폰 ⑤⑥⑦</div><h2 id="fieldH">집 앞에서 30초, 나올 때 메모 한 번</h2></div>
-      <p>문 두드리기 전에 볼 것, 가는 길, 만난 결과까지 폰 한 손으로.</p>
+      <div><div class="sec-no">04 · 현장 폰</div><h2 id="fieldH">집 앞에서 집 안, 나올 때까지</h2></div>
+      <p>폰은 아래 단추만 따라가면 됩니다. 한 손으로, 줄마다 한 번.</p>
     </div>
     <div class="phones">
-      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s5.webp" srcset="img/m_s5.webp 1x, img/m_s5@2x.webp 2x" width="390" height="844" alt="폰 집 앞 30초 요약 화면" loading="lazy"></div><p><i>5</i><b>집 앞 요약</b><span>명단에 오른 이유, 지난번 약속, 꼭 물을 것.</span></p></div>
-      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s6.webp" srcset="img/m_s6.webp 1x, img/m_s6@2x.webp 2x" width="390" height="844" alt="폰 동선과 길안내 화면" loading="lazy"></div><p><i>6</i><b>동선 · 길안내</b><span>오늘 갈 집을 지도에 잇고, 네이버 지도로 바로 길안내.</span></p></div>
-      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_s7.webp" srcset="img/m_s7.webp 1x, img/m_s7@2x.webp 2x" width="390" height="844" alt="폰 만난 결과와 현장 메모 화면" loading="lazy"></div><p><i>7</i><b>확인 · 메모</b><span>만남·부재·거절, 말로 남긴 메모, 꼭 물을 것 확인.</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_home.webp" srcset="img/m_home.webp 1x, img/m_home@2x.webp 2x" width="390" height="844" alt="폰 집 앞 요약 화면" loading="lazy"></div><p><i>1</i><b>집 앞</b><span>발굴 이유 · 지난 기록 · 주의 · 받는 급여.</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_check.webp" srcset="img/m_check.webp 1x, img/m_check@2x.webp 2x" width="390" height="844" alt="폰 현장 확인 화면 — 줄마다 괜찮음 또는 문제 있음" loading="lazy"></div><p><i>2</i><b>확인</b><span>명단 위기정보에 맞춘 줄마다 «괜찮음» 또는 «문제 있음».</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_talk.webp" srcset="img/m_talk.webp 1x, img/m_talk@2x.webp 2x" width="390" height="844" alt="폰 상담 화면 — 질문 카드와 서비스 원문 요약" loading="lazy"></div><p><i>3</i><b>상담</b><span>질문 카드와 받을 수 있는 서비스 원문 요약.</span></p></div>
+      <div class="ph-card rv"><div class="ph-frame"><img src="img/m_record.webp" srcset="img/m_record.webp 1x, img/m_record@2x.webp 2x" width="390" height="844" alt="폰 상담 후 기록 화면 — 미리 채워진 칸과 1분 말하기" loading="lazy"></div><p><i>4</i><b>기록</b><span>채워진 칸 확인, 1분 말하기 또는 몇 줄 적기.</span></p></div>
     </div>
-    <div class="ai rv">
-      <div>
-        <h3>AI는 메모 초안까지, 확정은 공무원이</h3>
-        <ol>
-          <li><b>1</b>개인정보 가림</li>
-          <li><b>2</b>규칙이 후보 50건 추림</li>
-          <li><b>3</b>AI가 고르고 이유</li>
-          <li><b>4</b>목록 밖 답 버림</li>
-        </ol>
-      </div>
-      <div class="score">
-        <strong class="num">19~20/20</strong>
-        <span>첫 추천 적합 · 상위 3개 54/60 · 목록 밖 서비스 0건</span>
-        <small>가상 사연 20건 측정 · 규칙만 쓸 때 14/20</small>
-      </div>
+    <div class="rule rv">
+      <h3>상담 자동 정리<small>정해 둔 규칙으로 이어 붙입니다</small></h3>
+      <ol>
+        <li><b>1 · 확인</b>«문제 있음»으로 고른 징후</li>
+        <li><b>2 · 상담</b>복지서비스 369건 원문 중 연계 후보</li>
+        <li><b>3 · 기록</b>기록 칸과 보고서 칸에 미리 채움</li>
+        <li><b>4 · 확정</b>담당자가 읽고 고친 뒤 확정</li>
+      </ol>
     </div>
   </div>
 </section>
 
-<!-- 05 보고·사후관리 -->
-<section id="report" aria-labelledby="repH">
+<!-- 05 문서함 -->
+<section id="docs" aria-labelledby="docsH">
   <div class="wrap wide">
     <div class="sec-h">
-      <div><div class="sec-no">05 · PC ⑧⑨</div><h2 id="repH">메모가 모이면 보고서, 그다음은 다시 볼 날</h2></div>
-      <p>현장 메모가 결재 양식 보고서로 모이고, 재확인 날짜까지 한 화면에 남습니다.</p>
+      <div><div class="sec-no">05 · 문서함</div><h2 id="docsH">기록이 모이면, 보고서</h2></div>
+      <p>현장 기록이 결재 양식 문서로 모입니다. 개인정보 4칸은 적지 않고 가구 번호·읍면만 씁니다.</p>
     </div>
-    <div class="duo-shot">
-      <figure class="rv"><div class="win"><img src="img/pc_s8.webp" srcset="img/pc_s8.webp 1x, img/pc_s8@2x.webp 2x" width="1440" height="900" alt="PC 보고서 화면 — 복지 사각지대 현장 확인 결과 보고" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
-        <figcaption><b><span class="no">8</span>보고서 자동 생성</b><span>한글(hwpx) 결재 양식, 기관 «상주시청». 방문 명단 엑셀도 함께.</span></figcaption></figure>
-      <figure class="rv"><div class="win"><img src="img/pc_s9.webp" srcset="img/pc_s9.webp 1x, img/pc_s9@2x.webp 2x" width="1440" height="900" alt="PC 사후관리 화면 — 재확인 날짜" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
-        <figcaption><b><span class="no">9</span>사후관리</b><span>1·3·6개월 재확인을 놓치지 않게, 할 일과 날짜를 한 화면에.</span></figcaption></figure>
+    <div class="docs">
+      <figure class="rv" style="margin:0"><div class="win"><img src="img/pc_docs.webp" srcset="img/pc_docs.webp 1x, img/pc_docs@2x.webp 2x" width="1440" height="900" alt="PC 문서함 화면 — 만들 문서 목록과 채워진 칸 막대" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+        <figcaption><b>만들 문서가 대기합니다</b><span>문서마다 채워진 칸을 막대로 보여 주고, 만들기 → 받기 두 번이면 끝.</span>
+          <ul class="doc-list"><li>복명서</li><li>상담일지 초안</li><li>서비스 연계 의뢰서</li><li>안내 문자 문안</li><li>주간·월간 추진 실적</li><li>차수 처리 결과 명단</li></ul></figcaption></figure>
+      <figure class="rv" style="margin:0"><div class="stack"><div class="paper"><img src="img/pc_a4.webp" srcset="img/pc_a4.webp 1x, img/pc_a4@2x.webp 2x" width="560" height="728" alt="A4 복명서 미리보기 — 읽는 법 상자와 출장 일시·출장지·목적·결과" loading="lazy"></div></div>
+        <figcaption><b>A4 한 장 그대로</b><span>맨 앞 «읽는 법» 상자, 한글(hwpx) 받기와 인쇄·PDF. 기관 «상주시청».</span></figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- 06 숫자 -->
+<!-- 06 실적 -->
+<section id="perf" aria-labelledby="perfH">
+  <div class="wrap wide">
+    <div class="sec-h">
+      <div><div class="sec-no">06 · 실적</div><h2 id="perfH">차수가 끝나면, 한눈에</h2></div>
+      <p>명단 몇 가구를 찾아가 몇 가구와 상담했는지, 다시 갈 집은 어디인지.</p>
+    </div>
+    <div class="win rv" style="margin-top:40px"><img src="img/pc_perf.webp" srcset="img/pc_perf.webp 1x, img/pc_perf@2x.webp 2x" width="1440" height="900" alt="PC 실적 화면 — 명단 가구 중 찾아간 가구와 상담 가구, 읍면별 진도, 다시 갈 집" loading="lazy"><span class="cap">시연 모드 · 가상 가구</span></div>
+  </div>
+</section>
+
+<!-- 07 숫자 -->
 <section id="nums" aria-labelledby="numH">
   <div class="wrap wide">
     <div class="sec-h">
-      <div><div class="sec-no">06 · 데이터와 숫자</div><h2 id="numH">공공데이터로, 지금 동작하는 그대로</h2></div>
-      <p>한국사회보장정보원 공공데이터 3종과 보조 4기관 7종. 시연 가구는 모두 가상입니다.</p>
+      <div><div class="sec-no">07 · 데이터</div><h2 id="numH">공공데이터로, 지금 동작하는 그대로</h2></div>
+      <p>한국사회보장정보원 공공데이터와 보조 4기관 7종. 시연 가구는 모두 가상입니다.</p>
     </div>
     <div class="nums rv">
-      <div><strong class="num">43열</strong><b>발굴대상자 조회 서식</b><span>한국사회보장정보원 서식 그대로 불러오기</span></div>
-      <div><strong class="num">369건</strong><b>복지서비스 OpenAPI</b><span>중앙 351 + 경북 13 · 상주 5 · 연계 후보·AI 추천 목록</span></div>
-      <div><strong class="num">19~20/20</strong><b>첫 추천 적합</b><span>가상 사연 20건 · 목록 밖 0건</span></div>
+      <div><strong class="num">43열</strong><b>발굴대상자 명단 서식</b><span>한국사회보장정보원 서식 그대로 불러오기</span></div>
+      <div><strong class="num">369건</strong><b>복지서비스 OpenAPI</b><span>중앙 351 + 경북 13 · 상주 5 · 연계 후보 원문</span></div>
       <div><strong class="num">48.3%<span class="tag">추정</span></strong><b>방문 이동 거리 감소</b><span>시연 9곳 127.3 → 65.8km · 직선×1.3</span></div>
       <div><strong class="num">227곳</strong><b>전국 시군구 적용</b><span>같은 서식·공공데이터라 어느 시군이든</span></div>
-      <div><strong class="num">약 45원<span class="tag">추정</span></strong><b>AI 1회 비용</b><span>사용량 과금 · 한도 초과 시 규칙 초안으로 전환</span></div>
     </div>
   </div>
 </section>
@@ -564,9 +616,9 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
         <div class="lg" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="lg2bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A7A70"/><stop offset=".55" stop-color="#17594F"/><stop offset="1" stop-color="#0C3A35"/></linearGradient><radialGradient id="lg2hl" cx=".2" cy=".04" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="lg2sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity=".18"/></filter></defs><rect width="512" height="512" rx="114" fill="url(#lg2bg)"/><rect width="512" height="512" rx="114" fill="url(#lg2hl)"/><g filter="url(#lg2sh)"><circle cx="184" cy="262" r="72" fill="#fff" fill-opacity=".56"/><circle cx="328" cy="262" r="72" fill="#fff"/><path d="M256 214Q262 255 302 262Q262 269 256 310Q250 269 210 262Q250 255 256 214Z" fill="#F2C36B"/></g></svg></div>
         <h2 id="endH">직접 눌러 보세요</h2>
         <p>로그인 없이 시연 모드로 열립니다. 명단·가구는 모두 가상입니다.</p>
-        <div class="url">https://hcyang572-gif.github.io/daeum/officer/</div>
+        <div class="url">https://hcyang572-gif.github.io/daeum/</div>
       </div>
-      <a class="btn" href="https://hcyang572-gif.github.io/daeum/officer/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      <a class="btn" href="https://hcyang572-gif.github.io/daeum/" target="_blank" rel="noopener">바로 체험하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
     </div>
   </div>
 </section>
@@ -574,7 +626,7 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
 
 <footer>
   <div class="wrap wide row">
-    <span>닿음 — 복지 사각지대 현장 업무 도우미 · 상주시청 적용 예시</span>
+    <span>복지 사각지대 현장 업무 도우미 · 닿음 · 상주시청 적용 예시</span>
     <span>시연 모드 · 가상 데이터 · 실제 개인정보 0건 · 공공데이터 + 가상 가구</span>
   </div>
 </footer>
@@ -587,35 +639,29 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;b
   // 등장
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -10% 0px',threshold:.15});
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-  // 한 흐름 칸: 번호가 차례로
-  document.querySelectorAll('#flowBox li').forEach(function(li,i){li.style.transitionDelay=(reduce?0:.15+i*.12)+'s'});
 
-  // 우선순위 화면 — 단계별 확대 영역(화면 비율 0~1)
-  var R={0:null,1:[.01,.13,.50,.67],2:[.535,.075,.455,.155],3:[.535,.24,.455,.425]};
-  var zoom=document.getElementById('zoom'),screen=document.getElementById('screen'),tour=document.getElementById('tour'),
-      prog=document.getElementById('prog'),bar=document.getElementById('bar'),cur=-1;
-  function view(i){
-    var s=1,tx=0,ty=0,r=R[i];
-    if(r){
-      var mob=matchMedia('(max-width:560px)').matches,pad=mob?1.04:1.12;
-      s=Math.min(1/(r[2]*pad),1/(r[3]*pad),mob?2.4:1.85); s=Math.max(s,1);
-      var cx=r[0]+r[2]/2,cy=r[1]+r[3]/2;
-      tx=Math.min(0,Math.max(1-s,.5-s*cx)); ty=Math.min(0,Math.max(1-s,.5-s*cy));
-    }
-    zoom.style.transform='translate('+(tx*100)+'%,'+(ty*100)+'%) scale('+s+')';
-    zoom.style.setProperty('--inv',(1/s).toFixed(3));
-    tour.querySelectorAll('[data-i]').forEach(function(el){el.classList.toggle('on',+el.dataset.i===i)});
-    bar.style.transform='scaleY('+(i<=1?0:(i-1)/2)+')';
-    if(i>0)screen.classList.add('started');
+  // 하루 따라가기 — 스크롤 진행에 맞춰 장면·기기·화면 전환
+  var track=document.getElementById('track'),devs=document.getElementById('devs'),chs=[].slice.call(document.querySelectorAll('#chs .ch')),
+      knots=document.getElementById('knots'),prog=document.getElementById('prog'),N=chs.length,cur=-1,
+      pcI=devs.querySelectorAll('.bw img'),phI=devs.querySelectorAll('.dph img');
+  chs.forEach(function(c,i){var b=document.createElement('button');b.type='button';b.className=c.dataset.d;b.setAttribute('aria-label',(i+1)+' / '+N+' '+c.querySelector('h3').textContent);b.innerHTML='<i></i>';
+    b.addEventListener('click',function(){var top=track.getBoundingClientRect().top+scrollY,len=track.offsetHeight-innerHeight;scrollTo({top:top+len*(i+.5)/N,behavior:reduce?'auto':'smooth'})});knots.appendChild(b)});
+  var kb=knots.querySelectorAll('button');
+  function show(i){
+    var c=chs[i],d=c.dataset.d,s=+c.dataset.s;
+    chs.forEach(function(x,j){x.classList.toggle('on',j===i)});
+    kb.forEach(function(x,j){x.classList.toggle('on',j===i);x.classList.toggle('done',j<i);if(j===i)x.setAttribute('aria-current','step');else x.removeAttribute('aria-current')});
+    devs.classList.toggle('pc',d==='pc');devs.classList.toggle('ph',d==='ph');
+    (d==='pc'?pcI:phI).forEach(function(im,j){im.classList.toggle('on',j===s)});
   }
   var tick=false;
   function onScroll(){
     tick=false;
-    var d=document.documentElement,max=d.scrollHeight-innerHeight;
+    var de=document.documentElement,max=de.scrollHeight-innerHeight;
     prog.style.transform='scaleX('+(max>0?scrollY/max:0)+')';
-    var rc=tour.getBoundingClientRect(),len=rc.height-innerHeight,p=Math.min(1,Math.max(0,-rc.top/len));
-    var i=p<.08?0:p<.4?1:p<.72?2:3;
-    if(i!==cur){cur=i;view(i)}
+    var rc=track.getBoundingClientRect(),len=rc.height-innerHeight,p=Math.min(.9999,Math.max(0,-rc.top/len));
+    var i=Math.floor(p*N);
+    if(i!==cur){cur=i;show(i)}
   }
   addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
   addEventListener('resize',function(){cur=-1;onScroll()});
