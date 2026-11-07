@@ -96,6 +96,9 @@ h2{font-size:clamp(28px,4.4vw,56px)}
 .soon-chip{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap;
   color:var(--sel);border:1px solid color-mix(in srgb,var(--sel) 45%,transparent);background:color-mix(in srgb,var(--sel) 9%,transparent)}
 .soon-chip i{width:6px;height:6px;border-radius:50%;background:var(--sel)}
+.award{display:inline-flex;align-items:center;gap:7px;margin:0 auto 14px;padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--sub);border:1px solid color-mix(in srgb,var(--primary) 32%,transparent);background:color-mix(in srgb,var(--primary) 7%,transparent)}
+.award svg{width:14px;height:14px;flex:none;color:var(--primary)}
+@media (max-height:620px){.award{margin-bottom:6px;padding:3px 11px;font-size:11.5px}.award+.overline{display:none}}
 #prog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--primary);transform-origin:0 50%;transform:scaleX(0)}
 
 /* ── 버튼 ── */
@@ -456,6 +459,7 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   <div class="horizon"></div>
   <div class="grain"></div>
   <div class="hero-copy">
+    <p class="award rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M8.6 13.4 7.5 21l4.5-2.6 4.5 2.6-1.1-7.6"/></svg>2026년 MTIS 활용 우수사례 공모전 우수상</p>
     <p class="overline rv">바다낚시 · 민물낚시</p>
     <h1 class="wipe" id="h1">낚시 준비부터 철수까지,<br class="mbr"> <span class="accent">한 앱에서.</span></h1>
     <p class="lead rv" style="--si:2">물때와 바다낚시지수, 댐·저수지 수위, 조과 기록, 위급할 때 쓰는 SOS 좌표까지 한 앱에 담았어요.</p>
@@ -779,6 +783,10 @@ html.tab-off [data-anim].run .loop,html.tab-off .loop{animation-play-state:pause
   }
   function onUp(e) {
     if (e.type.indexOf('pointer') === 0 && e.pointerType !== 'touch') return;
+    // 2026-10-15 🔵손길: 손가락 스크롤이 «시작될 때» 브라우저는 pointercancel 을 보낸다(iOS 사파리·Chrome 공통).
+    //   이것을 «뗐다»로 보면 touching 이 스크롤 내내 false 가 되어 iOS 다이얼 경계 «빚»(iosOwed)이 한 번도 적히지 않았다.
+    //   터치 이벤트가 있는 기기에서는 진짜 touchend/touchcancel 에서만 끝낸다(진동 값·규칙은 그대로).
+    if (e.type === 'pointercancel' && 'ontouchstart' in w) return;
     touching = false; touchEndAt = now();
     if (e.type === 'touchend') {
       armed = true;
