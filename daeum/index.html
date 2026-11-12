@@ -122,16 +122,17 @@ sup.s a{text-decoration:none}
 
 /* 기기 틀 */
 .stage{position:relative;perspective:1400px;min-width:0}
-.tilt{transform-style:preserve-3d;transform:rotateX(var(--rx,6deg)) rotateY(var(--ry,-10deg));transition:transform .5s var(--ease)}
+.tilt{transform:translate3d(0,var(--ty,0),0);transition:transform .6s var(--ease)}  /* 82회차: 3D 기울기(rotateX·Y) 제거 — 영상이 좌우로 눌려 보이던 원인. 깊이는 그림자·폰 겹침으로만 */
 .pc{position:relative;border-radius:16px;padding:10px 10px 12px;background:linear-gradient(160deg,#fff,var(--paper2));box-shadow:var(--sh1),0 50px 80px -40px rgba(18,63,74,.45)}
 .pc .bar{display:flex;gap:6px;padding:2px 4px 9px}
 .pc .bar i{width:9px;height:9px;border-radius:50%;background:#E3D6C6}
 .screen{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:9px;overflow:hidden;background:#1d2a2e}
 .screen video,.screen>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-.phone{position:absolute;right:-4%;bottom:-12%;width:30%;min-width:108px;padding:7px;border-radius:26px;background:linear-gradient(160deg,#2a3a3f,#0f1b1f);
-  box-shadow:0 30px 50px -20px rgba(18,40,46,.6),inset 0 1px 0 rgba(255,255,255,.2);transform:translateZ(80px)}
+.phone{position:absolute;right:-7%;bottom:-20%;width:24%;min-width:96px;padding:7px;border-radius:26px;background:linear-gradient(160deg,#2a3a3f,#0f1b1f);
+  box-shadow:0 30px 50px -20px rgba(18,40,46,.6),inset 0 1px 0 rgba(255,255,255,.2)}
 .phone .screen{aspect-ratio:9/19.5;border-radius:20px}
-@media (max-width:900px){.phone{right:2%;bottom:-8%}}
+@media (min-width:1200px){.stage .phone{right:-13%;bottom:-12%}}
+@media (max-width:900px){.stage .tilt>.phone{display:none}}  /* 82회차: 좁은 화면에선 영상을 가리지 않게 히어로 폰 겹침을 뺀다(폰 화면은 아래 장마다 나옴) */
 .phones{display:flex;justify-content:center;gap:clamp(14px,3vw,28px);align-items:flex-start}
 .phones .phone{position:relative;right:auto;bottom:auto;transform:none;width:min(46%,230px)}
 .phones .phone:nth-child(2){margin-top:44px}
@@ -146,7 +147,12 @@ sup.s a{text-decoration:none}
 .phone .slot{background:repeating-linear-gradient(135deg,#25363b 0 14px,#203035 14px 28px);color:#9fb1b6}
 .phone .slot b{color:#d6e2e5}
 .screen.dark video,.screen.dark>#demoSlot{object-fit:contain;object-position:center;background:#1d2a2e}
-#demo{cursor:zoom-in}
+/* 82회차: 영상 칸 — 정지 그림(#demoSlot)이 위에 덮여 클릭을 가로채고, .screen>img{display:block} 때문에 hidden 이 안 먹던 것 바로잡음 */
+.screen.film{cursor:zoom-in;aspect-ratio:var(--film-ar,16/9)}  /* 영상 원본 비율(1920×1080) 그대로 — 새 영상으로 바꾸면 JS가 videoWidth/Height로 다시 맞춤 */
+.screen.film>#demoSlot{z-index:1;transition:opacity .5s var(--ease)}
+.screen.film.on>#demoSlot{opacity:0;pointer-events:none}
+.screen.film .play{z-index:2}
+.screen.film.wait .play{background:rgba(226,135,58,.92);font-weight:700}
 .play{pointer-events:none;position:absolute;left:14px;bottom:12px;display:flex;align-items:center;gap:8px;font-size:12px;color:#fff;background:rgba(0,0,0,.35);padding:6px 10px;border-radius:99px;backdrop-filter:blur(6px)}
 .play i{width:7px;height:7px;border-radius:50%;background:var(--gam);box-shadow:0 0 0 4px rgba(226,135,58,.25)}
 .cap{margin-top:16px;font-size:13px;color:var(--ink2)}
@@ -718,10 +724,10 @@ svg.i78.s20{stroke-width:1.8}
       <div class="tilt" id="tilt">
         <div class="pc">
           <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
-          <div class="screen dark">
+          <div class="screen dark film" id="filmScreen" role="button" tabindex="0" aria-label="소개 영상 크게 보기">
             <video id="demo" muted playsinline loop preload="metadata" aria-label="닿음 소개·시연 영상" data-src="img/demo.mp4" data-poster="img/demo_poster.webp"></video>
             <img id="demoSlot" src="img/demo_poster.webp" alt="닿음 PC 동선 화면 — 네이버 지도 위 방문 순서" decoding="async" fetchpriority="high">
-            <span class="play" aria-hidden="true"><i></i>소개 영상</span>
+            <span class="play" aria-hidden="true"><i></i><span id="playLbl">소개 영상 · 누르면 크게</span></span>
           </div>
         </div>
         <div class="phone"><div class="screen"><img src="img/cap6_00_today_m.webp" alt="닿음 폰 «오늘» 탭 첫 화면" decoding="async" fetchpriority="high"></div></div>
@@ -1430,24 +1436,34 @@ const DSTexture={
   }
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
-  /* 히어로 기기 기울기 */
+  /* 히어로 기기: 기울기 대신 마우스에 따라 살짝 떠오름(회전 없음 — 영상 비율 보존) */
   var stage = document.querySelector('.stage'), tilt = document.getElementById('tilt');
   if (stage && tilt && !reduce && matchMedia('(pointer:fine)').matches) {
-    stage.addEventListener('pointermove', function(e){ var r = stage.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      tilt.style.setProperty('--ry', (-10 + x * 12).toFixed(2) + 'deg'); tilt.style.setProperty('--rx', (6 - y * 8).toFixed(2) + 'deg'); });
-    stage.addEventListener('pointerleave', function(){ tilt.style.removeProperty('--ry'); tilt.style.removeProperty('--rx'); });
+    stage.addEventListener('pointerenter', function(){ tilt.style.setProperty('--ty', '-6px'); });
+    stage.addEventListener('pointerleave', function(){ tilt.style.removeProperty('--ty'); });
   }
 
-  /* 영상: 보이면 무음 재생, 파일 없으면 자리 유지 */
-  var v = document.getElementById('demo'), slot = document.getElementById('demoSlot');
-  if (v && io) { var loaded = false;
-    new IntersectionObserver(function(es){ es.forEach(function(en){
-      if (en.isIntersecting) { if (!loaded) { loaded = true; v.addEventListener('loadeddata', function(){ slot.hidden = true; }, {once:true}); v.poster = v.dataset.poster; v.src = v.dataset.src; }
-        if (!reduce) { var p = v.play(); if (p && p.catch) p.catch(function(){}); } } else v.pause(); }); }, {threshold:.4}).observe(v);
-    /* 81회차: 누르면 크게 보기(전체 화면·조작 막대) — PC에서도 또렷하게 */
-    v.addEventListener('click', function(){ v.controls = true; if (v.requestFullscreen) v.requestFullscreen().catch(function(){}); else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); });
-    document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) v.controls = false; }); }
+  /* 영상(82회차 바로잡음): 칸이 화면에 들어오면 무음 자동 재생, 벗어나면 정지, 누르면 전체 화면·조작 막대.
+     무음 소개 영상이라 «동작 줄이기»에서도 재생한다(칸이 보일 때만). 재생이 막히면 «눌러서 재생» 표시. */
+  var v = document.getElementById('demo'), fs = document.getElementById('filmScreen'), lbl = document.getElementById('playLbl');
+  if (v && fs) {
+    var loaded = false, seen = false;
+    function load(){ if (loaded) return; loaded = true; v.poster = v.dataset.poster; v.src = v.dataset.src; v.load(); }
+    function tryPlay(){ load(); var p = v.play(); if (p && p.catch) p.catch(function(){ fs.classList.add('wait'); if (lbl) lbl.textContent = '눌러서 재생'; }); }
+    v.addEventListener('loadedmetadata', function(){ if (v.videoWidth && v.videoHeight) fs.style.setProperty('--film-ar', v.videoWidth + '/' + v.videoHeight); });
+    v.addEventListener('playing', function(){ fs.classList.add('on'); fs.classList.remove('wait'); if (lbl) lbl.textContent = '소개 영상 · 누르면 크게'; });
+    if (io) new IntersectionObserver(function(es){ es.forEach(function(en){ seen = en.isIntersecting;
+        if (seen) tryPlay(); else if (!v.paused && !document.fullscreenElement) v.pause(); }); }, {threshold:.35}).observe(fs);
+    else tryPlay();
+    document.addEventListener('visibilitychange', function(){ if (document.hidden) v.pause(); else if (seen) tryPlay(); });
+    function big(){ tryPlay(); v.controls = true;
+      if (v.requestFullscreen) v.requestFullscreen().catch(function(){ v.controls = false; });
+      else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); }
+    fs.addEventListener('click', big);
+    fs.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); big(); } });
+    document.addEventListener('fullscreenchange', function(){ if (!document.fullscreenElement) { v.controls = false; if (!seen) v.pause(); } });
+    v.addEventListener('webkitendfullscreen', function(){ v.controls = false; if (seen) tryPlay(); });
+  }
 
   /* ③ 상황 고르기 체험(앱 기록 탭의 고를 거리 일부, 문장 규칙 단순화) */
   var ROWS = [
