@@ -2380,165 +2380,48 @@ const DSTexture={
 
 </script>
 <script>
-/* 닿음 랜딩 햅틱 v2(11-13 86회차 미르 — 호창님 폰 확인 «너무 적고 밋밋해, 많이 적용해줘»)
-   공용 _shared/haptics.js(빌드 때 인라인) 위에 닿음 전용 «풍성한» 어휘를 얹는다.
-   · 세기: 가장 약한 틱 28ms 이상(갤럭시에서 8~16ms는 거의 안 느껴짐) · 강조 50~90ms · 장면마다 다른 리듬.
-   · 양: 장 들어섬 서명 · 카드 등장 · 선 마디 · 숫자 눈금/끝값 · 안전 고리 심장박동 · 문서 쌓임 · 영상 재생/정지 · 맨 위/맨 아래 · 모든 탭.
-   · 겹침 방지: 직전 진동이 «끝난» 뒤 60ms 간격. 틱(가벼운 것)은 바쁘면 버리고, 패턴은 3개까지 줄 세운다.
-   · 첫 탭 전(브라우저가 막음)·동작 줄이기·탭 숨김·화면 밖이면 울리지 않음 · iOS 사파리는 탭만 · PC는 아무 일 없음. */
+/* 닿음 랜딩 햅틱 v3(11-13 미르 — 호창님 «햅틱이 좀 과하게 많이 들어간 것 같아. 의미 있는 곳에 의미 있게 넣어줘»)
+   공용 _shared/haptics.js(빌드 때 인라인) 위에 «이야기의 마디»에만 진동을 얹는다. 끝까지 스크롤하면 6번.
+   · 스토리 4장 진입(동선 최적화 → 동료 안전 → 현장 정리 → 보고서 자동) 각 1번: 짧게 한 번(24ms).
+   · 동료 안전 «확인» 순간 1번 · 끝 집에 닿는 «완성» 1번: 조금 또렷하게 짧은 세 박.
+   · 단추·링크 탭: 가벼운 반응(22ms).
+   · 같은 장을 다시 지나가도 울리지 않음(페이지당 한 번) · 스크롤 따라 계속 울리는 것(카드 등장·선 마디·숫자 눈금·심장박동 반복)은 없앰.
+   · 첫 탭 전(브라우저가 막음)·동작 줄이기·탭 숨김이면 울리지 않음(공용 haptics.js) · iOS 사파리는 탭만 · PC는 아무 일 없음. */
 (function(){
   var H = window.Haptics; if (!H) return;
-  var nav = navigator, GAP = 60;
-  var now = function(){ return performance.now(); };
+  var nav = navigator;
   function active(){ var u = nav.userActivation; return !u || u.hasBeenActive; }
   function seen(el){ if (!el || document.hidden) return false; var r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; }
-  function len(p){ if (typeof p === 'number') return p; var s = 0; for (var i = 0; i < p.length; i++) s += p[i]; return s; }
-
-  /* 줄 세우기: 겹쳐 뭉개지지 않게 */
-  var busy = 0, q = [], qt = null;
-  function fire(p){ H.pulse(p); busy = now() + len(p) + GAP; }
-  function pump(){ if (qt || !q.length) return;
-    qt = setTimeout(function(){ qt = null; var p = q.shift(); if (p) fire(p); pump(); }, Math.max(0, busy - now())); }
-  function hap(p, tick){ if (!active()) return;
-    if (now() >= busy && !q.length) { fire(p); return; }
-    if (tick) return;                       // 가벼운 틱은 바쁘면 버린다
-    if (q.length >= 3) q.shift(); q.push(p); pump(); }
-
-  var T = { tick:28, tap:32, card:30, dot:34, thud:70 };
   var once = {};
   function first(key){ if (once[key]) return false; once[key] = 1; return true; }
+  function hap(p){ if (active()) H.pulse(p); }
 
-  /* ── 탭: 모든 단추·링크·칩·접기 ── */
-  var v = document.getElementById('demo'), filmTap = 0;
+  var STEP = 24, MARK = [30,60,30,60,40];        // 장 진입 / 확인·완성(짧은 세 박)
+  var STORY = { route:1, safety:1, field:1, reports:1 };
+
+  /* ── 탭: 단추·링크·접기에 가벼운 반응 ── */
   document.addEventListener('click', function(e){
     var t = e.target.closest && e.target.closest('a[href],button,summary,[role="button"],label,#filmScreen'); if (!t) return;
-    if (v && t.closest('#filmScreen') && v.paused) { filmTap = now(); return; }
-    hap(t.classList && t.classList.contains('chip') ? [32,40,24] : T.tap);
+    hap(22);
   }, true);
 
-  /* ── 영상: 재생 «따-당-», 정지 «툭» ── */
-  if (v) {
-    v.addEventListener('play', function(){ if (seen(v) || now() - filmTap < 1500) { filmTap = 0; hap([30,40,60]); } });
-    v.addEventListener('pause', function(){ if (seen(v) && !document.hidden) hap(40); });
-  }
+  /* ── 스토리 4장 진입: 장마다 한 번만 ── */
+  function enter(id){ if (!STORY[id] || !first('sec:' + id)) return; var s = document.getElementById(id); if (s && seen(s)) hap(STEP); }
+  /* 읽기 진행 길(add7p.js)이 장 마디를 앞으로 지날 때·끝 집에 닿을 때 부른다 */
+  window.DaeumHz = { node: enter, done: function(){ if (first('home')) hap(MARK); } };
+  /* 진행 길이 없는 화면을 위한 대비: 장 머리가 화면 가운데 띠를 지날 때 */
+  if ('IntersectionObserver' in window) addEventListener('load', function(){
+    if (document.querySelector('.rprog')) return;
+    var io = new IntersectionObserver(function(es){ es.forEach(function(en){ if (en.isIntersecting) enter(en.target.id); }); },
+      {threshold:0, rootMargin:'-42% 0px -42% 0px'});
+    Object.keys(STORY).forEach(function(id){ var s = document.getElementById(id); if (s) io.observe(s); });
+  });
 
-  /* ── 장 들어섬: 장마다 다른 서명(같은 장은 3초 안에 다시 울리지 않음) ── */
-  var SIG = {
-    why:[30,50,30], pain:[30,40,30,40,30], app:[50,80,30], flow:[28,40,28,40,28,40,60],
-    route:[30,60,60], safety:[40,110,70], field:[30,40,30,40,50], reports:[30,50,30,50,70],
-    handover:[40,60,40], followup:[30,80,50], wish:[28,50,28,50,28], more:[45,70,30],
-    spread:[30,40,30,40,30,40,70], trust:[60,80,30], survey:[30,60,30,60,30]
-  };
-  var last = {};
-  function sig(k, p){ if (now() - (last[k] || -1e9) < 3000) return; last[k] = now(); hap(p); }
-  /* 읽기 진행 바(add7p.js)가 장 마디를 앞으로 지날 때 부른다 */
-  window.DaeumHz = { node: function(id){ var s = document.getElementById(id); if (s && seen(s)) sig(id, SIG[id] || [30,60,40]); },
-    done: function(){ sig('home', [40,60,40,60,40,80,120]); } };   // 끝 집에 닿아 «닿음» 완성
-  if ('IntersectionObserver' in window) {
-    var secIO = new IntersectionObserver(function(es){ es.forEach(function(en){
-      if (!en.isIntersecting) return; var s = en.target;
-      if (s.id && document.querySelector('.rprog .nd[data-s="' + s.id + '"]')) return;   // 진행 바 마디가 있는 장은 마디를 지날 때 울린다
-      sig(s.id || s.className, SIG[s.id] || (s.classList.contains('end') ? [40,60,40,60,90] : [30,60,40]));
-    }); }, {threshold:0, rootMargin:'-42% 0px -42% 0px'});   // 장 머리가 화면 가운데 띠를 지날 때
-    [].forEach.call(document.querySelectorAll('main section, section.end, section[id]'), function(s){ if (!s.classList.contains('hero')) secIO.observe(s); });
-  }
-
-  /* ── 카드·덩어리 등장(.rise → .in): 들어오는 순간 톡 ── */
-  if (window.MutationObserver) {
-    var riseMO = new MutationObserver(function(ms){ ms.forEach(function(m){ var el = m.target;
-      if (el.classList.contains('in') && !el.__hz && seen(el)) { el.__hz = 1; hap(T.card, true); } }); });
-    [].forEach.call(document.querySelectorAll('.rise'), function(el){ riseMO.observe(el, {attributes:true, attributeFilter:['class']}); });
-  }
-
-  /* ── 한 차수의 길(리본): 정거장에 불이 들어올 때마다 톡, 끝까지 그려지면 «도-옹» ── */
-  var RB = document.getElementById('ribbon');
-  if (RB && window.MutationObserver) {
-    new MutationObserver(function(ms){ ms.forEach(function(m){ var g = m.target;
-      if (g === RB) { if (RB.classList.contains('done') && first('rbDone')) hap([40,60,80]); return; }
-      var on = g.classList.contains('lit'); if (on && !g.__hz && seen(g)) hap(T.dot, true); g.__hz = on; }); })
-      .observe(RB, {attributes:true, attributeFilter:['class'], subtree:true});
-  }
-
-  /* ── 데이터×AI: 가공 단계가 켜질 때마다(첫 바퀴만) ── */
-  var eng = document.getElementById('eng');
-  if (eng && window.MutationObserver) { var engN = 0;
-    new MutationObserver(function(ms){ ms.forEach(function(m){ var li = m.target;
-      if (li.parentNode === eng && li.classList.contains('on') && engN < eng.children.length && seen(li)) { engN++; hap(engN === eng.children.length ? [30,40,50] : T.tick, true); } }); })
-      .observe(eng, {attributes:true, attributeFilter:['class'], subtree:true});
-  }
-
-  /* ── 1 동선: 다시 짠 경로가 지점을 지날 때마다 톡, 사무실로 돌아오면 «쿵-쿵» ── */
-  var ra = document.getElementById('rAfter'), mc = document.getElementById('mapcard');
-  if (ra && ra.getTotalLength) {
-    var pts = (ra.getAttribute('d').match(/-?[\d.]+/g) || []).map(Number), cum = [], acc = 0;
-    for (var i = 2; i + 1 < pts.length; i += 2) { acc += Math.hypot(pts[i] - pts[i - 2], pts[i + 1] - pts[i - 1]); cum.push(acc); }
-    var L = 0, nx = 0, polling = false;
-    function poll(){ if (!L) L = ra.getTotalLength();
-      var drawn = L - (parseFloat(getComputedStyle(ra).strokeDashoffset) || 0), sc = L / (acc || L);
-      while (nx < cum.length - 1 && drawn >= cum[nx] * sc - 1) { nx++; if (seen(mc)) hap(T.dot + 4); }
-      if (drawn < L - 1) requestAnimationFrame(poll); else { polling = false; if (first('routeEnd') && seen(mc)) hap([40,60,70]); } }
-    ra.addEventListener('transitionrun', function(e){ if (e.propertyName === 'stroke-dashoffset' && !polling && !once.routeEnd) { polling = true; requestAnimationFrame(poll); } });
-  }
-
-  /* ── 숫자 세기: 정수 자리가 바뀔 때 눈금 틱(0.11초 간격 상한), 장마다 끝값에서 «쿵» ── */
-  if (window.MutationObserver) { var gTick = {}, gEnd = {};
-    [].forEach.call(document.querySelectorAll('[data-count]'), function(el){
-      var dec = +(el.dataset.dec || 0), end = parseFloat(el.dataset.count).toFixed(dec) + (el.dataset.suf || ''), prev = null, moved = false;
-      var g = (el.closest('section') || el).id || 'x';
-      new MutationObserver(function(){ var t = el.textContent;
-        if (t === end) { if (moved && !gEnd[g]) { gEnd[g] = 1; setTimeout(function(){ if (seen(el)) hap(T.thud); }, 40); } return; }
-        moved = true; var n = Math.floor(parseFloat(t));
-        if (n !== prev && now() - (gTick[g] || 0) > 110 && seen(el)) { gTick[g] = now(); hap(T.tick, true); } prev = n; })
-        .observe(el, {childList:true, characterData:true, subtree:true});
-    });
-  }
-
-  /* ── 2 동료 안전: 고리가 차오르는 동안 심장박동(두-근), «확인»에서 강하게 ── */
-  var rm = document.getElementById('ringMin'), ring = document.getElementById('ring'), beat = 0;
-  if (rm && window.MutationObserver) new MutationObserver(function(){ if (!seen(ring)) return;
-      if (rm.textContent === '확인') { if (first('alert')) hap([80,60,80,60,90]); return; }
-      if (++beat % 2 === 1) hap([28,90,40], true); })
+  /* ── 2 동료 안전: 고리가 다 차서 «확인»이 뜨는 순간 한 번 ── */
+  var rm = document.getElementById('ringMin'), ring = document.getElementById('ring');
+  if (rm && window.MutationObserver) new MutationObserver(function(){
+      if (rm.textContent === '확인' && seen(ring) && first('alert')) hap(MARK); })
     .observe(rm, {childList:true, characterData:true, subtree:true});
-  /* 안전 시간표: 단계가 하나씩 켜질 때(경고 단계는 더 세게) */
-  [].forEach.call(document.querySelectorAll('#tl li'), function(li){
-    li.addEventListener('transitionend', function(e){ if (e.propertyName !== 'opacity' || li.__hz || !seen(li)) return; li.__hz = 1;
-      hap(li.classList.contains('red') ? [60,50,60] : li.classList.contains('warn') ? 50 : li.classList.contains('ok') ? [30,40,60] : T.dot); });
-  });
-
-  /* ── 3 기록: 상황을 고르면 문장이 이어 붙는 순간 ── */
-  var outList = document.getElementById('outList');
-  if (outList && window.MutationObserver) new MutationObserver(function(ms){ if (ms.some(function(m){ return m.addedNodes.length; })) setTimeout(function(){ hap(T.tick, true); }, 90); })
-    .observe(outList, {childList:true});
-
-  /* ── 4 보고서: A4가 한 장씩 쌓일 때 톡, 마지막 장에서 길게 «완성» ── */
-  var a4s = [].slice.call(document.querySelectorAll('#reports .gal .a4'));
-  a4s.forEach(function(f, i){ f.addEventListener('transitionend', function(e){ if (e.target !== f || e.propertyName !== 'opacity' || f.__hz) return; f.__hz = 1;
-    if (!seen(f) && i < a4s.length - 1) return;
-    hap(i === a4s.length - 1 ? [40,60,90] : T.dot); }); });
-
-  /* ── 5 인계 카드 줄·신뢰 체크: 하나씩 찍힐 때마다 ── */
-  [].forEach.call(document.querySelectorAll('#slip ol li'), function(li, i, all){
-    li.addEventListener('transitionend', function(e){ if (e.propertyName !== 'opacity' || li.__hz || !seen(li)) return; li.__hz = 1; hap(i === all.length - 1 ? [30,40,50] : T.dot); });
-  });
-  [].forEach.call(document.querySelectorAll('.tc .ck path'), function(p){
-    p.addEventListener('transitionend', function(e){ if (e.propertyName !== 'stroke-dashoffset' || p.__hz || !seen(p)) return; p.__hz = 1; hap([30,40,40]); });
-  });
-
-  /* ── 막대·게이지가 다 찼을 때(설문 막대·사후관리·남은 가구·계량기) ── */
-  [].forEach.call(document.querySelectorAll('.bar .tr i,.fu-fill,.rm b,.meter .fill'), function(b){
-    b.addEventListener('transitionend', function(e){ if (e.propertyName !== 'transform' || b.__hz || !seen(b)) return; b.__hz = 1; hap(T.card, true); });
-  });
-
-  /* ── 맺음: 금빛 동선이 다 그려지면 ── */
-  var er = document.querySelector('.end .eroute path');
-  if (er) er.addEventListener('animationend', function(){ if (first('endRoute') && seen(er)) hap([30,50,30,50,90]); });
-
-  /* ── 맨 위·맨 아래에 닿았을 때 ── */
-  var edge = 0;
-  addEventListener('scroll', function(){ var h = document.documentElement, y = window.scrollY || h.scrollTop, max = h.scrollHeight - innerHeight;
-    var at = y <= 2 ? 1 : (y >= max - 2 ? 2 : 0);
-    if (at && at !== edge && (at === 1 ? max > 600 : !document.querySelector('.rprog'))) hap(at === 1 ? [45] : [30,50,30,50,60]);   // 맨 아래는 진행 길의 «완성»이 대신
-    if (at || y > 300 && y < max - 300) edge = at; }, {passive:true});
 })();
 </script>
 <script>
