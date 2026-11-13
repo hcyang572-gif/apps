@@ -358,9 +358,10 @@ document.querySelectorAll('#feats video:not([data-still])').forEach(function(v){
 var C=window.FM_VIDEO||{};
 /* 넓은 화면·전체 화면은 1080p, 휴대폰은 720p. VP9(webm)를 확실히 재생하는 브라우저엔 같은 화질의 더 가벼운 webm */
 var VP9=(function(){ try{ return document.createElement('video').canPlayType('video/webm; codecs="vp9, opus"')==='probably'; }catch(e){ return false; } })();
-function vpick(cfg,hd){ var m=hd&&cfg.hd?cfg.hd:cfg.src, w=hd&&cfg.hd?cfg.hdWebm:cfg.webm; return VP9&&w?w:m; }
+function vpick(cfg,hd){ var m=hd&&cfg.hd?cfg.hd:cfg.src, w=hd&&cfg.hd?cfg.hdWebm:cfg.webm; return VP9&&WEBM_OK&&w?w:m; }
+var WEBM_OK=false;   /* webm 색 범위 재인코딩 중 — 끝나면 true */
 function slot(id,cfg,cap){ var v=document.getElementById(id); if(!v||!cfg) return; v.poster=cfg.poster||''; document.getElementById(cap).textContent=cfg.credit?('음악 '+cfg.credit):'';
-  var big=cfg.hd && innerWidth*(devicePixelRatio||1)>=1600 && !(navigator.connection&&navigator.connection.saveData); v.dataset.src=vpick(cfg,big); v.dataset.hd=big?'1':'';
+  var big=cfg.hd && innerWidth>=700 && !(navigator.connection&&navigator.connection.saveData); v.dataset.src=vpick(cfg,big); v.dataset.hd=big?'1':'';
   v._up=function(){ if(!cfg.hd||v.dataset.hd==='1') return; v.dataset.hd='1'; v.dataset.src=vpick(cfg,true); if(!v.src) return; var t=v.currentTime, p=!v.paused;
     v.addEventListener('loadedmetadata',function f(){ v.removeEventListener('loadedmetadata',f); try{ v.currentTime=t; }catch(e){} if(p) v.play().catch(function(){}); }); v.src=v.dataset.src; };
   if(IO) new IntersectionObserver(function(es){ if(v.user) return; if(es[0].isIntersecting){ if(!v.src) v.src=v.dataset.src; v.play().catch(function(){}); } else v.pause(); },{threshold:.45}).observe(v); }
