@@ -1122,6 +1122,107 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
 @media (prefers-reduced-motion:reduce){.rprog .wk .bob,.rprog .wk .f1,.rprog .wk .f2,.rprog .hs.lit,.rprog.done .hm .ht,.rprog.done .hm .rg{animation:none!important}
   .rprog.done .hm .ht{opacity:.9;transform:translateY(-8px)}}
 @media print{.rprog{display:none}}
+/* 심사항목 꼬리표 · ESG «동선이 짧아지면» · 발전 가능성 확산 · 독창성 비교 · «심사항목으로 본 닿음» (11-13 87회차 미르)
+   문구·숫자 = daeum/docs/MESSAGE_CANON.md 4·8절. 햅틱은 새로 넣지 않음(기존 단추 탭 반응만). */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.crit-tag{display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 6px;border-radius:99px;font:600 12.5px/1 var(--f-body);color:var(--gam-d);background:var(--gam-soft);box-shadow:inset 0 0 0 1px rgba(134,70,15,.16)}
+.crit-tag b{font-weight:700;font-size:11px;letter-spacing:.06em;padding:3px 6px;border-radius:99px;background:var(--card);color:var(--gam-d)}
+.night .crit-tag{color:#F2D3B0;background:rgba(242,178,122,.12);box-shadow:inset 0 0 0 1px rgba(242,178,122,.28)}
+.night .crit-tag b{background:rgba(242,178,122,.2);color:#FBE7D2}
+.chap .tags{margin:2px 0 4px}
+
+/* ESG — 동선 장 끝 연결 블록 */
+.esg{margin-top:clamp(28px,4vw,48px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center;padding:clamp(20px,3vw,32px);border-radius:var(--r);background:linear-gradient(160deg,var(--paper-hi),var(--teal-l));box-shadow:var(--hl),inset 0 0 0 1px var(--line)}
+.esg-map svg{display:block;width:100%;height:auto}
+.esg-map .old{fill:none;stroke:#A9A397;stroke-width:3;stroke-dasharray:7 8;stroke-linecap:round;stroke-linejoin:round;transition:opacity .7s var(--ease)}
+.esg-map .new{fill:none;stroke:var(--teal);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;transition:stroke-dashoffset 1.6s cubic-bezier(.45,0,.2,1) .5s}
+.esg-map .hh path{fill:var(--card);stroke:var(--teal-d);stroke-width:1.8;stroke-linejoin:round}
+.esg-map .of rect{fill:var(--teal-d)}
+.js .esg:not(.in) .old{opacity:0}.js .esg:not(.in) .new{stroke-dashoffset:1}
+.esg-map .lg{display:flex;gap:18px;margin:10px 0 0;font-size:13px;color:var(--ink3)}
+.esg-map .lg span{display:inline-flex;align-items:center;gap:7px}
+.esg-map .lg span::before{content:"";width:22px;height:0;border-top:3px dashed #A9A397}
+.esg-map .lg .n::before{border-top:4px solid var(--teal);border-radius:2px}
+.esg-t{display:grid;gap:12px;align-content:center}
+.esg-t h3{margin:0;font:700 clamp(21px,2.2vw,26px)/1.35 var(--f-disp);color:var(--teal-d)}
+.esg-t .co2{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 10px;margin:0}
+.esg-t .co2 .pre{font-size:14px;color:var(--ink2)}
+.esg-t .co2 strong{font:700 clamp(28px,3vw,36px)/1 var(--f-disp);color:var(--teal-d);letter-spacing:-.02em}
+.esg-t .co2 strong small{font:600 .45em var(--f-body);margin-left:4px;color:var(--ink2)}
+.esg-t .co2 .est{font-size:12px;font-weight:600;color:var(--gam-d);padding:3px 8px;border-radius:99px;box-shadow:inset 0 0 0 1px rgba(134,70,15,.3)}
+.esg-t .nt{margin:0;font-size:13.5px;color:var(--ink3);line-height:1.55}
+@media (max-width:900px){.esg{grid-template-columns:1fr}}
+
+/* 발전(사업화) 가능성 — 세 단계 확산 */
+.grow{margin:0 0 22px;padding:clamp(18px,3vw,28px) clamp(14px,3vw,28px) 18px;border-radius:var(--r);background:var(--card);box-shadow:var(--hl),inset 0 0 0 1px var(--line)}
+.grow svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
+.grow .ln{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:1;transition:stroke-dashoffset 1.4s var(--ease) .2s}
+.grow .nd{fill:var(--card);stroke:var(--teal);stroke-width:2.5}
+.grow .d{fill:var(--teal);transform-box:fill-box;transform-origin:center;transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.grow .s1{fill:var(--gam)}
+.grow .halo{fill:none;stroke:var(--gam);stroke-width:1.5;opacity:.55;transition:opacity .8s var(--ease) .3s}
+.grow .s2{transition-delay:calc(.75s + var(--i,0)*.06s)}.grow .s2.c{transition-delay:.7s}
+.grow .s3{fill:#3C8E97;transition-delay:calc(1.3s + var(--i,0)*.05s)}
+.js .grow:not(.in) .ln{stroke-dashoffset:1}.js .grow:not(.in) .d{opacity:0;transform:scale(.3)}.js .grow:not(.in) .halo{opacity:0}
+.grow .gl{list-style:none;margin:6px auto 0;padding:0;max-width:640px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);text-align:center;font-size:13.5px;color:var(--ink3)}
+.grow .gl b{display:block;font:700 16px/1.4 var(--f-disp);color:var(--teal-d)}
+.sp strong.sm{font-size:clamp(24px,2.6vw,30px)}
+.sp strong small{font:600 .5em var(--f-body);margin-left:3px;color:var(--ink2)}
+.sp strong i{font-style:normal;color:var(--gam)}
+@media (max-width:900px){.spread{grid-template-columns:1fr}}
+
+/* 독창성 — 조사 17건 vs 닿음 */
+.orig{margin-top:18px;display:grid;gap:10px}
+.orow{display:grid;grid-template-columns:150px minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;background:var(--paper2)}
+.orow .rl{font-size:14px;font-weight:600;color:var(--ink2)}
+.orow .dots{display:flex;flex-wrap:wrap;gap:7px}
+.orig .orow .dots i{display:block;flex:none;width:13px;height:13px;margin:0;padding:0;border-radius:50%;background:none;opacity:1;transform:none;box-shadow:inset 0 0 0 1.5px #A9A397}
+.orig .orow .dots i.r{background:linear-gradient(90deg,#A9A397 50%,transparent 50%)}
+.orow .rv{font-size:14px;color:var(--ink2);white-space:nowrap}
+.orow .rv b{font:700 22px/1 var(--f-disp);color:var(--teal-d);margin-left:4px}
+.orow.me{grid-template-columns:150px minmax(0,1fr);background:linear-gradient(160deg,var(--teal),var(--teal-d));color:var(--on-dark)}
+.orow.me .rl{color:#fff}
+.orow .axes{display:flex;flex-wrap:wrap;gap:8px}
+.orow .axes i{font-style:normal;font-size:13.5px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.orig .nt{margin:2px 0 0;font-size:13px;color:var(--ink3);display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.orig .nt .k{width:11px;height:11px;border-radius:50%;box-shadow:inset 0 0 0 1.5px #A9A397;background:linear-gradient(90deg,#A9A397 50%,transparent 50%)}
+@media (max-width:640px){.orow,.orow.me{grid-template-columns:1fr;gap:10px}.orow .rv{white-space:normal}.orig .orow .dots{gap:4px}.orig .orow .dots i{width:12px;height:12px}}
+
+/* 심사항목으로 본 닿음 — 채점표 순서 장부 */
+.slg{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0 0 14px;padding:12px 16px;border-radius:12px;background:var(--paper2);font-size:13px;color:var(--ink2)}
+.slg span{display:inline-flex;align-items:center;gap:8px}
+.slg i{flex:none;font-style:normal}
+.slg .k1{width:26px;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--gam))}
+.slg .k2{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--gam-d)}
+.slg .k3{color:var(--gam-d);font-weight:700}
+.sbar{display:flex;height:46px;border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:var(--sh0)}
+.sbar .sg{flex:var(--w) 0 0;display:flex;flex-direction:column;justify-content:center;padding:0 10px;min-width:0;color:#fff;border-right:1px solid rgba(255,255,255,.35)}
+.sbar .sg:last-child{border-right:0}
+.sbar b{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar em{font:700 15px/1.1 var(--f-disp);font-style:normal}
+.sg1{background:#10363F}.sg2{background:#1D5E6C}.sg3{background:#3C7F8A}.sg4{background:#6E9A9F}.sg5{background:#86460F}.sg6{background:#B7742F}
+.slist{display:grid;border-top:1px solid var(--line)}
+.srow{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr) minmax(0,1.05fr);grid-template-areas:"h c e" "h k e";gap:6px 28px;padding:20px 6px;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;transition:background .25s var(--ease)}
+.srow:hover,.srow:focus-visible{background:rgba(29,94,108,.05)}
+.srow .sh{grid-area:h;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-content:start}
+.srow .si{grid-row:span 2;font:700 30px/1 var(--f-disp);color:var(--gam)}
+.srow .sn{font:700 17px/1.35 var(--f-disp);color:var(--teal-d)}
+.srow .sp2{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink3)}
+.srow .sp2 b{font:700 15px/1 var(--f-disp);color:var(--ink)}
+.srow .pb{display:block;height:6px;width:calc(var(--w)*3px);border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--gam));transform-origin:left;transition:transform 1s var(--ease) .25s}
+.js .srow:not(.in) .pb{transform:scaleX(0)}
+.srow .sc{grid-area:c;font-size:15.5px;line-height:1.6;color:var(--ink)}
+.srow .se{grid-area:e;display:grid;gap:6px;align-content:start}
+.srow .se span{position:relative;padding-left:16px;font-size:13.5px;line-height:1.5;color:var(--ink2)}
+.srow .se span::before{content:"";position:absolute;left:2px;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.srow .sk{grid-area:k;font-size:13px;font-weight:600;color:var(--gam-d)}
+.srow .sk i{font-style:normal;display:inline-block;transition:transform .25s var(--ease)}
+.srow:hover .sk i{transform:translateX(4px)}
+@media (max-width:900px){.srow{grid-template-columns:1fr;grid-template-areas:"h" "c" "e" "k";gap:10px;padding:18px 2px}
+  .sbar{height:auto;flex-wrap:wrap}.sbar .sg{flex:1 1 30%;padding:8px 10px}}
+@media (prefers-reduced-motion:reduce){.esg-map .old,.esg-map .new,.grow .ln,.grow .d,.grow .halo,.srow .pb{transition:none!important}
+  .js .esg .old{opacity:1!important}.js .esg .new,.js .grow .ln{stroke-dashoffset:0!important}.js .grow .d{opacity:1!important;transform:none!important}.js .grow .halo{opacity:.55!important}.js .srow .pb{transform:none!important}}
+@media print{.js .esg .old{opacity:1!important}.js .esg .new,.js .grow .ln{stroke-dashoffset:0!important}.js .grow .d{opacity:1!important;transform:none!important}.js .srow .pb{transform:none!important}}
 </style>
 <style>#hapchip{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + max(40px, 9svh));transform:translate(-50%,0);z-index:9999;display:none;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(16,54,63,.82);color:#fff;font:600 14px/1.2 var(--f-body);box-shadow:0 6px 18px rgba(0,0,0,.22);transition:opacity .35s ease,transform .35s ease}#hapchip.on{display:inline-flex}#hapchip.bye{opacity:0;transform:translate(-50%,12px)}#hapchip i{width:8px;height:8px;border-radius:50%;background:#E2873A;box-shadow:0 0 0 4px rgba(226,135,58,.28)}@media (prefers-reduced-motion:reduce){#hapchip{transition:none}}</style><script>(function(){try{if(!('vibrate' in navigator)||!matchMedia('(pointer:coarse)').matches)return;var done=false;function go(){if(done)return;done=true;try{navigator.vibrate(18)}catch(e){}var c=document.getElementById('hapchip');if(c){c.classList.add('bye');setTimeout(function(){c.remove()},400)}}document.addEventListener('DOMContentLoaded',function(){var c=document.createElement('button');c.id='hapchip';c.type='button';c.innerHTML='<i></i>화면을 한 번 톡 — 진동 효과 켜기';document.body.appendChild(c);setTimeout(function(){if(!done)c.classList.add('on')},900);});document.addEventListener('click',go,{capture:true,once:true});}catch(e){}})();</script><meta property="og:type" content="website"><meta property="og:site_name" content="닿음"><meta property="og:title" content="닿음 — 복지 사각지대 현장 업무 도우미"><meta property="og:description" content="발굴 명단을 받은 다음의 현장 업무를 돕습니다. 네이버 지도 동선 최적화, 동료 안전 확인, 집 앞 기록, 보고서 자동 생성까지 — 사무실 PC와 현장 폰이 같은 하루를 씁니다."><meta property="og:url" content="https://hcyang572-gif.github.io/apps/daeum/"><meta property="og:image" content="https://hcyang572-gif.github.io/apps/og/daeum-s12k-1200x630.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hcyang572-gif.github.io/apps/og/daeum-s12k-1200x630.png"><meta property="og:image:alt" content="닿음 — 복지 사각지대 현장 업무 도우미 — 발굴 명단을 받은 다음의 현장 업무를 돕습니다. 네이버 지도 동선 최적화, 동료 안전 확인, 집 앞 기록, 보고서 자동 생성까지 — 사무실 PC와 현장 폰이 같은 하루를 씁니다."><link rel="canonical" href="https://hcyang572-gif.github.io/apps/daeum/"></head>
 <body>
@@ -1277,6 +1378,7 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
   <div class="wrap">
     <div class="head rise">
       <p class="eyebrow">사회보장 데이터 × AI</p>
+      <p class="tags"><span class="crit-tag"><b>심사</b>사회보장 데이터 활용</span><span class="crit-tag"><b>심사</b>AI 혁신성</span></p>
       <h2 id="flowT">읽고, 가공하고, 현장에 건넵니다</h2>
       <p class="lead">명단과 공공데이터를 그때그때 읽어 정리하고, AI와 도로 경로로 가공해, 담당자가 바로 움직일 수 있는 화면으로 보냅니다.</p>
     </div>
@@ -1399,6 +1501,23 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
       <div><span class="dv"><svg class="i78 s16" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.9M4.5 12a7.5 7.5 0 0 1 13.2-4.9"/><path d="M18 3.5v4h-4M6 20.5v-4h4"/></svg>실시간 연동</span><b>폰에 바로</b><p>확정한 계획이 같은 계정 폰의 «오늘» 탭에 그대로 뜹니다.</p></div>
       <div><span class="dv"><svg class="i78 s16" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><g class="ic-d" stroke="none"><path d="M12 3.2 19 19.6 12 16 5 19.6z"/></g><path d="M12 3.2 19 19.6 12 16 5 19.6z"/></svg>현장 폰</span><b>네이버 지도 길안내</b><p>방문 순서가 경유지로 넘어가 지도 앱 길안내가 시작됩니다.</p></div>
     </div>
+    <div class="esg rise" id="esg" aria-labelledby="esgT">
+      <div class="esg-map">
+        <svg viewBox="0 0 520 230" role="img" aria-label="명단 순서로 도는 길과 닿음이 다시 짠 짧은 길을 겹쳐 그린 그림">
+          <path class="old" d="M40 182 L380 74 L150 64 L470 156 L262 180"/>
+          <path class="new" d="M40 182 L150 64 L380 74 L470 156 L262 180" pathLength="1"/>
+          <g class="of" transform="translate(40 182)"><rect x="-11" y="-11" width="22" height="22" rx="5"/></g>
+          <g class="hh" transform="translate(150 64)"><path d="M-9 2 0-7 9 2v9h-18z"/></g><g class="hh" transform="translate(380 74)"><path d="M-9 2 0-7 9 2v9h-18z"/></g><g class="hh" transform="translate(470 156)"><path d="M-9 2 0-7 9 2v9h-18z"/></g><g class="hh" transform="translate(262 180)"><path d="M-9 2 0-7 9 2v9h-18z"/></g>
+        </svg>
+        <p class="lg"><span class="o">명단 순서</span><span class="n">닿음이 다시 짠 순서</span></p>
+      </div>
+      <div class="esg-t">
+        <p class="tags"><span class="crit-tag"><b>심사</b>ESG 혁신 · 탄소중립</span></p>
+        <h3 id="esgT">동선이 짧아지면, 연료와 탄소도 줄어듭니다</h3>
+        <p class="co2"><span class="pre">시군 1곳 · 연</span><strong class="num">약 <span data-count="1.3" data-dec="1">1.3</span><small>t CO₂</small></strong><span class="est">추정</span></p>
+        <p class="nt">담당 10명 가정, 이동 거리 20% 단축 기준(31%면 약 2.0t)<sup class="s"><a href="#src11">11</a></sup></p>
+      </div>
+    </div>
   </div>
 </section>
 <section class="band night tex" id="safety">
@@ -1408,6 +1527,7 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
       <div class="no" aria-hidden="true">02</div>
       <div class="t">
         <p class="when">출발 뒤 · 현장 폰</p>
+        <p class="tags"><span class="crit-tag"><b>심사</b>ESG 혁신 · 상생협력</span></p>
         <h2>혼자 방문하는 담당자 곁에 동료가 있습니다</h2>
         <p class="lead">처음 가는 집, 연락이 닿지 않던 가구를 혼자 찾아갈 때가 많습니다. 집에 들어가기 전에 안전 모드를 켜 두면, 정한 시간이 지나도 소식이 없을 때 동료와 팀장 화면에 차례로 알림이 갑니다.</p>
         <p class="vs"><span class="b4">이전엔</span>방문 중 안부는 각자 동료에게 직접 알려야 함<i aria-hidden="true">→</i><span class="af">닿음으로는</span>예정 시간을 넘기면 동료·팀장 화면에 알림이 먼저 감</p>
@@ -1730,15 +1850,21 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
   </div>
 </section>
 
-<section class="band tex" aria-labelledby="gapT">
+<section class="band tex" id="gap" aria-labelledby="gapT">
   <div class="wrap">
     <div class="head rise">
       <p class="eyebrow">새로운 앱</p>
+      <p class="tags"><span class="crit-tag"><b>심사</b>독창성</span></p>
       <h2 id="gapT">명단을 받은 그다음을 맡습니다</h2>
     </div>
     <div class="gap rise">
       <div class="before"><span class="lbl">지금까지</span><h3>발굴과 통보</h3><ul><li>한국사회보장정보원이 위기정보로 명단 선별</li><li>행복이음으로 읍면동에 배정</li><li>방문 순서·동선·안전·기록·보고·인계·사후관리는 담당자 몫</li></ul></div>
       <div class="after"><span class="lbl">닿음</span><h3>명단 이후 현장 업무</h3><ul><li>동선 → 안전 → 기록 → 보고 → 인계 → 사후관리가 한 흐름</li><li>사무실 PC와 현장 폰이 같은 정보를 실시간으로</li><li>설치 없는 웹, A4로 바로 나오는 한글·엑셀 문서</li></ul></div>
+    </div>
+    <div class="orig rise" aria-label="국내외 17건 조사 결과와 닿음 비교">
+      <div class="orow"><span class="rl">조사한 국내외 17건</span><span class="dots" aria-hidden="true"><i class=""></i><i class="r"></i><i class=""></i><i class=""></i><i class="r"></i><i class=""></i><i class="r"></i><i class=""></i><i class=""></i><i class="r"></i><i class=""></i><i class="r"></i><i class=""></i><i class="r"></i><i class=""></i><i class=""></i><i class="r"></i></span><span class="rv">네 축을 모두 갖춘 곳 <b>0</b></span></div>
+      <div class="orow me"><span class="rl">닿음</span><span class="axes"><i>동선</i><i>동료 안부</i><i>현장 기록</i><i>보고서 자동</i></span></div>
+      <p class="nt"><span class="k" aria-hidden="true"></span>현장 기록을 갖춘 곳 7건 · 나머지 기능도 서로 다른 서비스에 흩어져 있었습니다 · 조사 범위 안의 결과(2026-11-13)<sup class="s"><a href="#src13">13</a></sup></p>
     </div>
   </div>
 </section>
@@ -1747,12 +1873,24 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
   <div class="wrap">
     <div class="head rise">
       <p class="eyebrow">기대효과 · 확산</p>
+      <p class="tags"><span class="crit-tag"><b>심사</b>발전(사업화) 가능성</span></p>
       <h2>설치 없이, 받은 명단 그대로</h2>
-      <p class="lead">행복이음 «발굴대상자 조회» 엑셀을 그대로 불러오고, 설치 없이 웹 주소 하나로 여섯 가지 강점을 PC와 폰에서 같이 씁니다.</p>
+      <p class="lead">행복이음 «발굴대상자 조회» 엑셀을 그대로 불러오고, 설치 없이 웹 주소 하나로 PC와 폰에서 같이 씁니다. 행복이음 앞뒤의 현장 공백만 맡는 보완 도구로 넓혀 갑니다.</p>
+    </div>
+    <div class="grow rise" aria-label="상주 시범, 광역, 희망 시군 순으로 넓히는 세 단계">
+      <svg viewBox="0 0 520 150" aria-hidden="true" focusable="false">
+        <path class="ln" d="M87 128 H433" pathLength="1"/>
+        <circle class="d s1" cx="87" cy="70" r="9"/><circle class="halo" cx="87" cy="70" r="20"/>
+        <circle class="d s2 c" cx="260" cy="70" r="7"/><circle class="d s2" cx="260" cy="40" r="4.6" style="--i:0"/><circle class="d s2" cx="289" cy="61" r="4.6" style="--i:1"/><circle class="d s2" cx="278" cy="94" r="4.6" style="--i:2"/><circle class="d s2" cx="242" cy="94" r="4.6" style="--i:3"/><circle class="d s2" cx="231" cy="61" r="4.6" style="--i:4"/>
+        <circle class="d s3" cx="422" cy="49" r="4.2" style="--i:0"/><circle class="d s3" cx="431" cy="36" r="4.2" style="--i:1"/><circle class="d s3" cx="390" cy="98" r="4.2" style="--i:2"/><circle class="d s3" cx="393" cy="76" r="4.2" style="--i:3"/><circle class="d s3" cx="455" cy="37" r="4.2" style="--i:4"/><circle class="d s3" cx="445" cy="57" r="4.2" style="--i:5"/><circle class="d s3" cx="385" cy="41" r="4.2" style="--i:6"/><circle class="d s3" cx="436" cy="83" r="4.2" style="--i:7"/><circle class="d s3" cx="389" cy="60" r="4.2" style="--i:8"/><circle class="d s3" cx="392" cy="100" r="4.2" style="--i:9"/><circle class="d s3" cx="435" cy="37" r="4.2" style="--i:10"/><circle class="d s3" cx="453" cy="45" r="4.2" style="--i:11"/><circle class="d s3" cx="409" cy="104" r="4.2" style="--i:12"/><circle class="d s3" cx="388" cy="103" r="4.2" style="--i:13"/>
+        <circle class="nd" cx="87" cy="128" r="6"/><circle class="nd" cx="260" cy="128" r="6"/><circle class="nd" cx="433" cy="128" r="6"/>
+      </svg>
+      <ol class="gl"><li><b>상주 시범</b>직접 운영</li><li><b>광역</b>인근 시군으로</li><li><b>희망 시군</b>필요한 곳부터</li></ol>
     </div>
     <div class="spread">
-      <div class="sp rise"><span class="crit">발전(사업화) 가능성</span><strong class="num" data-count="227" data-suf="곳">227곳</strong><p>확산을 검토할 수 있는 기초 시군구<sup class="s"><a href="#src7">7</a></sup></p></div>
-      <div class="sp rise"><span class="crit">구체성</span><strong class="num" data-count="31" data-suf="%">31%</strong><p>시연 4가구 이동 거리 감소(76.4→52.5km, 가상·추정)<sup class="s"><a href="#src5">5</a></sup></p></div>
+      <div class="sp rise"><span class="crit">운영비 · 시군 1곳 연간</span><strong class="num">251~551<small>만원</small></strong><p>무료 요금제 기반 운영 추정<sup class="s"><a href="#src12">12</a></sup></p></div>
+      <div class="sp rise"><span class="crit">확산 가정</span><strong class="num" data-count="23" data-suf="곳">23곳</strong><p>기초 시군구 227곳 중 10% 가정 · 연 0.6~1.3억원(추정)<sup class="s"><a href="#src7">7</a></sup><sup class="s"><a href="#src12">12</a></sup></p></div>
+      <div class="sp rise"><span class="crit">운영 방식</span><strong class="num sm">시범 <i aria-hidden="true">→</i> 이관</strong><p>상주 시범은 직접 운영, 이후 한국사회보장정보원 이관 협의</p></div>
     </div>
   </div>
 </section>
@@ -1761,14 +1899,15 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
   <div class="wrap">
     <div class="head rise">
       <p class="eyebrow">품질 · 개인정보 · 보안</p>
+      <p class="tags"><span class="crit-tag"><b>심사</b>구체성</span><span class="crit-tag"><b>심사</b>ESG 혁신 · 윤리경영</span></p>
       <h2 id="trustT">실측으로 점검하고, 고쳐 나갔습니다</h2>
       <p class="lead">지금 바로 써도 무리가 없도록, 전자정부 웹 품질·접근성 지침에 맞춰 시연판을 직접 재고 찾은 것을 고쳤습니다.</p>
     </div>
     <div class="trust rise">
       <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num">미흡 0</strong><span>전자정부 웹 품질 7개 영역 · 접근성(KWCAG 2.2) 33개 항목</span></div>
       <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num">오류 0</strong><span>3개 브라우저 엔진 × PC·폰 폭</span></div>
-      <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num"><span data-count="0.77" data-dec="2">0.77</span><small>초</small></strong><span>첫 화면이 뜨는 시간(LCP)</span></div>
-      <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num"><span data-count="7">7</span><small>/7</small></strong><span>로그인 없이 서버 자료를 읽으려는 시도 거부</span></div>
+      <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num"><span data-count="0.69" data-dec="2">0.69</span><small>초</small></strong><span>첫 화면이 뜨는 시간(LCP)</span></div>
+      <div class="tc rise"><svg class="ck" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="1"/><path d="m12.5 20.5 5 5 10-11" pathLength="1"/></svg><strong class="num"><span data-count="7">7</span><small>/7</small></strong><span>로그인 없이 방문 계획·기록 표를 읽으려는 시도 거부</span></div>
     </div>
     <ul class="tlist rise">
       <li>발굴 명단은 이 기기 안에서만 읽고 서버로 보내지 않습니다</li>
@@ -1776,6 +1915,55 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
       <li>전 구간 HTTPS, 공개 키만 노출</li>
     </ul>
     <p class="tsrc">닿음 전자정부 웹 품질 적합성 자체 점검(2026-11, 시연판 실측)<sup class="s"><a href="#src8">8</a></sup></p>
+  </div>
+</section>
+
+<section class="band tex" id="score" aria-labelledby="scoreT">
+  <div class="wrap">
+    <div class="head rise">
+      <p class="eyebrow">공고문 채점표 순서 · 배점 그대로</p>
+      <h2 id="scoreT">심사항목으로 본 닿음</h2>
+    </div>
+    <div class="slg rise" aria-label="읽는 법"><span><i class="k1"></i>막대 길이 = 배점(100점 중)</span><span><i class="k2"></i>«추정» = 산식이 있는 추정값, 출처는 맨 아래</span><span><i class="k3">→</i>누르면 이 쪽의 해당 장으로</span></div>
+    <div class="sbar rise" aria-hidden="true"><span class="sg sg1" style="--w:25"><b>사회보장 데이터 활용</b><em>25</em></span><span class="sg sg2" style="--w:20"><b>AI 혁신성</b><em>20</em></span><span class="sg sg3" style="--w:15"><b>구체성</b><em>15</em></span><span class="sg sg4" style="--w:15"><b>독창성</b><em>15</em></span><span class="sg sg5" style="--w:20"><b>발전(사업화) 가능성</b><em>20</em></span><span class="sg sg6" style="--w:5"><b>ESG 혁신</b><em>5</em></span></div>
+    <div class="slist">
+      <a class="srow rise" href="#flow">
+        <span class="sh"><span class="si">1</span><span class="sn">사회보장 데이터 활용</span><span class="sp2"><span class="pb" style="--w:25"></span><b>25</b>점</span></span>
+        <span class="sc">한국사회보장정보원 발굴 명단을 받은 다음 단계에서, 공공데이터와 실시간 정보를 더해 방문 순서와 연계 서비스로 바꿉니다.</span>
+        <span class="se"><span>데이터 41종 사용(실시간 4·정적 37), 공공데이터포털 21종 포함</span><span>복지서비스 목록 369건 안에서만 추천</span><span>명단은 기기 안에서만 읽고 서버로 보내지 않음</span></span>
+        <span class="sk">확인 · 앱 «활용 데이터» 화면 <i aria-hidden="true">→</i></span>
+      </a>
+      <a class="srow rise" href="#field">
+        <span class="sh"><span class="si">2</span><span class="sn">AI 혁신성</span><span class="sp2"><span class="pb" style="--w:20"></span><b>20</b>점</span></span>
+        <span class="sc">AI가 상담 내용을 정리하고 목록 안의 서비스를 추천합니다. 보내기 전에 이름·전화번호를 가리고, 정확도를 직접 재서 공개합니다.</span>
+        <span class="se"><span>가상 사연 20건(11-02 측정): 첫 추천 적합 20/20 · 상위 3개 54/60 — 표본이 작아 일반화하지 않음</span><span>실제 도로 기준으로 동선을 다시 계산하고 예상 시간을 냄</span><span>PC와 폰이 실시간으로 같은 화면</span></span>
+        <span class="sk">확인 · 앱 «AI 추천 검증» 화면 <i aria-hidden="true">→</i></span>
+      </a>
+      <a class="srow rise" href="#route">
+        <span class="sh"><span class="si">3</span><span class="sn">구체성</span><span class="sp2"><span class="pb" style="--w:15"></span><b>15</b>점</span></span>
+        <span class="sc">아이디어가 아니라 지금 열어 쓸 수 있는 시제품입니다. 현장 하루 순서(동선 → 동료 안전 → 현장 정리 → 보고서)대로 짜여 있습니다.</span>
+        <span class="se"><span>라이브 앱과 심사위원 시연 계정 6개</span><span>웹품질 7개 영역 실측, 미흡 0</span><span>추진 일정과 역할은 서식4 5절</span></span>
+        <span class="sk">확인 · hcyang572-gif.github.io/daeum <i aria-hidden="true">→</i></span>
+      </a>
+      <a class="srow rise" href="#gap">
+        <span class="sh"><span class="si">4</span><span class="sn">독창성</span><span class="sp2"><span class="pb" style="--w:15"></span><b>15</b>점</span></span>
+        <span class="sc">국내외 17건을 조사한 범위 안에서, 현장 동선·동료 안부·현장 기록·보고서 자동을 한데 묶은 공무원용 현장 도구는 찾지 못했습니다.</span>
+        <span class="se"><span>네 축을 모두 갖춘 곳 0(조사일 11-13)</span><span>기록 축은 7건이 갖춤 — 차이는 «묶음»과 «발굴 명단 다음 단계» 위치</span><span>행복이음과 겹치지 않는 보완 위치(모바일 행복이음의 일정·지도 기능은 확인하지 못함)</span></span>
+        <span class="sk">확인 · 이 쪽 «새로운 앱» <i aria-hidden="true">→</i></span>
+      </a>
+      <a class="srow rise" href="#spread">
+        <span class="sh"><span class="si">5</span><span class="sn">발전(사업화) 가능성</span><span class="sp2"><span class="pb" style="--w:20"></span><b>20</b>점</span></span>
+        <span class="sc">행복이음 앞뒤의 현장 공백만 맡는 보완 도구로, 상주 시범 → 광역 → 희망 시군 순으로 넓힙니다.</span>
+        <span class="se"><span>운영비 시군 1곳 연 약 251~551만원(추정)</span><span>기초 시군구 227곳 중 10% 가정 시 23곳·연 0.6~1.3억원(추정)</span><span>시범 직접 운영 → 한국사회보장정보원 이관 협의</span></span>
+        <span class="sk">확인 · 이 쪽 «기대효과 · 확산» <i aria-hidden="true">→</i></span>
+      </a>
+      <a class="srow rise" href="#esg">
+        <span class="sh"><span class="si">6</span><span class="sn">ESG 혁신</span><span class="sp2"><span class="pb" style="--w:5"></span><b>5</b>점</span></span>
+        <span class="sc">동선을 줄여 연료·탄소를 아끼고, 동료 안부로 서로 지키며, 명단은 기기 안에서만 다룹니다.</span>
+        <span class="se"><span>탄소중립: 시군 1곳 연 약 1.3t CO₂ 감소(추정, 이동 20% 단축 기준)</span><span>상생협력: 팀 코드로 동료 안부 · 지역 복지서비스 목록 안 연계</span><span>윤리경영: 명단 서버 전송 0 · 보낼 때 이름·주소 가림</span></span>
+        <span class="sk">확인 · 이 쪽 «동선이 짧아지면» <i aria-hidden="true">→</i></span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1805,6 +1993,9 @@ svg.rb.v .st .t{font-size:19px}svg.rb.v .st .n{font-size:13px}
       <li id="src9">세계일보 2022-11-24(1인당 연 조사 건수 45.2→113.4, 2018→2021)</li>
       <li id="src10">보건복지부 2019-09-05(명단 전달 경로: 시스템 → 시군구 → 읍면동)</li>
       <li id="src8">닿음 전자정부 웹 품질 적합성 자체 점검 보고서(2026-11, 시연판 실측) — 전자정부 웹사이트 품질관리 지침(행정안전부 고시 제2025-46호)·한국형 웹 콘텐츠 접근성 지침 2.2·모바일 전자정부 서비스 관리 지침, Edge·WebKit·Firefox</li>
+      <li id="src11">닿음 자체 추정(2026-11) · 휘발유 배출계수 2.174kg/L(한국유화학회지 2016), 시군 1곳 담당 10명·이동 20% 단축 가정</li>
+      <li id="src12">닿음 자체 추정(2026-11) · 무료 요금제 기반 운영비 산식, 기초 시군구 10% 도입 가정</li>
+      <li id="src13">닿음 유사 서비스 조사(2026-11-13, 국내외 공공·민간 17건) — 조사 범위 안의 결과</li>
     </ol>
     <div class="meta"><span>닿음 · 복지 사각지대 현장 업무 도우미</span><span>상주시청</span><span>사회보장 데이터 활용 경진대회 출품작</span><span>화면의 모든 가구는 가상 데이터</span></div>
   </div>
