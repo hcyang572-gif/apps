@@ -163,12 +163,47 @@ dialog img{width:100%;border-radius:4px;box-shadow:0 40px 80px -20px #000}dialog
 .store{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 22px;border-radius:14px;border:1px solid rgba(28,42,51,.2);background:rgba(255,255,255,.55);font:500 15px var(--sans)}.store svg{width:20px;height:20px}
 .soonline{margin-top:14px;font:500 13px var(--sans);letter-spacing:.32em;color:var(--brass)}
 footer{padding:36px 0 56px;color:var(--mute);font-size:12px;text-align:center;line-height:1.9}footer a{text-decoration:underline;text-underline-offset:3px}
-@media (max-width:860px){
-  .hero .wrap,.live .wrap,.feat .wrap{grid-template-columns:1fr}.feat.alt .wrap>:first-child{order:0}
+/* ── 폭별 전용 배열 (41차 LAND-RESP) ── 폰 ≤699 · 폴드·태블릿 700~1099 · 노트북 1100~1439 · 넓은 PC 1440+ */
+:root{--pw:min(270px,calc((100svh - 150px)/2.25));--fwd:420px;--fan:min(190px,38vw)}
+.feat .devs{width:100%}.feat .devs>div{flex:0 1 auto;min-width:0}.feat .devs .dev{width:100%}
+.w-phone{width:min(100%,var(--pw))}.w-fold{width:min(100%,var(--fwd))}
+.devs.k-pp .w-phone{width:calc(50% - 9px);max-width:var(--pw)}
+.devs.k-fp .w-fold{width:60%;max-width:var(--fwd)}.devs.k-fp .w-phone{width:34%;max-width:var(--pw)}
+.fan{height:calc(var(--fan)*1.43 + 56px)}.fan figure{width:var(--fan);margin-left:calc(var(--fan)/-2)}
+.livestage .dev{width:min(310px,64vw,calc((100svh - 130px)/2.25))}
+.dn{width:min(340px,78vw,calc((100svh - 150px)/2.25))}
+@media (max-width:699px){
+  .hero .wrap,.live .wrap,.feat .wrap,.dnwrap{grid-template-columns:1fr}.feat.alt .wrap>:first-child{order:0}
   .hero{padding-top:92px}.stage{min-height:auto;margin-top:20px}.c2{right:0}.chip{font-size:12px;padding:8px 12px}
-  .live{height:330vh}.live .wrap{gap:8px}.livestage .dev{width:min(220px,50vw)}.steps{height:205px}.step h3{font-size:27px}.step p{font-size:14px;margin-top:8px}
-  .feat .devs{gap:12px}.feat .devs:has(.dev+.dev) .phone{width:40vw}.feat .devs:has(.fold+.phone) .fold{width:52vw}.feat .devs:has(.fold+.phone) .phone{width:28vw}
+  .live{height:330vh}.live .wrap{gap:8px}.livestage .dev{width:min(220px,50vw,calc((100svh - 330px)/2.25))}.steps{height:205px}.step h3{font-size:27px}.step p{font-size:14px;margin-top:8px}
+  .feat .devs{gap:12px}.devs.k-pp .w-phone{width:calc(50% - 6px)}
   .sec{padding:44px 0}.feat .wrap{gap:22px}.nums{grid-template-columns:1fr}.award{flex-wrap:wrap}.award button{margin-left:0}
+}
+/* 펼친 폴드·태블릿: 2열로 — 늘린 폰 화면 금지 */
+@media (min-width:700px) and (max-width:1099px){
+  :root{--gut:clamp(22px,4vw,44px);--fan:clamp(150px,23vw,230px)}
+  .hero{padding:84px 0 24px;min-height:auto}.hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px}
+  .hero h1{font-size:clamp(40px,6.4vw,66px)}.stage{min-height:min(76svh,620px)}.hero .dev{width:min(280px,34vw,calc((100svh - 170px)/2.25))}
+  .chip{font-size:12px;padding:8px 12px}.c1{left:-6%}.c2{right:-2%}.c3{left:-4%}
+  .live .wrap{gap:28px}.steps{height:clamp(240px,36vh,320px)}
+  .feat .wrap{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:28px}.sec{padding:56px 0}
+  .nums{grid-template-columns:1fr}.num{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;padding:14px 20px}.num b{grid-row:span 2;font-size:34px;min-width:3.2em}.num span{margin-top:0;font-size:13px;line-height:1.4}.num small{margin-top:0;line-height:1.4}
+  .dialsvg{width:min(100%,400px)}
+}
+.dnwrap{display:grid;gap:clamp(24px,5vw,80px);align-items:center}
+@media (min-width:700px){
+  .dnwrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);text-align:left!important}.dnwrap .eyebrow{justify-content:flex-start!important}.dnwrap .lead{margin:18px 0 0!important}.dnwrap .sunmoon{justify-content:flex-start}.dnwrap .dn{margin:0 auto}
+}
+@media (min-width:1100px){.film{max-width:calc((100svh - 300px)*16/9);margin-left:auto;margin-right:auto}}
+/* 넓은 PC: 폭을 쓰고 장면을 키운다 — 양옆 빈 여백 0 */
+@media (min-width:1440px){
+  :root{--max:min(92vw,1680px);--pw:min(360px,calc((100svh - 170px)/2.25));--fwd:600px;--fan:clamp(230px,15.5vw,300px)}
+  h2{font-size:clamp(44px,3.4vw,68px)}.lead{font-size:clamp(17px,1.05vw,20px)}.step h3{font-size:clamp(44px,3.2vw,62px)}
+  .hero .dev{width:min(400px,calc((100svh - 250px)/2.22))}.stage{min-height:min(78svh,900px)}.orbit{width:min(118%,1040px)}
+  .livestage .dev{width:min(420px,calc((100svh - 150px)/2.25))}.steps{height:clamp(300px,36vh,400px)}
+  .dialsvg{width:min(100%,560px)}.tidesvg{max-width:680px}
+  .dn{width:min(420px,calc((100svh - 170px)/2.25))}
+  .feat .devs{gap:26px}.devs.k-pp .w-phone{width:calc(50% - 13px)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.mask>span{transform:none}.hero .lead,.chip{opacity:1;transform:none}.fan figure{opacity:1}}
 </style>
@@ -253,11 +288,11 @@ window.FM_VIDEO = {
 <div id="feats"></div>
 
 <section class="sec" id="daynight" data-hap-sec="dn">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow rv" style="justify-content:center">낮과 밤</div>
+  <div class="wrap dnwrap" style="text-align:center">
+    <div><div class="eyebrow rv" style="justify-content:center">낮과 밤</div>
     <h2 class="rv d1">해가 지면,<br><b>눈부시지 않게</b></h2>
     <p class="lead rv d2" style="margin:18px auto 0">해 뜰 때는 밝은 화면, 해 질 때는 어두운 화면으로 저절로 바뀝니다. 손잡이를 밀어 비교해 보세요.</p>
-    <div class="sunmoon rv d2" aria-hidden="true"><svg id="sun" viewBox="0 0 30 30"><circle cx="15" cy="15" r="6" fill="#e2b55c"/><g stroke="#e2b55c" stroke-width="1.6" stroke-linecap="round"><path d="M15 2v4M15 24v4M2 15h4M24 15h4M5.8 5.8l2.8 2.8M21.4 21.4l2.8 2.8M5.8 24.2l2.8-2.8M21.4 8.6l2.8-2.8"/></g></svg><svg id="moon" viewBox="0 0 30 30"><path d="M19 4a11 11 0 1 0 7 17A9 9 0 0 1 19 4z" fill="#3c4f5c"/></svg></div>
+    <div class="sunmoon rv d2" aria-hidden="true"><svg id="sun" viewBox="0 0 30 30"><circle cx="15" cy="15" r="6" fill="#e2b55c"/><g stroke="#e2b55c" stroke-width="1.6" stroke-linecap="round"><path d="M15 2v4M15 24v4M2 15h4M24 15h4M5.8 5.8l2.8 2.8M21.4 21.4l2.8 2.8M5.8 24.2l2.8-2.8M21.4 8.6l2.8-2.8"/></g></svg><svg id="moon" viewBox="0 0 30 30"><path d="M19 4a11 11 0 1 0 7 17A9 9 0 0 1 19 4z" fill="#3c4f5c"/></svg></div></div>
     <div class="dn rv d3" id="dn"><div class="dev phone"><div class="scr"><img src="img/day_map.webp" alt="밝은 화면"><div class="night"><img src="img/night_map.webp" alt="어두운 화면" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div><div class="bar"></div><div class="knob"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8803f" stroke-width="1.8"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></div><input type="range" min="0" max="100" value="50" aria-label="낮과 밤 화면 비교"></div></div></div>
   </div>
 </section>
@@ -319,14 +354,15 @@ var SV={
 function vtag(src,poster){ return '<video muted playsinline loop preload="none" poster="img/'+poster+'.webp"'+(src?'':' data-still="1"')+'>'+(src?'<source data-src="media/'+src+'.webm" type="video/webm"><source data-src="media/'+src+'.mp4" type="video/mp4">':'')+'</video>'; }
 var feats=document.getElementById('feats'), html='';
 FEATS.forEach(function(f){
-  var devs=(f.devs||[]).map(function(d,i){ var inner=d[1]?vtag(d[1],d[2]):'<img src="img/'+d[2]+'.webp" alt="" loading="lazy" decoding="async">'; return '<div class="rv d'+(i+1)+'"><div class="dev '+d[0]+' tilt"><div class="scr'+(d[3]?' scan':'')+'">'+inner+'</div><div class="sheen"></div></div></div>'; }).join('');
-  if(f.safe) devs='<div class="dev fold rv d1" style="width:min(330px,48vw)"><div class="scr"><img src="img/fold_dam.webp" alt="" loading="lazy" decoding="async"></div></div>'+devs;
+  var devs=(f.devs||[]).map(function(d,i){ var inner=d[1]?vtag(d[1],d[2]):'<img src="img/'+d[2]+'.webp" alt="" loading="lazy" decoding="async">'; return '<div class="rv d'+(i+1)+' w-'+d[0]+'"><div class="dev '+d[0]+' tilt"><div class="scr'+(d[3]?' scan':'')+'">'+inner+'</div><div class="sheen"></div></div></div>'; }).join('');
+  if(f.safe) devs='<div class="rv d1 w-fold"><div class="dev fold"><div class="scr"><img src="img/fold_dam.webp" alt="" loading="lazy" decoding="async"></div></div></div>'+devs;
+  var kc='k-'+(f.safe?['fold']:[]).concat((f.devs||[]).map(function(d){return d[0];})).map(function(k){return k[0];}).join('');
   var why=(f.why||[]).map(function(w){ return '<div><b>'+w[0]+'</b><span>'+w[1]+'</span></div>'; }).join('');
-  var right=f.fan?'':(f.svg==='dial'?SV.dial:'<div class="devs">'+(f.safe?'<div class="pulse"></div>':'')+devs+'</div>'+(f.svg==='tide'?SV.tide:''));
+  var right=f.fan?'':(f.svg==='dial'?SV.dial:'<div class="devs '+kc+'">'+(f.safe?'<div class="pulse"></div>':'')+devs+'</div>'+(f.svg==='tide'?SV.tide:''));
   var nums=f.nums?'<div class="nums rv d3"><div class="num"><b data-count="5887">0</b><span>낚시 장소</span><small>바다·민물</small></div><div class="num"><b data-count="68">0</b><span>K-water 댐</span><small>방류 정보 연결</small></div><div class="num"><b data-count="124">0</b><span>도감 어종</span><small>금지체장·금어기 함께</small></div></div>':'';
   var safelist=f.safe?'<div class="slist">'+[['갯바위 철수 시각','만조에 맞춘 철수 기준 시각. 물이 차오르기 전에.','#7cc3d1'],['댐 방류','K-water 댐 68곳의 방류량을 지도에.','#a8803f'],['기상특보','실제로 발효 중일 때만 화면 위로.','#5b6a72'],['오른쪽 위 119','단추 하나로 지금 좌표를 크게 띄워 전화로 불러 줄 수 있게. 신고 번호는 119 하나입니다.','#a8803f']].map(function(s,i){ return '<div class="si rv d'+(i%3+1)+'"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="rgba(255,253,248,.9)" stroke="rgba(168,128,63,.35)"/><circle cx="24" cy="24" r="6" fill="'+s[2]+'"/></svg><div><h4>'+s[0]+'</h4><p>'+s[1]+'</p></div></div>'; }).join('')+'</div><p class="note rv">화면의 좌표는 에뮬레이터에 넣은 공개 지점입니다.</p>':'';
   var fan=f.fan?'<div class="fan" id="fan">'+['결론','바다','날씨와 몸','물속','가는 길'].map(function(n,i){ var k=[1,2,3,4,5][i]; return '<figure><img src="img/pcard'+k+'.webp" alt="출조 계획 카드 '+n+'" width="500" height="714" decoding="async"><figcaption>'+n+'</figcaption></figure>'; }).join('')+'</div>':'';
-  html+='<section class="sec feat'+(f.alt?' alt':'')+(f.aqua?' aqua':'')+(f.safe?' safe':'')+'" id="'+f.id+'" data-hap-sec="'+f.hap+'">'+(f.aqua?'<div class="caustic" aria-hidden="true"></div>':'')+'<div class="wrap"'+(f.fan?' style="display:block"':'')+'><div><div class="eyebrow rv">'+f.eb+'</div><h2 class="rv d1">'+f.h+'</h2><p class="lead rv d2">'+f.p+'</p>'+(why?'<div class="why rv d3">'+why+'</div>':'')+nums+safelist+'</div>'+(f.fan?fan:'<div>'+right+'</div>')+'</div></section>';
+  html+='<section class="sec feat'+(f.alt?' alt':'')+(f.aqua?' aqua':'')+(f.safe?' safe':'')+'" id="'+f.id+'" data-hap-sec="'+f.hap+'">'+(f.aqua?'<div class="caustic" aria-hidden="true"></div>':'')+'<div class="wrap"><div><div class="eyebrow rv">'+f.eb+'</div><h2 class="rv d1">'+f.h+'</h2><p class="lead rv d2">'+f.p+'</p>'+(why?'<div class="why rv d3">'+why+'</div>':'')+nums+safelist+'</div>'+(f.fan?fan:'<div>'+right+'</div>')+'</div></section>';
 });
 feats.innerHTML=html;
 document.querySelectorAll('.dialsvg .ticks').forEach(function(tk){ var s=''; for(var k=0;k<72;k++){ var a=k/72*Math.PI*2, r1=166, r2=k%6?172:182; s+='<line x1="'+(Math.cos(a)*r1).toFixed(1)+'" y1="'+(Math.sin(a)*r1).toFixed(1)+'" x2="'+(Math.cos(a)*r2).toFixed(1)+'" y2="'+(Math.sin(a)*r2).toFixed(1)+'" stroke="rgba(168,128,63,'+(k%6?.3:.7)+')"/>'; } tk.innerHTML=s; });
